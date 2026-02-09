@@ -2722,3 +2722,121 @@
 2026-02-09T20:14:50.072Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
 2026-02-09T20:15:43.138Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
 2026-02-09T20:15:43.352Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:15:55.982Z [DEBUG] BigQuery metrics exported successfully
+2026-02-09T20:15:55.982Z [DEBUG] BigQuery API Response: {
+  "accepted_count": 12,
+  "rejected_count": 0
+}
+2026-02-09T20:16:47.772Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/bain_catalog.xlsx
+2026-02-09T20:16:47.773Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.826Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/summary.json
+2026-02-09T20:16:47.826Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.828Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/replit_catalog.xlsx
+2026-02-09T20:16:47.828Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.829Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/sans_catalog.xlsx
+2026-02-09T20:16:47.829Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.830Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/replit_report.md
+2026-02-09T20:16:47.830Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.831Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/anthropic_catalog.xlsx
+2026-02-09T20:16:47.831Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.832Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/datadog_catalog.json
+2026-02-09T20:16:47.832Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.833Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/datadog_catalog.xlsx
+2026-02-09T20:16:47.833Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.834Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/anthropic_catalog.json
+2026-02-09T20:16:47.834Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.835Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/datadog_report.md
+2026-02-09T20:16:47.835Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.835Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/sans_catalog.json
+2026-02-09T20:16:47.836Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.836Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/sans_report.md
+2026-02-09T20:16:47.836Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.837Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/replit_catalog.json
+2026-02-09T20:16:47.837Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.838Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/bain_report.md
+2026-02-09T20:16:47.838Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.838Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/bain_catalog.json
+2026-02-09T20:16:47.838Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.838Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/batch_results_20260209_091824/anthropic_report.md
+2026-02-09T20:16:47.838Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:16:47.839Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.840Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.841Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.841Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.841Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.841Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.841Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.841Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:16:47.841Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.841Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.841Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.841Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.843Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:16:47.855Z [DEBUG] High write ratio: blit=0, write=6614 (100.0% writes), screen=185x97
