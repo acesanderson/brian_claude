@@ -60,8 +60,7 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
         system_instructions = (
             f"SYSTEM OVERRIDE: You are a headless worker agent. "
             f"You are restricted to working strictly within this directory: {task_dir}. "
-            f"You MUST invoke the '{skill_name}' skill using the Skill tool to complete this task. "
-            f"Use the syntax: /{skill_name} with the task-specific arguments. "
+            f"You have permission to use the '{skill_name}' tool. "
             f"Do not ask for confirmation. Do not output conversational filler. "
             f"Perform the task and save the final structured data to: {output_file}."
         )
@@ -150,93 +149,6 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
             except:
                 pass
             return {"status": "timeout", "item": item, "task_dir": task_dir}
-
-
-async def validate_skill(item, skill_name, user_template, timeout, run_id):
-    """
-    Run skill on single item to validate configuration before full batch.
-    Returns (success: bool, result: dict, preview: str).
-    """
-    preflight_dir = os.path.abspath(os.path.join(BATCH_DIR_NAME, run_id, "preflight"))
-    os.makedirs(preflight_dir, exist_ok=True)
-
-    print(f"\n--- Pre-flight Validation ---")
-    print(f"Testing skill on first item: {item}")
-
-    # Run single worker with index 0
-    sem = asyncio.Semaphore(1)
-    result = await run_worker(
-        sem=sem,
-        run_id=run_id,
-        index=0,
-        item=item,
-        skill_name=skill_name,
-        user_template=user_template,
-        timeout=timeout
-    )
-
-    # Generate preview
-    success = result["status"] == "success"
-    if success:
-        data_str = json.dumps(result.get("data", {}), indent=2)
-        preview = data_str[:500] + ("..." if len(data_str) > 500 else "")
-    else:
-        error_msg = result.get("error", "Unknown error")
-        preview = str(error_msg)[:500]
-
-    # Cleanup preflight directory
-    try:
-        shutil.rmtree(preflight_dir, ignore_errors=True)
-    except Exception:
-        pass
-
-    return (success, result, preview)
-
-
-async def monitor_progress(results_list, total_tasks, monitor_interval, stop_event):
-    """
-    Background task reporting progress every N seconds.
-    """
-    start_time = datetime.now()
-
-    while not stop_event.is_set():
-        await asyncio.sleep(monitor_interval)
-        if stop_event.is_set():
-            break
-
-        # Calculate metrics
-        completed = len(results_list)
-        if completed == 0:
-            runtime = (datetime.now() - start_time).total_seconds()
-            # Warning if no progress after 5 minutes
-            if runtime > 300:
-                print("\n[Progress] 0/{} completed | Runtime: {}m {}s".format(
-                    total_tasks,
-                    int(runtime // 60),
-                    int(runtime % 60)
-                ))
-                print("   WARNING: No tasks completed after 5 minutes")
-            continue
-
-        success = sum(1 for r in results_list if r["status"] == "success")
-        errors = sum(1 for r in results_list if r["status"] == "error")
-        timeouts = sum(1 for r in results_list if r["status"] == "timeout")
-        success_rate = (success / completed * 100) if completed > 0 else 0
-        runtime = (datetime.now() - start_time).total_seconds()
-        runtime_str = "{}m {}s".format(int(runtime // 60), int(runtime % 60))
-
-        # Report
-        print("\n[Progress] {}/{} completed ({}%) | Success: {}/{} ({}%) | Errors: {} | Timeouts: {} | Runtime: {}".format(
-            completed,
-            total_tasks,
-            int(completed / total_tasks * 100),
-            success,
-            completed,
-            int(success_rate),
-            errors,
-            timeouts,
-            runtime_str
-        ))
 
 
 def cleanup_and_finalize(run_id, run_dir, results):
@@ -348,17 +260,6 @@ Note: Requires Claude Code sandboxing to be enabled. Run /sandbox to configure.
         action="store_true",
         help="Skip checking if Claude Code sandboxing is enabled (not recommended)",
     )
-    parser.add_argument(
-        "--skip-preflight",
-        action="store_true",
-        help="Skip pre-flight validation on first item",
-    )
-    parser.add_argument(
-        "--monitor-interval",
-        type=int,
-        default=120,
-        help="Progress monitoring interval in seconds (default: 120, 0 to disable)",
-    )
 
     args = parser.parse_args()
 
@@ -388,34 +289,6 @@ Note: Requires Claude Code sandboxing to be enabled. Run /sandbox to configure.
     print(f"Max Workers: {args.max_workers}")
     print(f"Isolation: 🔒 Claude Code Sandbox")
 
-    # Pre-flight validation
-    if not args.skip_preflight:
-        success, result, preview = await validate_skill(
-            item=inputs[0],
-            skill_name=args.skill,
-            user_template=args.template,
-            timeout=args.timeout,
-            run_id=run_id
-        )
-
-        if not success:
-            print(f"\nPre-flight FAILED")
-            print(f"Error: {result.get('error', 'Unknown error')}")
-            if sys.stdin.isatty():
-                response = input("\nContinue anyway? (y/N): ").strip().lower()
-                if response != 'y':
-                    print("Aborting batch execution.")
-                    sys.exit(1)
-            else:
-                print("Non-interactive mode detected. Aborting batch execution.")
-                sys.exit(1)
-        else:
-            print(f"\nPre-flight PASSED")
-            print(f"Sample output:\n{preview}")
-            if sys.stdin.isatty():
-                input("\nPress Enter to proceed with full batch...")
-            print()
-
     sem = asyncio.Semaphore(args.max_workers)
 
     tasks = [
@@ -423,31 +296,8 @@ Note: Requires Claude Code sandboxing to be enabled. Run /sandbox to configure.
         for i, item in enumerate(inputs)
     ]
 
-    # Shared state for progress monitoring
-    results_list = []
-    stop_monitor = asyncio.Event()
-
-    # Launch monitor if enabled
-    monitor_task = None
-    if args.monitor_interval > 0:
-        monitor_task = asyncio.create_task(
-            monitor_progress(results_list, len(inputs), args.monitor_interval, stop_monitor)
-        )
-
-    # Wrapper to collect results
-    async def worker_with_collection(worker_coro):
-        result = await worker_coro
-        results_list.append(result)
-        return result
-
-    # Execute workers
-    worker_tasks = [worker_with_collection(task) for task in tasks]
-    results = await asyncio.gather(*worker_tasks)
-
-    # Stop monitoring
-    stop_monitor.set()
-    if monitor_task:
-        await monitor_task
+    # Run all
+    results = await asyncio.gather(*tasks)
 
     # Count successes/failures
     success_count = sum(1 for r in results if r["status"] == "success")

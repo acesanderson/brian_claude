@@ -1,0 +1,241 @@
+from __future__ import annotations
+
+import json
+import re
+import time
+from datetime import datetime
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+from unidecode import unidecode
+
+
+def clean_to_ascii(text: str | None) -> str:
+    """Convert Unicode text to clean ASCII."""
+    if not text:
+        return ""
+    return unidecode(str(text))
+
+
+def fetch_course_details(course_url: str) -> dict[str, str]:
+    """Fetch detailed information from individual course page."""
+    try:
+        response = requests.get(course_url, headers={
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+        })
+
+        if response.status_code != 200:
+            return {}
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Extract meta description (most reliable source)
+        meta_desc = soup.find('meta', {'name': 'description'})
+        description = meta_desc.get('content', '') if meta_desc else ""
+
+        # Look for duration in page (common patterns)
+        duration = ""
+        page_text = soup.get_text()
+
+        # Search for duration patterns like "2 hours", "3-hour course", etc.
+        duration_match = re.search(r'(\d+[\-\s]?(hour|hr|minute|min|week|day)s?)', page_text, re.IGNORECASE)
+        if duration_match:
+            duration = duration_match.group(1)
+
+        # Look for level
+        level = ""
+        level_keywords = ['beginner', 'intermediate', 'advanced', 'introductory', 'basic']
+        page_lower = page_text.lower()
+        for keyword in level_keywords:
+            if keyword in page_lower:
+                level = keyword.capitalize()
+                break
+
+        return {
+            "description": description,
+            "duration": duration,
+            "level": level
+        }
+
+    except Exception as e:
+        print(f"    ⚠️  Error fetching details: {e}")
+        return {}
+
+
+def scrape_wandb_courses() -> list[dict]:
+    """Scrape course catalog from Weights & Biases Academy."""
+    url = "https://wandb.ai/site/courses/"
+
+    print(f"Fetching: {url}")
+    response = requests.get(url, headers={
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+    })
+
+    if response.status_code != 200:
+        print(f"Error: HTTP {response.status_code}")
+        return []
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Find all course elements (type-academy divs)
+    course_elements = soup.select('[class*="type-academy"]')
+    print(f"Found {len(course_elements)} course elements\n")
+
+    courses = []
+
+    for idx, element in enumerate(course_elements, 1):
+        try:
+            # Title - look for heading elements
+            title_elem = element.find(['h1', 'h2', 'h3', 'h4'])
+            title = title_elem.get_text(strip=True) if title_elem else ""
+
+            # URL - look for link to course
+            link_elem = element.find('a', href=True)
+            url = link_elem['href'] if link_elem else ""
+            if url and not url.startswith('http'):
+                url = f"https://wandb.ai{url}"
+
+            # Category - extract from class names
+            classes = element.get('class', [])
+            category = ""
+            for cls in classes:
+                if cls.startswith('course-category-'):
+                    category = cls.replace('course-category-', '').replace('-', ' ').title()
+                    break
+
+            if not (title and url):
+                print(f"  [{idx}/{len(course_elements)}] Skipped - missing title or URL")
+                continue
+
+            print(f"  [{idx}/{len(course_elements)}] {title}")
+
+            # Fetch detailed info from course page
+            print(f"    → Fetching course details...")
+            details = fetch_course_details(url)
+
+            course_data = {
+                "provider": "Weights & Biases Academy",
+                "title": title,
+                "url": url,
+                "description": details.get("description", ""),
+                "duration": details.get("duration", ""),
+                "level": details.get("level", ""),
+                "format": "On-Demand",  # Academy courses are self-paced
+                "price": "Free",  # W&B Academy is free
+                "category": category,
+                "learning_path": "",
+                "date_scraped": datetime.now().strftime("%Y-%m-%d")
+            }
+
+            courses.append(course_data)
+
+        except Exception as e:
+            print(f"  [{idx}/{len(course_elements)}] Error: {e}")
+            continue
+
+        # Be polite - delay between requests
+        time.sleep(1)
+
+    return courses
+
+
+def export_catalog_data(courses_data: list[dict], provider_slug: str) -> dict[str, str]:
+    """Export to JSON and XLSX."""
+    df = pd.DataFrame(courses_data)
+
+    # Column order
+    column_order = [
+        "provider", "title", "url", "description", "duration",
+        "level", "format", "price", "category", "learning_path",
+        "date_scraped"
+    ]
+    existing_cols = [col for col in column_order if col in df.columns]
+    df = df[existing_cols]
+
+    # VALIDATE TITLE QUALITY
+    if "title" in df.columns:
+        df["title_length"] = df["title"].str.len()
+        avg_title_length = df["title_length"].mean()
+        long_titles = df[df["title_length"] > 150]
+
+        print(f"\n⚠️  TITLE QUALITY CHECK:")
+        print(f"  Average title length: {avg_title_length:.0f} characters")
+
+        if len(long_titles) > 0:
+            print(f"  ❌ WARNING: {len(long_titles)} titles are >150 characters")
+            print(f"     Long titles suggest description text is bleeding into title field.")
+            print(f"     Examples of long titles:")
+            for idx, row in long_titles.head(3).iterrows():
+                print(f"       - {row['title'][:100]}... ({row['title_length']} chars)")
+            print(f"     Fix: Use more specific selector (e.g., 'h2.title' not 'div.card')\n")
+
+        df = df.drop(columns=["title_length"])
+
+    # VALIDATE DESCRIPTION QUALITY
+    if "description" in df.columns:
+        total_descs = len(df)
+        unique_descs = df["description"].nunique()
+        uniqueness_pct = (unique_descs / total_descs * 100) if total_descs > 0 else 0
+
+        print(f"⚠️  DESCRIPTION QUALITY CHECK:")
+        print(f"  Total courses: {total_descs}")
+        print(f"  Unique descriptions: {unique_descs}")
+        print(f"  Uniqueness: {uniqueness_pct:.1f}%")
+
+        if uniqueness_pct < 90:
+            print(f"  ❌ WARNING: Low description uniqueness ({uniqueness_pct:.1f}%)")
+            print(f"     This suggests generic catalog text instead of course-specific descriptions.")
+            print(f"     Review the scraping logic to extract individual course descriptions.\n")
+
+    # 1. JSON (preserve Unicode)
+    json_filename = f"{provider_slug}_catalog.json"
+    with open(json_filename, "w", encoding="utf-8") as f:
+        json.dump(courses_data, f, indent=2, ensure_ascii=False)
+
+    # 2. XLSX (Excel format - handles all text reliably)
+    xlsx_filename = f"{provider_slug}_catalog.xlsx"
+    text_columns = df.select_dtypes(include=['object']).columns
+    for col in text_columns:
+        df[col] = df[col].apply(clean_to_ascii)
+    df.to_excel(xlsx_filename, index=False, engine='openpyxl')
+
+    return {"json": json_filename, "xlsx": xlsx_filename}
+
+
+def main():
+    """Main scraping workflow."""
+    print("=" * 60)
+    print("Weights & Biases Academy Course Scraper")
+    print("=" * 60)
+
+    # Scrape courses
+    courses = scrape_wandb_courses()
+
+    if not courses:
+        print("\n❌ No courses found!")
+        return
+
+    print(f"\n✓ Scraped {len(courses)} courses")
+
+    # Export data
+    print("\nExporting data...")
+    files = export_catalog_data(courses, "wandb")
+
+    print(f"\n✓ ARTIFACTS GENERATED:")
+    print(f"  ✓ JSON:   {files['json']}")
+    print(f"  ✓ XLSX:   {files['xlsx']}")
+
+    # Show sample
+    print(f"\n📊 SAMPLE COURSES (first 5):")
+    for i, course in enumerate(courses[:5], 1):
+        print(f"\n{i}. {course['title']}")
+        print(f"   URL: {course['url']}")
+        print(f"   Category: {course['category']}")
+        if course['description']:
+            desc_preview = course['description'][:100]
+            print(f"   Description: {desc_preview}...")
+
+
+if __name__ == "__main__":
+    main()

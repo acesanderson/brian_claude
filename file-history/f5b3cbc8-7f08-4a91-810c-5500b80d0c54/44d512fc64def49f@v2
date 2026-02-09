@@ -1,0 +1,194 @@
+# Weights & Biases Academy Catalog Scraping Report
+
+**Date**: 2026-02-09
+**URL**: https://wandb.ai/site/courses/
+**Total Courses**: 12
+
+## Architecture
+
+- **Type**: Single-page catalog with navigation-based filtering
+- **Data Source**: Server-rendered HTML with course cards; individual course pages scraped for detailed metadata
+- **Obstacles**: None - publicly accessible content
+- **Technology**: WordPress/Elementor with custom post types
+
+## Extraction Method
+
+### Strategy: Two-phase HTML scraping
+
+1. **Phase 1 - Catalog Page**:
+   - Fetched main courses page
+   - Identified 12 course elements using CSS selector `[class*="type-academy"]`
+   - Extracted: Title, URL, Category (from CSS classes)
+
+2. **Phase 2 - Individual Course Pages**:
+   - Visited each course URL to fetch detailed metadata
+   - Extracted course-specific descriptions from meta tags
+   - Parsed page content for duration and level indicators
+   - Applied 1-second delay between requests to be respectful
+
+### Technical Details
+
+- Used BeautifulSoup for HTML parsing
+- Meta description tags provided high-quality course summaries
+- Duration extracted via regex pattern matching
+- Level keywords detected from page content
+- All courses confirmed as free and on-demand format
+
+## Data Quality
+
+| Field | Completeness | Notes |
+|-------|--------------|-------|
+| Provider | 100% | All courses from W&B Academy |
+| Title | 100% | Clean, concise titles (avg 28 chars) |
+| URL | 100% | Direct links to course pages |
+| Description | 100% | Course-specific descriptions (91.7% unique) |
+| Duration | 92% | Extracted from course pages; some generic "4 Min" values likely from preview/trailer |
+| Level | 58% | 7 courses have explicit levels (Beginner, Intermediate, Advanced, Basic) |
+| Format | 100% | All on-demand/self-paced |
+| Price | 100% | All free courses |
+| Category | 100% | Llms (7), Mlops (4), International (1) |
+
+### Quality Assessment
+
+**Title Quality**: Excellent
+- Average title length: 28 characters
+- All titles are concise and descriptive
+- No issues with description text bleeding into titles
+
+**Description Quality**: Excellent
+- 91.7% unique descriptions (11 of 12 courses)
+- One duplicate description for Japanese RAG course (uses same description as English version)
+- All descriptions are course-specific, not generic catalog text
+- Descriptions clearly explain what each course teaches
+
+**Duration Accuracy**: Needs improvement
+- Most durations show "4 Min" which likely refers to preview/intro video length
+- One course correctly shows "2-hour" duration
+- Recommend manual verification of actual course durations
+
+**Level Data**: Moderate
+- 7 of 12 courses have level information
+- Levels present: Beginner (2), Intermediate (1), Advanced (4), Basic (1)
+- 5 courses missing level data
+
+## Course Distribution
+
+### By Category
+- **LLMs** (7 courses):
+  - AI Engineering: Agents
+  - LLM apps: Evaluation
+  - RAG++ : From POC to production
+  - Developer's guide to LLM prompting
+  - LLM engineering: Structured outputs
+  - Building LLM-powered apps
+  - Training and fine-tuning LLMs
+
+- **MLOps** (4 courses):
+  - Model CI/CD
+  - Effective MLOps: Model development
+  - CI/CD for machine learning (GitOps)
+  - Data validation in production ML pipelines
+
+- **International** (1 course):
+  - RAG++ :  PoCから本番運用へ (Japanese version of RAG course)
+
+### By Level
+- **Advanced**: 4 courses
+- **Beginner**: 2 courses
+- **Intermediate**: 1 course
+- **Basic**: 1 course
+- **Unspecified**: 4 courses
+
+## Limitations
+
+1. **Duration Data**: Most courses show generic "4 Min" duration, which appears to be preview video length rather than full course duration. Only 1 course showed accurate full duration.
+
+2. **Level Information**: 42% of courses lack explicit level designation in course metadata.
+
+3. **Additional Metadata**: The following fields were not available on course pages:
+   - Instructor names
+   - Prerequisites
+   - Certification information
+   - Enrollment counts
+   - Ratings/reviews
+   - Last updated dates
+
+4. **Language Courses**: Japanese version of RAG course has identical English description (not translated).
+
+## Recommendations
+
+### For LinkedIn Learning Licensing Perspective
+
+**Strong Alignment**:
+- All courses are free, making licensing discussions straightforward
+- Focus on cutting-edge LLM/GenAI topics (agents, RAG, structured outputs, evaluation)
+- Strong MLOps coverage aligns with enterprise needs
+- Clear learning objectives in course descriptions
+
+**Content Gaps vs. LinkedIn Learning**:
+- W&B Academy is highly specialized (LLMs/MLOps only)
+- No business skills, creative skills, or general technology courses
+- Very technical audience (ML engineers, data scientists)
+- Focused on W&B tooling integration
+
+**Licensing Considerations**:
+1. **Niche Expertise**: Excellent for filling LLM/GenAI content gaps in LinkedIn Learning catalog
+2. **Tool-Specific**: Courses teach W&B platform integration - consider if this aligns with LinkedIn Learning's tool-agnostic approach
+3. **Free Content**: May have different value proposition than paid LinkedIn Learning courses
+4. **Target Audience**: Very specialized - appeals to ML practitioners, not general professional audience
+
+**Recommendation**: Strong candidate for specialized partnership. W&B Academy fills critical gaps in LLM engineering and MLOps content. Consider:
+- Co-branding arrangement
+- Integration as "Partner Content" track
+- Focus on courses with broader applicability (prompting, evaluation) vs. tool-specific ones (CI/CD with W&B)
+
+### For Future Scraping
+
+1. **Duration Enhancement**: Manually verify course durations or extract from course syllabus/curriculum sections
+2. **Level Standardization**: Map varied level terminology to consistent taxonomy
+3. **Instructor Extraction**: Check course detail pages for instructor bios (if available)
+4. **Curriculum Details**: Scrape lesson/module structure for more detailed course outlines
+
+## Sample Courses
+
+### 1. AI Engineering: Agents
+- **URL**: https://wandb.ai/site/courses/agents/
+- **Category**: LLMs
+- **Duration**: 2-hour
+- **Level**: Not specified
+- **Description**: Join our free 2-hour AI agent course. Learn to design, build, and evaluate production-grade AI agents with tool integration, memory, and autonomous workflows.
+
+### 2. LLM apps: Evaluation
+- **URL**: https://wandb.ai/site/courses/evals/
+- **Category**: LLMs
+- **Duration**: 4 Min
+- **Level**: Basic
+- **Description**: Master LLM evaluation techniques with this free course. Build scalable pipelines, align auto-evaluations, and implement programmatic checks for reliable LLM apps.
+
+### 3. RAG++ : From POC to production
+- **URL**: https://wandb.ai/site/courses/rag/
+- **Category**: LLMs
+- **Duration**: 4 Min
+- **Level**: Beginner
+- **Description**: Transform POC LLM and GenAI apps into production-ready solutions. This hands-on RAG course covers evaluation, reranking, and accuracy optimization.
+
+### 4. Model CI/CD
+- **URL**: https://wandb.ai/site/courses/model-ci-cd/
+- **Category**: MLOps
+- **Duration**: 4 Min
+- **Level**: Advanced
+- **Description**: Overcome model chaos, automate key workflows, ensure governance, and streamline the end-to-end model lifecycle. This course will provide you with the concepts, best practices, and tools to level up your model management and drive success.
+
+### 5. Effective MLOps: Model development
+- **URL**: https://wandb.ai/site/courses/effective-mlops/
+- **Category**: MLOps
+- **Duration**: 4 Min
+- **Level**: Advanced
+- **Description**: Master MLOps techniques to accelerate your ML workflows. Learn to prototype, evaluate, and deploy models efficiently in this hands-on course.
+
+## Files Generated
+
+- `wandb_catalog.json` - Raw course data in JSON format
+- `wandb_catalog.xlsx` - Excel spreadsheet for analysis
+- `wandb_report.md` - This report
+- `scrape_wandb.py` - Python scraper script (repeatable)

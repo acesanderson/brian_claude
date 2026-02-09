@@ -61,8 +61,6 @@ Add to `~/.claude/settings.json`:
 - `--timeout SECONDS`: Timeout per task in seconds (default: 600 = 10 minutes)
 - `--max-workers N`: Maximum concurrent workers (default: 5)
 - `--skip-sandbox-check`: Skip sandbox verification (not recommended)
-- `--skip-preflight`: Skip pre-flight validation on first item
-- `--monitor-interval SECONDS`: Progress update interval in seconds (default: 120, 0 to disable)
 
 ## Examples
 
@@ -81,44 +79,9 @@ Add to `~/.claude/settings.json`:
 /batch-dispatch my-skill '["a", "b", "c", "d"]' "Process {{ item }}" --max-workers 2
 ```
 
-**With observability features:**
-```bash
-/batch-dispatch catalog-scraper '["url1", "url2", "url3"]' "Scrape {{ item }}" --monitor-interval 60
-
-# Output:
-# --- Pre-flight Validation ---
-# Testing skill on first item: url1
-# [0] Starting task for: url1 (🔒 Sandboxed to /batch_runs/.../task_0)...
-# [0] Success.
-#
-# Pre-flight PASSED
-# Sample output:
-# {
-#   "provider": "Example Corp",
-#   "courses": 42,
-#   ...
-# }
-#
-# Press Enter to proceed with full batch...
-#
-# [Progress] 1/3 completed (33%) | Success: 1/1 (100%) | Errors: 0 | Timeouts: 0 | Runtime: 2m 15s
-# [Progress] 3/3 completed (100%) | Success: 3/3 (100%) | Errors: 0 | Timeouts: 0 | Runtime: 6m 42s
-```
-
 ## How It Works
 
-### 1. Pre-flight Validation (Optional)
-
-Before launching the full batch, the skill tests execution on the first item to catch configuration errors early:
-- Tests the skill with actual execution on first input
-- Shows a preview of the result (first 500 characters)
-- Prompts for confirmation to proceed with full batch
-- If validation fails, offers option to abort or continue anyway
-- Skip with `--skip-preflight` for trusted workflows
-
-This catches issues like missing dependencies, incorrect skill names, or invalid templates before wasting time on a full batch.
-
-### 2. Parallel Execution with Sandbox Isolation
+### 1. Parallel Execution with Sandbox Isolation
 
 ```
 Main Process (batch_runner.py)
@@ -139,25 +102,11 @@ Each worker:
 - Claude's sandbox restricts filesystem writes to that directory only
 - All child processes inherit the same restrictions
 
-### 3. Real-time Progress Monitoring
-
-A background task reports progress at regular intervals (default: every 2 minutes):
-- Shows completion count and percentage
-- Displays success rate and error/timeout counts
-- Shows total runtime
-- Warns if no tasks complete after 5 minutes (may indicate configuration issue)
-- Disable with `--monitor-interval 0`
-
-Example output:
-```
-[Progress] 15/50 completed (30%) | Success: 13/15 (87%) | Errors: 2 | Timeouts: 0 | Runtime: 5m 32s
-```
-
-### 4. Result Collection
+### 2. Result Collection
 
 Workers save structured data to `result.json` in their task directory. The batch runner aggregates these results.
 
-### 5. Automatic Cleanup
+### 3. Automatic Cleanup
 
 After completion:
 - Moves all artifacts (JSON, XLSX, MD, CSV) to `batch_results_<timestamp>/` in CWD
@@ -219,8 +168,6 @@ batch_runner.py ... --timeout 1800
 ```
 
 **Note:** The batch_runner automatically instructs workers to invoke skills using the Skill tool. If all workers are timing out, verify the skill works when invoked manually first.
-
-**With observability features:** Pre-flight validation will catch these issues early (within minutes instead of hours). If you see the progress monitor showing no completions after 5 minutes, this likely indicates a configuration problem.
 
 ### Linux: "bubblewrap not found"
 
