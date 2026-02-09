@@ -1,0 +1,715 @@
+2026-02-04T21:04:56.654Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-04T21:04:56.654Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-04T21:04:56.654Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-04T21:04:56.654Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-04T21:04:56.656Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-04T21:04:56.663Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-02-04T21:04:56.663Z [DEBUG] [STARTUP] Running setup()...
+2026-02-04T21:04:56.663Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-04T21:04:56.664Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-04T21:04:56.686Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at gcR (/$bunfs/root/claude:120:25937)
+    at h_ (/$bunfs/root/claude:120:27674)
+    at Jr0 (/$bunfs/root/claude:121:1170)
+2026-02-04T21:04:56.686Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at FKA (/$bunfs/root/claude:1733:18660)
+    at FKA (/$bunfs/root/claude:1733:19482)
+    at OHB (/$bunfs/root/claude:1733:19565)
+2026-02-04T21:04:56.686Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at gcR (/$bunfs/root/claude:120:25937)
+    at h_ (/$bunfs/root/claude:120:27674)
+    at bFT (/$bunfs/root/claude:343:1062)
+2026-02-04T21:04:56.686Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at gcR (/$bunfs/root/claude:120:25937)
+    at h_ (/$bunfs/root/claude:120:27674)
+    at yFT (/$bunfs/root/claude:343:1667)
+2026-02-04T21:04:56.686Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at gcR (/$bunfs/root/claude:120:25937)
+    at h_ (/$bunfs/root/claude:120:27674)
+    at bwA (/$bunfs/root/claude:3544:10108)
+2026-02-04T21:04:56.686Z [DEBUG] Error log sink initialized
+2026-02-04T21:04:56.694Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-04T21:04:56.694Z [DEBUG] Total plugin skills loaded: 0
+2026-02-04T21:04:56.694Z [DEBUG] Total plugin commands loaded: 0
+2026-02-04T21:04:56.694Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-04T21:04:56.697Z [DEBUG] [STARTUP] setup() completed in 34ms
+2026-02-04T21:04:56.697Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-02-04T21:04:56.699Z [DEBUG] Total plugin agents loaded: 0
+2026-02-04T21:04:56.699Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-02-04T21:04:56.699Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-02-04T21:04:56.700Z [DEBUG] [STARTUP] Commands and agents loaded in 3ms
+2026-02-04T21:04:56.700Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-02-04T21:04:56.700Z [DEBUG] [render] initLayout starting
+2026-02-04T21:04:56.700Z [DEBUG] Layout engine: yoga
+2026-02-04T21:04:56.701Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-02-04T21:04:56.704Z [DEBUG] Acquired PID lock for 2.1.29 (PID 71469)
+2026-02-04T21:04:56.705Z [DEBUG] Acquired PID lock on running version: /Users/bianders/.local/share/claude/versions/2.1.29
+2026-02-04T21:04:56.706Z [DEBUG] [render] initLayout complete
+2026-02-04T21:04:56.708Z [DEBUG] [render] first ink render: 641ms since process start
+2026-02-04T21:04:56.724Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-02-04T21:04:56.750Z [DEBUG] [STARTUP] showSetupScreens() completed in 50ms
+2026-02-04T21:04:56.750Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-02-04T21:04:56.750Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-02-04T21:04:56.750Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-02-04T21:04:56.751Z [DEBUG] Total LSP servers loaded: 0
+2026-02-04T21:04:56.751Z [DEBUG] [STARTUP] MCP configs loaded in 95ms
+2026-02-04T21:04:56.755Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at gcR (/$bunfs/root/claude:120:25937)
+    at h_ (/$bunfs/root/claude:120:27674)
+    at lU8 (/$bunfs/root/claude:6277:6145)
+2026-02-04T21:04:56.756Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-02-04T21:04:56.761Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.71469.1770239096761
+2026-02-04T21:04:56.761Z [DEBUG] Preserving file permissions: 100644
+2026-02-04T21:04:56.762Z [DEBUG] Temp file written successfully, size: 18633 bytes
+2026-02-04T21:04:56.762Z [DEBUG] Applied original permissions to temp file
+2026-02-04T21:04:56.762Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.71469.1770239096761 to /Users/bianders/.claude.json
+2026-02-04T21:04:56.763Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-04T21:04:56.769Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at gcR (/$bunfs/root/claude:120:25937)
+    at h_ (/$bunfs/root/claude:120:27674)
+    at cc (/$bunfs/root/claude:3544:10224)
+2026-02-04T21:04:56.769Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-02-04T21:04:56.769Z [DEBUG] LSP manager initialized with 0 servers
+2026-02-04T21:04:56.769Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-02-04T21:04:56.769Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-02-04T21:04:56.769Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at yC (/$bunfs/root/claude:11:40705)
+    at readSync (/$bunfs/root/claude:12:875)
+    at kC (/$bunfs/root/claude:5143:113)
+    at vG (/$bunfs/root/claude:5145:226)
+    at ucR (/$bunfs/root/claude:120:25774)
+    at gcR (/$bunfs/root/claude:120:25937)
+    at h_ (/$bunfs/root/claude:120:27674)
+    at cc (/$bunfs/root/claude:3544:10224)
+2026-02-04T21:04:56.769Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-02-04T21:04:56.769Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:04:56.769Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-02-04T21:04:56.769Z [DEBUG] LSP server manager initialized successfully
+2026-02-04T21:04:56.769Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-02-04T21:04:56.770Z [DEBUG] [render] initLayout starting
+2026-02-04T21:04:56.770Z [DEBUG] [render] initLayout complete
+2026-02-04T21:04:56.770Z [DEBUG] [render] first ink render: 703ms since process start
+2026-02-04T21:04:56.781Z [DEBUG] [keybindings] Watching for changes to /Users/bianders/.claude/keybindings.json
+2026-02-04T21:04:56.794Z [DEBUG] Git remote URL: null
+2026-02-04T21:04:56.794Z [DEBUG] No git remote URL found
+2026-02-04T21:04:56.794Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-02-04T21:04:56.795Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-02-04T21:04:56.807Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-02-04T21:04:56.844Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-02-04T21:04:56.889Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-02-04T21:04:56.891Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-02-04T21:04:56.892Z [DEBUG] performStartupChecks called
+2026-02-04T21:04:56.892Z [DEBUG] Trust not accepted for current directory - skipping plugin installations
+2026-02-04T21:04:56.893Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:04:56.893Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:04:57.399Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-04T21:04:57.399Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-04T21:04:57.399Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-04T21:04:57.400Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-02-04T21:04:57.401Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:04:57.402Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-04T21:04:57.428Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-02-04T21:04:57.430Z [DEBUG] Policy limits: Fetched successfully
+2026-02-04T21:04:57.430Z [DEBUG] Remote settings: No settings found (404)
+2026-02-04T21:04:57.430Z [DEBUG] Programmatic settings change notification for policySettings
+2026-02-04T21:04:57.430Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-02-04T21:04:57.431Z [DEBUG] Settings changed from policySettings, updating AppState
+2026-02-04T21:04:57.431Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-04T21:04:57.431Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-02-04T21:04:57.432Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-04T21:04:57.435Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.71469.1770239097435
+2026-02-04T21:04:57.435Z [DEBUG] Preserving file permissions: 100644
+2026-02-04T21:04:57.436Z [DEBUG] Temp file written successfully, size: 18633 bytes
+2026-02-04T21:04:57.436Z [DEBUG] Applied original permissions to temp file
+2026-02-04T21:04:57.436Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.71469.1770239097435 to /Users/bianders/.claude.json
+2026-02-04T21:04:57.436Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-04T21:04:57.446Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.71469.1770239097446
+2026-02-04T21:04:57.446Z [DEBUG] Preserving file permissions: 100644
+2026-02-04T21:04:57.446Z [DEBUG] Temp file written successfully, size: 19225 bytes
+2026-02-04T21:04:57.446Z [DEBUG] Applied original permissions to temp file
+2026-02-04T21:04:57.448Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.71469.1770239097446 to /Users/bianders/.claude.json
+2026-02-04T21:04:57.449Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-04T21:04:57.473Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-04T21:04:57.474Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.022; cc_entrypoint=cli;
+2026-02-04T21:04:57.474Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:04:57.474Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:04:57.474Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:04:57.626Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.29)
+2026-02-04T21:04:57.750Z [DEBUG] Checking for native installer update to version 2.1.31
+2026-02-04T21:04:57.752Z [DEBUG] Downloading native installer version 2.1.31
+2026-02-04T21:04:57.843Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:04:57.843Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:04:57.843Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:04:57.929Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:05:01.034Z [DEBUG] Atomically installed binary to /Users/bianders/.local/share/claude/versions/2.1.31
+2026-02-04T21:05:01.039Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-04T21:05:01.040Z [DEBUG] Atomically updated symlink /Users/bianders/.local/bin/claude -> /Users/bianders/.local/share/claude/versions/2.1.31
+2026-02-04T21:05:01.040Z [DEBUG] Successfully updated to version 2.1.31
+2026-02-04T21:05:53.435Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-04T21:05:53.435Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-04T21:05:53.437Z [DEBUG] Sending 5 skills via attachment (initial, 5 total sent)
+2026-02-04T21:05:53.437Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-04T21:05:53.437Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-04T21:05:53.440Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-02-04T21:05:53.440Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:05:53.440Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-04T21:05:53.443Z [DEBUG] FileHistory: Added snapshot for 33830fa3-8719-4e74-84ba-4ca2faa12349, tracking 0 files
+2026-02-04T21:05:53.473Z [DEBUG] High write ratio: blit=0, write=1173 (100.0% writes), screen=25x97
+2026-02-04T21:05:53.495Z [DEBUG] Started caffeinate to prevent sleep
+2026-02-04T21:05:53.498Z [DEBUG] Created empty session index
+2026-02-04T21:05:53.498Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/c4e9c8e6-ed4e-4916-836f-2346bdd5c27d-agent-c4e9c8e6-ed4e-4916-836f-2346bdd5c27d.json.tmp.71469.1770239153498
+2026-02-04T21:05:53.499Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-02-04T21:05:53.499Z [DEBUG] Renaming /Users/bianders/.claude/todos/c4e9c8e6-ed4e-4916-836f-2346bdd5c27d-agent-c4e9c8e6-ed4e-4916-836f-2346bdd5c27d.json.tmp.71469.1770239153498 to /Users/bianders/.claude/todos/c4e9c8e6-ed4e-4916-836f-2346bdd5c27d-agent-c4e9c8e6-ed4e-4916-836f-2346bdd5c27d.json
+2026-02-04T21:05:53.499Z [DEBUG] File /Users/bianders/.claude/todos/c4e9c8e6-ed4e-4916-836f-2346bdd5c27d-agent-c4e9c8e6-ed4e-4916-836f-2346bdd5c27d.json written atomically
+2026-02-04T21:05:53.508Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-04T21:05:53.508Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.12e; cc_entrypoint=cli;
+2026-02-04T21:05:53.509Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:05:53.509Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:05:53.509Z [DEBUG] Total plugin output styles loaded: 0
+2026-02-04T21:05:53.509Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:05:53.515Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:05:53.519Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:05:53.519Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:05:53.519Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:05:53.520Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:05:53.556Z [DEBUG] Stats cache stale (2026-02-02), processing 2026-02-03 to 2026-02-03 in background
+2026-02-04T21:05:53.574Z [DEBUG] Stats cache saved successfully (lastComputedDate: 2026-02-03)
+2026-02-04T21:05:53.574Z [DEBUG] Stats cache updated with 1 new sessions
+2026-02-04T21:05:54.528Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-02-04T21:05:54.528Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-02-04T21:05:54.953Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:05:54.995Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:05:55.481Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.71469.1770239155481
+2026-02-04T21:05:55.481Z [DEBUG] Preserving file permissions: 100644
+2026-02-04T21:05:55.481Z [DEBUG] Temp file written successfully, size: 19225 bytes
+2026-02-04T21:05:55.481Z [DEBUG] Applied original permissions to temp file
+2026-02-04T21:05:55.481Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.71469.1770239155481 to /Users/bianders/.claude.json
+2026-02-04T21:05:55.482Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-04T21:05:55.501Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.536Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.560Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.590Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.610Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.632Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.659Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.685Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.716Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.744Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.768Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.798Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.820Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.842Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.864Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.891Z [DEBUG] High write ratio: blit=0, write=5492 (100.0% writes), screen=72x97
+2026-02-04T21:05:55.911Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.944Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:55.970Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.000Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.020Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.042Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.065Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.089Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.112Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.140Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.161Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.189Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.211Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.231Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.251Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.275Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.305Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.326Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.348Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.368Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.388Z [DEBUG] High write ratio: blit=1746, write=4546 (72.3% writes), screen=72x97
+2026-02-04T21:05:56.412Z [DEBUG] High write ratio: blit=0, write=5635 (100.0% writes), screen=77x97
+2026-02-04T21:05:56.441Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.461Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.488Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.510Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.530Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.555Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.579Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.600Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.626Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.648Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.670Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.691Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.714Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.734Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.757Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.782Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.816Z [DEBUG] High write ratio: blit=0, write=5635 (100.0% writes), screen=77x97
+2026-02-04T21:05:56.838Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.864Z [DEBUG] High write ratio: blit=2231, write=4546 (67.1% writes), screen=77x97
+2026-02-04T21:05:56.892Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-04T21:05:56.893Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-04T21:05:56.893Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:05:56.893Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-04T21:05:56.921Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-04T21:05:56.921Z [DEBUG] Found 5 hook matchers in settings
+2026-02-04T21:05:56.921Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-04T21:05:56.923Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-04T21:05:56.923Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-04T21:05:56.924Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-04T21:05:56.924Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-04T21:05:56.931Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:05:56.932Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:05:56.933Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:05:56.933Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:05:56.933Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:05:56.948Z [DEBUG] High write ratio: blit=0, write=5604 (100.0% writes), screen=77x97
+2026-02-04T21:05:57.585Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:05:58.189Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:05:58.697Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:05:58.838Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:05:59.405Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:00.030Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:00.616Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:01.230Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:01.844Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:02.427Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:03.073Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:03.667Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:04.272Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:04.890Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:05.477Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:06.087Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:06.689Z [DEBUG] High write ratio: blit=2037, write=4550 (69.1% writes), screen=77x97
+2026-02-04T21:06:06.972Z [DEBUG] High write ratio: blit=0, write=5604 (100.0% writes), screen=77x97
+2026-02-04T21:06:07.321Z [DEBUG] High write ratio: blit=2037, write=4556 (69.1% writes), screen=77x97
+2026-02-04T21:06:07.926Z [DEBUG] High write ratio: blit=2037, write=4556 (69.1% writes), screen=77x97
+2026-02-04T21:06:08.026Z [DEBUG] High write ratio: blit=0, write=5788 (100.0% writes), screen=82x97
+2026-02-04T21:06:08.523Z [DEBUG] High write ratio: blit=2037, write=4734 (69.9% writes), screen=82x97
+2026-02-04T21:06:09.007Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-02-04T21:06:09.008Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-02-04T21:06:09.008Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:06:09.008Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-02-04T21:06:09.039Z [DEBUG] High write ratio: blit=0, write=5788 (100.0% writes), screen=82x97
+2026-02-04T21:06:09.142Z [DEBUG] High write ratio: blit=2037, write=4734 (69.9% writes), screen=82x97
+2026-02-04T21:06:09.726Z [DEBUG] High write ratio: blit=2037, write=4734 (69.9% writes), screen=82x97
+2026-02-04T21:06:10.123Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-02-04T21:06:10.123Z [DEBUG] Found 5 hook matchers in settings
+2026-02-04T21:06:10.123Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-02-04T21:06:10.127Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-04T21:06:10.127Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-04T21:06:10.127Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-04T21:06:10.127Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-04T21:06:10.129Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:06:10.133Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:06:10.133Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:06:10.133Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:06:10.134Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:06:10.155Z [DEBUG] High write ratio: blit=0, write=5788 (100.0% writes), screen=82x97
+2026-02-04T21:06:10.345Z [DEBUG] High write ratio: blit=2037, write=4734 (69.9% writes), screen=82x97
+2026-02-04T21:06:10.940Z [DEBUG] High write ratio: blit=2037, write=4734 (69.9% writes), screen=82x97
+2026-02-04T21:06:11.548Z [DEBUG] High write ratio: blit=2037, write=4734 (69.9% writes), screen=82x97
+2026-02-04T21:06:11.710Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:06:12.160Z [DEBUG] High write ratio: blit=2037, write=4728 (69.9% writes), screen=82x97
+2026-02-04T21:06:12.251Z [DEBUG] High write ratio: blit=0, write=5782 (100.0% writes), screen=82x97
+2026-02-04T21:06:12.289Z [DEBUG] High write ratio: blit=0, write=5780 (100.0% writes), screen=82x97
+2026-02-04T21:06:12.760Z [DEBUG] High write ratio: blit=2037, write=4726 (69.9% writes), screen=82x97
+2026-02-04T21:06:12.911Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-04T21:06:12.912Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-04T21:06:12.912Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:06:12.912Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-04T21:06:12.932Z [DEBUG] High write ratio: blit=0, write=5798 (100.0% writes), screen=82x97
+2026-02-04T21:06:12.956Z [DEBUG] High write ratio: blit=0, write=5798 (100.0% writes), screen=82x97
+2026-02-04T21:06:12.964Z [DEBUG] tree-sitter: loaded from embedded
+2026-02-04T21:06:12.990Z [DEBUG] Creating shell snapshot for zsh (/bin/zsh)
+2026-02-04T21:06:12.990Z [DEBUG] Looking for shell config file: /Users/bianders/.zshrc
+2026-02-04T21:06:12.990Z [DEBUG] Snapshots directory: /Users/bianders/.claude/shell-snapshots
+2026-02-04T21:06:12.990Z [DEBUG] Creating snapshot at: /Users/bianders/.claude/shell-snapshots/snapshot-zsh-1770239172990-1eu1oe.sh
+2026-02-04T21:06:12.990Z [DEBUG] Shell binary exists: true
+2026-02-04T21:06:12.990Z [DEBUG] Execution timeout: 10000ms
+2026-02-04T21:06:13.371Z [DEBUG] High write ratio: blit=2037, write=4744 (70.0% writes), screen=82x97
+2026-02-04T21:06:13.808Z [DEBUG] Shell snapshot created successfully (18679 bytes)
+2026-02-04T21:06:13.809Z [DEBUG] No session environment scripts found
+2026-02-04T21:06:13.967Z [DEBUG] High write ratio: blit=2037, write=4744 (70.0% writes), screen=82x97
+2026-02-04T21:06:14.150Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-04T21:06:14.151Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.ae5; cc_entrypoint=cli;
+2026-02-04T21:06:14.151Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:06:14.151Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:06:14.152Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-04T21:06:14.152Z [DEBUG] Found 5 hook matchers in settings
+2026-02-04T21:06:14.152Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-04T21:06:14.152Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:06:14.154Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-04T21:06:14.154Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-04T21:06:14.154Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-04T21:06:14.154Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-04T21:06:14.155Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:06:14.158Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:06:14.159Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:06:14.159Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:06:14.159Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:06:14.172Z [DEBUG] High write ratio: blit=0, write=5798 (100.0% writes), screen=82x97
+2026-02-04T21:06:14.555Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:06:14.582Z [DEBUG] High write ratio: blit=2037, write=4744 (70.0% writes), screen=82x97
+2026-02-04T21:06:15.190Z [DEBUG] High write ratio: blit=2037, write=4744 (70.0% writes), screen=82x97
+2026-02-04T21:06:15.802Z [DEBUG] High write ratio: blit=2037, write=4744 (70.0% writes), screen=82x97
+2026-02-04T21:06:15.926Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:06:16.420Z [DEBUG] High write ratio: blit=2037, write=4744 (70.0% writes), screen=82x97
+2026-02-04T21:06:16.703Z [DEBUG] High write ratio: blit=0, write=5799 (100.0% writes), screen=82x97
+2026-02-04T21:06:17.033Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:17.142Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-04T21:06:17.142Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-04T21:06:17.142Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:06:17.142Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-04T21:06:17.152Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-04T21:06:17.152Z [DEBUG] Found 5 hook matchers in settings
+2026-02-04T21:06:17.152Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-04T21:06:17.164Z [DEBUG] High write ratio: blit=0, write=5799 (100.0% writes), screen=82x97
+2026-02-04T21:06:17.502Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-04T21:06:17.503Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-04T21:06:17.503Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:06:17.503Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-04T21:06:17.513Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-04T21:06:17.513Z [DEBUG] Found 5 hook matchers in settings
+2026-02-04T21:06:17.513Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-04T21:06:17.515Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-04T21:06:17.515Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-04T21:06:17.516Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-04T21:06:17.516Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-04T21:06:17.517Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:06:17.520Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:06:17.521Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:06:17.521Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:06:17.521Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:06:17.530Z [DEBUG] High write ratio: blit=0, write=5799 (100.0% writes), screen=82x97
+2026-02-04T21:06:17.635Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:18.273Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:18.882Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:19.100Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:06:19.498Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:20.112Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:20.709Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:21.329Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:21.920Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:22.537Z [DEBUG] High write ratio: blit=2037, write=4745 (70.0% writes), screen=82x97
+2026-02-04T21:06:22.800Z [DEBUG] High write ratio: blit=0, write=5799 (100.0% writes), screen=82x97
+2026-02-04T21:06:23.157Z [DEBUG] High write ratio: blit=2037, write=4751 (70.0% writes), screen=82x97
+2026-02-04T21:06:23.760Z [DEBUG] High write ratio: blit=2037, write=4772 (70.1% writes), screen=82x97
+2026-02-04T21:06:24.675Z [DEBUG] High write ratio: blit=0, write=6148 (100.0% writes), screen=89x97
+2026-02-04T21:06:24.746Z [DEBUG] High write ratio: blit=0, write=6148 (100.0% writes), screen=89x97
+2026-02-04T21:06:25.167Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:25.775Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:26.377Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:26.982Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:27.587Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:28.205Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:28.833Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:29.419Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:30.034Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:30.635Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:31.270Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:31.854Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:32.502Z [DEBUG] High write ratio: blit=2037, write=5094 (71.4% writes), screen=89x97
+2026-02-04T21:06:32.523Z [DEBUG] executePreToolHooks called for tool: Write
+2026-02-04T21:06:32.526Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-02-04T21:06:32.526Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:06:32.526Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-04T21:06:32.527Z [DEBUG] Permission suggestions for Write: [
+  {
+    "type": "setMode",
+    "mode": "acceptEdits",
+    "destination": "session"
+  }
+]
+2026-02-04T21:06:32.528Z [DEBUG] executePermissionRequestHooks called for tool: Write
+2026-02-04T21:06:32.528Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Write
+2026-02-04T21:06:32.528Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:06:32.528Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-04T21:06:32.549Z [DEBUG] High write ratio: blit=0, write=8215 (100.0% writes), screen=140x97
+2026-02-04T21:06:32.556Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-02-04T21:06:32.584Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:33.185Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:33.847Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:34.419Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:35.052Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:35.635Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:36.247Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:36.873Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:37.477Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:38.094Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:38.561Z [DEBUG] Getting matching hook commands for Notification with query: permission_prompt
+2026-02-04T21:06:38.561Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:06:38.561Z [DEBUG] Matched 0 unique hooks for query "permission_prompt" (0 before deduplication)
+2026-02-04T21:06:38.709Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:39.320Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:39.919Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:40.533Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:41.137Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:41.748Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:42.357Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:42.967Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:43.582Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:44.188Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:44.787Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:45.402Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:46.013Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:46.622Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:47.223Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:47.835Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:48.440Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:49.052Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:49.666Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:50.285Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:50.877Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:51.503Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:52.095Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:52.711Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:53.350Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:53.928Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:54.561Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:55.150Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:55.764Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:56.408Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:57.001Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:57.614Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:57.784Z [DEBUG] High write ratio: blit=0, write=8207 (100.0% writes), screen=138x97
+2026-02-04T21:06:58.196Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:58.810Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:59.424Z [DEBUG] High write ratio: blit=2037, write=7153 (77.8% writes), screen=138x97
+2026-02-04T21:06:59.776Z [DEBUG] FileHistory: Tracked file modification for /Users/bianders/Brian_Code/sandbox/licensing/prompts/partner_url_discovery.jinja2
+2026-02-04T21:06:59.803Z [DEBUG] High write ratio: blit=0, write=6170 (100.0% writes), screen=91x97
+2026-02-04T21:06:59.810Z [DEBUG] [lspRecommendation] Looking for LSP plugins for .jinja2
+2026-02-04T21:06:59.813Z [DEBUG] Started caffeinate to prevent sleep
+2026-02-04T21:06:59.823Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-04T21:06:59.841Z [DEBUG] High write ratio: blit=2037, write=5116 (71.5% writes), screen=91x97
+2026-02-04T21:06:59.955Z [DEBUG] Checking for native installer update to version 2.1.31
+2026-02-04T21:06:59.955Z [DEBUG] Version 2.1.31 already installed, updating symlink
+2026-02-04T21:06:59.955Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-04T21:06:59.956Z [DEBUG] Successfully updated to version 2.1.31
+2026-02-04T21:07:00.442Z [DEBUG] High write ratio: blit=2037, write=5118 (71.5% writes), screen=91x97
+2026-02-04T21:07:00.538Z [DEBUG] Writing to temp file: /Users/bianders/Brian_Code/sandbox/licensing/prompts/partner_url_discovery.jinja2.tmp.71469.1770239220538
+2026-02-04T21:07:00.538Z [DEBUG] Temp file written successfully, size: 1659 bytes
+2026-02-04T21:07:00.538Z [DEBUG] Renaming /Users/bianders/Brian_Code/sandbox/licensing/prompts/partner_url_discovery.jinja2.tmp.71469.1770239220538 to /Users/bianders/Brian_Code/sandbox/licensing/prompts/partner_url_discovery.jinja2
+2026-02-04T21:07:00.539Z [DEBUG] File /Users/bianders/Brian_Code/sandbox/licensing/prompts/partner_url_discovery.jinja2 written atomically
+2026-02-04T21:07:00.541Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-02-04T21:07:00.541Z [DEBUG] Found 5 hook matchers in settings
+2026-02-04T21:07:00.541Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-02-04T21:07:00.543Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-04T21:07:00.543Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-04T21:07:00.543Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-04T21:07:00.543Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-04T21:07:00.544Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:07:00.547Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:07:00.548Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:07:00.548Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:07:00.548Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:07:00.564Z [DEBUG] High write ratio: blit=0, write=6581 (100.0% writes), screen=103x97
+2026-02-04T21:07:00.595Z [DEBUG] High write ratio: blit=2037, write=5527 (73.1% writes), screen=103x97
+2026-02-04T21:07:01.177Z [DEBUG] High write ratio: blit=2037, write=5527 (73.1% writes), screen=103x97
+2026-02-04T21:07:01.809Z [DEBUG] High write ratio: blit=2037, write=5527 (73.1% writes), screen=103x97
+2026-02-04T21:07:02.036Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:07:02.423Z [DEBUG] High write ratio: blit=2037, write=5539 (73.1% writes), screen=103x97
+2026-02-04T21:07:02.520Z [DEBUG] High write ratio: blit=0, write=6593 (100.0% writes), screen=103x97
+2026-02-04T21:07:03.031Z [DEBUG] High write ratio: blit=2037, write=5539 (73.1% writes), screen=103x97
+2026-02-04T21:07:03.631Z [DEBUG] High write ratio: blit=2037, write=5539 (73.1% writes), screen=103x97
+2026-02-04T21:07:04.234Z [DEBUG] High write ratio: blit=2037, write=5545 (73.1% writes), screen=103x97
+2026-02-04T21:07:04.867Z [DEBUG] High write ratio: blit=2037, write=5545 (73.1% writes), screen=103x97
+2026-02-04T21:07:05.472Z [DEBUG] High write ratio: blit=2037, write=5545 (73.1% writes), screen=103x97
+2026-02-04T21:07:06.088Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:06.689Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:07.302Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:07.914Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:08.501Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:09.108Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:09.722Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:10.335Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:10.938Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:11.539Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:12.147Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:12.749Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:13.372Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:13.972Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:14.582Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:15.184Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:15.815Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:16.414Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:17.007Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:17.058Z [DEBUG] High write ratio: blit=0, write=6582 (100.0% writes), screen=103x97
+2026-02-04T21:07:17.615Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:18.224Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:18.833Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:19.437Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:20.038Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:20.658Z [DEBUG] High write ratio: blit=2037, write=5528 (73.1% writes), screen=103x97
+2026-02-04T21:07:20.945Z [DEBUG] executePreToolHooks called for tool: Write
+2026-02-04T21:07:20.946Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-02-04T21:07:20.946Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:07:20.946Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-04T21:07:20.947Z [DEBUG] Permission suggestions for Write: [
+  {
+    "type": "setMode",
+    "mode": "acceptEdits",
+    "destination": "session"
+  }
+]
+2026-02-04T21:07:20.947Z [DEBUG] executePermissionRequestHooks called for tool: Write
+2026-02-04T21:07:20.947Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Write
+2026-02-04T21:07:20.947Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:07:20.947Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-04T21:07:20.981Z [DEBUG] High write ratio: blit=0, write=10941 (100.0% writes), screen=251x97
+2026-02-04T21:07:20.992Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-02-04T21:07:21.034Z [DEBUG] Full reset (scrollback changes): scrollbackRows=176, firstChangeY=110
+  prev: "    8 from conduit.async_ import ConduitAsync, GenerationParams, ConduitOptions,                 "
+  next: "    8 from conduit.async_ import ConduitAsync, GenerationParams, ConduitOptions, Verbosity       "
+2026-02-04T21:07:21.259Z [DEBUG] High write ratio: blit=2037, write=9862 (82.9% writes), screen=246x97
+2026-02-04T21:07:26.996Z [DEBUG] Getting matching hook commands for Notification with query: permission_prompt
+2026-02-04T21:07:26.996Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:07:26.996Z [DEBUG] Matched 0 unique hooks for query "permission_prompt" (0 before deduplication)
+2026-02-04T21:07:44.433Z [DEBUG] High write ratio: blit=0, write=10916 (100.0% writes), screen=246x97
+2026-02-04T21:07:45.379Z [DEBUG] FileHistory: Tracked file modification for /Users/bianders/Brian_Code/sandbox/licensing/workflow_from_partners.py
+2026-02-04T21:07:45.379Z [DEBUG] Writing to temp file: /Users/bianders/Brian_Code/sandbox/licensing/workflow_from_partners.py.tmp.71469.1770239265379
+2026-02-04T21:07:45.380Z [DEBUG] Temp file written successfully, size: 3530 bytes
+2026-02-04T21:07:45.380Z [DEBUG] Renaming /Users/bianders/Brian_Code/sandbox/licensing/workflow_from_partners.py.tmp.71469.1770239265379 to /Users/bianders/Brian_Code/sandbox/licensing/workflow_from_partners.py
+2026-02-04T21:07:45.381Z [DEBUG] File /Users/bianders/Brian_Code/sandbox/licensing/workflow_from_partners.py written atomically
+2026-02-04T21:07:45.385Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-02-04T21:07:45.385Z [DEBUG] Found 5 hook matchers in settings
+2026-02-04T21:07:45.385Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-02-04T21:07:45.391Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-04T21:07:45.391Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-04T21:07:45.393Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-04T21:07:45.394Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-04T21:07:45.397Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:07:45.404Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:07:45.405Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:07:45.405Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:07:45.405Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:07:45.441Z [DEBUG] High write ratio: blit=0, write=7000 (100.0% writes), screen=118x97
+2026-02-04T21:07:45.441Z [DEBUG] Full reset (scrollback changes): scrollbackRows=171, firstChangeY=97
+  prev: "⏺ Write(workflow_from_partners.py)                                                               "
+  next: "⏺ Write(workflow_from_partners.py)                                                               "
+2026-02-04T21:07:45.456Z [DEBUG] [lspRecommendation] Looking for LSP plugins for .py
+2026-02-04T21:07:45.457Z [DEBUG] Started caffeinate to prevent sleep
+2026-02-04T21:07:45.475Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-04T21:07:45.475Z [DEBUG] [binaryCheck] Binary 'pyright-langserver' not found
+2026-02-04T21:07:45.475Z [DEBUG] [lspRecommendation] Skipping pyright-lsp@claude-plugins-official (binary 'pyright-langserver' not found)
+2026-02-04T21:07:45.507Z [DEBUG] High write ratio: blit=2037, write=5946 (74.5% writes), screen=118x97
+2026-02-04T21:07:45.631Z [DEBUG] Checking for native installer update to version 2.1.31
+2026-02-04T21:07:45.631Z [DEBUG] Version 2.1.31 already installed, updating symlink
+2026-02-04T21:07:45.632Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-04T21:07:45.632Z [DEBUG] Successfully updated to version 2.1.31
+2026-02-04T21:07:46.105Z [DEBUG] High write ratio: blit=2037, write=5948 (74.5% writes), screen=118x97
+2026-02-04T21:07:46.711Z [DEBUG] High write ratio: blit=2037, write=5948 (74.5% writes), screen=118x97
+2026-02-04T21:07:46.758Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:07:46.901Z [DEBUG] High write ratio: blit=0, write=7013 (100.0% writes), screen=118x97
+2026-02-04T21:07:47.307Z [DEBUG] High write ratio: blit=2037, write=5959 (74.5% writes), screen=118x97
+2026-02-04T21:07:47.930Z [DEBUG] High write ratio: blit=2037, write=5959 (74.5% writes), screen=118x97
+2026-02-04T21:07:48.074Z [DEBUG] High write ratio: blit=0, write=7013 (100.0% writes), screen=118x97
+2026-02-04T21:07:48.537Z [DEBUG] High write ratio: blit=2037, write=5960 (74.5% writes), screen=118x97
+2026-02-04T21:07:49.140Z [DEBUG] High write ratio: blit=2037, write=5966 (74.5% writes), screen=118x97
+2026-02-04T21:07:49.726Z [DEBUG] High write ratio: blit=2037, write=5966 (74.5% writes), screen=118x97
+2026-02-04T21:07:50.362Z [DEBUG] High write ratio: blit=2037, write=5966 (74.5% writes), screen=118x97
+2026-02-04T21:07:50.963Z [DEBUG] High write ratio: blit=2037, write=5949 (74.5% writes), screen=118x97
+2026-02-04T21:07:51.577Z [DEBUG] High write ratio: blit=2037, write=5949 (74.5% writes), screen=118x97
+2026-02-04T21:07:52.178Z [DEBUG] High write ratio: blit=2037, write=5949 (74.5% writes), screen=118x97
+2026-02-04T21:07:52.762Z [DEBUG] High write ratio: blit=2037, write=5949 (74.5% writes), screen=118x97
+2026-02-04T21:07:53.363Z [DEBUG] High write ratio: blit=2037, write=5949 (74.5% writes), screen=118x97
+2026-02-04T21:07:53.990Z [DEBUG] High write ratio: blit=2037, write=5949 (74.5% writes), screen=118x97
+2026-02-04T21:07:54.595Z [DEBUG] High write ratio: blit=2037, write=5949 (74.5% writes), screen=118x97
+2026-02-04T21:07:55.203Z [DEBUG] High write ratio: blit=2037, write=5950 (74.5% writes), screen=118x97
+2026-02-04T21:07:55.788Z [DEBUG] High write ratio: blit=2037, write=5950 (74.5% writes), screen=118x97
+2026-02-04T21:07:55.848Z [DEBUG] High write ratio: blit=0, write=8415 (100.0% writes), screen=157x97
+2026-02-04T21:07:55.864Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-02-04T21:07:55.864Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:07:55.864Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-04T21:07:55.884Z [DEBUG] High write ratio: blit=0, write=8398 (100.0% writes), screen=157x97
+2026-02-04T21:07:55.885Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-02-04T21:07:55.893Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-02-04T21:07:55.895Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.29.87a; cc_entrypoint=cli;
+2026-02-04T21:07:55.895Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-04T21:07:55.895Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-04T21:07:55.896Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-04T21:07:55.903Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.71469.1770239275903
+2026-02-04T21:07:55.903Z [DEBUG] Preserving file permissions: 100644
+2026-02-04T21:07:55.903Z [DEBUG] Temp file written successfully, size: 19225 bytes
+2026-02-04T21:07:55.903Z [DEBUG] Applied original permissions to temp file
+2026-02-04T21:07:55.903Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.71469.1770239275903 to /Users/bianders/.claude.json
+2026-02-04T21:07:55.904Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-04T21:07:55.928Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.71469.1770239275928
+2026-02-04T21:07:55.928Z [DEBUG] Preserving file permissions: 100644
+2026-02-04T21:07:55.929Z [DEBUG] Temp file written successfully, size: 19225 bytes
+2026-02-04T21:07:55.929Z [DEBUG] Applied original permissions to temp file
+2026-02-04T21:07:55.929Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.71469.1770239275928 to /Users/bianders/.claude.json
+2026-02-04T21:07:55.929Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-04T21:07:56.410Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:07:57.020Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:07:57.630Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:07:57.662Z [DEBUG] Stream started - received first chunk
+2026-02-04T21:07:58.241Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:07:58.855Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:07:59.474Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:08:00.078Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:08:00.693Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:08:01.290Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:08:01.905Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:08:02.512Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:08:03.133Z [DEBUG] High write ratio: blit=2037, write=7344 (78.3% writes), screen=157x97
+2026-02-04T21:08:03.360Z [DEBUG] Forked agent [prompt_suggestion] received message: type=assistant
+2026-02-04T21:08:03.400Z [DEBUG] Forked agent [prompt_suggestion] received message: type=assistant
+2026-02-04T21:08:03.422Z [DEBUG] Getting matching hook commands for SubagentStop with query:
+2026-02-04T21:08:03.422Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:08:03.422Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-04T21:08:03.422Z [DEBUG] Forked agent [prompt_suggestion] finished: 2 messages, types=[assistant, assistant], totalUsage: input=10 output=262 cacheRead=17485 cacheCreate=12029
+2026-02-04T21:08:03.423Z [DEBUG] [Speculation] enabled=false
+2026-02-04T21:08:03.471Z [DEBUG] High write ratio: blit=0, write=8403 (100.0% writes), screen=157x97
+2026-02-04T21:08:03.742Z [DEBUG] High write ratio: blit=2037, write=7349 (78.3% writes), screen=157x97
+2026-02-04T21:08:04.350Z [DEBUG] High write ratio: blit=2037, write=7349 (78.3% writes), screen=157x97
+2026-02-04T21:08:04.963Z [DEBUG] High write ratio: blit=2037, write=7818 (79.3% writes), screen=162x97
+2026-02-04T21:08:05.337Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-02-04T21:08:05.337Z [DEBUG] Found 0 hook matchers in settings
+2026-02-04T21:08:05.337Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

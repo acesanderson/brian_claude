@@ -1,0 +1,171 @@
+2026-01-28T20:05:15.247Z [DEBUG] Failed to check enabledPlatforms: TypeError: undefined is not an object (evaluating 'lZ.join')
+2026-01-28T20:05:15.342Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-28T20:05:15.342Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-28T20:05:15.342Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-28T20:05:15.342Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-28T20:05:15.345Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-28T20:05:15.346Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-01-28T20:05:15.347Z [DEBUG] [STARTUP] Running setup()...
+2026-01-28T20:05:15.347Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T20:05:15.347Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:05:15.350Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:05:15.350Z [DEBUG] Error log sink initialized
+2026-01-28T20:05:15.358Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:05:15.358Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:05:15.358Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:05:15.358Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T20:05:15.358Z [DEBUG] [STARTUP] setup() completed in 11ms
+2026-01-28T20:05:15.358Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-28T20:05:15.360Z [DEBUG] Total plugin agents loaded: 0
+2026-01-28T20:05:15.360Z [DEBUG] Loaded 2 unique skills (managed: 0, user: 2, project: 0, legacy commands: 0)
+2026-01-28T20:05:15.360Z [DEBUG] getSkills returning: 2 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:05:15.361Z [DEBUG] [STARTUP] Commands and agents loaded in 3ms
+2026-01-28T20:05:15.361Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-28T20:05:15.361Z [DEBUG] [render] initLayout starting
+2026-01-28T20:05:15.361Z [DEBUG] Layout engine: yoga
+2026-01-28T20:05:15.363Z [DEBUG] Acquired PID lock for 2.1.22 (PID 56170)
+2026-01-28T20:05:15.363Z [DEBUG] Acquired PID lock on running version: /Users/bianders/.local/share/claude/versions/2.1.22
+2026-01-28T20:05:15.364Z [DEBUG] [render] initLayout complete
+2026-01-28T20:05:15.365Z [DEBUG] [render] first ink render: 292ms since process start
+2026-01-28T20:05:15.365Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-28T20:05:15.377Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-01-28T20:05:15.378Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-28T20:05:15.388Z [DEBUG] [STARTUP] showSetupScreens() completed in 27ms
+2026-01-28T20:05:15.388Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-28T20:05:15.388Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-28T20:05:15.388Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-28T20:05:15.389Z [DEBUG] Total LSP servers loaded: 0
+2026-01-28T20:05:15.389Z [DEBUG] [STARTUP] MCP configs loaded in 44ms
+2026-01-28T20:05:15.391Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-01-28T20:05:15.393Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.56170.1769630715393
+2026-01-28T20:05:15.393Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T20:05:15.394Z [DEBUG] Temp file written successfully, size: 12011 bytes
+2026-01-28T20:05:15.394Z [DEBUG] Applied original permissions to temp file
+2026-01-28T20:05:15.394Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.56170.1769630715393 to /Users/bianders/.claude.json
+2026-01-28T20:05:15.394Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T20:05:15.396Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-28T20:05:15.396Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-28T20:05:15.396Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-28T20:05:15.396Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-01-28T20:05:15.396Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-01-28T20:05:15.396Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:05:15.396Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-01-28T20:05:15.396Z [DEBUG] LSP server manager initialized successfully
+2026-01-28T20:05:15.396Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-28T20:05:15.397Z [DEBUG] [render] initLayout starting
+2026-01-28T20:05:15.397Z [DEBUG] [render] initLayout complete
+2026-01-28T20:05:15.398Z [DEBUG] [render] first ink render: 324ms since process start
+2026-01-28T20:05:15.404Z [DEBUG] [keybindings] Watching for changes to /Users/bianders/.claude/keybindings.json
+2026-01-28T20:05:15.406Z [DEBUG] Git remote URL: null
+2026-01-28T20:05:15.406Z [DEBUG] No git remote URL found
+2026-01-28T20:05:15.406Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-01-28T20:05:15.412Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-28T20:05:15.419Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-28T20:05:15.447Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-01-28T20:05:15.448Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-01-28T20:05:15.448Z [DEBUG] performStartupChecks called
+2026-01-28T20:05:15.449Z [DEBUG] Starting background plugin installations
+2026-01-28T20:05:15.449Z [DEBUG] performBackgroundPluginInstallations called
+2026-01-28T20:05:15.450Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:05:15.450Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:05:15.890Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-01-28T20:05:15.890Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-01-28T20:05:15.890Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-01-28T20:05:15.891Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-01-28T20:05:15.892Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-01-28T20:05:15.892Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:05:15.893Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-28T20:05:15.902Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-28T20:05:15.918Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T20:05:15.918Z [DEBUG] Programmatic settings change notification for policySettings
+2026-01-28T20:05:15.918Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-01-28T20:05:15.919Z [DEBUG] Settings changed from policySettings, updating AppState
+2026-01-28T20:05:15.920Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T20:05:15.920Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-01-28T20:05:15.921Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T20:05:15.922Z [DEBUG] Policy limits: Fetched successfully
+2026-01-28T20:05:15.924Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.56170.1769630715924
+2026-01-28T20:05:15.924Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T20:05:15.925Z [DEBUG] Temp file written successfully, size: 12011 bytes
+2026-01-28T20:05:15.925Z [DEBUG] Applied original permissions to temp file
+2026-01-28T20:05:15.925Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.56170.1769630715924 to /Users/bianders/.claude.json
+2026-01-28T20:05:15.925Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T20:05:16.185Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T20:05:16.185Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T20:05:16.627Z [DEBUG] Skills and commands included in Skill tool: keybindings-help, python-style-guide, linkedin-context
+2026-01-28T20:05:16.627Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:05:16.627Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:05:16.627Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:05:16.628Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.22)
+2026-01-28T20:05:19.504Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/a63f2d8e-a576-4f57-bb33-e70d41f43983-agent-a63f2d8e-a576-4f57-bb33-e70d41f43983.json.tmp.56170.1769630719504
+2026-01-28T20:05:19.505Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-01-28T20:05:19.505Z [DEBUG] Renaming /Users/bianders/.claude/todos/a63f2d8e-a576-4f57-bb33-e70d41f43983-agent-a63f2d8e-a576-4f57-bb33-e70d41f43983.json.tmp.56170.1769630719504 to /Users/bianders/.claude/todos/a63f2d8e-a576-4f57-bb33-e70d41f43983-agent-a63f2d8e-a576-4f57-bb33-e70d41f43983.json
+2026-01-28T20:05:19.506Z [DEBUG] File /Users/bianders/.claude/todos/a63f2d8e-a576-4f57-bb33-e70d41f43983-agent-a63f2d8e-a576-4f57-bb33-e70d41f43983.json written atomically
+2026-01-28T20:05:19.513Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:05:19.513Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:05:19.514Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:05:19.514Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:05:19.522Z [DEBUG] Summarizing all 24 messages (~6332 tokens)
+2026-01-28T20:05:19.523Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:05:19.523Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-28T20:05:19.524Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:05:19.524Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:05:19.525Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:05:19.526Z [DEBUG] Stats cache is up to date
+2026-01-28T20:05:19.539Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-28T20:05:19.539Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:05:19.539Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:05:19.545Z [DEBUG] FileHistory: Added snapshot for 7bcebab7-462d-42af-bdfd-68c6c66a95e3, tracking 0 files
+2026-01-28T20:05:19.557Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:05:19.557Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.86d; cc_entrypoint=cli;
+2026-01-28T20:05:19.557Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:05:19.557Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:05:19.558Z [DEBUG] Total plugin output styles loaded: 0
+2026-01-28T20:05:19.558Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:05:19.565Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-28T20:05:19.567Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:05:19.579Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.86d; cc_entrypoint=cli;
+2026-01-28T20:05:19.579Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:05:19.579Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:05:19.580Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:05:20.029Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:05:20.078Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:05:20.229Z [DEBUG] Generated summary for session 8c54a996-a1fe-451c-ba02-5cfcaf497aba: "Latest document summarized; skills added to Claude Code"
+2026-01-28T20:05:20.241Z [DEBUG] Session index: added 1, updated 0, removed 0, summaries generated 1 (total: 4)
+2026-01-28T20:05:20.871Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-01-28T20:05:20.871Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-01-28T20:05:21.276Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:05:29.823Z [DEBUG] High write ratio: blit=0, write=1909 (100.0% writes), screen=34x137
+2026-01-28T20:05:29.848Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-28T20:05:29.848Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:05:29.848Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:05:29.865Z [DEBUG] High write ratio: blit=0, write=1879 (100.0% writes), screen=32x137
+2026-01-28T20:05:29.866Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:05:29.869Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-28T20:05:29.879Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.86d; cc_entrypoint=cli;
+2026-01-28T20:05:29.879Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:05:29.879Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:05:29.880Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:05:29.928Z [DEBUG] High write ratio: blit=0, write=1879 (100.0% writes), screen=32x137
+2026-01-28T20:05:31.186Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:05:37.314Z [DEBUG] High write ratio: blit=0, write=1879 (100.0% writes), screen=32x137
+2026-01-28T20:05:37.324Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-28T20:05:37.324Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:05:37.324Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:05:37.378Z [DEBUG] High write ratio: blit=0, write=1879 (100.0% writes), screen=32x137
+2026-01-28T20:06:02.135Z [DEBUG] High write ratio: blit=0, write=1879 (100.0% writes), screen=32x137
+2026-01-28T20:06:21.111Z [DEBUG] High write ratio: blit=0, write=1879 (100.0% writes), screen=32x137
+2026-01-28T20:06:22.578Z [DEBUG] High write ratio: blit=0, write=1879 (100.0% writes), screen=32x137
+2026-01-28T20:06:29.401Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-01-28T20:06:29.401Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:06:29.401Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

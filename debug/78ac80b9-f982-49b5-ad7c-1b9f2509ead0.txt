@@ -1,0 +1,1266 @@
+2026-01-28T20:06:33.379Z [DEBUG] Failed to check enabledPlatforms: TypeError: undefined is not an object (evaluating 'lZ.join')
+2026-01-28T20:06:33.480Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-28T20:06:33.480Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-28T20:06:33.480Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-28T20:06:33.480Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-28T20:06:33.483Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-28T20:06:33.484Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-01-28T20:06:33.484Z [DEBUG] [STARTUP] Running setup()...
+2026-01-28T20:06:33.484Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T20:06:33.485Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:06:33.488Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:06:33.488Z [DEBUG] Error log sink initialized
+2026-01-28T20:06:33.495Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:06:33.495Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:06:33.495Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:06:33.495Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T20:06:33.495Z [DEBUG] [STARTUP] setup() completed in 11ms
+2026-01-28T20:06:33.495Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-28T20:06:33.497Z [DEBUG] Total plugin agents loaded: 0
+2026-01-28T20:06:33.497Z [DEBUG] Loaded 2 unique skills (managed: 0, user: 2, project: 0, legacy commands: 0)
+2026-01-28T20:06:33.497Z [DEBUG] getSkills returning: 2 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:06:33.498Z [DEBUG] [STARTUP] Commands and agents loaded in 3ms
+2026-01-28T20:06:33.498Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-28T20:06:33.498Z [DEBUG] [render] initLayout starting
+2026-01-28T20:06:33.498Z [DEBUG] Layout engine: yoga
+2026-01-28T20:06:33.501Z [DEBUG] Acquired PID lock for 2.1.22 (PID 56338)
+2026-01-28T20:06:33.501Z [DEBUG] Acquired PID lock on running version: /Users/bianders/.local/share/claude/versions/2.1.22
+2026-01-28T20:06:33.502Z [DEBUG] [render] initLayout complete
+2026-01-28T20:06:33.503Z [DEBUG] [render] first ink render: 297ms since process start
+2026-01-28T20:06:33.503Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-28T20:06:33.515Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-01-28T20:06:33.516Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-28T20:06:33.526Z [DEBUG] [STARTUP] showSetupScreens() completed in 28ms
+2026-01-28T20:06:33.526Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-28T20:06:33.526Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-28T20:06:33.526Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-28T20:06:33.528Z [DEBUG] Total LSP servers loaded: 0
+2026-01-28T20:06:33.528Z [DEBUG] [STARTUP] MCP configs loaded in 45ms
+2026-01-28T20:06:33.530Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-01-28T20:06:33.532Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.56338.1769630793532
+2026-01-28T20:06:33.532Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T20:06:33.533Z [DEBUG] Temp file written successfully, size: 11979 bytes
+2026-01-28T20:06:33.533Z [DEBUG] Applied original permissions to temp file
+2026-01-28T20:06:33.533Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.56338.1769630793532 to /Users/bianders/.claude.json
+2026-01-28T20:06:33.533Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T20:06:33.534Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-28T20:06:33.534Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-28T20:06:33.534Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-28T20:06:33.534Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-01-28T20:06:33.535Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-01-28T20:06:33.535Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:06:33.535Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-01-28T20:06:33.535Z [DEBUG] LSP server manager initialized successfully
+2026-01-28T20:06:33.535Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-28T20:06:33.536Z [DEBUG] [render] initLayout starting
+2026-01-28T20:06:33.536Z [DEBUG] [render] initLayout complete
+2026-01-28T20:06:33.536Z [DEBUG] [render] first ink render: 330ms since process start
+2026-01-28T20:06:33.542Z [DEBUG] [keybindings] Watching for changes to /Users/bianders/.claude/keybindings.json
+2026-01-28T20:06:33.543Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-28T20:06:33.546Z [DEBUG] Git remote URL: null
+2026-01-28T20:06:33.546Z [DEBUG] No git remote URL found
+2026-01-28T20:06:33.546Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-01-28T20:06:33.558Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-28T20:06:33.580Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-28T20:06:33.585Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-01-28T20:06:33.587Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-01-28T20:06:33.587Z [DEBUG] performStartupChecks called
+2026-01-28T20:06:33.587Z [DEBUG] Starting background plugin installations
+2026-01-28T20:06:33.587Z [DEBUG] performBackgroundPluginInstallations called
+2026-01-28T20:06:33.589Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:06:33.589Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:06:33.980Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-01-28T20:06:33.980Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-01-28T20:06:33.980Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-01-28T20:06:33.981Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-01-28T20:06:33.982Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-01-28T20:06:33.982Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:06:33.983Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-28T20:06:33.994Z [DEBUG] Skills and commands included in Skill tool: keybindings-help, python-style-guide, linkedin-context
+2026-01-28T20:06:33.994Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:06:33.994Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:06:33.994Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:06:34.014Z [DEBUG] Policy limits: Fetched successfully
+2026-01-28T20:06:34.014Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T20:06:34.014Z [DEBUG] Programmatic settings change notification for policySettings
+2026-01-28T20:06:34.014Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-01-28T20:06:34.015Z [DEBUG] Settings changed from policySettings, updating AppState
+2026-01-28T20:06:34.016Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T20:06:34.016Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-01-28T20:06:34.017Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T20:06:34.020Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.56338.1769630794020
+2026-01-28T20:06:34.020Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T20:06:34.021Z [DEBUG] Temp file written successfully, size: 11979 bytes
+2026-01-28T20:06:34.021Z [DEBUG] Applied original permissions to temp file
+2026-01-28T20:06:34.021Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.56338.1769630794020 to /Users/bianders/.claude.json
+2026-01-28T20:06:34.021Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T20:06:34.245Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T20:06:34.246Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T20:06:34.765Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.22)
+2026-01-28T20:06:44.302Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/78ac80b9-f982-49b5-ad7c-1b9f2509ead0-agent-78ac80b9-f982-49b5-ad7c-1b9f2509ead0.json.tmp.56338.1769630804302
+2026-01-28T20:06:44.303Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-01-28T20:06:44.303Z [DEBUG] Renaming /Users/bianders/.claude/todos/78ac80b9-f982-49b5-ad7c-1b9f2509ead0-agent-78ac80b9-f982-49b5-ad7c-1b9f2509ead0.json.tmp.56338.1769630804302 to /Users/bianders/.claude/todos/78ac80b9-f982-49b5-ad7c-1b9f2509ead0-agent-78ac80b9-f982-49b5-ad7c-1b9f2509ead0.json
+2026-01-28T20:06:44.303Z [DEBUG] File /Users/bianders/.claude/todos/78ac80b9-f982-49b5-ad7c-1b9f2509ead0-agent-78ac80b9-f982-49b5-ad7c-1b9f2509ead0.json written atomically
+2026-01-28T20:06:44.310Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:06:44.310Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:06:44.310Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:06:44.310Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:06:44.318Z [DEBUG] Summarizing all 6 messages (~0 tokens)
+2026-01-28T20:06:44.318Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:06:44.319Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-28T20:06:44.319Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:06:44.319Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:06:44.320Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:06:44.331Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-28T20:06:44.331Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:06:44.331Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:06:44.336Z [DEBUG] Stats cache is up to date
+2026-01-28T20:06:44.337Z [DEBUG] FileHistory: Added snapshot for 33c2f407-ebc2-47c7-813a-b178e67aa624, tracking 0 files
+2026-01-28T20:06:44.348Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:06:44.349Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:06:44.349Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:06:44.349Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:06:44.349Z [DEBUG] Total plugin output styles loaded: 0
+2026-01-28T20:06:44.349Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:06:44.351Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-28T20:06:44.361Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:06:44.371Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:06:44.371Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:06:44.371Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:06:44.372Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:06:44.754Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:06:44.909Z [DEBUG] Generated summary for session a63f2d8e-a576-4f57-bb33-e70d41f43983: "Claude Code Skills Overview Discussion"
+2026-01-28T20:06:44.910Z [DEBUG] Session index: added 1, updated 0, removed 0, summaries generated 1 (total: 5)
+2026-01-28T20:06:44.984Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:06:45.618Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-01-28T20:06:45.618Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-01-28T20:06:45.714Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:06:48.734Z [DEBUG] High write ratio: blit=0, write=1012 (100.0% writes), screen=23x137
+2026-01-28T20:06:49.000Z [DEBUG] High write ratio: blit=0, write=1036 (100.0% writes), screen=25x137
+2026-01-28T20:06:49.021Z [DEBUG] executePreToolHooks called for tool: Skill
+2026-01-28T20:06:49.031Z [DEBUG] Getting matching hook commands for PreToolUse with query: Skill
+2026-01-28T20:06:49.031Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:06:49.031Z [DEBUG] Matched 0 unique hooks for query "Skill" (0 before deduplication)
+2026-01-28T20:06:49.043Z [DEBUG] High write ratio: blit=0, write=1054 (100.0% writes), screen=26x137
+2026-01-28T20:06:49.052Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.56338.1769630809052
+2026-01-28T20:06:49.052Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T20:06:49.052Z [DEBUG] Temp file written successfully, size: 12091 bytes
+2026-01-28T20:06:49.052Z [DEBUG] Applied original permissions to temp file
+2026-01-28T20:06:49.052Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.56338.1769630809052 to /Users/bianders/.claude.json
+2026-01-28T20:06:49.053Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T20:06:49.054Z [DEBUG] Metadata string for linkedin-context:
+2026-01-28T20:06:49.054Z [DEBUG] <command-message>linkedin-context</command-message>
+<command-name>/linkedin-context</command-name>
+2026-01-28T20:06:49.054Z [DEBUG] command-message tags in metadata: 1
+2026-01-28T20:06:49.067Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:06:49.067Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:06:49.067Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:06:49.067Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:06:49.075Z [DEBUG] processPromptSlashCommand creating 3 messages for linkedin-context
+2026-01-28T20:06:49.075Z [DEBUG] Message 1: <command-message>linkedin-context</command-message>
+<command-name>/linkedin-context</command-name>
+2026-01-28T20:06:49.075Z [DEBUG] Message 2 [META]: [{"type":"text","text":"Base directory for this skill: /Users/bianders/.claude/skills/linkedin_context\n\n## Executive Summary\n\nBrian Anderson is Senior Content Strategist for Partnerships at Linked
+2026-01-28T20:06:49.075Z [DEBUG] Message 3: [ATTACHMENT]
+2026-01-28T20:06:49.075Z [DEBUG] SkillTool returning 2 newMessages for skill linkedin_context
+2026-01-28T20:06:49.075Z [DEBUG] newMessage 1: [{"type":"text","text":"Base directory for this skill: /Users/bianders/.claude/skills/linkedin_context\n\n## Executive Summary\n\nBrian Anderson is Se...
+2026-01-28T20:06:49.088Z [DEBUG] High write ratio: blit=0, write=1054 (100.0% writes), screen=26x137
+2026-01-28T20:06:49.091Z [DEBUG] Getting matching hook commands for PostToolUse with query: Skill
+2026-01-28T20:06:49.091Z [DEBUG] Found 3 hook matchers in settings
+2026-01-28T20:06:49.092Z [DEBUG] Matched 0 unique hooks for query "Skill" (0 before deduplication)
+2026-01-28T20:06:49.092Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:06:49.092Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:06:49.092Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:06:49.092Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:06:49.112Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:06:49.113Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:06:49.114Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:06:49.114Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:06:49.114Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:06:49.121Z [DEBUG] High write ratio: blit=0, write=1066 (100.0% writes), screen=26x137
+2026-01-28T20:06:51.197Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:06:54.674Z [DEBUG] High write ratio: blit=0, write=1909 (100.0% writes), screen=40x137
+2026-01-28T20:06:54.792Z [DEBUG] High write ratio: blit=0, write=1909 (100.0% writes), screen=40x137
+2026-01-28T20:06:54.798Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-28T20:06:54.798Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:06:54.798Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:06:54.814Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:06:54.817Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-28T20:06:54.827Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:06:54.827Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:06:54.827Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:06:54.827Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:06:54.842Z [DEBUG] High write ratio: blit=0, write=1863 (100.0% writes), screen=38x137
+2026-01-28T20:06:56.304Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:06:56.738Z [DEBUG] High write ratio: blit=0, write=1863 (100.0% writes), screen=38x137
+2026-01-28T20:06:56.745Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-28T20:06:56.745Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:06:56.745Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:06:56.745Z [DEBUG] [Speculation] enabled=false
+2026-01-28T20:06:56.800Z [DEBUG] High write ratio: blit=0, write=1897 (100.0% writes), screen=38x137
+2026-01-28T20:07:10.800Z [DEBUG] High write ratio: blit=0, write=1946 (100.0% writes), screen=37x137
+2026-01-28T20:07:12.427Z [DEBUG] High write ratio: blit=0, write=1946 (100.0% writes), screen=37x137
+2026-01-28T20:07:35.337Z [DEBUG] High write ratio: blit=0, write=2161 (100.0% writes), screen=43x137
+2026-01-28T20:07:35.377Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:07:35.377Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:07:35.377Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:07:35.377Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:07:35.419Z [DEBUG] High write ratio: blit=0, write=2161 (100.0% writes), screen=43x137
+2026-01-28T20:07:35.425Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-28T20:07:35.425Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:07:35.425Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:07:35.441Z [DEBUG] FileHistory: Making snapshot for message d6044633-9843-455b-bd5b-8fa1bf8e9d71
+2026-01-28T20:07:35.442Z [DEBUG] FileHistory: Added snapshot for d6044633-9843-455b-bd5b-8fa1bf8e9d71, tracking 0 files
+2026-01-28T20:07:35.457Z [DEBUG] High write ratio: blit=0, write=2161 (100.0% writes), screen=43x137
+2026-01-28T20:07:35.462Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:07:35.462Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.e4a; cc_entrypoint=cli;
+2026-01-28T20:07:35.462Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:35.462Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:35.463Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:35.471Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-28T20:07:35.473Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:07:35.488Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:07:35.488Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:35.488Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:35.489Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:35.506Z [DEBUG] High write ratio: blit=0, write=2161 (100.0% writes), screen=43x137
+2026-01-28T20:07:36.117Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:07:36.607Z [DEBUG] High write ratio: blit=0, write=2161 (100.0% writes), screen=43x137
+2026-01-28T20:07:36.913Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:07:38.165Z [DEBUG] High write ratio: blit=0, write=2172 (100.0% writes), screen=43x137
+2026-01-28T20:07:38.794Z [DEBUG] High write ratio: blit=0, write=2248 (100.0% writes), screen=45x137
+2026-01-28T20:07:39.462Z [DEBUG] High write ratio: blit=0, write=2283 (100.0% writes), screen=47x137
+2026-01-28T20:07:39.463Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-01-28T20:07:39.481Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-01-28T20:07:39.481Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:07:39.481Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-01-28T20:07:39.499Z [DEBUG] High write ratio: blit=0, write=2283 (100.0% writes), screen=47x137
+2026-01-28T20:07:39.525Z [DEBUG] tree-sitter: loaded from embedded
+2026-01-28T20:07:39.545Z [DEBUG] High write ratio: blit=0, write=2283 (100.0% writes), screen=47x137
+2026-01-28T20:07:39.585Z [DEBUG] High write ratio: blit=0, write=2283 (100.0% writes), screen=47x137
+2026-01-28T20:07:39.590Z [DEBUG] Creating shell snapshot for zsh (/bin/zsh)
+2026-01-28T20:07:39.590Z [DEBUG] Looking for shell config file: /Users/bianders/.zshrc
+2026-01-28T20:07:39.590Z [DEBUG] Snapshots directory: /Users/bianders/.claude/shell-snapshots
+2026-01-28T20:07:39.590Z [DEBUG] Creating snapshot at: /Users/bianders/.claude/shell-snapshots/snapshot-zsh-1769630859590-p7u1ge.sh
+2026-01-28T20:07:39.590Z [DEBUG] Shell binary exists: true
+2026-01-28T20:07:39.590Z [DEBUG] Execution timeout: 10000ms
+2026-01-28T20:07:40.026Z [DEBUG] Shell snapshot created successfully (18633 bytes)
+2026-01-28T20:07:40.027Z [DEBUG] No session environment scripts found
+2026-01-28T20:07:40.550Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:07:40.550Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.c29; cc_entrypoint=cli;
+2026-01-28T20:07:40.550Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:40.550Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:40.551Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:40.560Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-01-28T20:07:40.560Z [DEBUG] Found 3 hook matchers in settings
+2026-01-28T20:07:40.560Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-01-28T20:07:40.568Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:07:40.568Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:07:40.568Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:07:40.568Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:07:40.579Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:07:40.591Z [DEBUG] High write ratio: blit=0, write=2283 (100.0% writes), screen=47x137
+2026-01-28T20:07:40.594Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:07:40.594Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:40.594Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:40.595Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:40.644Z [DEBUG] High write ratio: blit=0, write=2283 (100.0% writes), screen=47x137
+2026-01-28T20:07:41.089Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:07:41.957Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:07:43.584Z [DEBUG] High write ratio: blit=0, write=2284 (100.0% writes), screen=47x137
+2026-01-28T20:07:44.169Z [DEBUG] High write ratio: blit=0, write=2290 (100.0% writes), screen=47x137
+2026-01-28T20:07:44.584Z [DEBUG] High write ratio: blit=0, write=2290 (100.0% writes), screen=47x137
+2026-01-28T20:07:44.595Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:07:44.595Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:07:44.595Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:07:44.595Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:07:44.612Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:07:44.622Z [DEBUG] High write ratio: blit=0, write=2290 (100.0% writes), screen=47x137
+2026-01-28T20:07:44.626Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:07:44.626Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:44.626Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:44.627Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:44.656Z [DEBUG] High write ratio: blit=0, write=2290 (100.0% writes), screen=47x137
+2026-01-28T20:07:45.846Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:07:47.210Z [DEBUG] High write ratio: blit=0, write=2280 (100.0% writes), screen=47x137
+2026-01-28T20:07:47.402Z [DEBUG] High write ratio: blit=0, write=2280 (100.0% writes), screen=47x137
+2026-01-28T20:07:48.714Z [DEBUG] High write ratio: blit=0, write=2467 (100.0% writes), screen=51x137
+2026-01-28T20:07:48.735Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-01-28T20:07:48.745Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-01-28T20:07:48.745Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:07:48.745Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-01-28T20:07:48.757Z [DEBUG] High write ratio: blit=0, write=2467 (100.0% writes), screen=51x137
+2026-01-28T20:07:48.778Z [DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addDirectories",
+    "directories": [
+      "/tmp"
+    ],
+    "destination": "session"
+  }
+]
+2026-01-28T20:07:48.786Z [DEBUG] executePermissionRequestHooks called for tool: Bash
+2026-01-28T20:07:48.799Z [DEBUG] High write ratio: blit=0, write=2693 (100.0% writes), screen=58x137
+2026-01-28T20:07:48.801Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-28T20:07:48.809Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Bash
+2026-01-28T20:07:48.809Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:07:48.809Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-01-28T20:07:48.841Z [DEBUG] High write ratio: blit=0, write=2693 (100.0% writes), screen=58x137
+2026-01-28T20:07:51.719Z [DEBUG] Applying permission update: Adding 1 directory with destination 'session': ["/tmp"]
+2026-01-28T20:07:51.738Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-28T20:07:51.739Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-28T20:07:51.771Z [DEBUG] High write ratio: blit=0, write=2469 (100.0% writes), screen=51x137
+2026-01-28T20:07:51.929Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T20:07:51.929Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T20:07:52.213Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:07:52.213Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.1b1; cc_entrypoint=cli;
+2026-01-28T20:07:52.214Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:52.214Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:52.214Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:52.222Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-01-28T20:07:52.222Z [DEBUG] Found 3 hook matchers in settings
+2026-01-28T20:07:52.222Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-01-28T20:07:52.231Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:07:52.231Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:07:52.231Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:07:52.231Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:07:52.240Z [DEBUG] High write ratio: blit=0, write=2453 (100.0% writes), screen=51x137
+2026-01-28T20:07:52.246Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:07:52.254Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:07:52.254Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:52.254Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:52.254Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:52.279Z [DEBUG] High write ratio: blit=0, write=2453 (100.0% writes), screen=51x137
+2026-01-28T20:07:52.578Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:07:52.953Z [DEBUG] High write ratio: blit=0, write=2453 (100.0% writes), screen=51x137
+2026-01-28T20:07:53.566Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:07:54.288Z [DEBUG] High write ratio: blit=0, write=2499 (100.0% writes), screen=53x137
+2026-01-28T20:07:54.604Z [DEBUG] High write ratio: blit=0, write=2500 (100.0% writes), screen=53x137
+2026-01-28T20:07:54.883Z [DEBUG] High write ratio: blit=0, write=2500 (100.0% writes), screen=53x137
+2026-01-28T20:07:54.884Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-28T20:07:54.899Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-28T20:07:54.900Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-28T20:07:54.900Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:07:54.900Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-28T20:07:54.900Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-28T20:07:54.900Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:07:54.900Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-28T20:07:54.926Z [DEBUG] High write ratio: blit=0, write=2500 (100.0% writes), screen=53x137
+2026-01-28T20:07:54.949Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-28T20:07:54.949Z [DEBUG] Found 3 hook matchers in settings
+2026-01-28T20:07:54.949Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-28T20:07:54.960Z [DEBUG] High write ratio: blit=0, write=2500 (100.0% writes), screen=53x137
+2026-01-28T20:07:54.960Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-28T20:07:54.960Z [DEBUG] Found 3 hook matchers in settings
+2026-01-28T20:07:54.960Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-28T20:07:54.963Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:07:54.963Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:07:54.963Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:07:54.963Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:07:54.985Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:07:55.000Z [DEBUG] High write ratio: blit=0, write=2500 (100.0% writes), screen=53x137
+2026-01-28T20:07:55.002Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:07:55.002Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:07:55.002Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:07:55.002Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:07:55.040Z [DEBUG] High write ratio: blit=0, write=2500 (100.0% writes), screen=53x137
+2026-01-28T20:07:56.684Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:08:07.720Z [DEBUG] High write ratio: blit=0, write=2507 (100.0% writes), screen=53x137
+2026-01-28T20:08:35.722Z [DEBUG] High write ratio: blit=0, write=6846 (100.0% writes), screen=142x137
+2026-01-28T20:08:35.762Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-28T20:08:35.762Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:08:35.762Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:08:35.788Z [DEBUG] High write ratio: blit=0, write=6809 (100.0% writes), screen=142x137
+2026-01-28T20:08:35.790Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:08:35.796Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-28T20:08:35.810Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:08:35.810Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:08:35.810Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:08:35.811Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:08:35.827Z [DEBUG] High write ratio: blit=0, write=6809 (100.0% writes), screen=142x137
+2026-01-28T20:08:37.500Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:08:50.452Z [DEBUG] High write ratio: blit=0, write=6809 (100.0% writes), screen=142x137
+2026-01-28T20:08:50.457Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:08:50.459Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:08:50.459Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:08:50.459Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:08:50.459Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:08:50.512Z [DEBUG] High write ratio: blit=0, write=6809 (100.0% writes), screen=142x137
+2026-01-28T20:08:52.262Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:08:59.311Z [DEBUG] High write ratio: blit=0, write=6809 (100.0% writes), screen=142x137
+2026-01-28T20:08:59.317Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-28T20:08:59.317Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:08:59.317Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:08:59.370Z [DEBUG] High write ratio: blit=0, write=6809 (100.0% writes), screen=142x137
+2026-01-28T20:09:45.314Z [DEBUG] High write ratio: blit=0, write=7049 (100.0% writes), screen=142x137
+2026-01-28T20:11:34.162Z [DEBUG] Metrics opt-out API response: enabled=true, vcsLinking=false
+2026-01-28T20:11:34.645Z [DEBUG] BigQuery metrics exported successfully
+2026-01-28T20:11:34.645Z [DEBUG] BigQuery API Response: {
+  "accepted_count": 12,
+  "rejected_count": 0
+}
+2026-01-28T20:23:53.408Z [DEBUG] High write ratio: blit=0, write=7049 (100.0% writes), screen=142x137
+2026-01-28T20:24:48.731Z [DEBUG] High write ratio: blit=0, write=7520 (100.0% writes), screen=150x137
+2026-01-28T20:24:48.741Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-28T20:24:48.741Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-28T20:24:48.741Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-28T20:24:48.741Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-28T20:24:48.762Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-28T20:24:48.762Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:24:48.762Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:24:48.767Z [DEBUG] FileHistory: Making snapshot for message 84d8fa1c-a82d-4dc3-a0e0-f466adc993c8
+2026-01-28T20:24:48.768Z [DEBUG] FileHistory: Added snapshot for 84d8fa1c-a82d-4dc3-a0e0-f466adc993c8, tracking 0 files
+2026-01-28T20:24:48.784Z [DEBUG] High write ratio: blit=0, write=7502 (100.0% writes), screen=150x137
+2026-01-28T20:24:48.787Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-28T20:24:48.796Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-28T20:24:48.796Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.ca9; cc_entrypoint=cli;
+2026-01-28T20:24:48.797Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:24:48.797Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:24:48.797Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:24:48.801Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-28T20:24:48.827Z [DEBUG] High write ratio: blit=0, write=7502 (100.0% writes), screen=150x137
+2026-01-28T20:24:48.832Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-28T20:24:48.833Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T20:24:48.833Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T20:24:48.833Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T20:24:48.883Z [DEBUG] High write ratio: blit=0, write=7502 (100.0% writes), screen=150x137
+2026-01-28T20:24:49.720Z [DEBUG] High write ratio: blit=0, write=7502 (100.0% writes), screen=150x137
+2026-01-28T20:24:50.109Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:24:51.032Z [DEBUG] Stream started - received first chunk
+2026-01-28T20:24:59.285Z [DEBUG] High write ratio: blit=0, write=7519 (100.0% writes), screen=150x137
+2026-01-28T20:25:18.346Z [DEBUG] High write ratio: blit=0, write=7502 (100.0% writes), screen=150x137
+2026-01-28T20:25:20.463Z [DEBUG] High write ratio: blit=0, write=7523 (100.0% writes), screen=150x137
+2026-01-28T20:25:56.412Z [DEBUG] High write ratio: blit=0, write=16140 (100.0% writes), screen=333x137
+2026-01-28T20:25:56.479Z [DEBUG] High write ratio: blit=0, write=16140 (100.0% writes), screen=333x137
+2026-01-28T20:25:56.484Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-28T20:25:56.484Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:25:56.484Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-28T20:25:56.507Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-28T20:25:56.548Z [DEBUG] High write ratio: blit=0, write=16105 (100.0% writes), screen=333x137
+2026-01-28T20:26:34.168Z [DEBUG] BigQuery metrics exported successfully
+2026-01-28T20:26:34.168Z [DEBUG] BigQuery API Response: {
+  "accepted_count": 12,
+  "rejected_count": 0
+}
+2026-01-28T20:26:56.516Z [DEBUG] Getting matching hook commands for Notification with query: idle_prompt
+2026-01-28T20:26:56.516Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T20:26:56.516Z [DEBUG] Matched 0 unique hooks for query "idle_prompt" (0 before deduplication)
+2026-01-28T20:26:59.289Z [DEBUG] High write ratio: blit=0, write=16105 (100.0% writes), screen=333x137
+2026-01-28T20:27:42.387Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:28:27.784Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:28:36.414Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:30:44.978Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:30:49.755Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:30:52.244Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:31:29.883Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:31:34.163Z [DEBUG] BigQuery metrics exported successfully
+2026-01-28T20:31:34.163Z [DEBUG] BigQuery API Response: {
+  "accepted_count": 1,
+  "rejected_count": 0
+}
+2026-01-28T20:32:29.295Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:32:31.406Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:34:42.475Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:34:51.591Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:36:59.031Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:37:03.816Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:37:52.065Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T20:37:52.068Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T20:38:49.559Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/skill-creator/LICENSE.txt
+2026-01-28T20:38:49.563Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:38:49.565Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:38:49.581Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:38:49.581Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:38:49.581Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:38:49.587Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:38:49.588Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:38:49.589Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/skill-creator/SKILL.md
+2026-01-28T20:38:49.589Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:38:49.589Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:38:49.594Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:38:49.594Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:38:49.594Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:38:49.595Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:38:49.595Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:38:49.595Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/skill-creator/scripts/init_skill.py
+2026-01-28T20:38:49.595Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:38:49.595Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:38:49.597Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:38:49.597Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:38:49.597Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:38:49.598Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:38:49.598Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:38:49.598Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/skill-creator/scripts/quick_validate.py
+2026-01-28T20:38:49.598Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:38:49.598Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:38:49.600Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:38:49.600Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:38:49.600Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:38:49.601Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:38:49.601Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:38:49.601Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/skill-creator/references/output-patterns.md
+2026-01-28T20:38:49.601Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:38:49.601Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:38:49.602Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:38:49.602Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:38:49.602Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:38:49.602Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:38:49.602Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:38:49.603Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/skill-creator/references/workflows.md
+2026-01-28T20:38:49.603Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:38:49.603Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:38:49.604Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:38:49.604Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:38:49.604Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:38:49.604Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:38:49.604Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:38:49.604Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/skill-creator/scripts/package_skill.py
+2026-01-28T20:38:49.604Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:38:49.604Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:38:49.606Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:38:49.606Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:38:49.606Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:38:49.606Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:38:49.606Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:38:49.632Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:47:21.515Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:47:28.248Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:57:38.934Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/SKILL.md
+2026-01-28T20:57:38.938Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:57:38.938Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:57:38.954Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:57:38.954Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:57:38.954Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:57:38.962Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T20:57:38.963Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:57:39.041Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T20:57:39.064Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/references/api_reference.md
+2026-01-28T20:57:39.064Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:57:39.065Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:57:39.084Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:57:39.084Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:57:39.084Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:57:39.084Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T20:57:39.084Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:57:39.085Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/scripts/example.py
+2026-01-28T20:57:39.085Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:57:39.085Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:57:39.090Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:57:39.090Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:57:39.090Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:57:39.090Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T20:57:39.091Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:57:39.091Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/assets/example_asset.txt
+2026-01-28T20:57:39.091Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:57:39.091Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:57:39.094Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:57:39.094Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:57:39.094Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:57:39.094Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T20:57:39.094Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:57:39.116Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T21:01:17.607Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/SKILL.md
+2026-01-28T21:01:17.608Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T21:01:17.609Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T21:01:17.618Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T21:01:17.618Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T21:01:17.618Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T21:01:17.621Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T21:01:17.622Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T21:01:17.657Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T21:02:13.455Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/scripts/example.py
+2026-01-28T21:02:13.456Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T21:02:13.456Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T21:02:13.462Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/references/api_reference.md
+2026-01-28T21:02:13.462Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T21:02:13.462Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T21:02:13.463Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/obsidian-save/assets/example_asset.txt
+2026-01-28T21:02:13.463Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T21:02:13.463Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T21:02:13.464Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T21:02:13.464Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T21:02:13.465Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T21:02:13.465Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T21:02:13.465Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T21:02:13.465Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T21:02:13.465Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T21:02:13.465Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T21:02:13.465Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T21:02:13.467Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T21:02:13.467Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T21:02:13.467Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-28T21:02:13.467Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T21:02:13.467Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T21:02:13.467Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T21:02:13.495Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T21:06:34.129Z [DEBUG] Policy limits: Fetched successfully
+2026-01-28T21:06:34.288Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T21:07:52.024Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T21:07:52.025Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T21:37:52.066Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T21:37:52.069Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T22:06:34.250Z [DEBUG] Policy limits: Fetched successfully
+2026-01-28T22:06:34.252Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T22:07:52.064Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T22:07:52.069Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T22:37:52.025Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T22:37:52.030Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T23:06:34.285Z [DEBUG] Policy limits: Fetched successfully
+2026-01-28T23:06:34.318Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T23:07:52.058Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T23:07:52.060Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T23:34:00.771Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T23:34:03.611Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-28T23:37:52.017Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T23:37:52.017Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-29T00:06:34.217Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T00:06:34.225Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T00:07:52.052Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-29T00:07:52.054Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-29T00:37:52.050Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-29T00:37:52.055Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-29T01:03:54.417Z [DEBUG] High write ratio: blit=0, write=16160 (100.0% writes), screen=332x137
+2026-01-29T01:05:02.529Z [DEBUG] High write ratio: blit=0, write=16422 (100.0% writes), screen=338x137
+2026-01-29T01:05:02.542Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-29T01:05:02.542Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-29T01:05:02.542Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-29T01:05:02.542Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-29T01:05:02.565Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-29T01:05:02.565Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T01:05:02.565Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-29T01:05:02.568Z [DEBUG] FileHistory: Making snapshot for message d40f4171-2602-4d41-b99c-5024b75acdc2
+2026-01-29T01:05:02.621Z [DEBUG] FileHistory: Added snapshot for d40f4171-2602-4d41-b99c-5024b75acdc2, tracking 0 files
+2026-01-29T01:05:02.649Z [DEBUG] High write ratio: blit=0, write=16402 (100.0% writes), screen=338x137
+2026-01-29T01:05:02.657Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-29T01:05:02.667Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T01:05:02.667Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.ffa; cc_entrypoint=cli;
+2026-01-29T01:05:02.668Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T01:05:02.668Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T01:05:02.668Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T01:05:02.673Z [DEBUG] Auto tool search disabled: 0 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-29T01:05:02.675Z [DEBUG] Skills and commands included in Skill tool: keybindings-help, obsidian-save, python-style-guide, skill-creator, linkedin-context
+2026-01-29T01:05:02.701Z [DEBUG] High write ratio: blit=0, write=16402 (100.0% writes), screen=338x137
+2026-01-29T01:05:02.706Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.8d1; cc_entrypoint=cli;
+2026-01-29T01:05:02.706Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T01:05:02.706Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T01:05:02.706Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T01:05:02.755Z [DEBUG] High write ratio: blit=0, write=16402 (100.0% writes), screen=338x137
+2026-01-29T01:05:03.269Z [DEBUG] Stream started - received first chunk
+2026-01-29T01:05:04.364Z [DEBUG] Stream started - received first chunk
+2026-01-29T01:05:04.439Z [DEBUG] High write ratio: blit=0, write=16413 (100.0% writes), screen=338x137
+2026-01-29T01:05:15.508Z [DEBUG] High write ratio: blit=0, write=16413 (100.0% writes), screen=338x137
+2026-01-29T01:06:34.117Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T01:06:34.123Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T01:06:40.703Z [DEBUG] High write ratio: blit=0, write=29320 (100.0% writes), screen=623x137
+2026-01-29T01:06:40.755Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-01-29T01:06:40.755Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T01:06:40.755Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-29T01:06:40.798Z [DEBUG] High write ratio: blit=0, write=29283 (100.0% writes), screen=623x137
+2026-01-29T01:06:40.800Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-29T01:07:40.803Z [DEBUG] Getting matching hook commands for Notification with query: idle_prompt
+2026-01-29T01:07:40.803Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T01:07:40.803Z [DEBUG] Matched 0 unique hooks for query "idle_prompt" (0 before deduplication)
+2026-01-29T01:07:52.006Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T01:07:52.014Z [DEBUG] Downloading native installer version 2.1.23
+2026-01-29T01:07:54.678Z [DEBUG] Atomically installed binary to /Users/bianders/.local/share/claude/versions/2.1.23
+2026-01-29T01:07:54.681Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T01:07:54.682Z [DEBUG] Atomically updated symlink /Users/bianders/.local/bin/claude -> /Users/bianders/.local/share/claude/versions/2.1.23
+2026-01-29T01:07:54.682Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T01:08:33.937Z [DEBUG] Metrics opt-out API response: enabled=true, vcsLinking=false
+2026-01-29T01:08:33.962Z [DEBUG] BigQuery metrics exported successfully
+2026-01-29T01:08:33.962Z [DEBUG] BigQuery API Response: {
+  "accepted_count": 12,
+  "rejected_count": 0
+}
+2026-01-29T01:37:34.884Z [DEBUG] High write ratio: blit=0, write=29283 (100.0% writes), screen=623x137
+2026-01-29T01:37:37.392Z [DEBUG] High write ratio: blit=0, write=29283 (100.0% writes), screen=623x137
+2026-01-29T01:37:52.041Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T01:37:52.044Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T01:37:52.045Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T01:37:52.046Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T01:38:34.015Z [DEBUG] BigQuery metrics exported successfully
+2026-01-29T01:38:34.015Z [DEBUG] BigQuery API Response: {
+  "accepted_count": 1,
+  "rejected_count": 0
+}
+2026-01-29T02:06:34.259Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T02:06:34.260Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T02:07:52.082Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T02:07:52.084Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T02:07:52.084Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T02:07:52.085Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T02:37:52.166Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T02:37:52.167Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T02:37:52.168Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T02:37:52.168Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T03:06:34.261Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T03:06:34.306Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T03:07:52.073Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T03:07:52.077Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T03:07:52.079Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T03:07:52.080Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T03:37:52.049Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T03:37:52.052Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T03:37:52.052Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T03:37:52.054Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T04:17:58.583Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T04:17:58.585Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T04:17:58.670Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T04:17:58.671Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T04:17:58.671Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T04:17:58.671Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T04:28:34.773Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T04:28:34.785Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T04:28:34.786Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T04:47:57.960Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T04:47:57.961Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T04:47:57.962Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T04:47:57.963Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T05:17:57.698Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T05:17:57.704Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T05:17:57.772Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T05:17:57.774Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T05:17:57.775Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T05:17:57.775Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T05:47:57.736Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T05:47:57.742Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T05:47:57.743Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T05:47:57.743Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T06:17:57.730Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T06:17:57.754Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T06:17:57.788Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T06:17:57.790Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T06:17:57.790Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T06:17:57.791Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T06:47:57.752Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T06:47:57.759Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T06:47:57.760Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T06:47:57.761Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T07:17:57.758Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T07:17:57.805Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T07:17:57.808Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T07:17:57.808Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T07:17:57.809Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T07:17:57.836Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T07:47:57.793Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T07:47:57.795Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T07:47:57.795Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T07:47:57.796Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T08:17:57.735Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T08:17:57.757Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T08:17:57.764Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T08:17:57.765Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T08:17:57.765Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T08:17:57.765Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T08:47:57.786Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T08:47:57.787Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T08:47:57.788Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T08:47:57.788Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T09:17:57.729Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T09:17:57.730Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T09:17:57.749Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T09:17:57.751Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T09:17:57.751Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T09:17:57.751Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T09:47:57.871Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T09:47:57.873Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T09:47:57.873Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T09:47:57.874Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T10:17:57.743Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T10:17:57.769Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T10:17:57.770Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T10:17:57.770Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T10:17:57.771Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T10:17:57.875Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T10:47:58.081Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T10:47:58.083Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T10:47:58.083Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T10:47:58.083Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T11:17:57.731Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T11:17:57.761Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T11:17:57.788Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T11:17:57.790Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T11:17:57.791Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T11:17:57.791Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T13:39:55.831Z [ERROR] Error: Error: Failed to fetch version from https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest: ECONNREFUSED
+    at SK8 (/$bunfs/root/claude:3965:4064)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T13:39:55.924Z [ERROR] Error: Error: Failed to fetch version from https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest: ECONNREFUSED
+    at SK8 (/$bunfs/root/claude:3965:4064)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T13:39:55.936Z [DEBUG] Remote settings: Retry 1/5 after 535.8017179149354ms
+2026-01-29T13:39:55.937Z [DEBUG] Policy limits: Retry 1/5 after 609.6138120797357ms
+2026-01-29T13:39:56.507Z [DEBUG] Remote settings: Retry 2/5 after 1156.9807682772266ms
+2026-01-29T13:39:56.587Z [DEBUG] Policy limits: Retry 2/5 after 1248.85475428753ms
+2026-01-29T13:39:57.667Z [DEBUG] Remote settings: Retry 3/5 after 2350.882402751453ms
+2026-01-29T13:39:57.858Z [DEBUG] Policy limits: Retry 3/5 after 2386.4010811296343ms
+2026-01-29T13:40:00.036Z [DEBUG] Remote settings: Retry 4/5 after 4774.298440275238ms
+2026-01-29T13:40:00.250Z [DEBUG] Policy limits: Retry 4/5 after 4648.833396965819ms
+2026-01-29T13:40:00.797Z [ERROR] Error: Error: 1P event logging: 3 events failed to export (code=FailedToOpenSocket, Was there a typo in the url or port?)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T13:40:00.799Z [ERROR] Error: Error: {"message":"Failed to export 3 events (code=FailedToOpenSocket, Was there a typo in the url or port?)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 3 events (code=FailedToOpenSocket, Was there a typo in the url or port?)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T13:40:06.652Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T13:40:06.723Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T14:09:53.965Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T14:09:53.968Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T14:09:53.968Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T14:09:53.969Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T14:39:54.058Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T14:39:54.087Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T14:39:54.089Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T14:39:54.096Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T14:39:54.096Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T14:39:54.097Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T15:09:53.997Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T15:09:54.002Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T15:09:54.003Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T15:09:54.003Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T15:39:54.000Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T15:39:54.006Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T15:39:54.006Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T15:39:54.007Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T15:39:54.039Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T15:39:54.044Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T16:09:53.967Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T16:09:53.970Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T16:09:53.971Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T16:09:53.972Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T16:39:54.015Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T16:39:54.022Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T16:39:54.023Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T16:39:54.024Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T16:39:54.085Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T16:39:54.087Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T17:09:54.059Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T17:09:54.063Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T17:09:54.063Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T17:09:54.064Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T17:39:53.911Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T17:39:53.915Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T17:39:53.915Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T17:39:53.916Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T17:39:54.032Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T17:39:54.088Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T18:09:53.974Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T18:09:54.008Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T18:09:54.010Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T18:09:54.011Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T18:39:53.953Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T18:39:53.958Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T18:39:53.959Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T18:39:53.960Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T18:39:54.054Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T18:39:54.100Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T19:09:53.983Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T19:09:53.987Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T19:09:53.987Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T19:09:53.988Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T19:39:53.951Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T19:39:53.953Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T19:39:53.953Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T19:39:53.954Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T19:39:54.072Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T19:39:54.076Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T20:09:53.960Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T20:09:53.968Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T20:09:53.970Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T20:09:53.971Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T20:39:54.027Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T20:39:54.037Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T20:39:54.038Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T20:39:54.039Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T20:39:54.071Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T20:39:54.072Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T21:09:53.938Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-29T21:09:53.951Z [DEBUG] Downloading native installer version 2.1.25
+2026-01-29T21:09:56.889Z [DEBUG] Atomically installed binary to /Users/bianders/.local/share/claude/versions/2.1.25
+2026-01-29T21:09:56.894Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T21:09:56.895Z [DEBUG] Atomically updated symlink /Users/bianders/.local/bin/claude -> /Users/bianders/.local/share/claude/versions/2.1.25
+2026-01-29T21:09:56.895Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-29T21:39:53.961Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-29T21:39:53.973Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-29T21:39:53.974Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T21:39:53.974Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-29T21:39:54.103Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T21:39:54.138Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T22:09:53.949Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-29T22:09:53.954Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-29T22:09:53.955Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T22:09:53.956Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-29T22:39:53.949Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-29T22:39:53.952Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-29T22:39:53.952Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T22:39:53.953Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-29T22:39:54.073Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T22:39:54.151Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T23:23:27.468Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-29T23:23:27.470Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-29T23:23:27.470Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T23:23:27.471Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-29T23:40:11.530Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T23:40:11.541Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T23:40:11.542Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T23:40:12.480Z [DEBUG] Policy limits: Fetched successfully
+2026-01-29T23:40:12.485Z [DEBUG] Remote settings: No settings found (404)
+2026-01-29T23:57:24.871Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-29T23:57:24.872Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-29T23:57:24.872Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-29T23:57:24.872Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T00:12:29.089Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T00:12:29.098Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T00:12:29.099Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T00:41:33.594Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T00:41:33.619Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T00:41:33.640Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T00:41:33.657Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T00:41:33.657Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T00:41:33.658Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T00:46:35.402Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T00:46:35.508Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T00:46:35.508Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T01:21:59.452Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T01:21:59.453Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T01:21:59.454Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T01:21:59.454Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T01:47:36.320Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T01:47:36.743Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T02:04:17.567Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T02:04:17.569Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T02:04:17.569Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T02:04:17.569Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T02:19:50.387Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T02:19:50.509Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T02:19:50.509Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T02:35:56.617Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T02:35:56.621Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T02:35:56.621Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T02:35:56.622Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T02:48:35.370Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T02:48:35.482Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T02:48:35.483Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T02:48:36.180Z [DEBUG] Remote settings: Retry 1/5 after 574.3908108877156ms
+2026-01-30T02:48:36.181Z [DEBUG] Policy limits: Retry 1/5 after 615.0242642759983ms
+2026-01-30T02:48:37.140Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T02:48:37.140Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T03:07:20.478Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T03:07:20.481Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T03:07:20.481Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T03:07:20.482Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T03:23:41.369Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T03:23:41.473Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T03:23:41.474Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T03:41:19.240Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T03:41:19.242Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T03:41:19.242Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T03:41:19.243Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T03:49:35.362Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T03:49:35.468Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T03:49:35.468Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T03:49:35.959Z [DEBUG] Remote settings: Retry 1/5 after 584.6006860591433ms
+2026-01-30T03:49:35.959Z [DEBUG] Policy limits: Retry 1/5 after 599.8669164619013ms
+2026-01-30T03:49:36.651Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T03:49:36.753Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T04:21:03.624Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T04:21:03.626Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T04:21:03.626Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T04:21:03.627Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T04:25:12.406Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T04:25:12.521Z [ERROR] Error: Error: 1P event logging: 5 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:639:2350)
+    at async doExport (/$bunfs/root/claude:639:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T04:25:12.521Z [ERROR] Error: Error: {"message":"Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"639","originalColumn":"1409","line":"639","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 5 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:639:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1934:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at vnD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T04:50:38.035Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T04:50:38.035Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T04:51:03.044Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T04:51:03.047Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T04:51:03.047Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T04:51:03.048Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T05:21:02.562Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T05:21:02.565Z [DEBUG] Version 2.1.25 already installed, updating symlink
+2026-01-30T05:21:02.566Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T05:21:02.567Z [DEBUG] Successfully updated to version 2.1.25
+2026-01-30T05:40:13.409Z [DEBUG] High write ratio: blit=0, write=29283 (100.0% writes), screen=623x137
+2026-01-30T05:40:14.298Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-01-30T05:40:14.298Z [DEBUG] Found 0 hook matchers in settings
+2026-01-30T05:40:14.299Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

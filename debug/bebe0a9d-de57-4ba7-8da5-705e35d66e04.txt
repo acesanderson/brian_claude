@@ -1,0 +1,181 @@
+2026-01-28T19:53:37.592Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-28T19:53:37.592Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-28T19:53:37.592Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-28T19:53:37.592Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-28T19:53:37.634Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-28T19:53:37.634Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-28T19:53:37.634Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-28T19:53:37.636Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-28T19:53:37.636Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T19:53:37.636Z [DEBUG] Total LSP servers loaded: 0
+2026-01-28T19:53:37.636Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-28T19:53:37.636Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-28T19:53:37.636Z [DEBUG] [STARTUP] MCP configs loaded in 0ms
+2026-01-28T19:53:37.636Z [DEBUG] LSP server manager initialized successfully
+2026-01-28T19:53:37.636Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-28T19:53:37.637Z [DEBUG] [STARTUP] Running setup()...
+2026-01-28T19:53:37.642Z [DEBUG] Stats cache stale (2026-01-20), processing 2026-01-21 to 2026-01-27 in background
+2026-01-28T19:53:37.645Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T19:53:37.649Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-28T19:53:37.650Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:1903)
+    at e3 (/$bunfs/root/claude:11:34695)
+    at readdirSync (/$bunfs/root/claude:12:1864)
+    at n6R (/$bunfs/root/claude:1465:380)
+    at n6R (/$bunfs/root/claude:1465:1350)
+    at <anonymous> (/$bunfs/root/claude:1465:4440)
+    at <anonymous> (/$bunfs/root/claude:1465:5171)
+    at A (/$bunfs/root/claude:11:7245)
+    at zC8 (/$bunfs/root/claude:4096:4342)
+2026-01-28T19:53:37.650Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Users/bianders/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:1903)
+    at e3 (/$bunfs/root/claude:11:34695)
+    at readdirSync (/$bunfs/root/claude:12:1864)
+    at n6R (/$bunfs/root/claude:1465:380)
+    at n6R (/$bunfs/root/claude:1465:1350)
+    at <anonymous> (/$bunfs/root/claude:1465:4483)
+    at <anonymous> (/$bunfs/root/claude:1465:5171)
+    at A (/$bunfs/root/claude:11:7245)
+    at zC8 (/$bunfs/root/claude:4096:4342)
+2026-01-28T19:53:37.650Z [DEBUG] Error log sink initialized
+2026-01-28T19:53:37.656Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/bebe0a9d-de57-4ba7-8da5-705e35d66e04-agent-bebe0a9d-de57-4ba7-8da5-705e35d66e04.json.tmp.53181.1769630017656
+2026-01-28T19:53:37.656Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-01-28T19:53:37.656Z [DEBUG] Renaming /Users/bianders/.claude/todos/bebe0a9d-de57-4ba7-8da5-705e35d66e04-agent-bebe0a9d-de57-4ba7-8da5-705e35d66e04.json.tmp.53181.1769630017656 to /Users/bianders/.claude/todos/bebe0a9d-de57-4ba7-8da5-705e35d66e04-agent-bebe0a9d-de57-4ba7-8da5-705e35d66e04.json
+2026-01-28T19:53:37.657Z [DEBUG] File /Users/bianders/.claude/todos/bebe0a9d-de57-4ba7-8da5-705e35d66e04-agent-bebe0a9d-de57-4ba7-8da5-705e35d66e04.json written atomically
+2026-01-28T19:53:37.661Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T19:53:37.661Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T19:53:37.661Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T19:53:37.661Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T19:53:37.665Z [DEBUG] [STARTUP] setup() completed in 28ms
+2026-01-28T19:53:37.665Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-28T19:53:37.671Z [DEBUG] Total plugin agents loaded: 0
+2026-01-28T19:53:37.671Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, legacy commands: 0)
+2026-01-28T19:53:37.671Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 0 bundled skills
+2026-01-28T19:53:37.672Z [DEBUG] [STARTUP] Commands and agents loaded in 7ms
+2026-01-28T19:53:37.672Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-28T19:53:38.129Z [DEBUG] [render] initYoga starting
+2026-01-28T19:53:38.136Z [DEBUG] Acquired PID lock for 2.1.14 (PID 53181)
+2026-01-28T19:53:38.136Z [DEBUG] Acquired PID lock on running version: /Users/bianders/.local/share/claude/versions/2.1.14
+2026-01-28T19:53:38.143Z [DEBUG] Stats cache saved successfully (lastComputedDate: 2026-01-27)
+2026-01-28T19:53:38.143Z [DEBUG] Stats cache updated with 4 new sessions
+2026-01-28T19:53:38.152Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-28T19:53:38.154Z [DEBUG] [render] initYoga complete
+2026-01-28T19:53:38.156Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T19:53:38.156Z [DEBUG] Programmatic settings change notification for policySettings
+2026-01-28T19:53:38.156Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-01-28T19:53:38.157Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T19:53:38.157Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T19:53:38.174Z [DEBUG] [keybindings] KeybindingSetup initialized with 45 bindings, 0 warnings
+2026-01-28T19:53:38.198Z [DEBUG] High write ratio: blit=0, write=1797 (100.0% writes), screen=36x137
+2026-01-28T19:53:38.206Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-28T19:53:38.222Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-28T19:53:38.222Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-28T19:53:38.248Z [DEBUG] High write ratio: blit=0, write=1797 (100.0% writes), screen=36x137
+2026-01-28T19:53:38.552Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.14)
+2026-01-28T19:53:39.095Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-01-28T19:53:39.096Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-01-28T19:53:41.280Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630021280
+2026-01-28T19:53:41.280Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:53:41.282Z [DEBUG] Temp file written successfully, size: 9122 bytes
+2026-01-28T19:53:41.282Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:53:41.282Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630021280 to /Users/bianders/.claude.json
+2026-01-28T19:53:41.284Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:53:41.290Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630021290
+2026-01-28T19:53:41.290Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:53:41.291Z [DEBUG] Temp file written successfully, size: 9122 bytes
+2026-01-28T19:53:41.291Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:53:41.291Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630021290 to /Users/bianders/.claude.json
+2026-01-28T19:53:41.291Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:53:41.301Z [DEBUG] High write ratio: blit=0, write=1160 (100.0% writes), screen=28x137
+2026-01-28T19:53:42.919Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630022919
+2026-01-28T19:53:42.919Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:53:42.920Z [DEBUG] Temp file written successfully, size: 9121 bytes
+2026-01-28T19:53:42.920Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:53:42.920Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630022919 to /Users/bianders/.claude.json
+2026-01-28T19:53:42.921Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:53:42.925Z [DEBUG] [render] initYoga starting
+2026-01-28T19:53:42.925Z [DEBUG] [render] initYoga complete
+2026-01-28T19:53:42.931Z [DEBUG] [keybindings] KeybindingSetup initialized with 45 bindings, 0 warnings
+2026-01-28T19:53:42.941Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-28T19:53:45.230Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630025230
+2026-01-28T19:53:45.230Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:53:45.231Z [DEBUG] Temp file written successfully, size: 9496 bytes
+2026-01-28T19:53:45.231Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:53:45.231Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630025230 to /Users/bianders/.claude.json
+2026-01-28T19:53:45.232Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:53:45.255Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-01-28T19:53:45.256Z [DEBUG] [STARTUP] showSetupScreens() completed in 7584ms
+2026-01-28T19:53:45.259Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-01-28T19:53:45.264Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630025264
+2026-01-28T19:53:45.264Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:53:45.264Z [DEBUG] Temp file written successfully, size: 9496 bytes
+2026-01-28T19:53:45.264Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:53:45.264Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630025264 to /Users/bianders/.claude.json
+2026-01-28T19:53:45.265Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:53:45.268Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-01-28T19:53:45.268Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T19:53:45.268Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-01-28T19:53:45.269Z [DEBUG] [render] initYoga starting
+2026-01-28T19:53:45.269Z [DEBUG] [render] initYoga complete
+2026-01-28T19:53:45.274Z [DEBUG] [keybindings] KeybindingSetup initialized with 45 bindings, 0 warnings
+2026-01-28T19:53:45.330Z [DEBUG] High write ratio: blit=0, write=1058 (100.0% writes), screen=21x137
+2026-01-28T19:53:45.332Z [DEBUG] Git remote URL: null
+2026-01-28T19:53:45.332Z [DEBUG] No git remote URL found
+2026-01-28T19:53:45.332Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-01-28T19:53:45.334Z [DEBUG] Skills and commands included in Skill tool:
+2026-01-28T19:53:45.335Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T19:53:45.335Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T19:53:45.335Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T19:53:45.342Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-28T19:53:45.342Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-01-28T19:53:45.344Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-01-28T19:53:45.344Z [DEBUG] performStartupChecks called
+2026-01-28T19:53:45.344Z [DEBUG] Starting background plugin installations
+2026-01-28T19:53:45.344Z [DEBUG] performBackgroundPluginInstallations called
+2026-01-28T19:53:45.345Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-28T19:53:45.345Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-01-28T19:53:45.345Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-01-28T19:53:45.345Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-01-28T19:53:45.345Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-01-28T19:53:45.345Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-01-28T19:53:45.355Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630025355
+2026-01-28T19:53:45.355Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:53:45.356Z [DEBUG] Temp file written successfully, size: 9677 bytes
+2026-01-28T19:53:45.356Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:53:45.356Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630025355 to /Users/bianders/.claude.json
+2026-01-28T19:53:45.356Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:53:45.370Z [DEBUG] Metrics opt-out API response: enabled=true, vcsLinking=false
+2026-01-28T19:53:45.389Z [DEBUG] High write ratio: blit=411, write=906 (68.8% writes), screen=21x137
+2026-01-28T19:53:45.603Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T19:53:45.605Z [DEBUG] Downloading native installer version 2.1.22
+2026-01-28T19:53:47.270Z [DEBUG] High write ratio: blit=0, write=1606 (100.0% writes), screen=36x137
+2026-01-28T19:53:47.276Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-28T19:53:48.371Z [DEBUG] Atomically installed binary to /Users/bianders/.local/share/claude/versions/2.1.22
+2026-01-28T19:53:48.377Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-28T19:53:48.379Z [DEBUG] Atomically updated symlink /Users/bianders/.local/bin/claude -> /Users/bianders/.local/share/claude/versions/2.1.22
+2026-01-28T19:53:48.379Z [DEBUG] Successfully updated to version 2.1.22
+2026-01-28T19:54:02.180Z [DEBUG] High write ratio: blit=0, write=1099 (100.0% writes), screen=26x137
+2026-01-28T19:54:02.193Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-28T19:54:02.207Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-28T19:54:02.212Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630042212
+2026-01-28T19:54:02.212Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:54:02.212Z [DEBUG] Temp file written successfully, size: 9700 bytes
+2026-01-28T19:54:02.212Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:54:02.212Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630042212 to /Users/bianders/.claude.json
+2026-01-28T19:54:02.212Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:54:02.214Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53181.1769630042214
+2026-01-28T19:54:02.214Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:54:02.215Z [DEBUG] Temp file written successfully, size: 9732 bytes
+2026-01-28T19:54:02.215Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:54:02.215Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53181.1769630042214 to /Users/bianders/.claude.json
+2026-01-28T19:54:02.215Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:54:02.255Z [DEBUG] High write ratio: blit=411, write=1052 (71.9% writes), screen=24x137
+2026-01-28T19:54:02.306Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T19:54:02.306Z [DEBUG] Version 2.1.22 already installed, updating symlink
+2026-01-28T19:54:02.306Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-28T19:54:02.306Z [DEBUG] Successfully updated to version 2.1.22
+2026-01-28T19:54:02.445Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-01-28T19:54:02.445Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T19:54:02.445Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

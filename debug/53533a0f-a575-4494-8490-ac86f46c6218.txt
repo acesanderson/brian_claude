@@ -1,0 +1,191 @@
+2026-02-09T15:27:58.739Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-09T15:27:58.741Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-09T15:27:58.741Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-09T15:27:58.741Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-09T15:27:58.799Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-09T15:27:58.807Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-09T15:27:58.807Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-09T15:27:58.807Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-09T15:27:58.807Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-09T15:27:58.808Z [DEBUG] [ToolSearch:optimistic] mode=standard, ENABLE_TOOL_SEARCH=undefined, result=false
+2026-02-09T15:27:58.808Z [DEBUG] [STARTUP] Running setup()...
+2026-02-09T15:27:58.810Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T15:27:58.811Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at gKD (/$bunfs/root/claude:179:1202)
+    at zAT (/$bunfs/root/claude:179:2080)
+2026-02-09T15:27:58.811Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at VLA (/$bunfs/root/claude:1864:20822)
+    at m_B (/$bunfs/root/claude:1864:21727)
+    at <anonymous> (/$bunfs/root/claude:7470:510)
+2026-02-09T15:27:58.811Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at Y_ (/$bunfs/root/claude:178:10043)
+    at CzT (/$bunfs/root/claude:319:1160)
+2026-02-09T15:27:58.811Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at Y_ (/$bunfs/root/claude:178:10043)
+    at GzT (/$bunfs/root/claude:319:1765)
+2026-02-09T15:27:58.811Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at Y_ (/$bunfs/root/claude:178:10043)
+    at uOA (/$bunfs/root/claude:889:34395)
+    at async <anonymous> (/$bunfs/root/claude:7494:2216)
+2026-02-09T15:27:58.811Z [DEBUG] Error log sink initialized
+2026-02-09T15:27:58.812Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T15:27:58.812Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T15:27:58.812Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T15:27:58.812Z [DEBUG] [STARTUP] setup() completed in 4ms
+2026-02-09T15:27:58.812Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-02-09T15:27:58.812Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-09T15:27:58.813Z [DEBUG] Total plugin agents loaded: 0
+2026-02-09T15:27:58.813Z [DEBUG] Loaded 6 unique skills (managed: 0, user: 6, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T15:27:58.814Z [DEBUG] getSkills returning: 6 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T15:27:58.814Z [DEBUG] [STARTUP] Commands and agents loaded in 2ms
+2026-02-09T15:27:58.814Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-02-09T15:27:58.814Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-02-09T15:27:58.814Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-02-09T15:27:58.814Z [DEBUG] Total LSP servers loaded: 0
+2026-02-09T15:27:58.814Z [DEBUG] [STARTUP] MCP configs loaded in 15ms
+2026-02-09T15:27:58.815Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-02-09T15:27:58.815Z [DEBUG] LSP manager initialized with 0 servers
+2026-02-09T15:27:58.815Z [DEBUG] LSP server manager initialized successfully
+2026-02-09T15:27:58.815Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-02-09T15:27:58.817Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at Y_ (/$bunfs/root/claude:178:10043)
+    at sb8 (/$bunfs/root/claude:7465:281)
+2026-02-09T15:27:58.817Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-02-09T15:27:58.817Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-02-09T15:27:58.818Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-09T15:27:58.822Z [DEBUG] Watching for changes in setting files /Users/bianders/.claude/settings.json...
+2026-02-09T15:27:58.829Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/53533a0f-a575-4494-8490-ac86f46c6218-agent-53533a0f-a575-4494-8490-ac86f46c6218.json.tmp.75010.1770650878829
+2026-02-09T15:27:58.830Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-02-09T15:27:58.830Z [DEBUG] Renaming /Users/bianders/.claude/todos/53533a0f-a575-4494-8490-ac86f46c6218-agent-53533a0f-a575-4494-8490-ac86f46c6218.json.tmp.75010.1770650878829 to /Users/bianders/.claude/todos/53533a0f-a575-4494-8490-ac86f46c6218-agent-53533a0f-a575-4494-8490-ac86f46c6218.json
+2026-02-09T15:27:58.830Z [DEBUG] File /Users/bianders/.claude/todos/53533a0f-a575-4494-8490-ac86f46c6218-agent-53533a0f-a575-4494-8490-ac86f46c6218.json written atomically
+2026-02-09T15:27:58.830Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at Y_ (/$bunfs/root/claude:178:10043)
+    at lg (/$bunfs/root/claude:889:34511)
+2026-02-09T15:27:58.831Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at Y_ (/$bunfs/root/claude:178:10043)
+    at lg (/$bunfs/root/claude:889:34511)
+    at async Oy8 (/$bunfs/root/claude:6381:1896)
+    at async E40 (/$bunfs/root/claude:6364:813)
+2026-02-09T15:27:58.831Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-02-09T15:27:58.831Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T15:27:58.831Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-02-09T15:27:58.833Z [DEBUG] [SystemPrompt] path=simple proactive=false
+2026-02-09T15:27:58.834Z [DEBUG] Total plugin output styles loaded: 0
+2026-02-09T15:27:58.846Z [DEBUG] Cannot acquire lock for 2.1.37 - held by PID 65490
+2026-02-09T15:27:58.846Z [ERROR] Error: Error: NON-FATAL: Lock acquisition failed for /Users/bianders/.local/share/claude/versions/2.1.37 (expected in multi-process scenarios)
+    at GFR (/$bunfs/root/claude:3584:2098)
+    at ebA (/$bunfs/root/claude:3584:1209)
+    at processTicksAndRejections (native:7:39)
+2026-02-09T15:27:58.859Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-02-09T15:27:58.886Z [DEBUG] Stats cache is up to date
+2026-02-09T15:27:58.891Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T15:27:58.891Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T15:27:58.891Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T15:27:58.891Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T15:27:58.891Z [DEBUG] Sending 7 skills via attachment (initial, 7 total sent)
+2026-02-09T15:27:58.892Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at oC (/$bunfs/root/claude:11:49132)
+    at readSync (/$bunfs/root/claude:12:875)
+    at tC (/$bunfs/root/claude:6113:113)
+    at TC (/$bunfs/root/claude:6115:226)
+    at BAA (/$bunfs/root/claude:178:8143)
+    at xBR (/$bunfs/root/claude:178:8306)
+    at Y_ (/$bunfs/root/claude:178:10043)
+    at lg (/$bunfs/root/claude:889:34511)
+2026-02-09T15:27:58.892Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-02-09T15:27:58.892Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T15:27:58.892Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-09T15:27:58.893Z [DEBUG] autocompact: tokens=724 threshold=167000 effectiveWindow=180000
+2026-02-09T15:27:58.948Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T15:27:58.951Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T15:27:58.951Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T15:27:58.951Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-09T15:27:58.952Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T15:27:58.952Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-09T15:27:59.005Z [DEBUG] Policy limits: Fetched successfully
+2026-02-09T15:27:59.032Z [DEBUG] Org penguin mode: enabled
+2026-02-09T15:27:59.049Z [DEBUG] Remote settings: No settings found (404)
+2026-02-09T15:27:59.049Z [DEBUG] Programmatic settings change notification for policySettings
+2026-02-09T15:27:59.049Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-02-09T15:27:59.050Z [DEBUG] Settings changed from policySettings, updating app state
+2026-02-09T15:27:59.050Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-09T15:27:59.050Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-09T15:27:59.054Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-02-09T15:27:59.157Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.37)
+2026-02-09T15:27:59.196Z [ERROR] API error (attempt 1/11): 400 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CXxjNCg1hCb2yMU8ACJhK"}
+2026-02-09T15:27:59.197Z [ERROR] Error in API request: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CXxjNCg1hCb2yMU8ACJhK"}
+2026-02-09T15:27:59.197Z [ERROR] Error: Error: 400 {"type":"error","error":{"type":"invalid_request_error","message":"Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits."},"request_id":"req_011CXxjNCg1hCb2yMU8ACJhK"}
+    at generate (/$bunfs/root/claude:319:8796)
+    at makeRequest (/$bunfs/root/claude:336:5435)
+    at processTicksAndRejections (native:7:39)
+2026-02-09T15:27:59.199Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-02-09T15:27:59.199Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T15:27:59.199Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-09T15:27:59.199Z [DEBUG] Getting matching hook commands for SessionEnd with query: other
+2026-02-09T15:27:59.199Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T15:27:59.199Z [DEBUG] Matched 0 unique hooks for query "other" (0 before deduplication)

@@ -1,0 +1,312 @@
+2026-02-05T23:14:34.795Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-05T23:14:34.795Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-05T23:14:34.795Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-05T23:14:34.795Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-05T23:14:34.822Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-05T23:14:34.832Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-02-05T23:14:34.833Z [DEBUG] [STARTUP] Running setup()...
+2026-02-05T23:14:34.833Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-05T23:14:34.833Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-05T23:14:34.878Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at ATD (/$bunfs/root/claude:122:1170)
+2026-02-05T23:14:34.878Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at KZA (/$bunfs/root/claude:1829:18763)
+    at KZA (/$bunfs/root/claude:1829:19585)
+    at M6B (/$bunfs/root/claude:1829:19668)
+2026-02-05T23:14:34.878Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at tzT (/$bunfs/root/claude:344:1185)
+2026-02-05T23:14:34.878Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at szT (/$bunfs/root/claude:344:1790)
+2026-02-05T23:14:34.878Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at qbA (/$bunfs/root/claude:3622:10176)
+2026-02-05T23:14:34.878Z [DEBUG] Error log sink initialized
+2026-02-05T23:14:34.888Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-05T23:14:34.888Z [DEBUG] Total plugin skills loaded: 0
+2026-02-05T23:14:34.888Z [DEBUG] Total plugin commands loaded: 0
+2026-02-05T23:14:34.888Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-05T23:14:34.889Z [DEBUG] [STARTUP] setup() completed in 56ms
+2026-02-05T23:14:34.889Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-02-05T23:14:34.889Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-05T23:14:34.889Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-05T23:14:34.889Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-05T23:14:34.890Z [DEBUG] Total plugin agents loaded: 0
+2026-02-05T23:14:34.890Z [DEBUG] Loaded 6 unique skills (managed: 0, user: 6, project: 0, additional: 0, legacy commands: 0)
+2026-02-05T23:14:34.891Z [DEBUG] getSkills returning: 6 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-05T23:14:34.891Z [DEBUG] [STARTUP] Commands and agents loaded in 2ms
+2026-02-05T23:14:34.891Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-02-05T23:14:34.891Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-02-05T23:14:34.891Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-02-05T23:14:34.891Z [DEBUG] Total LSP servers loaded: 0
+2026-02-05T23:14:34.891Z [DEBUG] [STARTUP] MCP configs loaded in 69ms
+2026-02-05T23:14:34.891Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-02-05T23:14:34.891Z [DEBUG] LSP manager initialized with 0 servers
+2026-02-05T23:14:34.891Z [DEBUG] LSP server manager initialized successfully
+2026-02-05T23:14:34.891Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-02-05T23:14:34.899Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at Cy8 (/$bunfs/root/claude:7494:6151)
+2026-02-05T23:14:34.899Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-02-05T23:14:34.899Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-02-05T23:14:34.904Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/2d0223a4-447b-413b-b23c-ce96427c2f41-agent-2d0223a4-447b-413b-b23c-ce96427c2f41.json.tmp.27164.1770333274904
+2026-02-05T23:14:34.905Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-02-05T23:14:34.905Z [DEBUG] Renaming /Users/bianders/.claude/todos/2d0223a4-447b-413b-b23c-ce96427c2f41-agent-2d0223a4-447b-413b-b23c-ce96427c2f41.json.tmp.27164.1770333274904 to /Users/bianders/.claude/todos/2d0223a4-447b-413b-b23c-ce96427c2f41-agent-2d0223a4-447b-413b-b23c-ce96427c2f41.json
+2026-02-05T23:14:34.905Z [DEBUG] File /Users/bianders/.claude/todos/2d0223a4-447b-413b-b23c-ce96427c2f41-agent-2d0223a4-447b-413b-b23c-ce96427c2f41.json written atomically
+2026-02-05T23:14:34.925Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at am (/$bunfs/root/claude:3622:10292)
+2026-02-05T23:14:34.926Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at am (/$bunfs/root/claude:3622:10292)
+2026-02-05T23:14:34.926Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-02-05T23:14:34.926Z [DEBUG] Found 0 hook matchers in settings
+2026-02-05T23:14:34.926Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-02-05T23:14:34.932Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333274932
+2026-02-05T23:14:34.932Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:34.933Z [DEBUG] Temp file written successfully, size: 20796 bytes
+2026-02-05T23:14:34.933Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:34.933Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333274932 to /Users/bianders/.claude.json
+2026-02-05T23:14:34.933Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:34.938Z [DEBUG] Total plugin output styles loaded: 0
+2026-02-05T23:14:34.962Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-02-05T23:14:34.964Z [DEBUG] Acquired mtime-based lock on running version: /Users/bianders/.local/share/claude/versions/2.1.32
+2026-02-05T23:14:34.971Z [DEBUG] Stats cache is up to date
+2026-02-05T23:14:34.975Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-05T23:14:34.975Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-05T23:14:34.975Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-05T23:14:34.975Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-05T23:14:34.975Z [DEBUG] Sending 6 skills via attachment (initial, 6 total sent)
+2026-02-05T23:14:34.976Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at am (/$bunfs/root/claude:3622:10292)
+2026-02-05T23:14:34.976Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-02-05T23:14:34.976Z [DEBUG] Found 0 hook matchers in settings
+2026-02-05T23:14:34.976Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-05T23:14:34.979Z [DEBUG] autocompact: tokens=132 threshold=167000 effectiveWindow=180000
+2026-02-05T23:14:35.060Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275060
+2026-02-05T23:14:35.060Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.061Z [DEBUG] Temp file written successfully, size: 20897 bytes
+2026-02-05T23:14:35.061Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.061Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275060 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.061Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.067Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275067
+2026-02-05T23:14:35.067Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.068Z [DEBUG] Temp file written successfully, size: 20898 bytes
+2026-02-05T23:14:35.068Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.068Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275067 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.069Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.076Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275076
+2026-02-05T23:14:35.076Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.077Z [DEBUG] Temp file written successfully, size: 20897 bytes
+2026-02-05T23:14:35.077Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.077Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275076 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.078Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.086Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275086
+2026-02-05T23:14:35.086Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.087Z [DEBUG] Temp file written successfully, size: 20896 bytes
+2026-02-05T23:14:35.087Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.087Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275086 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.087Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.093Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275093
+2026-02-05T23:14:35.093Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.093Z [DEBUG] Temp file written successfully, size: 20895 bytes
+2026-02-05T23:14:35.093Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.093Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275093 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.094Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.101Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275101
+2026-02-05T23:14:35.102Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.102Z [DEBUG] Temp file written successfully, size: 20894 bytes
+2026-02-05T23:14:35.102Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.102Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275101 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.103Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.108Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275108
+2026-02-05T23:14:35.108Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.109Z [DEBUG] Temp file written successfully, size: 20938 bytes
+2026-02-05T23:14:35.109Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.109Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275108 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.109Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.115Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275115
+2026-02-05T23:14:35.115Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.116Z [DEBUG] Temp file written successfully, size: 20937 bytes
+2026-02-05T23:14:35.116Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.116Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275115 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.117Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.122Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275122
+2026-02-05T23:14:35.122Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.122Z [DEBUG] Temp file written successfully, size: 20936 bytes
+2026-02-05T23:14:35.122Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.122Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275122 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.123Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.127Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275127
+2026-02-05T23:14:35.127Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.127Z [DEBUG] Temp file written successfully, size: 20935 bytes
+2026-02-05T23:14:35.127Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.127Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275127 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.127Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.134Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275134
+2026-02-05T23:14:35.134Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.134Z [DEBUG] Temp file written successfully, size: 20952 bytes
+2026-02-05T23:14:35.134Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.134Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275134 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.134Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.139Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.32.a27; cc_entrypoint=sdk-cli;
+2026-02-05T23:14:35.140Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-05T23:14:35.140Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-05T23:14:35.141Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275141
+2026-02-05T23:14:35.141Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.141Z [DEBUG] Temp file written successfully, size: 20953 bytes
+2026-02-05T23:14:35.141Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.141Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275141 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.141Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.146Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.27164.1770333275146
+2026-02-05T23:14:35.146Z [DEBUG] Preserving file permissions: 100644
+2026-02-05T23:14:35.146Z [DEBUG] Temp file written successfully, size: 20952 bytes
+2026-02-05T23:14:35.146Z [DEBUG] Applied original permissions to temp file
+2026-02-05T23:14:35.146Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.27164.1770333275146 to /Users/bianders/.claude.json
+2026-02-05T23:14:35.146Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-05T23:14:35.149Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-05T23:14:35.152Z [DEBUG] Remote settings: No settings found (404)
+2026-02-05T23:14:35.152Z [DEBUG] Programmatic settings change notification for policySettings
+2026-02-05T23:14:35.152Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-02-05T23:14:35.153Z [DEBUG] Settings changed from policySettings, updating app state
+2026-02-05T23:14:35.153Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-05T23:14:35.153Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-02-05T23:14:35.154Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-05T23:14:35.159Z [DEBUG] Policy limits: Fetched successfully
+2026-02-05T23:14:35.385Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-05T23:14:35.385Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-05T23:14:35.385Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-05T23:14:35.571Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.32)
+2026-02-05T23:14:35.763Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-02-05T23:14:35.763Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-02-05T23:14:36.528Z [DEBUG] Stream started - received first chunk
+2026-02-05T23:14:37.534Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-05T23:14:37.534Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-05T23:14:37.534Z [DEBUG] Found 0 hook matchers in settings
+2026-02-05T23:14:37.534Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-05T23:14:37.551Z [DEBUG] tree-sitter: loaded from embedded
+2026-02-05T23:14:37.576Z [DEBUG] Creating shell snapshot for zsh (/bin/zsh)
+2026-02-05T23:14:37.576Z [DEBUG] Looking for shell config file: /Users/bianders/.zshrc
+2026-02-05T23:14:37.576Z [DEBUG] Snapshots directory: /Users/bianders/.claude/shell-snapshots
+2026-02-05T23:14:37.576Z [DEBUG] Creating snapshot at: /Users/bianders/.claude/shell-snapshots/snapshot-zsh-1770333277576-hjf5j7.sh
+2026-02-05T23:14:37.576Z [DEBUG] Shell binary exists: true
+2026-02-05T23:14:37.576Z [DEBUG] Execution timeout: 10000ms
+2026-02-05T23:14:38.048Z [DEBUG] Shell snapshot created successfully (18710 bytes)
+2026-02-05T23:14:38.049Z [DEBUG] No session environment scripts found
+2026-02-05T23:14:38.326Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-05T23:14:38.326Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-05T23:14:38.326Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-05T23:14:38.326Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-05T23:14:38.326Z [DEBUG] Found 5 hook matchers in settings
+2026-02-05T23:14:38.326Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-05T23:14:38.326Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-05T23:14:38.327Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-05T23:14:38.327Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-05T23:14:38.327Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-05T23:14:38.327Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-05T23:14:38.327Z [DEBUG] autocompact: tokens=19910 threshold=167000 effectiveWindow=180000
+2026-02-05T23:14:38.329Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-05T23:14:38.329Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-05T23:14:38.329Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-05T23:14:38.778Z [DEBUG] Stream started - received first chunk
+2026-02-05T23:14:39.804Z [DEBUG] Stream started - received first chunk
+2026-02-05T23:14:41.699Z [DEBUG] executePreToolHooks called for tool: Write
+2026-02-05T23:14:41.699Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-02-05T23:14:41.699Z [DEBUG] Found 0 hook matchers in settings
+2026-02-05T23:14:41.699Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-05T23:14:42.172Z [DEBUG] Writing to temp file: /Users/bianders/.claude/skills/batch-dispatch/references/batch_runs/20260205_171433/task_0/result.json.tmp.27164.1770333282172
+2026-02-05T23:14:42.172Z [DEBUG] Temp file written successfully, size: 292 bytes
+2026-02-05T23:14:42.172Z [DEBUG] Renaming /Users/bianders/.claude/skills/batch-dispatch/references/batch_runs/20260205_171433/task_0/result.json.tmp.27164.1770333282172 to /Users/bianders/.claude/skills/batch-dispatch/references/batch_runs/20260205_171433/task_0/result.json
+2026-02-05T23:14:42.173Z [DEBUG] File /Users/bianders/.claude/skills/batch-dispatch/references/batch_runs/20260205_171433/task_0/result.json written atomically
+2026-02-05T23:14:42.173Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-02-05T23:14:42.173Z [DEBUG] Found 5 hook matchers in settings
+2026-02-05T23:14:42.173Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-02-05T23:14:42.175Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-05T23:14:42.175Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-05T23:14:42.175Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-05T23:14:42.175Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-05T23:14:42.175Z [DEBUG] autocompact: tokens=20249 threshold=167000 effectiveWindow=180000
+2026-02-05T23:14:42.178Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-05T23:14:42.178Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-05T23:14:42.178Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-05T23:14:43.848Z [DEBUG] Stream started - received first chunk
+2026-02-05T23:14:43.929Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-02-05T23:14:43.929Z [DEBUG] Found 0 hook matchers in settings
+2026-02-05T23:14:43.929Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-05T23:14:43.931Z [DEBUG] Getting matching hook commands for SessionEnd with query: other
+2026-02-05T23:14:43.931Z [DEBUG] Found 0 hook matchers in settings
+2026-02-05T23:14:43.931Z [DEBUG] Matched 0 unique hooks for query "other" (0 before deduplication)

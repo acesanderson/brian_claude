@@ -1,0 +1,1 @@
+2026-01-28T19:57:27.988Z [DEBUG] Failed to check enabledPlatforms: TypeError: undefined is not an object (evaluating 'lZ.join')

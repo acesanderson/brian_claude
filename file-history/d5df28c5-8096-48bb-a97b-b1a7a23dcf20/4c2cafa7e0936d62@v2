@@ -1,0 +1,335 @@
+---
+name: catalog-scraper
+description: Scrape and analyze course catalogs from training providers (HubSpot Academy, Salesforce Trailhead, Anaconda Learning, DataCamp, etc.) to evaluate content for potential LinkedIn Learning licensing. Generates standardized JSON, CSV, and markdown reports. Use when user requests to scrape, analyze, or generate course catalogs from any training platform, including requests like "scrape [provider] course catalog", "generate course list from [URL]", "analyze [provider]'s training offerings", or "create catalog for [provider]". Handles various architectures (single page, paginated, navigation-based) and obstacles (email gates, CloudFront protection, lazy loading).
+---
+
+# Course Catalog Scraper
+
+## Input Parameters
+- **Provider Name**: Name of the training platform (e.g., "HubSpot Academy")
+- **URL**: Starting URL for the course catalog/listing page
+- **Optional**: Credentials if provided (for email-gated content)
+
+## Workflow
+
+### Phase 1: Discovery & Reconnaissance (5-10 minutes)
+
+**Objective**: Understand the site architecture before attempting extraction.
+
+1. **Initial Page Analysis**
+   - Fetch the URL and examine the HTML structure
+   - Use WebFetch to understand page organization and content type
+   - Document findings: "This is a [single page / paginated / navigation-based] catalog"
+
+2. **Data Source Detection** - Check for (in order of preference):
+   - **JSON in hidden inputs** (like `<input id="archive-posts">`)
+   - **JavaScript data variables** (search for `var courses =` or `window.__INITIAL_STATE__`)
+   - **API endpoints** (inspect Network tab patterns, look for `/api/courses` or similar)
+   - **Structured data** (Schema.org JSON-LD in `<script type="application/ld+json">`)
+   - **Server-rendered HTML** (course cards, list items with consistent structure)
+
+3. **Architecture Mapping**
+   - **Single Page**: All courses on one page (simple extraction)
+   - **Paginated**: Multiple pages with page numbers or "Next" buttons
+   - **Infinite Scroll**: Lazy-loaded content (requires Selenium or API detection)
+   - **Navigation-based**: Must visit topic/category pages first (like AMA)
+   - **Search/Filter-based**: Courses behind search interface
+
+4. **Obstacle Identification**
+   - Email gates / signup walls
+   - Authentication requirements
+   - Rate limiting
+   - CAPTCHA
+   - JavaScript-heavy (content not in initial HTML)
+
+5. **Field Mapping** - Identify available metadata:
+   - Required: Title, URL
+   - Preferred: Description, Duration, Level, Price, Format
+   - Optional: Instructor, Prerequisites, Learning Objectives, Reviews
+
+### Phase 2: Extraction Strategy
+
+Based on discovery, choose the appropriate approach:
+
+#### Strategy A: JSON Extraction (Fastest)
+If JSON data is embedded or API endpoint found:
+```python
+# Extract JSON from hidden input or API
+# Parse and transform to standard format
+# No need for complex scraping
+```
+
+#### Strategy B: Static HTML Scraping (Most Common)
+If courses are server-rendered:
+```python
+# Use BeautifulSoup
+# Find course card/list elements
+# Extract metadata from consistent structure
+# Handle pagination with requests loop
+```
+
+#### Strategy C: Browser Automation (Lazy Loading)
+If content loads dynamically:
+```python
+# Use Selenium (note: requires setup)
+# Scroll to trigger lazy loading
+# Extract rendered content
+# More resource-intensive
+```
+
+#### Strategy D: Navigation Crawl (Multi-level)
+If courses organized by categories:
+```python
+# Get category/topic list first
+# Visit each category page
+# Extract courses from each
+# Aggregate results
+```
+
+#### Strategy E: Manual Documentation (Blocked)
+If email gate or auth required:
+```python
+# Document the obstacle
+# Provide manual inspection findings
+# Recommend obtaining credentials
+# Note what's visible pre-auth
+```
+
+### Phase 3: Implementation
+
+1. **Create Python Script** in working directory:
+   - Name: `scrape_{provider_slug}.py`
+   - Include imports: requests, bs4, csv, json
+   - Implement chosen strategy
+   - Add error handling and rate limiting (sleep between requests)
+
+2. **Extract Course Data**
+   - Run scraper
+   - Show progress (X of Y courses scraped)
+   - Handle errors gracefully
+   - Note any limitations encountered
+
+3. **Validate Data Quality**
+   - Check for missing critical fields
+   - Verify URLs are valid
+   - Count total courses found
+   - Identify any data quality issues
+
+### Phase 4: Standardized Output
+
+**Generate THREE artifacts** (all required, saved locally):
+
+#### 1. JSON: `{provider_slug}_catalog.json`
+Raw course data in JSON format for programmatic access
+
+#### 2. CSV: `{provider_slug}_catalog.csv`
+Tabular format for analysis and comparison
+
+#### 3. Report: `{provider_slug}_report.md`
+Detailed markdown report with analysis and recommendations
+
+**Required columns** (consistent across all providers):
+- `provider` - Provider name (e.g., "HubSpot Academy")
+- `title` - Course title
+- `url` - Direct link to course page
+- `description` - Course description/summary
+- `duration` - Hours, modules, or time commitment
+- `level` - Beginner/Intermediate/Advanced/All Levels
+- `format` - On-Demand/Live/Blended/Self-Paced
+- `price` - Free/Paid/$XX (as displayed)
+- `category` - Topic/subject area
+- `instructor` - If available
+- `date_scraped` - ISO format date (YYYY-MM-DD)
+
+**Optional columns** (include if available):
+- `prerequisites`
+- `learning_objectives`
+- `certification_offered`
+- `rating`
+- `enrollment_count`
+- `language`
+- `last_updated`
+
+**Implementation Code Snippet:**
+```python
+import json
+from datetime import datetime
+import pandas as pd
+
+def export_catalog_data(courses_data: list[dict], provider_slug: str) -> dict[str, str]:
+    """Export to JSON and CSV."""
+    # Convert to DataFrame
+    df = pd.DataFrame(courses_data)
+
+    # Column order
+    column_order = [
+        "provider", "title", "url", "description", "duration",
+        "level", "format", "price", "category", "learning_path",
+        "date_scraped"
+    ]
+    existing_cols = [col for col in column_order if col in df.columns]
+    df = df[existing_cols]
+
+    # 1. JSON
+    json_filename = f"{provider_slug}_catalog.json"
+    with open(json_filename, "w", encoding="utf-8") as f:
+        json.dump(courses_data, f, indent=2, ensure_ascii=False)
+
+    # 2. CSV
+    csv_filename = f"{provider_slug}_catalog.csv"
+    df.to_csv(csv_filename, index=False)
+
+    return {"json": json_filename, "csv": csv_filename}
+```
+
+**Generate Report: `{provider_slug}_report.md`**
+
+Include:
+```markdown
+# {Provider Name} Catalog Scraping Report
+
+**Date**: {date}
+**URL**: {starting_url}
+**Total Courses**: {count}
+
+## Architecture
+- Type: [Single Page / Paginated / Navigation-based / etc.]
+- Data Source: [JSON / HTML / API / etc.]
+- Obstacles: [None / Email gate / etc.]
+
+## Extraction Method
+[Description of strategy used]
+
+## Data Quality
+- Title: {X}% complete
+- Description: {X}% complete
+- Duration: {X}% complete
+- Level: {X}% complete
+- Price: {X}% complete
+
+## Limitations
+[Any access restrictions, missing data, or issues encountered]
+
+## Recommendations
+[Suggestions for improving data collection, e.g., "Obtain credentials for full access"]
+
+## Sample Courses
+[List 3-5 example courses with full metadata]
+```
+
+### Phase 5: Deliver Results
+
+1. **Show Summary with all three artifacts**
+   ```
+   ✓ Scraped {X} courses from {Provider}
+
+   ARTIFACTS GENERATED:
+   ✓ JSON:   {provider_slug}_catalog.json
+   ✓ CSV:    {provider_slug}_catalog.csv
+   ✓ Report: {provider_slug}_report.md
+   ```
+
+2. **Preview Data** - Display first 3-5 courses with key fields
+
+3. **Provide Analysis** - Quick insights:
+   - Course count by level/category
+   - Price distribution
+   - Format breakdown
+   - Content gaps or strengths
+   - LinkedIn Learning licensing perspective
+
+## Required Dependencies
+
+All scrapers must include these imports:
+```python
+from __future__ import annotations
+
+import json
+import re
+import time
+from datetime import datetime
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+```
+
+Ensure `pandas`, `requests`, and `bs4` are in the project dependencies (already available in pyproject.toml).
+
+## Best Practices
+
+1. **Be Respectful**
+   - Add delays between requests (1-2 seconds)
+   - Respect robots.txt
+   - Don't overwhelm servers
+   - Use appropriate User-Agent
+
+2. **Handle Failures Gracefully**
+   - Log errors but continue scraping
+   - Partial data is better than no data
+   - Document what couldn't be accessed
+
+3. **Validate URLs**
+   - Test a sample course URL before full scrape
+   - Ensure URL construction is correct
+   - Handle edge cases (trailing slashes, query params)
+
+4. **Be Transparent**
+   - Document limitations clearly
+   - Note what requires manual review
+   - Explain data quality issues
+
+## Common Patterns by Provider Type
+
+### Corporate Training Platforms (HubSpot, Salesforce)
+- Often have clean, structured course pages
+- Usually server-rendered HTML
+- May have free/gated content distinction
+- Often well-organized by topic
+
+### Tech/Developer Platforms (Anaconda, Pluralsight)
+- May use JavaScript frameworks (React, etc.)
+- Often have JSON data available
+- Detailed technical metadata
+- Strong categorization
+
+### Professional Development (AMA, PMI)
+- Mixed content types (courses, events, certifications)
+- Often behind paywalls
+- May require membership to view full catalog
+- Less consistent structure
+
+## Error Recovery
+
+If scraping fails:
+1. Document what was attempted
+2. Provide what data IS available (even if incomplete)
+3. Suggest alternative approaches
+4. Offer to retry with modified strategy
+
+## Output Location
+
+**All files saved in current working directory:**
+- `{provider_slug}_catalog.json` - Raw JSON data
+- `{provider_slug}_catalog.csv` - Tabular data
+- `{provider_slug}_report.md` - Detailed scraping report
+- `scrape_{provider_slug}.py` - Python script (for repeatability)
+
+## Success Criteria
+
+**Minimum viable output** (MUST HAVE):
+- ✓ JSON with at least: provider, title, url
+- ✓ CSV with at least: provider, title, url
+- ✓ Markdown report documenting approach and limitations
+- ✓ Working script for future updates
+
+**Ideal output**:
+- ✓ Complete metadata for all fields
+- ✓ 100% of courses captured
+- ✓ High data quality (>90% complete fields)
+- ✓ Reproducible process
+- ✓ Clean, well-formatted markdown report
+
+
+
+

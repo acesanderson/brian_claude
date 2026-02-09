@@ -1,0 +1,56 @@
+2026-01-28T20:40:48.269Z [DEBUG] Failed to check enabledPlatforms: TypeError: undefined is not an object (evaluating 'lZ.join')
+2026-01-28T20:40:48.361Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-28T20:40:48.361Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-28T20:40:48.361Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-28T20:40:48.361Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-28T20:40:48.364Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-28T20:40:48.365Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-01-28T20:40:48.365Z [DEBUG] [STARTUP] Running setup()...
+2026-01-28T20:40:48.365Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T20:40:48.366Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T20:40:48.369Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T20:40:48.369Z [DEBUG] Error log sink initialized
+2026-01-28T20:40:48.373Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T20:40:48.373Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T20:40:48.373Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T20:40:48.373Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T20:40:48.380Z [DEBUG] [STARTUP] setup() completed in 15ms
+2026-01-28T20:40:48.380Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-28T20:40:48.382Z [DEBUG] Total plugin agents loaded: 0
+2026-01-28T20:40:48.382Z [DEBUG] Loaded 3 unique skills (managed: 0, user: 3, project: 0, legacy commands: 0)
+2026-01-28T20:40:48.383Z [DEBUG] getSkills returning: 3 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T20:40:48.383Z [DEBUG] [STARTUP] Commands and agents loaded in 3ms
+2026-01-28T20:40:48.384Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-28T20:40:48.384Z [DEBUG] [render] initLayout starting
+2026-01-28T20:40:48.384Z [DEBUG] Layout engine: yoga
+2026-01-28T20:40:48.403Z [DEBUG] Cannot acquire lock for 2.1.22 - held by PID 56338
+2026-01-28T20:40:48.403Z [ERROR] Error: Error: NON-FATAL: Lock acquisition failed for /Users/bianders/.local/share/claude/versions/2.1.22 (expected in multi-process scenarios)
+    at BzR (/$bunfs/root/claude:3967:2091)
+    at YjA (/$bunfs/root/claude:3967:1202)
+    at processTicksAndRejections (native:7:39)
+2026-01-28T20:40:48.404Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-28T20:40:48.405Z [DEBUG] [render] initLayout complete
+2026-01-28T20:40:48.406Z [DEBUG] [render] first ink render: 594ms since process start
+2026-01-28T20:40:48.406Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-01-28T20:40:48.421Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-28T20:40:48.436Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-28T20:40:48.438Z [DEBUG] [keybindings] Watching for changes to /Users/bianders/.claude/keybindings.json
+2026-01-28T20:40:48.438Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-28T20:40:48.549Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T20:40:48.550Z [DEBUG] Programmatic settings change notification for policySettings
+2026-01-28T20:40:48.550Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-01-28T20:40:48.551Z [DEBUG] Settings changed from policySettings, updating AppState
+2026-01-28T20:40:48.552Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T20:40:48.552Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T20:40:48.562Z [DEBUG] Policy limits: Fetched successfully
+2026-01-28T20:40:52.364Z [DEBUG] Skipping SessionEnd:other hook execution - workspace trust not accepted

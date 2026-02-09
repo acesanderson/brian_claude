@@ -1,0 +1,147 @@
+from __future__ import annotations
+
+import html
+import json
+import re
+
+import requests
+from bs4 import BeautifulSoup
+
+
+def get_topics(url: str) -> list[tuple[str, str]]:
+    """Extract unique topic names and URLs from AMA topics page."""
+    response = requests.get(url)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Use dict to maintain order and deduplicate by URL
+    topics = {}
+    for p in soup.find_all("p", class_="has-blue-700-color"):
+        link = p.find("a")
+        if link and link.get("href", "").startswith("https://www.ama.org/topics/"):
+            topic_name = link.get_text(strip=True)
+            topic_url = link["href"]
+            topics[topic_url] = topic_name
+
+    return [(name, url) for url, name in topics.items()]
+
+
+def get_courses_from_topic(topic_url: str) -> list[dict]:
+    """Extract basic course info from a topic page."""
+    response = requests.get(topic_url)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Find the hidden input with JSON data
+    archive_input = soup.find("input", {"id": "archive-posts"})
+    if not archive_input:
+        return []
+
+    # Decode the HTML entities and parse JSON
+    json_data = html.unescape(archive_input.get("value", ""))
+    posts = json.loads(json_data)
+
+    courses = []
+    for post in posts:
+        post_type = post.get("post_type")
+        post_name = post.get("post_name")
+
+        # Construct proper URL based on post type
+        if post_type == "ama_event":
+            url = f"https://www.ama.org/events/virtual-training/{post_name}/"
+        elif post_type == "ama_courses":
+            url = f"https://www.ama.org/on-demand/{post_name}/"
+        else:
+            url = post.get("guid", "")
+
+        course = {
+            "id": post.get("ID"),
+            "title": post.get("post_title"),
+            "url": url,
+            "type": "Virtual Training" if post_type == "ama_event" else "On-Demand Course",
+        }
+        courses.append(course)
+
+    return courses
+
+
+def get_course_details(course_url: str) -> dict:
+    """Scrape detailed metadata from a course page."""
+    response = requests.get(course_url)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    details = {}
+
+    # Extract datetime from time tag
+    time_tag = soup.find("time")
+    if time_tag:
+        details["datetime"] = time_tag.get_text(strip=True)
+
+    # Extract duration/level (looks for "Online | X Hours" or "Beginner | X Hours")
+    for p in soup.find_all("p"):
+        text = p.get_text(strip=True)
+        if "|" in text and ("Hours" in text or "Modules" in text):
+            details["duration_info"] = text
+            break
+
+    # Extract prices
+    prices = {}
+    for price_elem in soup.find_all(class_="woocommerce-Price-amount"):
+        # Look for label near price
+        parent = price_elem.find_parent()
+        if parent:
+            label_elem = parent.find_previous("span")
+            if label_elem:
+                label = label_elem.get_text(strip=True)
+                price = price_elem.get_text(strip=True)
+                prices[label] = price
+
+    if prices:
+        details["pricing"] = prices
+
+    return details
+
+
+if __name__ == "__main__":
+    url = "https://www.ama.org/topics/"
+
+    print("Getting topics...\n")
+    topics = get_topics(url)
+
+    print(f"Found {len(topics)} unique topics:\n")
+    for i, (name, topic_url) in enumerate(topics, 1):
+        print(f"{i}. {name}")
+
+    # Get courses from first topic
+    if topics:
+        first_topic_name, first_topic_url = topics[0]
+        print(f"\n\n{'=' * 80}")
+        print(f"Courses from: {first_topic_name}")
+        print("=" * 80 + "\n")
+
+        courses = get_courses_from_topic(first_topic_url)
+        print(f"Found {len(courses)} courses on first page\n")
+
+        # Get details for first 3 courses
+        for i, course in enumerate(courses[:3], 1):
+            print(f"{i}. {course['title']}")
+            print(f"   Type: {course['type']}")
+            print(f"   URL: {course['url']}")
+
+            try:
+                details = get_course_details(course["url"])
+                if details.get("datetime"):
+                    print(f"   Date/Time: {details['datetime']}")
+                if details.get("duration_info"):
+                    print(f"   Details: {details['duration_info']}")
+                if details.get("pricing"):
+                    for label, price in details["pricing"].items():
+                        print(f"   {label}: {price}")
+            except Exception as e:
+                print(f"   Error: {e}")
+
+            print()

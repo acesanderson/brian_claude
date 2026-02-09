@@ -1,0 +1,12 @@
+2026-02-09T20:03:34.926Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-09T20:03:34.926Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-09T20:03:34.926Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-09T20:03:34.926Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-09T20:03:34.964Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-09T20:03:34.969Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-09T20:03:34.970Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-09T20:03:34.970Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-09T20:03:34.970Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-09T20:03:35.185Z [DEBUG] Policy limits: Fetched successfully
+2026-02-09T20:03:35.259Z [DEBUG] Remote settings: No settings found (404)
+2026-02-09T20:03:35.260Z [DEBUG] Programmatic settings change notification for policySettings

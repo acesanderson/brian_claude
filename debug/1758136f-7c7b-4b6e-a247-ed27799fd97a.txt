@@ -1,0 +1,152 @@
+2026-01-21T15:50:30.343Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-21T15:50:30.343Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-21T15:50:30.343Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-21T15:50:30.343Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-21T15:50:30.344Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-21T15:50:30.344Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-21T15:50:30.344Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-21T15:50:30.345Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-21T15:50:30.345Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-21T15:50:30.345Z [DEBUG] Total LSP servers loaded: 0
+2026-01-21T15:50:30.345Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-21T15:50:30.345Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-21T15:50:30.345Z [DEBUG] [STARTUP] MCP configs loaded in 0ms
+2026-01-21T15:50:30.345Z [DEBUG] LSP server manager initialized successfully
+2026-01-21T15:50:30.345Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-21T15:50:30.345Z [DEBUG] [STARTUP] Running setup()...
+2026-01-21T15:50:30.346Z [DEBUG] Stats cache is up to date
+2026-01-21T15:50:30.348Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-21T15:50:30.352Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-21T15:50:30.352Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:1903)
+    at e3 (/$bunfs/root/claude:11:34695)
+    at readdirSync (/$bunfs/root/claude:12:1864)
+    at n6R (/$bunfs/root/claude:1465:380)
+    at n6R (/$bunfs/root/claude:1465:1350)
+    at <anonymous> (/$bunfs/root/claude:1465:4440)
+    at <anonymous> (/$bunfs/root/claude:1465:5171)
+    at A (/$bunfs/root/claude:11:7245)
+    at zC8 (/$bunfs/root/claude:4096:4342)
+2026-01-21T15:50:30.352Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Users/bianders/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:1903)
+    at e3 (/$bunfs/root/claude:11:34695)
+    at readdirSync (/$bunfs/root/claude:12:1864)
+    at n6R (/$bunfs/root/claude:1465:380)
+    at n6R (/$bunfs/root/claude:1465:1350)
+    at <anonymous> (/$bunfs/root/claude:1465:4483)
+    at <anonymous> (/$bunfs/root/claude:1465:5171)
+    at A (/$bunfs/root/claude:11:7245)
+    at zC8 (/$bunfs/root/claude:4096:4342)
+2026-01-21T15:50:30.352Z [DEBUG] Error log sink initialized
+2026-01-21T15:50:30.357Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/1758136f-7c7b-4b6e-a247-ed27799fd97a-agent-1758136f-7c7b-4b6e-a247-ed27799fd97a.json.tmp.78664.1769010630357
+2026-01-21T15:50:30.358Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-01-21T15:50:30.358Z [DEBUG] Renaming /Users/bianders/.claude/todos/1758136f-7c7b-4b6e-a247-ed27799fd97a-agent-1758136f-7c7b-4b6e-a247-ed27799fd97a.json.tmp.78664.1769010630357 to /Users/bianders/.claude/todos/1758136f-7c7b-4b6e-a247-ed27799fd97a-agent-1758136f-7c7b-4b6e-a247-ed27799fd97a.json
+2026-01-21T15:50:30.358Z [DEBUG] File /Users/bianders/.claude/todos/1758136f-7c7b-4b6e-a247-ed27799fd97a-agent-1758136f-7c7b-4b6e-a247-ed27799fd97a.json written atomically
+2026-01-21T15:50:30.361Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-21T15:50:30.361Z [DEBUG] Total plugin skills loaded: 0
+2026-01-21T15:50:30.361Z [DEBUG] Total plugin commands loaded: 0
+2026-01-21T15:50:30.361Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-21T15:50:30.362Z [DEBUG] [STARTUP] setup() completed in 17ms
+2026-01-21T15:50:30.362Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-21T15:50:30.363Z [DEBUG] Total plugin agents loaded: 0
+2026-01-21T15:50:30.363Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, legacy commands: 0)
+2026-01-21T15:50:30.365Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 0 bundled skills
+2026-01-21T15:50:30.366Z [DEBUG] [STARTUP] Commands and agents loaded in 4ms
+2026-01-21T15:50:30.366Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-21T15:50:30.574Z [DEBUG] [render] initYoga starting
+2026-01-21T15:50:30.578Z [DEBUG] Acquired PID lock for 2.1.14 (PID 78664)
+2026-01-21T15:50:30.578Z [DEBUG] Acquired PID lock on running version: /Users/bianders/.local/share/claude/versions/2.1.14
+2026-01-21T15:50:30.582Z [DEBUG] [render] initYoga complete
+2026-01-21T15:50:30.583Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-21T15:50:30.583Z [DEBUG] Summarizing all 3 messages (~0 tokens)
+2026-01-21T15:50:30.584Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-21T15:50:30.585Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-21T15:50:30.585Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-21T15:50:30.585Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-21T15:50:30.587Z [ERROR] Error in non-streaming fallback: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+2026-01-21T15:50:30.587Z [ERROR] Error: Error: Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the "X-Api-Key" or "Authorization" headers to be explicitly omitted
+    at validateHeaders (/$bunfs/root/claude:885:1013)
+    at buildHeaders (/$bunfs/root/claude:885:8517)
+    at async buildRequest (/$bunfs/root/claude:885:7583)
+    at async makeRequest (/$bunfs/root/claude:885:3411)
+    at processTicksAndRejections (native:7:39)
+2026-01-21T15:50:30.588Z [DEBUG] Generated summary for session 9b408748-fb3d-4974-a932-01938f821777: "Invalid API key · Please run /login"
+2026-01-21T15:50:30.589Z [DEBUG] Session index: added 1, updated 0, removed 0, summaries generated 1 (total: 2)
+2026-01-21T15:50:30.605Z [DEBUG] [keybindings] KeybindingSetup initialized with 45 bindings, 0 warnings
+2026-01-21T15:50:30.625Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-21T15:50:30.628Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-21T15:50:30.628Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-21T15:50:30.770Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.14)
+2026-01-21T15:50:30.844Z [DEBUG] High write ratio: blit=0, write=1797 (100.0% writes), screen=36x137
+2026-01-21T15:50:31.167Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-01-21T15:50:31.168Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-01-21T15:50:32.751Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010632751
+2026-01-21T15:50:32.751Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:50:32.753Z [DEBUG] Temp file written successfully, size: 8277 bytes
+2026-01-21T15:50:32.753Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:50:32.753Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010632751 to /Users/bianders/.claude.json
+2026-01-21T15:50:32.754Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:50:32.764Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010632764
+2026-01-21T15:50:32.764Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:50:32.765Z [DEBUG] Temp file written successfully, size: 8277 bytes
+2026-01-21T15:50:32.765Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:50:32.765Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010632764 to /Users/bianders/.claude.json
+2026-01-21T15:50:32.766Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:50:32.783Z [DEBUG] High write ratio: blit=0, write=1150 (100.0% writes), screen=26x137
+2026-01-21T15:51:41.121Z [DEBUG] High write ratio: blit=0, write=1428 (100.0% writes), screen=26x137
+2026-01-21T15:51:41.630Z [DEBUG] High write ratio: blit=0, write=1428 (100.0% writes), screen=26x137
+2026-01-21T15:51:42.466Z [ERROR] Error: Error: Failed to delete keychain entry
+    at iZB (/$bunfs/root/claude:3216:6937)
+    at async WmB (/$bunfs/root/claude:4504:592)
+    at async Q1B (/$bunfs/root/claude:4504:496)
+    at async NQA (/$bunfs/root/claude:2275:62022)
+    at async startOAuthFlow (/$bunfs/root/claude:2275:63583)
+    at processTicksAndRejections (native:7:39)
+2026-01-21T15:51:42.468Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010702468
+2026-01-21T15:51:42.468Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:51:42.469Z [DEBUG] Temp file written successfully, size: 8277 bytes
+2026-01-21T15:51:42.469Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:51:42.469Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010702468 to /Users/bianders/.claude.json
+2026-01-21T15:51:42.469Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:51:42.576Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010702576
+2026-01-21T15:51:42.576Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:51:42.576Z [DEBUG] Temp file written successfully, size: 8277 bytes
+2026-01-21T15:51:42.576Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:51:42.576Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010702576 to /Users/bianders/.claude.json
+2026-01-21T15:51:42.576Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:51:42.768Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010702768
+2026-01-21T15:51:42.768Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:51:42.769Z [DEBUG] Temp file written successfully, size: 8540 bytes
+2026-01-21T15:51:42.769Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:51:42.769Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010702768 to /Users/bianders/.claude.json
+2026-01-21T15:51:42.770Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:51:42.961Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010702961
+2026-01-21T15:51:42.961Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:51:42.962Z [DEBUG] Temp file written successfully, size: 8656 bytes
+2026-01-21T15:51:42.962Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:51:42.962Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010702961 to /Users/bianders/.claude.json
+2026-01-21T15:51:42.962Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:51:43.796Z [ERROR] Error: Error: Failed to delete keychain entry
+    at iZB (/$bunfs/root/claude:3216:6937)
+    at async WmB (/$bunfs/root/claude:4504:592)
+    at async c__ (/$bunfs/root/claude:4503:10032)
+    at async u__ (/$bunfs/root/claude:615:20757)
+    at processTicksAndRejections (native:7:39)
+2026-01-21T15:51:43.860Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010703860
+2026-01-21T15:51:43.860Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:51:43.861Z [DEBUG] Temp file written successfully, size: 8763 bytes
+2026-01-21T15:51:43.861Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:51:43.861Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010703860 to /Users/bianders/.claude.json
+2026-01-21T15:51:43.861Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:51:43.913Z [DEBUG] Getting matching hook commands for Notification with query: auth_success
+2026-01-21T15:51:43.913Z [DEBUG] Found 0 hook matchers in settings
+2026-01-21T15:51:43.913Z [DEBUG] Matched 0 unique hooks for query "auth_success" (0 before deduplication)
+2026-01-21T15:51:59.020Z [DEBUG] High write ratio: blit=0, write=1381 (100.0% writes), screen=30x137
+2026-01-21T15:52:02.058Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.78664.1769010722058
+2026-01-21T15:52:02.058Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:52:02.060Z [DEBUG] Temp file written successfully, size: 8793 bytes
+2026-01-21T15:52:02.060Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:52:02.060Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.78664.1769010722058 to /Users/bianders/.claude.json
+2026-01-21T15:52:02.062Z [DEBUG] File /Users/bianders/.claude.json written atomically

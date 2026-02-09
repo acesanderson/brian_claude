@@ -1,0 +1,250 @@
+---
+name: batch-dispatch
+description: Orchestrates parallel, isolated execution of a skill across a list of inputs using Claude Code's native sandboxing.
+---
+
+## 🔒 Security: Native Sandbox Isolation
+
+**This skill uses Claude Code's built-in sandboxing** to protect your filesystem during parallel execution. Workers automatically run in isolated environments where they can only write to their designated task directories.
+
+## Prerequisites
+
+### 1. Enable Claude Code Sandboxing
+
+**First-time setup (one-time):**
+```bash
+# In your Claude Code session, run:
+> /sandbox
+
+# Choose "Auto-allow mode" for best experience
+```
+
+This enables OS-level sandboxing that restricts what workers can access:
+- **macOS**: Uses Seatbelt (built-in)
+- **Linux/WSL2**: Requires `bubblewrap` and `socat` packages
+
+### 2. Configure Sandbox (Optional but Recommended)
+
+Add to `~/.claude/settings.json`:
+```json
+{
+  "permissions": {
+    "Edit": {
+      "deny": ["~/.ssh/*", "~/.aws/*", "~/.bashrc", "~/.zshrc"]
+    },
+    "Read": {
+      "deny": ["~/.ssh/*", "~/.aws/*", "~/secrets/*"]
+    }
+  },
+  "sandbox": {
+    "network": {
+      "allowedDomains": ["*.anthropic.com", "api.example.com"]
+    }
+  }
+}
+```
+
+## Usage
+
+```bash
+/batch-dispatch <skill_name> <list_of_inputs> <instruction_template> [OPTIONS]
+```
+
+## Arguments
+
+- `skill_name`: Name of the skill to execute in parallel
+- `list_of_inputs`: JSON array of inputs (e.g., `'["url1", "url2"]'`)
+- `instruction_template`: Jinja2 template for task instructions (use `{{ item }}` for current input)
+
+## Options
+
+- `--timeout SECONDS`: Timeout per task in seconds (default: 600 = 10 minutes)
+- `--max-workers N`: Maximum concurrent workers (default: 5)
+- `--skip-sandbox-check`: Skip sandbox verification (not recommended)
+
+## Examples
+
+**Basic usage:**
+```bash
+/batch-dispatch catalog-scraper '["https://site1.com", "https://site2.com"]' "Scrape the catalog from {{ item }}"
+```
+
+**With custom timeout:**
+```bash
+/batch-dispatch catalog-scraper '["https://url1.com", "https://url2.com"]' "Scrape {{ item }}" --timeout 300
+```
+
+**With limited concurrency:**
+```bash
+/batch-dispatch my-skill '["a", "b", "c", "d"]' "Process {{ item }}" --max-workers 2
+```
+
+## How It Works
+
+### 1. Parallel Execution with Sandbox Isolation
+
+```
+Main Process (batch_runner.py)
+├── Worker 1 (task_0/)
+│   ├── cwd: /batch_runs/.../task_0/
+│   ├── Can write: task_0/ only
+│   └── Sandboxed by Claude Code
+├── Worker 2 (task_1/)
+│   ├── cwd: /batch_runs/.../task_1/
+│   ├── Can write: task_1/ only
+│   └── Sandboxed by Claude Code
+└── ...
+```
+
+Each worker:
+- Starts in its own isolated directory (`task_N/`)
+- Runs with `--dangerously-skip-permissions` (auto-approve within sandbox)
+- Claude's sandbox restricts filesystem writes to that directory only
+- All child processes inherit the same restrictions
+
+### 2. Result Collection
+
+Workers save structured data to `result.json` in their task directory. The batch runner aggregates these results.
+
+### 3. Automatic Cleanup
+
+After completion:
+- Moves all artifacts (JSON, XLSX, MD, CSV) to `batch_results_<timestamp>/` in CWD
+- Saves aggregated `summary.json`
+- Deletes temporary `batch_runs/` directory
+
+## Output
+
+Final artifacts in `batch_results_YYYYMMDD_HHMMSS/`:
+- All output files from successful tasks
+- `summary.json` with aggregated results and status
+
+## Security Model
+
+**What workers CANNOT do (with sandboxing enabled):**
+- ❌ Modify files outside their task directory
+- ❌ Write to `~/.ssh`, `~/.bashrc`, `/etc/*`, or other protected paths
+- ❌ Access domains not in your allowlist
+- ❌ Escape to parent directories
+
+**What workers CAN do:**
+- ✅ Read files (subject to deny rules)
+- ✅ Write within their isolated task directory
+- ✅ Access allowed domains (if configured)
+- ✅ Use approved skills
+
+**Even with prompt injection:**
+- The sandbox prevents filesystem damage
+- Network access is restricted by domain allowlist
+- OS-level enforcement (not just prompt-based)
+
+## Troubleshooting
+
+### "Sandboxing does not appear to be configured"
+
+**Solution:**
+```bash
+# Enable sandboxing
+> /sandbox
+
+# Or skip check (not recommended)
+batch_runner.py ... --skip-sandbox-check
+```
+
+### "Workers timing out"
+
+**Solution:**
+```bash
+# Increase timeout (e.g., 10 minutes)
+batch_runner.py ... --timeout 600
+```
+
+### Linux: "bubblewrap not found"
+
+**Solution:**
+```bash
+# Ubuntu/Debian
+sudo apt-get install bubblewrap socat
+
+# Fedora
+sudo dnf install bubblewrap socat
+```
+
+## Best Practices
+
+1. **Always enable sandboxing** before running batch-dispatch
+2. **Configure deny rules** for sensitive directories (`~/.ssh`, `~/.aws`)
+3. **Use domain allowlists** to restrict network access
+4. **Review skills** before batch-dispatching them
+5. **Monitor logs** for sandbox violations
+6. **Start with small batches** to verify behavior
+
+## Security Guarantees
+
+With Claude Code sandboxing enabled:
+
+✅ **Filesystem Protection:**
+- Workers cannot modify files outside their task directory
+- Protected paths (like `~/.bashrc`) are blocked at OS level
+- Even malicious prompt injection cannot escape
+
+✅ **Network Protection:**
+- Only allowed domains are accessible
+- All network requests go through proxy
+- Violations trigger immediate notifications
+
+✅ **Process Isolation:**
+- Each worker runs in separate sandbox
+- One worker cannot affect another
+- Resource limits prevent DoS
+
+## Advanced Configuration
+
+### Custom Sandbox Settings
+
+In `~/.claude/settings.json`:
+```json
+{
+  "sandbox": {
+    "network": {
+      "allowedDomains": ["*.example.com", "api.service.com"],
+      "httpProxyPort": 8080,
+      "socksProxyPort": 8081
+    }
+  },
+  "permissions": {
+    "Bash": {
+      "mode": "auto-allow"  // Auto-approve sandboxed commands
+    },
+    "Edit": {
+      "deny": ["~/.ssh/*", "~/.config/*", "/etc/*"]
+    }
+  }
+}
+```
+
+### Monitoring Workers
+
+Workers log to their task directories. Check for sandbox violations:
+```bash
+# Review worker output
+cat batch_runs/20260205_172022/task_0/*.log
+
+# Check for errors
+grep "sandbox" batch_runs/*/task_*/*.log
+```
+
+## Learn More
+
+- [Claude Code Sandboxing Docs](https://docs.anthropic.com/claude-code/sandboxing)
+- [Security Best Practices](https://docs.anthropic.com/claude-code/security)
+- [Permissions Reference](https://docs.anthropic.com/claude-code/permissions)
+
+## Implementation
+
+```bash
+#!/bin/bash
+SKILL_DIR="$HOME/.claude/skills/batch-dispatch"
+SCRIPT_PATH="$SKILL_DIR/references/batch_runner.py"
+uv run "$SCRIPT_PATH" "$@"
+```

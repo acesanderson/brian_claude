@@ -1,0 +1,1140 @@
+2026-01-30T19:42:19.419Z [DEBUG] Failed to check enabledPlatforms: TypeError: undefined is not an object (evaluating 'aZ.join')
+2026-01-30T19:42:19.531Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-30T19:42:19.531Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-30T19:42:19.531Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-30T19:42:19.531Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-30T19:42:19.533Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-30T19:42:19.542Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-01-30T19:42:19.542Z [DEBUG] [STARTUP] Running setup()...
+2026-01-30T19:42:19.542Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-30T19:42:19.542Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-30T19:42:19.580Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at iW (/$bunfs/root/claude:11:35715)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at wQR (/$bunfs/root/claude:1783:380)
+    at wQR (/$bunfs/root/claude:1783:1350)
+    at <anonymous> (/$bunfs/root/claude:1783:4670)
+    at <anonymous> (/$bunfs/root/claude:1783:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at Ay8 (/$bunfs/root/claude:4793:4342)
+2026-01-30T19:42:19.580Z [DEBUG] Error log sink initialized
+2026-01-30T19:42:19.591Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-30T19:42:19.591Z [DEBUG] Total plugin skills loaded: 0
+2026-01-30T19:42:19.591Z [DEBUG] Total plugin commands loaded: 0
+2026-01-30T19:42:19.591Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-30T19:42:19.618Z [DEBUG] [STARTUP] setup() completed in 76ms
+2026-01-30T19:42:19.618Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-30T19:42:19.620Z [DEBUG] Total plugin agents loaded: 0
+2026-01-30T19:42:19.620Z [DEBUG] Loaded 4 unique skills (managed: 0, user: 4, project: 0, legacy commands: 0)
+2026-01-30T19:42:19.620Z [DEBUG] getSkills returning: 4 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-30T19:42:19.621Z [DEBUG] [STARTUP] Commands and agents loaded in 3ms
+2026-01-30T19:42:19.621Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-30T19:42:19.621Z [DEBUG] [render] initLayout starting
+2026-01-30T19:42:19.621Z [DEBUG] Layout engine: yoga
+2026-01-30T19:42:19.634Z [DEBUG] Acquired PID lock for 2.1.25 (PID 33742)
+2026-01-30T19:42:19.634Z [DEBUG] Acquired PID lock on running version: /Users/bianders/.local/share/claude/versions/2.1.25
+2026-01-30T19:42:19.636Z [DEBUG] [render] initLayout complete
+2026-01-30T19:42:19.638Z [DEBUG] [render] first ink render: 701ms since process start
+2026-01-30T19:42:19.638Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-30T19:42:19.653Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-01-30T19:42:19.655Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-30T19:42:19.680Z [DEBUG] [STARTUP] showSetupScreens() completed in 59ms
+2026-01-30T19:42:19.680Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-30T19:42:19.680Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-30T19:42:19.680Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-30T19:42:19.682Z [DEBUG] Total LSP servers loaded: 0
+2026-01-30T19:42:19.682Z [DEBUG] [STARTUP] MCP configs loaded in 149ms
+2026-01-30T19:42:19.685Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-01-30T19:42:19.692Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.33742.1769802139692
+2026-01-30T19:42:19.692Z [DEBUG] Preserving file permissions: 100644
+2026-01-30T19:42:19.692Z [DEBUG] Temp file written successfully, size: 16434 bytes
+2026-01-30T19:42:19.692Z [DEBUG] Applied original permissions to temp file
+2026-01-30T19:42:19.692Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.33742.1769802139692 to /Users/bianders/.claude.json
+2026-01-30T19:42:19.693Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-30T19:42:19.705Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-30T19:42:19.705Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-30T19:42:19.705Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-30T19:42:19.705Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-01-30T19:42:19.705Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-01-30T19:42:19.705Z [DEBUG] Found 0 hook matchers in settings
+2026-01-30T19:42:19.705Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-01-30T19:42:19.705Z [DEBUG] LSP server manager initialized successfully
+2026-01-30T19:42:19.705Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-30T19:42:19.706Z [DEBUG] [render] initLayout starting
+2026-01-30T19:42:19.706Z [DEBUG] [render] initLayout complete
+2026-01-30T19:42:19.706Z [DEBUG] [render] first ink render: 770ms since process start
+2026-01-30T19:42:19.715Z [DEBUG] [keybindings] Watching for changes to /Users/bianders/.claude/keybindings.json
+2026-01-30T19:42:19.731Z [DEBUG] Git remote URL: git@github.com:acesanderson/rubric.git
+2026-01-30T19:42:19.731Z [DEBUG] Parsed repository: acesanderson/rubric from git@github.com:acesanderson/rubric.git
+2026-01-30T19:42:19.731Z [DEBUG] Parsed repository: acesanderson/rubric from URL: git@github.com:acesanderson/rubric.git
+2026-01-30T19:42:19.736Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.33742.1769802139736
+2026-01-30T19:42:19.736Z [DEBUG] Preserving file permissions: 100644
+2026-01-30T19:42:19.737Z [DEBUG] Temp file written successfully, size: 16520 bytes
+2026-01-30T19:42:19.737Z [DEBUG] Applied original permissions to temp file
+2026-01-30T19:42:19.737Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.33742.1769802139736 to /Users/bianders/.claude.json
+2026-01-30T19:42:19.738Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-30T19:42:19.738Z [DEBUG] Added /Users/bianders/Brian_Code/rubric-project to tracked paths for repo acesanderson/rubric
+2026-01-30T19:42:19.764Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-30T19:42:19.769Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-30T19:42:19.835Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-01-30T19:42:19.836Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-01-30T19:42:19.836Z [DEBUG] performStartupChecks called
+2026-01-30T19:42:19.836Z [DEBUG] Trust not accepted for current directory - skipping plugin installations
+2026-01-30T19:42:19.839Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-30T19:42:19.839Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-30T19:42:20.903Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-01-30T19:42:20.903Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-01-30T19:42:20.903Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-01-30T19:42:20.905Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-01-30T19:42:20.905Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-30T19:42:20.906Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-30T19:42:20.924Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-30T19:42:20.934Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.33742.1769802140934
+2026-01-30T19:42:20.934Z [DEBUG] Preserving file permissions: 100644
+2026-01-30T19:42:20.934Z [DEBUG] Temp file written successfully, size: 16521 bytes
+2026-01-30T19:42:20.934Z [DEBUG] Applied original permissions to temp file
+2026-01-30T19:42:20.934Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.33742.1769802140934 to /Users/bianders/.claude.json
+2026-01-30T19:42:20.936Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-30T19:42:20.980Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T19:42:20.980Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T19:42:20.980Z [DEBUG] Programmatic settings change notification for policySettings
+2026-01-30T19:42:20.980Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-01-30T19:42:20.981Z [DEBUG] Settings changed from policySettings, updating AppState
+2026-01-30T19:42:20.981Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-30T19:42:20.981Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-01-30T19:42:20.982Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-30T19:42:20.985Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.33742.1769802140985
+2026-01-30T19:42:20.985Z [DEBUG] Preserving file permissions: 100644
+2026-01-30T19:42:20.985Z [DEBUG] Temp file written successfully, size: 17120 bytes
+2026-01-30T19:42:20.985Z [DEBUG] Applied original permissions to temp file
+2026-01-30T19:42:20.985Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.33742.1769802140985 to /Users/bianders/.claude.json
+2026-01-30T19:42:20.986Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-30T19:42:20.991Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.33742.1769802140991
+2026-01-30T19:42:20.991Z [DEBUG] Preserving file permissions: 100644
+2026-01-30T19:42:20.991Z [DEBUG] Temp file written successfully, size: 17120 bytes
+2026-01-30T19:42:20.991Z [DEBUG] Applied original permissions to temp file
+2026-01-30T19:42:20.991Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.33742.1769802140991 to /Users/bianders/.claude.json
+2026-01-30T19:42:20.992Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-30T19:42:21.010Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-30T19:42:21.010Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.25.2db; cc_entrypoint=cli;
+2026-01-30T19:42:21.010Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-30T19:42:21.010Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-30T19:42:21.011Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-30T19:42:21.012Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.25)
+2026-01-30T19:42:21.020Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-30T19:42:21.020Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-30T19:42:21.020Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-30T19:42:21.221Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T19:42:21.223Z [DEBUG] Found 2.1.25 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-30T19:42:22.393Z [DEBUG] Stream started - received first chunk
+2026-01-30T19:42:22.587Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.33742.1769802142587
+2026-01-30T19:42:22.587Z [DEBUG] Preserving file permissions: 100644
+2026-01-30T19:42:22.588Z [DEBUG] Temp file written successfully, size: 17288 bytes
+2026-01-30T19:42:22.588Z [DEBUG] Applied original permissions to temp file
+2026-01-30T19:42:22.588Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.33742.1769802142587 to /Users/bianders/.claude.json
+2026-01-30T19:42:22.589Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-30T19:47:21.015Z [DEBUG] BigQuery metrics export: trust not established, skipping
+2026-01-30T20:12:21.326Z [DEBUG] Checking for native installer update to version 2.1.25
+2026-01-30T20:12:21.330Z [DEBUG] Found 2.1.25 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-30T20:42:21.245Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-30T20:42:21.249Z [DEBUG] Downloading native installer version 2.1.27
+2026-01-30T20:42:21.521Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T20:42:21.539Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T20:42:24.033Z [DEBUG] Atomically installed binary to /Users/bianders/.local/share/claude/versions/2.1.27
+2026-01-30T20:42:24.035Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T20:42:24.037Z [DEBUG] Atomically updated symlink /Users/bianders/.local/bin/claude -> /Users/bianders/.local/share/claude/versions/2.1.27
+2026-01-30T20:42:24.037Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-30T21:12:21.292Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-30T21:12:21.299Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-30T21:12:21.300Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T21:12:21.301Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-30T21:42:21.287Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-30T21:42:21.290Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-30T21:42:21.290Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T21:42:21.292Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-30T21:42:21.363Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T21:42:21.428Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T22:18:47.134Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-30T22:18:47.150Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-30T22:18:47.150Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T22:18:47.151Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-30T22:42:21.349Z [DEBUG] Policy limits: Fetched successfully
+2026-01-30T22:42:21.379Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T22:58:28.340Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-30T22:58:28.352Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-30T22:58:28.352Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T22:58:28.353Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-30T23:30:13.374Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-30T23:30:13.375Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-30T23:30:13.375Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-30T23:30:13.375Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-30T23:45:26.337Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T23:45:26.348Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T23:45:26.348Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-30T23:45:26.893Z [DEBUG] Remote settings: Retry 1/5 after 519.2019976859411ms
+2026-01-30T23:45:26.894Z [DEBUG] Policy limits: Retry 1/5 after 534.9105468590822ms
+2026-01-30T23:45:27.725Z [DEBUG] Remote settings: No settings found (404)
+2026-01-30T23:45:27.788Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T00:15:27.434Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T00:15:27.435Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T00:15:27.435Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T00:15:27.436Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T00:32:42.205Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T00:32:42.321Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T00:32:42.321Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T00:52:12.456Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T00:52:12.464Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T00:52:12.464Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T00:52:12.465Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T00:52:12.542Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T00:52:12.579Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T00:52:31.281Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T00:52:31.281Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T01:33:37.882Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T01:33:37.885Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T01:33:37.885Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T01:33:37.885Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T01:41:12.317Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T01:41:12.423Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T01:41:12.423Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T01:58:42.686Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T01:58:42.788Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T02:16:40.335Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T02:16:40.336Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T02:16:40.336Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T02:16:40.337Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T02:34:22.195Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T02:34:22.303Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T02:34:22.304Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T02:55:19.466Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T02:55:19.477Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T02:55:19.477Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T02:55:19.477Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T03:01:47.176Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T03:01:47.311Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T03:01:47.311Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T03:01:48.275Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T03:01:48.287Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T03:33:22.563Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T03:33:22.564Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T03:33:22.564Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T03:33:22.564Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T03:48:27.324Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T03:48:27.430Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T03:48:27.431Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T04:02:48.373Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T04:02:48.417Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T04:03:21.467Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T04:03:21.476Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T04:03:21.477Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T04:03:21.478Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T04:47:17.693Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T04:47:17.695Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T04:47:17.695Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T04:47:17.696Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T05:03:48.540Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T05:03:48.555Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T05:17:55.076Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T05:17:55.077Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T05:17:55.077Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T05:17:55.077Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T05:57:30.442Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T05:57:30.443Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T05:57:30.444Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T05:57:30.444Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T06:04:47.160Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T06:04:47.279Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T06:04:47.279Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T06:04:48.315Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T06:04:48.408Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T06:30:47.262Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T06:30:47.264Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T06:30:47.265Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T06:30:47.266Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T07:03:28.415Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T07:03:28.417Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T07:03:28.417Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T07:03:28.417Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T07:05:48.109Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T07:05:48.165Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T07:33:27.427Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T07:33:27.431Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T07:33:27.432Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T07:33:27.433Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T08:03:27.420Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T08:03:27.432Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T08:03:27.432Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T08:03:27.433Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T08:05:47.366Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T08:05:47.490Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T08:33:27.358Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T08:33:27.361Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T08:33:27.362Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T08:33:27.363Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T09:03:27.342Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T09:03:27.346Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T09:03:27.347Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T09:03:27.348Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T09:05:47.322Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T09:05:47.419Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T09:33:27.349Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T09:33:27.352Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T09:33:27.353Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T09:33:27.354Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T10:03:56.376Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T10:03:56.377Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T10:03:56.378Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T10:03:56.378Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T10:20:12.834Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T10:20:12.869Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T10:43:57.133Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T10:43:57.134Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T10:43:57.134Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T10:43:57.134Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T11:18:07.256Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T11:18:07.257Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T11:18:07.257Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T11:18:07.257Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T11:28:17.208Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T11:28:17.228Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T12:03:42.332Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T12:03:42.333Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T12:03:42.333Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T12:03:42.334Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T12:29:18.829Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T12:29:18.834Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T12:44:26.044Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T12:44:26.045Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T12:44:26.046Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T12:44:26.046Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T13:19:40.046Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T13:19:40.054Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T13:19:40.054Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T13:19:40.054Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T13:30:16.848Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T13:30:16.907Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T14:04:20.219Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T14:04:20.219Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T14:04:20.220Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T14:04:20.220Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T14:31:17.151Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T14:31:17.178Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T14:47:04.101Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T14:47:04.102Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T14:47:04.102Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T14:47:04.102Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T15:17:03.748Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T15:17:03.751Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T15:17:03.752Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T15:17:03.754Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T15:32:18.557Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T15:32:18.570Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T15:48:45.349Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T15:48:45.350Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T15:48:45.351Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T15:48:45.351Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T16:22:11.610Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T16:22:11.619Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T16:22:11.620Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T16:22:11.620Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T16:33:18.902Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T16:33:19.005Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T17:07:53.110Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T17:07:53.112Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T17:07:53.112Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T17:07:53.112Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T17:34:21.743Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T17:34:21.918Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T17:51:55.951Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T17:51:55.955Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T17:51:55.956Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T17:51:55.957Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T18:26:32.056Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T18:26:32.074Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T18:26:32.075Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T18:26:32.075Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T18:35:20.979Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T18:35:21.015Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T18:56:31.229Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T18:56:31.232Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T18:56:31.232Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T18:56:31.239Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T19:31:12.432Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T19:31:12.442Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T19:31:12.442Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T19:31:12.442Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T19:36:21.882Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T19:36:23.799Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T20:13:07.904Z [DEBUG] Checking for native installer update to version 2.1.27
+2026-01-31T20:13:07.905Z [DEBUG] Version 2.1.27 already installed, updating symlink
+2026-01-31T20:13:07.905Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T20:13:07.906Z [DEBUG] Successfully updated to version 2.1.27
+2026-01-31T20:37:24.834Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T20:37:25.011Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T20:53:36.034Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-01-31T20:53:36.037Z [DEBUG] Downloading native installer version 2.1.29
+2026-01-31T20:53:42.705Z [DEBUG] Atomically installed binary to /Users/bianders/.local/share/claude/versions/2.1.29
+2026-01-31T20:53:42.712Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T20:53:42.714Z [DEBUG] Atomically updated symlink /Users/bianders/.local/bin/claude -> /Users/bianders/.local/share/claude/versions/2.1.29
+2026-01-31T20:53:42.714Z [DEBUG] Successfully updated to version 2.1.29
+2026-01-31T20:53:42.731Z [DEBUG] Acquired PID lock for 2.1.22 (PID 33742)
+2026-01-31T20:53:42.744Z [DEBUG] Released PID lock for 2.1.22
+2026-01-31T21:36:19.122Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-01-31T21:36:19.123Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-01-31T21:36:19.123Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T21:36:19.123Z [DEBUG] Successfully updated to version 2.1.29
+2026-01-31T21:38:23.085Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T21:38:23.089Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T21:38:23.089Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T21:38:24.106Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T21:38:24.112Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T22:19:18.871Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-01-31T22:19:18.872Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-01-31T22:19:18.872Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T22:19:18.873Z [DEBUG] Successfully updated to version 2.1.29
+2026-01-31T22:36:08.953Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T22:36:09.068Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T22:36:09.068Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T22:39:24.671Z [DEBUG] Policy limits: Fetched successfully
+2026-01-31T22:39:24.714Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T22:57:25.668Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-01-31T22:57:25.671Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-01-31T22:57:25.672Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T22:57:25.673Z [DEBUG] Successfully updated to version 2.1.29
+2026-01-31T23:14:44.957Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T23:14:45.068Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T23:14:45.068Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T23:30:21.501Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-01-31T23:30:21.503Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-01-31T23:30:21.503Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-31T23:30:21.503Z [DEBUG] Successfully updated to version 2.1.29
+2026-01-31T23:40:24.956Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T23:40:24.970Z [DEBUG] Remote settings: Retry 1/5 after 519.9080191007989ms
+2026-01-31T23:40:24.970Z [DEBUG] Policy limits: Retry 1/5 after 599.3599899493788ms
+2026-01-31T23:40:25.063Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T23:40:25.064Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-01-31T23:40:26.026Z [DEBUG] Remote settings: No settings found (404)
+2026-01-31T23:40:26.026Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T00:15:41.180Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T00:15:41.182Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T00:15:41.182Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T00:15:41.183Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T00:32:24.944Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:32:25.052Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:32:25.053Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T00:41:26.738Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T00:41:26.768Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T00:59:26.994Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T00:59:26.995Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T00:59:26.995Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T00:59:26.995Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T01:17:16.933Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T01:17:17.043Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T01:17:17.043Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T01:33:03.522Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T01:33:03.525Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T01:33:03.525Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T01:33:03.526Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T01:42:26.927Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T01:42:26.940Z [DEBUG] Remote settings: Retry 1/5 after 522.9094863690667ms
+2026-02-01T01:42:26.940Z [DEBUG] Policy limits: Retry 1/5 after 586.5673144931951ms
+2026-02-01T01:42:27.042Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T01:42:27.042Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T01:42:27.951Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T01:42:28.055Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T02:15:05.004Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T02:15:05.006Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T02:15:05.007Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T02:15:05.007Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T02:43:29.046Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T02:43:29.047Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T03:01:23.181Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T03:01:23.182Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T03:01:23.182Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T03:01:23.183Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T03:18:22.916Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T03:18:23.018Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T03:18:23.018Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T03:33:47.147Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T03:33:47.148Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T03:33:47.148Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T03:33:47.149Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T03:44:31.634Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T03:44:31.690Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T04:17:14.034Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T04:17:14.035Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T04:17:14.035Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T04:17:14.036Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T04:32:18.598Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T04:32:18.711Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T04:32:18.711Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T04:45:32.791Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T04:45:32.862Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T05:01:40.192Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T05:01:40.204Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T05:01:40.205Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T05:01:40.205Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T05:10:25.896Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T05:10:26.003Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T05:10:26.003Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T05:43:19.952Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T05:43:19.953Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T05:43:19.953Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T05:43:19.954Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T05:46:33.669Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T05:46:33.714Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T06:21:19.010Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T06:21:19.012Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T06:21:19.012Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T06:21:19.012Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T06:47:35.170Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T06:47:35.221Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T07:06:01.159Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T07:06:01.162Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T07:06:01.162Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T07:06:01.162Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T07:40:09.168Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T07:40:09.169Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T07:40:09.169Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T07:40:09.170Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T07:48:37.448Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T07:48:37.605Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T08:23:30.103Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T08:23:30.104Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T08:23:30.104Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T08:23:30.105Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T08:49:37.035Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T08:49:37.098Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T09:05:36.976Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T09:05:36.978Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T09:05:36.978Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T09:05:36.978Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T09:38:07.453Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T09:38:07.454Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T09:38:07.454Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T09:38:07.454Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T09:56:05.599Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T09:56:05.601Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T10:11:53.056Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T10:11:53.057Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T10:11:53.057Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T10:11:53.057Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T10:44:15.203Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T10:44:15.214Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T10:44:15.214Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T10:44:15.214Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T11:02:14.704Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T11:02:14.711Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T11:19:15.096Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T11:19:15.097Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T11:19:15.097Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T11:19:15.097Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T11:53:43.091Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T11:53:43.092Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T11:53:43.092Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T11:53:43.092Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T12:09:22.716Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T12:09:22.748Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T12:31:21.195Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T12:31:21.201Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T12:31:21.201Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T12:31:21.202Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T13:17:30.890Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T13:17:30.891Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T13:17:30.891Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T13:17:30.891Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T13:17:31.024Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T13:17:31.083Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T14:00:25.245Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T14:00:25.246Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T14:00:25.246Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T14:00:25.247Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T14:34:49.949Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T14:34:49.951Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T14:34:49.951Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T14:34:49.951Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T14:34:49.991Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T14:34:50.087Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T15:16:30.124Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T15:16:30.125Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T15:16:30.125Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T15:16:30.125Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T15:43:29.911Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T15:43:29.912Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T15:59:38.018Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T15:59:38.029Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T15:59:38.029Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T15:59:38.029Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T16:16:53.779Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T16:16:53.882Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T16:16:53.883Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T16:32:01.976Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T16:32:01.977Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T16:32:01.977Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T16:32:01.978Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T16:49:28.770Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T16:49:28.784Z [DEBUG] Remote settings: Retry 1/5 after 549.6236877956379ms
+2026-02-01T16:49:28.785Z [DEBUG] Policy limits: Retry 1/5 after 593.9671067154155ms
+2026-02-01T16:49:28.875Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T16:49:28.876Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T16:49:30.033Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T16:49:30.034Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T17:07:14.915Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T17:07:14.916Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T17:07:14.916Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T17:07:14.917Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T17:22:57.752Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T17:22:57.871Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T17:22:57.871Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T17:41:01.113Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T17:41:01.114Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T17:41:01.114Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T17:41:01.115Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T17:56:05.814Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T17:56:05.833Z [DEBUG] Remote settings: Retry 1/5 after 505.2115833462093ms
+2026-02-01T17:56:05.833Z [DEBUG] Policy limits: Retry 1/5 after 570.8979810646424ms
+2026-02-01T17:56:05.939Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T17:56:05.939Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T17:56:06.987Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T17:56:06.987Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T18:14:23.024Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T18:14:23.025Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T18:14:23.025Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T18:14:23.025Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T18:44:38.464Z [ERROR] Error: Error: Failed to fetch version from https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest: ECONNREFUSED
+    at aN8 (/$bunfs/root/claude:3938:4064)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T18:44:38.490Z [ERROR] Error: Error: Failed to fetch version from https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/latest: ECONNREFUSED
+    at aN8 (/$bunfs/root/claude:3938:4064)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T18:44:41.833Z [ERROR] Error: Error: 1P event logging: 3 events failed to export (code=ECONNREFUSED, ECONNREFUSED)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T18:44:41.833Z [ERROR] Error: Error: {"message":"Failed to export 3 events (code=ECONNREFUSED, ECONNREFUSED)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 3 events (code=ECONNREFUSED, ECONNREFUSED)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T19:03:17.895Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T19:03:17.955Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T19:21:45.837Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T19:21:45.838Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T19:21:45.838Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T19:21:45.839Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T19:35:07.744Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T19:35:07.848Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T19:35:07.848Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T20:09:25.816Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T20:09:25.817Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T20:09:25.817Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T20:09:25.817Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T20:09:25.967Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T20:09:25.978Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T20:54:45.041Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T20:54:45.042Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T20:54:45.042Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T20:54:45.042Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T21:09:49.315Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T21:09:49.414Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T21:09:49.414Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-01T21:09:50.179Z [DEBUG] Remote settings: Retry 1/5 after 619.7322147969786ms
+2026-02-01T21:09:50.180Z [DEBUG] Policy limits: Retry 1/5 after 559.6655118923492ms
+2026-02-01T21:09:51.160Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T21:09:51.311Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T21:36:08.870Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T21:36:08.872Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T21:36:08.872Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T21:36:08.872Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T22:09:29.896Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T22:09:29.901Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T22:09:29.901Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T22:09:29.901Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T22:09:49.532Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T22:09:49.723Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T22:53:50.873Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T22:53:50.873Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T22:53:50.874Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T22:53:50.874Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-01T23:19:04.089Z [DEBUG] Policy limits: Fetched successfully
+2026-02-01T23:19:04.226Z [DEBUG] Remote settings: No settings found (404)
+2026-02-01T23:36:45.935Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-01T23:36:45.936Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-01T23:36:45.936Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-01T23:36:45.936Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T00:10:31.167Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T00:10:31.168Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T00:10:31.168Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T00:10:31.171Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T00:26:56.860Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T00:26:56.896Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T00:55:47.820Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T00:55:47.821Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T00:55:47.821Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T00:55:47.822Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T01:25:46.957Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T01:25:46.961Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T01:25:46.961Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T01:25:46.962Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T01:39:09.963Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T01:39:09.963Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T02:12:29.953Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T02:12:29.954Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T02:12:29.954Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T02:12:29.955Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T02:40:09.991Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T02:40:10.038Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T02:56:56.029Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T02:56:56.030Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T02:56:56.031Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T02:56:56.031Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T03:30:35.748Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T03:30:35.761Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T03:30:35.761Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T03:30:35.762Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T03:41:08.651Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-02T03:41:08.698Z [DEBUG] Remote settings: Retry 1/5 after 601.2617103814815ms
+2026-02-02T03:41:08.698Z [DEBUG] Policy limits: Retry 1/5 after 539.6829774879685ms
+2026-02-02T03:41:08.766Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-02T03:41:08.766Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-02T03:41:09.644Z [DEBUG] Remote settings: Retry 2/5 after 1058.4834589025527ms
+2026-02-02T03:41:09.645Z [DEBUG] Policy limits: Retry 2/5 after 1114.6639858454569ms
+2026-02-02T03:41:10.706Z [DEBUG] Remote settings: Retry 3/5 after 2055.061653758451ms
+2026-02-02T03:41:11.220Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T03:41:12.975Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T04:13:12.328Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T04:13:12.332Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T04:13:12.333Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T04:13:12.334Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T04:28:12.642Z [ERROR] Error: Error: {"message":"Operation timed out.","originalLine":"634","originalColumn":"105851","line":"634","column":"105851","sourceURL":"/$bunfs/root/claude","stack":"Error: Operation timed out.\n    at <anonymous> (/$bunfs/root/claude:634:105851)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:16930)
+    at processTicksAndRejections (native:7:39)
+2026-02-02T04:28:12.754Z [ERROR] Error: Error: 1P event logging: 6 events failed to export (code=ECONNABORTED, timeout of 10000ms exceeded)
+    at queueFailedEvents (/$bunfs/root/claude:640:2350)
+    at async doExport (/$bunfs/root/claude:640:1257)
+    at processTicksAndRejections (native:7:39)
+2026-02-02T04:28:12.754Z [ERROR] Error: Error: {"message":"Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)","originalLine":"640","originalColumn":"1409","line":"640","column":"1409","sourceURL":"/$bunfs/root/claude","stack":"Error: Failed to export 6 events (code=ECONNABORTED, timeout of 10000ms exceeded)\n    at doExport (/$bunfs/root/claude:640:1409)\n    at processTicksAndRejections (native:7:39)","name":"Error"}
+    at error (/$bunfs/root/claude:1976:25028)
+    at <anonymous> (/$bunfs/root/claude:634:34986)
+    at raD (/$bunfs/root/claude:634:35530)
+    at <anonymous> (/$bunfs/root/claude:635:17366)
+    at processTicksAndRejections (native:7:39)
+2026-02-02T04:42:09.548Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T04:42:09.602Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T04:57:54.981Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T04:57:54.982Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T04:57:54.982Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T04:57:54.982Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T05:30:43.928Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T05:30:43.929Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T05:30:43.930Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T05:30:43.930Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T05:43:11.566Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T05:43:11.567Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T06:05:44.956Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T06:05:44.957Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T06:05:44.957Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T06:05:44.957Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T06:44:09.755Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T06:44:09.763Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T06:44:09.763Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T06:44:09.764Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T06:44:11.761Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T06:44:11.762Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T07:24:14.769Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T07:24:14.770Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T07:24:14.770Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T07:24:14.770Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T07:45:11.580Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T07:45:11.682Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T08:02:47.428Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T08:02:47.429Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T08:02:47.429Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T08:02:47.430Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T08:36:22.810Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T08:36:22.812Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T08:36:22.812Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T08:36:22.812Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T08:46:11.441Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T08:46:11.501Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T09:19:19.732Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T09:19:19.733Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T09:19:19.733Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T09:19:19.733Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T09:47:12.026Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T09:47:12.136Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T10:04:00.671Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T10:04:00.672Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T10:04:00.672Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T10:04:00.673Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T10:40:06.804Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T10:40:06.807Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T10:40:06.807Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T10:40:06.809Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T10:48:13.320Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T10:48:13.321Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T11:20:52.806Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T11:20:52.809Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T11:20:52.809Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T11:20:52.809Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T11:49:11.858Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T11:49:11.917Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T12:05:27.604Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T12:05:27.607Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T12:05:27.608Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T12:05:27.608Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T12:39:50.745Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T12:39:50.746Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T12:39:50.746Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T12:39:50.747Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T12:50:11.502Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T12:50:11.596Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T13:17:09.899Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T13:17:09.901Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T13:17:09.901Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T13:17:09.902Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T13:49:34.713Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T13:49:34.714Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T13:49:34.715Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T13:49:34.715Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T13:51:11.500Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T13:51:11.508Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T14:20:49.877Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T14:20:49.888Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T14:20:49.888Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T14:20:49.889Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T14:50:48.735Z [DEBUG] Checking for native installer update to version 2.1.29
+2026-02-02T14:50:48.737Z [DEBUG] Version 2.1.29 already installed, updating symlink
+2026-02-02T14:50:48.737Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-02-02T14:50:48.738Z [DEBUG] Successfully updated to version 2.1.29
+2026-02-02T14:51:10.748Z [DEBUG] Policy limits: Fetched successfully
+2026-02-02T14:51:10.998Z [DEBUG] Remote settings: No settings found (404)
+2026-02-02T15:00:24.752Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-02-02T15:00:24.752Z [DEBUG] Found 0 hook matchers in settings
+2026-02-02T15:00:24.752Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

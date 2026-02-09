@@ -1,0 +1,128 @@
+2026-01-28T19:57:27.645Z [DEBUG] Failed to check enabledPlatforms: TypeError: undefined is not an object (evaluating 'lZ.join')
+2026-01-28T19:57:27.732Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-28T19:57:27.732Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-28T19:57:27.732Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-28T19:57:27.732Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-28T19:57:27.735Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-28T19:57:27.736Z [DEBUG] [ToolSearch:optimistic] mode=standard, ENABLE_TOOL_SEARCH=undefined, result=false
+2026-01-28T19:57:27.736Z [DEBUG] [STARTUP] Running setup()...
+2026-01-28T19:57:27.736Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T19:57:27.737Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-28T19:57:27.737Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T19:57:27.737Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Users/bianders/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4713)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-28T19:57:27.737Z [DEBUG] Error log sink initialized
+2026-01-28T19:57:27.744Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-28T19:57:27.744Z [DEBUG] Total plugin skills loaded: 0
+2026-01-28T19:57:27.744Z [DEBUG] Total plugin commands loaded: 0
+2026-01-28T19:57:27.744Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T19:57:27.744Z [DEBUG] [STARTUP] setup() completed in 8ms
+2026-01-28T19:57:27.744Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-28T19:57:27.746Z [DEBUG] Total plugin agents loaded: 0
+2026-01-28T19:57:27.746Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, legacy commands: 0)
+2026-01-28T19:57:27.746Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-28T19:57:27.747Z [DEBUG] [STARTUP] Commands and agents loaded in 3ms
+2026-01-28T19:57:27.747Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-28T19:57:27.747Z [DEBUG] [render] initLayout starting
+2026-01-28T19:57:27.747Z [DEBUG] Layout engine: yoga
+2026-01-28T19:57:27.749Z [DEBUG] Acquired PID lock for 2.1.22 (PID 53711)
+2026-01-28T19:57:27.749Z [DEBUG] Acquired PID lock on running version: /Users/bianders/.local/share/claude/versions/2.1.22
+2026-01-28T19:57:27.750Z [DEBUG] [render] initLayout complete
+2026-01-28T19:57:27.751Z [DEBUG] [render] first ink render: 292ms since process start
+2026-01-28T19:57:27.751Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-28T19:57:27.763Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-28T19:57:27.773Z [DEBUG] [STARTUP] showSetupScreens() completed in 26ms
+2026-01-28T19:57:27.773Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-28T19:57:27.773Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-28T19:57:27.773Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-28T19:57:27.774Z [DEBUG] Total LSP servers loaded: 0
+2026-01-28T19:57:27.774Z [DEBUG] [STARTUP] MCP configs loaded in 39ms
+2026-01-28T19:57:27.776Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-01-28T19:57:27.777Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53711.1769630247777
+2026-01-28T19:57:27.777Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:57:27.778Z [DEBUG] Temp file written successfully, size: 11741 bytes
+2026-01-28T19:57:27.778Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:57:27.778Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53711.1769630247777 to /Users/bianders/.claude.json
+2026-01-28T19:57:27.778Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:57:27.780Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-28T19:57:27.780Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-28T19:57:27.780Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-28T19:57:27.780Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-01-28T19:57:27.780Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-01-28T19:57:27.780Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T19:57:27.780Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-01-28T19:57:27.780Z [DEBUG] LSP server manager initialized successfully
+2026-01-28T19:57:27.780Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-28T19:57:27.781Z [DEBUG] [render] initLayout starting
+2026-01-28T19:57:27.781Z [DEBUG] [render] initLayout complete
+2026-01-28T19:57:27.781Z [DEBUG] [render] first ink render: 322ms since process start
+2026-01-28T19:57:27.786Z [DEBUG] [keybindings] Watching for changes to /Users/bianders/.claude/keybindings.json
+2026-01-28T19:57:27.788Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-28T19:57:27.796Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-28T19:57:27.818Z [DEBUG] Git remote URL: null
+2026-01-28T19:57:27.818Z [DEBUG] No git remote URL found
+2026-01-28T19:57:27.818Z [DEBUG] Not in a GitHub repository, skipping path mapping update
+2026-01-28T19:57:27.826Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-01-28T19:57:27.828Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-01-28T19:57:27.828Z [DEBUG] performStartupChecks called
+2026-01-28T19:57:27.828Z [DEBUG] Starting background plugin installations
+2026-01-28T19:57:27.828Z [DEBUG] performBackgroundPluginInstallations called
+2026-01-28T19:57:27.830Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T19:57:27.830Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T19:57:28.060Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-01-28T19:57:28.060Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-01-28T19:57:28.060Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-01-28T19:57:28.061Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-01-28T19:57:28.061Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-01-28T19:57:28.061Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T19:57:28.061Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-28T19:57:28.073Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53711.1769630248073
+2026-01-28T19:57:28.073Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:57:28.073Z [DEBUG] Temp file written successfully, size: 11740 bytes
+2026-01-28T19:57:28.073Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:57:28.073Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53711.1769630248073 to /Users/bianders/.claude.json
+2026-01-28T19:57:28.074Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:57:28.079Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-28T19:57:28.080Z [DEBUG] Policy limits: Fetched successfully
+2026-01-28T19:57:28.080Z [DEBUG] Remote settings: No settings found (404)
+2026-01-28T19:57:28.080Z [DEBUG] Programmatic settings change notification for policySettings
+2026-01-28T19:57:28.080Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-01-28T19:57:28.081Z [DEBUG] Settings changed from policySettings, updating AppState
+2026-01-28T19:57:28.081Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-28T19:57:28.082Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-01-28T19:57:28.082Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-28T19:57:28.085Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.53711.1769630248085
+2026-01-28T19:57:28.085Z [DEBUG] Preserving file permissions: 100644
+2026-01-28T19:57:28.086Z [DEBUG] Temp file written successfully, size: 11740 bytes
+2026-01-28T19:57:28.086Z [DEBUG] Applied original permissions to temp file
+2026-01-28T19:57:28.086Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.53711.1769630248085 to /Users/bianders/.claude.json
+2026-01-28T19:57:28.086Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-28T19:57:28.305Z [DEBUG] Checking for native installer update to version 2.1.22
+2026-01-28T19:57:28.306Z [DEBUG] Found 2.1.22 at /Users/bianders/.local/bin/claude, skipping install
+2026-01-28T19:57:29.024Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.22)
+2026-01-28T19:57:29.032Z [DEBUG] Skills and commands included in Skill tool: keybindings-help
+2026-01-28T19:57:29.032Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-28T19:57:29.032Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-28T19:57:29.032Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-28T19:57:38.973Z [DEBUG] Getting matching hook commands for SessionEnd with query: prompt_input_exit
+2026-01-28T19:57:38.973Z [DEBUG] Found 0 hook matchers in settings
+2026-01-28T19:57:38.973Z [DEBUG] Matched 0 unique hooks for query "prompt_input_exit" (0 before deduplication)

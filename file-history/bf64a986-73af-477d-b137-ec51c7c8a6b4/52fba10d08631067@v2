@@ -1,0 +1,120 @@
+from __future__ import annotations
+
+from rerankers import Reranker
+import os
+
+
+COHERE_API_KEY = os.getenv("COHERE_API_KEY")
+JINA_API_KEY = os.getenv("JINA_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# Monkey patch Reranker to force truncation at 512 tokens
+_original_init = Reranker.__init__
+
+def _patched_init(self, *args, **kwargs):
+    _original_init(self, *args, **kwargs)
+
+    # Debug: print all attributes
+    print(f"DEBUG: Reranker attributes: {dir(self)}")
+
+    # Try multiple possible locations for tokenizer
+    tokenizer = None
+    if hasattr(self, 'tokenizer'):
+        tokenizer = self.tokenizer
+        print(f"DEBUG: Found tokenizer at self.tokenizer")
+    elif hasattr(self, 'model') and hasattr(self.model, 'tokenizer'):
+        tokenizer = self.model.tokenizer
+        print(f"DEBUG: Found tokenizer at self.model.tokenizer")
+    elif hasattr(self, '_tokenizer'):
+        tokenizer = self._tokenizer
+        print(f"DEBUG: Found tokenizer at self._tokenizer")
+
+    if tokenizer is not None:
+        print(f"DEBUG: Current max_length: {getattr(tokenizer, 'model_max_length', 'N/A')}")
+        tokenizer.model_max_length = 512
+        print(f"DEBUG: Set max_length to 512")
+    else:
+        print(f"DEBUG: Could not find tokenizer!")
+
+Reranker.__init__ = _patched_init
+
+# Reranker options
+rankers = {
+    "bge": {
+        "model_name": "BAAI/bge-reranker-large",
+        "model_type": "llm-layerwise",
+        "max_length": 512,
+    },
+    "mxbai": {
+        "model_name": "mixedbread-ai/mxbai-rerank-large-v1",
+        "model_type": "cross-encoder",
+    },
+    "ce": {"model_name": "cross-encoder"},
+    "flash": {"model_name": "flashrank"},
+    "colbert": {"model_name": "colbert"},
+    "llm": {"model_name": "llm-layerwise"},
+    "mini": {"model_name": "ce-esci-MiniLM-L12-v2", "model_type": "flashrank"},
+    "t5": {"model_name": "t5"},
+    "jina": {
+        "model_name": "jina-reranker-v2-base-multilingual",
+        "api_key": JINA_API_KEY,
+    },
+    "cohere": {"model_name": "cohere", "api_key": COHERE_API_KEY, "lang": "en"},
+    "rankllm": {"model_name": "rankllm", "api_key": OPENAI_API_KEY},
+}
+
+
+def rerank_options(
+    options: list[dict], query: str, k: int = 5, model_name: str = "bge"
+) -> list[tuple]:
+    """
+    Reranking magic.
+    """
+    ranker = Reranker(**rankers[model_name], verbose=False)
+    if ranker is None:
+        raise ValueError(
+            f"Ranker {model_name} not found. Please check the model name and try again."
+        )
+    ranked_results: list[tuple] = []
+    for option in options:
+        course = option["course_title"]
+        TOC = option["course_description"]
+        ranked = ranker.rank(query=query, docs=[TOC])
+        # Different models return different objects (RankedResults or Result)
+        try:  # See if it's a RankedResults object
+            score = ranked.results[0].score
+        except:  # If not, it's a Result object
+            score = ranked.score
+        ranked_results.append((course, score))
+    # sort ranked_results by highest score
+    ranked_results.sort(key=lambda x: x[1], reverse=True)
+    # Return the five best.
+    return ranked_results[:k]
+
+
+async def rerank_options_async(
+    options: list[dict], query: str, k: int = 5, model_name: str = "bge"
+) -> list[tuple]:
+    """
+    Reranking magic.
+    """
+    ranker = Reranker(**rankers[model_name], verbose=False)
+    if ranker is None:
+        raise ValueError(
+            f"Ranker {model_name} not found. Please check the model name and try again."
+        )
+    ranked_results: list[tuple] = []
+    for option in options:
+        course = option["course_title"]
+        TOC = option["course_description"]
+        ranked = await ranker.rank_async(query=query, docs=[TOC])
+        # Different models return different objects (RankedResults or Result)
+        try:  # See if it's a RankedResults object
+            score = ranked.results[0].score
+        except:  # If not, it's a Result object
+            score = ranked.score
+        ranked_results.append((course, score))
+    # sort ranked_results by highest score
+    ranked_results.sort(key=lambda x: x[1], reverse=True)
+    # Return the five best.
+    return ranked_results[:k]

@@ -1,0 +1,80 @@
+# Procore Learning Catalog Scraping Report
+
+**Date**: 2026-02-05
+**URL**: https://learn.procore.com/
+**Total Courses**: 162
+
+## Architecture
+- **Type**: Single page with JavaScript-enhanced carousels
+- **Data Source**: Server-rendered HTML with course cards
+- **Obstacles**: None (publicly accessible)
+- **Extraction Method**: BeautifulSoup HTML parsing
+
+## Extraction Method
+Static HTML scraping using BeautifulSoup. Course cards are embedded directly in the page markup with consistent structure. Each card contains:
+- Two h2 elements (category and title)
+- One p element (description)
+- Div element with duration information
+- Anchor tag with course URL
+
+The scraper extracts all course cards from the page in a single request.
+
+## Data Quality
+- **Title**: 100.0% complete
+- **Description**: 0.0% complete
+- **Duration**: 0.0% complete
+- **Category**: 100.0% complete
+- **Level**: 0% complete (not available on listing page)
+- **Price**: 100% inferred (platform is free)
+
+## Category Breakdown
+- Procore Tool Training: 64 courses
+- Construction Education: 59 courses
+- Product Education: 31 courses
+- AI in Construction: 6 courses
+- Project Management: 1 courses
+- Procore Safety Qualified: 1 courses
+
+## Limitations
+- **Level information** not visible on the catalog listing page (would require visiting individual course pages)
+- **Instructor information** not available
+- **Duration format** varies (some show ranges like "1-2 hours", others show exact times)
+- Course count on page may include duplicates in different carousel sections
+
+## Recommendations
+1. **For complete metadata**: Consider scraping individual course pages to extract level, prerequisites, and detailed learning objectives
+2. **For de-duplication**: Check for duplicate URLs if courses appear in multiple sections
+3. **For certification info**: Individual course pages likely contain certification details
+
+## Sample Courses
+
+### Project Manager: Core Tools -- General Contractor
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-core-tools-general-contractor
+- **Description**: ...
+
+### Project Manager: Core Tools -- Owner
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-core-tools-owner
+- **Description**: ...
+
+### Project Manager: Core Tools -- Specialty Contractor
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-core-tools-specialty-contractor
+- **Description**: ...
+
+### Project Manager: Project Management -- General Contractor
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-project-management-general-contractor
+- **Description**: ...
+
+### Project Manager: Project Management -- Owner
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-project-management-owner
+- **Description**: ...
+

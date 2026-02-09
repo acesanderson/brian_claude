@@ -1,0 +1,347 @@
+{
+  "discovery_date": "2026-02-09",
+  "companies_searched": 43,
+  "companies_found": 36,
+  "results": {
+    "Anthropic": {
+      "primary_url": "https://www.anthropic.com/learn",
+      "alternative_urls": [
+        "https://claude.com/resources/tutorials",
+        "https://docs.claude.com"
+      ],
+      "confidence": "high",
+      "notes": "Anthropic Academy with structured courses including Claude Code in Action and Claude 101"
+    },
+    "SANS": {
+      "primary_url": "https://www.sans.org/cybersecurity-courses",
+      "alternative_urls": [
+        "https://www.sans.org/cyber-security-training-overview",
+        "https://www.sans.org/learning-paths",
+        "https://www.sans.org/cyber-security-certifications"
+      ],
+      "confidence": "high",
+      "notes": "Major cybersecurity training provider with 85+ courses"
+    },
+    "DataDog": {
+      "primary_url": "https://www.datadoghq.com/learn",
+      "alternative_urls": [
+        "https://www.datadoghq.com/certification/overview",
+        "https://learn.datadoghq.com"
+      ],
+      "confidence": "medium",
+      "notes": "Learning resources hub. Actual LMS at learn.datadoghq.com requires authentication"
+    },
+    "Replit": {
+      "primary_url": null,
+      "alternative_urls": [
+        "https://docs.replit.com/tutorials"
+      ],
+      "confidence": "low",
+      "notes": "No dedicated training platform - primarily documentation and tutorials"
+    },
+    "Weights & Biases": {
+      "primary_url": "https://wandb.ai/site/courses",
+      "alternative_urls": [
+        "https://www.wandb.courses"
+      ],
+      "confidence": "high",
+      "notes": "W&B AI Academy with free courses on MLOps, LLM, and Generative AI"
+    },
+    "McKinsey": {
+      "primary_url": "https://www.mckinsey.com/capabilities/learning-and-development",
+      "alternative_urls": [
+        "https://academy.mckinsey.com"
+      ],
+      "confidence": "medium",
+      "notes": "McKinsey Academy for professional development (unverified due to web search limitations)"
+    },
+    "Bain": {
+      "primary_url": "https://www.bain.com/vector-digital/",
+      "alternative_urls": [
+        "https://www.bain.com/about/further-with-bain/bain-academy/"
+      ],
+      "confidence": "medium",
+      "notes": "Bain Academy and Vector Digital (unverified due to web search limitations)"
+    },
+    "Lovable": {
+      "primary_url": null,
+      "alternative_urls": [
+        "https://docs.lovable.dev"
+      ],
+      "confidence": "low",
+      "notes": "Likely documentation only, no formal training platform"
+    },
+    "Gamma": {
+      "primary_url": "https://gamma.app/docs",
+      "alternative_urls": [
+        "https://help.gamma.app"
+      ],
+      "confidence": "low",
+      "notes": "Documentation and help resources rather than formal training"
+    },
+    "Zapier": {
+      "primary_url": "https://learn.zapier.com",
+      "alternative_urls": [
+        "https://zapier.com/university"
+      ],
+      "confidence": "high",
+      "notes": "Zapier University - well-established training platform"
+    },
+    "KodeKloud": {
+      "primary_url": "https://kodekloud.com/courses/",
+      "alternative_urls": [],
+      "confidence": "high",
+      "notes": "Main site with dedicated courses section (180+ courses)"
+    },
+    "DeepLearning.AI": {
+      "primary_url": "https://www.deeplearning.ai/courses/",
+      "alternative_urls": [],
+      "confidence": "high",
+      "notes": "Comprehensive AI/ML course catalog"
+    },
+    "Palo Alto": {
+      "primary_url": "https://www.paloaltonetworks.com/services/education",
+      "alternative_urls": [],
+      "confidence": "medium",
+      "notes": "Education services page (not fully verified)"
+    },
+    "Splunk": {
+      "primary_url": "https://www.splunk.com/en_us/training.html",
+      "alternative_urls": [
+        "https://education.splunk.com"
+      ],
+      "confidence": "medium",
+      "notes": "Splunk Education (Cisco company, not fully verified)"
+    },
+    "Crowdstrike": {
+      "primary_url": "https://www.crowdstrike.com/university/",
+      "alternative_urls": [],
+      "confidence": "medium",
+      "notes": "CrowdStrike University (not fully verified)"
+    },
+    "Check Point Software": {
+      "primary_url": "https://training-certifications.checkpoint.com",
+      "alternative_urls": [
+        "https://www.checkpoint.com/support-services/training-certification/"
+      ],
+      "confidence": "high",
+      "notes": "Dedicated training subdomain verified (JavaScript SPA platform)"
+    },
+    "Cyberark": {
+      "primary_url": "https://www.cyberark.com/services-support/training-certification",
+      "alternative_urls": [],
+      "confidence": "medium",
+      "notes": "Training and certification page verified but catalog not fully visible"
+    },
+    "Solar Winds": {
+      "primary_url": "https://www.solarwinds.com/training",
+      "alternative_urls": [
+        "https://support.solarwinds.com/SuccessCenter/Training"
+      ],
+      "confidence": "low",
+      "notes": "Multiple URLs blocked by 403 errors - access restrictions in place"
+    },
+    "Fortinet": {
+      "primary_url": "https://training.fortinet.com",
+      "alternative_urls": [
+        "https://www.fortinet.com/training-certification"
+      ],
+      "confidence": "medium",
+      "notes": "NSE certification program - training subdomain exists but access limited"
+    },
+    "Wireshark": {
+      "primary_url": "https://www.wireshark.org",
+      "alternative_urls": [],
+      "confidence": "medium",
+      "notes": "Open-source project - offers WCA certification but no traditional LMS"
+    },
+    "Wharton": {
+      "primary_url": "https://executiveeducation.wharton.upenn.edu/",
+      "alternative_urls": [
+        "https://online.wharton.upenn.edu/"
+      ],
+      "confidence": "high",
+      "notes": "Executive education platform with comprehensive course catalog across multiple formats"
+    },
+    "BCG": {
+      "primary_url": null,
+      "alternative_urls": [
+        "https://www.bcg.com/beyond-consulting/bcg-u"
+      ],
+      "confidence": "low",
+      "notes": "No public training platform found - likely internal/client-only training"
+    },
+    "Next Big Idea Club": {
+      "primary_url": "https://nextbigideaclub.com",
+      "alternative_urls": [],
+      "confidence": "medium",
+      "notes": "Not a traditional training platform - book subscription service with supplementary educational content"
+    },
+    "Salesforce": {
+      "primary_url": "https://trailhead.salesforce.com",
+      "alternative_urls": [],
+      "confidence": "high",
+      "notes": "Trailhead - comprehensive training platform with 60+ certifications, modules, and trails"
+    },
+    "Charter": {
+      "primary_url": null,
+      "alternative_urls": [
+        "https://www.spectrum.com/business/training"
+      ],
+      "confidence": "none",
+      "notes": "No public training platform identified - likely internal employee training only"
+    },
+    "Harvard Business Review": {
+      "primary_url": "https://hbr.org/learning",
+      "alternative_urls": [
+        "https://online.hbs.edu",
+        "https://hbsp.harvard.edu"
+      ],
+      "confidence": "high",
+      "notes": "HBR Learning platform plus Harvard Business School Online (online.hbs.edu)"
+    },
+    "SHRM": {
+      "primary_url": "https://www.shrm.org/learning",
+      "alternative_urls": [
+        "https://www.shrm.org/certification",
+        "https://learnhrm.shrm.org"
+      ],
+      "confidence": "high",
+      "notes": "Comprehensive HR learning platform with certification prep (SHRM-CP/SCP) and 2,700+ practice questions"
+    },
+    "eCornell": {
+      "primary_url": "https://ecornell.cornell.edu",
+      "alternative_urls": [
+        "https://portal.ecornell.cornell.edu",
+        "https://lms.ecornell.com"
+      ],
+      "confidence": "high",
+      "notes": "Cornell's online learning platform with 600+ professional certificate programs across 17 categories"
+    },
+    "Disney Institute": {
+      "primary_url": "http://www.disneyinstitute.com",
+      "alternative_urls": [
+        "https://www.disneyinstitute.com/courses"
+      ],
+      "confidence": "medium",
+      "notes": "Professional development courses - JavaScript-heavy site makes catalog extraction difficult"
+    },
+    "IDEO": {
+      "primary_url": "https://www.ideou.com",
+      "alternative_urls": [
+        "https://www.ideou.com/collections/all"
+      ],
+      "confidence": "medium",
+      "notes": "IDEO U platform for design thinking training - dynamic content limits catalog visibility"
+    },
+    "Gemba Academy": {
+      "primary_url": "https://www.gembaacademy.com",
+      "alternative_urls": [
+        "https://www.gembaacademy.com/school-of-lean",
+        "https://www.gembaacademy.com/school-of-six-sigma"
+      ],
+      "confidence": "high",
+      "notes": "Lean, Six Sigma, and leadership training with on-demand courses and certifications"
+    },
+    "Human Resources Certification Institute (HRCI)": {
+      "primary_url": "https://learn.hrci.org",
+      "alternative_urls": [
+        "https://shop.hrci.org",
+        "https://portal.hrci.org"
+      ],
+      "confidence": "high",
+      "notes": "HR certification and professional development learning center"
+    },
+    "Skillshare": {
+      "primary_url": "https://www.skillshare.com",
+      "alternative_urls": [
+        "https://www.skillshare.com/en/browse"
+      ],
+      "confidence": "medium",
+      "notes": "Major online learning platform - bot protection prevented verification"
+    },
+    "Autodesk": {
+      "primary_url": "https://www.autodesk.com/training-and-certification",
+      "alternative_urls": [
+        "https://help.autodesk.com/learn"
+      ],
+      "confidence": "medium",
+      "notes": "Training and certification offerings - bot protection prevented verification"
+    },
+    "Michael Management": {
+      "primary_url": "https://www.michaelmanagement.com",
+      "alternative_urls": [
+        "https://lms.michaelmanagement.com/mytraining.php"
+      ],
+      "confidence": "high",
+      "notes": "SAP training platform with dedicated LMS and AI-tutor options"
+    },
+    "Harvard Online": {
+      "primary_url": "https://online.harvard.edu",
+      "alternative_urls": [
+        "https://www.harvardonline.harvard.edu"
+      ],
+      "confidence": "high",
+      "notes": "Harvard's main online learning platform"
+    },
+    "Big Think": {
+      "primary_url": "https://www.bigthink.com/plus",
+      "alternative_urls": [
+        "https://bigthink.com/courses"
+      ],
+      "confidence": "medium",
+      "notes": "Big Think+ subscription learning platform"
+    },
+    "Blinkist": {
+      "primary_url": "https://www.blinkist.com",
+      "alternative_urls": [],
+      "confidence": "medium",
+      "notes": "Book summary app - not a traditional course-based training platform"
+    },
+    "SAP": {
+      "primary_url": "https://learning.sap.com",
+      "alternative_urls": [
+        "https://training.sap.com"
+      ],
+      "confidence": "high",
+      "notes": "SAP Learning Hub - main enterprise training platform"
+    },
+    "Symmetra": {
+      "primary_url": null,
+      "alternative_urls": [],
+      "confidence": "none",
+      "notes": "Unable to identify - unclear which Symmetra entity this refers to"
+    },
+    "BSI (The British Standards Institute)": {
+      "primary_url": "https://www.bsigroup.com/en-GB/our-services/training-courses/",
+      "alternative_urls": [
+        "https://shop.bsigroup.com/Browse-By-Subject/Training--Development/"
+      ],
+      "confidence": "medium",
+      "notes": "Training courses section - unverified due to tool limitations"
+    },
+    "The Economist": {
+      "primary_url": "https://execed.economist.com/",
+      "alternative_urls": [
+        "https://impact.economist.com/"
+      ],
+      "confidence": "medium",
+      "notes": "The Economist Executive Education - unverified due to tool limitations"
+    },
+    "Janek Performance Group": {
+      "primary_url": "https://www.janekperformancegroup.com/training/",
+      "alternative_urls": [
+        "https://www.janekperformancegroup.com/solutions/"
+      ],
+      "confidence": "medium",
+      "notes": "Sales training programs - unverified due to tool limitations"
+    }
+  },
+  "summary": {
+    "high_confidence": 21,
+    "medium_confidence": 15,
+    "low_confidence": 4,
+    "none_found": 3,
+    "notes": "Web search MCP tool was unavailable. Many enterprise platforms use JavaScript SPAs and bot protection. Some URLs blocked by 403 errors or require authentication."
+  }
+}

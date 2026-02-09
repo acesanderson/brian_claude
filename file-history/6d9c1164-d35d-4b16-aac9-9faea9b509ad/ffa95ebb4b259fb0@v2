@@ -1,0 +1,47 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+import pandas as pd
+
+
+def consolidate_excel_files(directory: Path, output_file: str) -> None:
+    """Consolidate all Excel files in a directory into one file with source attribution."""
+    xlsx_files = list(directory.glob("*.xlsx"))
+
+    if not xlsx_files:
+        print("No Excel files found in the directory")
+        return
+
+    all_dataframes = []
+
+    for xlsx_file in xlsx_files:
+        print(f"Reading {xlsx_file.name}...")
+        try:
+            df = pd.read_excel(xlsx_file)
+            df["source_file"] = xlsx_file.name
+            all_dataframes.append(df)
+            print(f"  - {len(df)} rows")
+        except Exception as e:
+            print(f"  - Error reading {xlsx_file.name}: {e}")
+
+    if not all_dataframes:
+        print("No data to consolidate")
+        return
+
+    consolidated_df = pd.concat(all_dataframes, ignore_index=True)
+
+    cols = list(consolidated_df.columns)
+    cols.remove("source_file")
+    cols = ["source_file"] + cols
+    consolidated_df = consolidated_df[cols]
+
+    consolidated_df.to_excel(output_file, index=False)
+    print(f"\nConsolidated {len(all_dataframes)} files into {output_file}")
+    print(f"Total rows: {len(consolidated_df)}")
+
+
+if __name__ == "__main__":
+    current_dir = Path(__file__).parent
+    output_file = current_dir / "consolidated_catalog.xlsx"
+    consolidate_excel_files(current_dir, str(output_file))

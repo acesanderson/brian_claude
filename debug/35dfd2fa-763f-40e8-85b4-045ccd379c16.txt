@@ -1,0 +1,185 @@
+2026-01-21T15:43:31.066Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-21T15:43:31.066Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-21T15:43:31.066Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-21T15:43:31.066Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-21T15:43:31.075Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211075
+2026-01-21T15:43:31.075Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.075Z [DEBUG] Temp file written successfully, size: 80488 bytes
+2026-01-21T15:43:31.075Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.075Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211075 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.076Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.088Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211088
+2026-01-21T15:43:31.088Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.088Z [DEBUG] Temp file written successfully, size: 80523 bytes
+2026-01-21T15:43:31.088Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.088Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211088 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.088Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.094Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211094
+2026-01-21T15:43:31.094Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.094Z [DEBUG] Temp file written successfully, size: 80559 bytes
+2026-01-21T15:43:31.094Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.094Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211094 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.094Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.100Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211100
+2026-01-21T15:43:31.100Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.100Z [DEBUG] Temp file written successfully, size: 80596 bytes
+2026-01-21T15:43:31.100Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.100Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211100 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.101Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.135Z [DEBUG] Stats cache does not exist, returning empty cache
+2026-01-21T15:43:31.136Z [DEBUG] Stats cache empty, processing all historical data in background
+2026-01-21T15:43:31.138Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-01-21T15:43:31.143Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-01-21T15:43:31.144Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:1903)
+    at e3 (/$bunfs/root/claude:11:34695)
+    at readdirSync (/$bunfs/root/claude:12:1864)
+    at n6R (/$bunfs/root/claude:1465:380)
+    at n6R (/$bunfs/root/claude:1465:1350)
+    at <anonymous> (/$bunfs/root/claude:1465:4440)
+    at <anonymous> (/$bunfs/root/claude:1465:5171)
+    at A (/$bunfs/root/claude:11:7245)
+    at zC8 (/$bunfs/root/claude:4096:4342)
+2026-01-21T15:43:31.144Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Users/bianders/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:1903)
+    at e3 (/$bunfs/root/claude:11:34695)
+    at readdirSync (/$bunfs/root/claude:12:1864)
+    at n6R (/$bunfs/root/claude:1465:380)
+    at n6R (/$bunfs/root/claude:1465:1350)
+    at <anonymous> (/$bunfs/root/claude:1465:4483)
+    at <anonymous> (/$bunfs/root/claude:1465:5171)
+    at A (/$bunfs/root/claude:11:7245)
+    at zC8 (/$bunfs/root/claude:4096:4342)
+2026-01-21T15:43:31.144Z [DEBUG] Error log sink initialized
+2026-01-21T15:43:31.157Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/35dfd2fa-763f-40e8-85b4-045ccd379c16-agent-35dfd2fa-763f-40e8-85b4-045ccd379c16.json.tmp.37179.1769010211157
+2026-01-21T15:43:31.157Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-01-21T15:43:31.157Z [DEBUG] Renaming /Users/bianders/.claude/todos/35dfd2fa-763f-40e8-85b4-045ccd379c16-agent-35dfd2fa-763f-40e8-85b4-045ccd379c16.json.tmp.37179.1769010211157 to /Users/bianders/.claude/todos/35dfd2fa-763f-40e8-85b4-045ccd379c16-agent-35dfd2fa-763f-40e8-85b4-045ccd379c16.json
+2026-01-21T15:43:31.157Z [DEBUG] File /Users/bianders/.claude/todos/35dfd2fa-763f-40e8-85b4-045ccd379c16-agent-35dfd2fa-763f-40e8-85b4-045ccd379c16.json written atomically
+2026-01-21T15:43:31.164Z [DEBUG] [render] initYoga starting
+2026-01-21T15:43:31.165Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-21T15:43:31.166Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-21T15:43:31.166Z [DEBUG] Total plugin skills loaded: 0
+2026-01-21T15:43:31.166Z [DEBUG] Total plugin commands loaded: 0
+2026-01-21T15:43:31.166Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-21T15:43:31.166Z [DEBUG] Loaded 0 unique skills (managed: 0, user: 0, project: 0, legacy commands: 0)
+2026-01-21T15:43:31.167Z [DEBUG] getSkills returning: 0 skill dir commands, 0 plugin skills, 0 bundled skills
+2026-01-21T15:43:31.170Z [DEBUG] Stats cache saved successfully (lastComputedDate: 2026-01-20)
+2026-01-21T15:43:31.170Z [DEBUG] Stats cache updated with 2 sessions
+2026-01-21T15:43:31.172Z [DEBUG] [render] initYoga complete
+2026-01-21T15:43:31.175Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211175
+2026-01-21T15:43:31.175Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.175Z [DEBUG] Temp file written successfully, size: 5517 bytes
+2026-01-21T15:43:31.175Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.175Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211175 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.176Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.176Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-21T15:43:31.205Z [DEBUG] Install: Starting installation process (force=false, target=undefined)
+2026-01-21T15:43:31.205Z [DEBUG] Install: Calling installLatest(channelOrVersion=latest, forceReinstall=false)
+2026-01-21T15:43:31.209Z [DEBUG] [Claude in Chrome] Found edge profiles: Default
+2026-01-21T15:43:31.209Z [DEBUG] [Claude in Chrome] Extension not found in any browser
+2026-01-21T15:43:31.222Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211222
+2026-01-21T15:43:31.222Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.222Z [DEBUG] Temp file written successfully, size: 5560 bytes
+2026-01-21T15:43:31.222Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.222Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211222 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.223Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.284Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211284
+2026-01-21T15:43:31.284Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.285Z [DEBUG] Temp file written successfully, size: 5560 bytes
+2026-01-21T15:43:31.285Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.285Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211284 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.286Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.297Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211297
+2026-01-21T15:43:31.297Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.298Z [DEBUG] Temp file written successfully, size: 5736 bytes
+2026-01-21T15:43:31.298Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.298Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211297 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.298Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.308Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211308
+2026-01-21T15:43:31.308Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.308Z [DEBUG] Temp file written successfully, size: 5772 bytes
+2026-01-21T15:43:31.308Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.308Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211308 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.309Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.318Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211318
+2026-01-21T15:43:31.318Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.319Z [DEBUG] Temp file written successfully, size: 5800 bytes
+2026-01-21T15:43:31.319Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.319Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211318 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.320Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.339Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211339
+2026-01-21T15:43:31.339Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.340Z [DEBUG] Temp file written successfully, size: 5839 bytes
+2026-01-21T15:43:31.340Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.340Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211339 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.341Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.348Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211348
+2026-01-21T15:43:31.348Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.348Z [DEBUG] Temp file written successfully, size: 5877 bytes
+2026-01-21T15:43:31.351Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.351Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211348 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.352Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.357Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211357
+2026-01-21T15:43:31.357Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.358Z [DEBUG] Temp file written successfully, size: 5916 bytes
+2026-01-21T15:43:31.358Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.358Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211357 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.358Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.363Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211363
+2026-01-21T15:43:31.363Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.364Z [DEBUG] Temp file written successfully, size: 5946 bytes
+2026-01-21T15:43:31.364Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.364Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211363 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.365Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.374Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211374
+2026-01-21T15:43:31.374Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.375Z [DEBUG] Temp file written successfully, size: 5991 bytes
+2026-01-21T15:43:31.375Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.375Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211374 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.375Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.379Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211379
+2026-01-21T15:43:31.379Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.380Z [DEBUG] Temp file written successfully, size: 6036 bytes
+2026-01-21T15:43:31.380Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.380Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211379 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.380Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.388Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211388
+2026-01-21T15:43:31.388Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.389Z [DEBUG] Temp file written successfully, size: 6066 bytes
+2026-01-21T15:43:31.389Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.389Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211388 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.389Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.405Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010211405
+2026-01-21T15:43:31.405Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:31.406Z [DEBUG] Temp file written successfully, size: 6090 bytes
+2026-01-21T15:43:31.406Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:31.406Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010211405 to /Users/bianders/.claude.json
+2026-01-21T15:43:31.407Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:31.419Z [DEBUG] Remote settings: No settings found (404)
+2026-01-21T15:43:31.419Z [DEBUG] Programmatic settings change notification for policySettings
+2026-01-21T15:43:31.420Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-01-21T15:43:31.420Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-21T15:43:31.420Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-21T15:43:31.469Z [DEBUG] Checking for native installer update to version 2.1.14
+2026-01-21T15:43:31.471Z [DEBUG] Downloading native installer version 2.1.14
+2026-01-21T15:43:31.826Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.claude/downloads/claude-2.1.14-darwin-arm64)
+2026-01-21T15:43:34.431Z [DEBUG] Atomically installed binary to /Users/bianders/.local/share/claude/versions/2.1.14
+2026-01-21T15:43:34.437Z [DEBUG] Could not remove empty directory at /Users/bianders/.local/bin/claude: Error: ENOENT: no such file or directory, stat '/Users/bianders/.local/bin/claude'
+2026-01-21T15:43:34.438Z [DEBUG] Created directory /Users/bianders/.local/bin for symlink
+2026-01-21T15:43:34.439Z [DEBUG] Atomically updated symlink /Users/bianders/.local/bin/claude -> /Users/bianders/.local/share/claude/versions/2.1.14
+2026-01-21T15:43:34.439Z [DEBUG] Successfully updated to version 2.1.14
+2026-01-21T15:43:34.441Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.37179.1769010214441
+2026-01-21T15:43:34.441Z [DEBUG] Preserving file permissions: 100644
+2026-01-21T15:43:34.442Z [DEBUG] Temp file written successfully, size: 6131 bytes
+2026-01-21T15:43:34.442Z [DEBUG] Applied original permissions to temp file
+2026-01-21T15:43:34.442Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.37179.1769010214441 to /Users/bianders/.claude.json
+2026-01-21T15:43:34.443Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-01-21T15:43:34.444Z [DEBUG] Native installer: Set installMethod to "native" and disabled legacy auto-updater for protection
+2026-01-21T15:43:34.453Z [DEBUG] Install: installLatest returned version=2.1.14, wasUpdated=true, lockFailed=false
+2026-01-21T15:43:34.458Z [DEBUG] Install: Setup launcher completed with 0 messages
+2026-01-21T15:43:34.458Z [DEBUG] Install: Cleaning up npm installations after successful install
+2026-01-21T15:43:34.471Z [DEBUG] Removed global npm installation of @anthropic-ai/claude-code
+2026-01-21T15:43:34.471Z [DEBUG] Cleaned up 1 npm installation(s)
+2026-01-21T15:43:34.477Z [DEBUG] Install: Shell PATH already configured

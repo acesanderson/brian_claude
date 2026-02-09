@@ -1,0 +1,152 @@
+# Course Catalog Scraping - Quick Reference
+
+## What Was Done
+
+Scraped course catalogs from 9 training providers for LinkedIn Learning licensing evaluation.
+
+**Result**: 249 courses from 7 providers successfully extracted.
+
+---
+
+## Key Files (Start Here)
+
+| File | Purpose | Use When |
+|------|---------|----------|
+| `ALL_PROVIDERS_CONSOLIDATED.csv` | All 249 courses in one spreadsheet | You want to browse all courses at once |
+| `MASTER_REPORT.md` | Complete analysis with recommendations | You need detailed findings and next steps |
+| `README.md` | Project overview and file structure | You need to understand what's available |
+
+---
+
+## Provider-Specific Files
+
+Format: `{provider}_catalog.{json,csv}` and `{provider}_report.md`
+
+**Available Providers:**
+- `ama` - AMA (34 courses)
+- `arista` - Arista Networks (8 courses)
+- `astronomer` - Astronomer Academy (46 courses)
+- `canonical` - Canonical Academy (102 courses)
+- `mailchimp` - Mailchimp Academy (42 courses)
+- `sales_management` - Sales Management Association (15 courses)
+- `zendesk` - Zendesk Training (2 courses)
+
+---
+
+## Top 3 Providers by Course Count
+
+1. **Canonical Academy** - 102 courses (Ubuntu/Linux)
+2. **Astronomer Academy** - 46 courses (Apache Airflow)
+3. **Mailchimp Academy** - 42 courses (Email Marketing)
+
+---
+
+## Could Not Scrape
+
+- **American Staffing Association** - Requires login credentials
+- **JetBrains Academy** - JavaScript-heavy, needs browser automation
+
+---
+
+## Data Fields Available
+
+✓ **100% Complete**: provider, title
+✓ **High**: url (95%)
+⚠ **Medium**: format (60%), category (50%), description (40%)
+⚠ **Low**: price (30%), duration (20%), level (15%)
+
+---
+
+## Common Tasks
+
+### View All Courses
+```bash
+open ALL_PROVIDERS_CONSOLIDATED.csv
+```
+
+### Search for Specific Topics
+```bash
+grep -i "keyword" ALL_PROVIDERS_CONSOLIDATED.csv
+```
+
+### Count Courses by Provider
+```bash
+python -c "import pandas as pd; df = pd.read_csv('ALL_PROVIDERS_CONSOLIDATED.csv'); print(df['provider'].value_counts())"
+```
+
+### Re-run Scraping (to get updates)
+```bash
+python scrape_all_providers.py
+python scrape_targeted.py
+```
+
+---
+
+## File Structure
+
+```
+scraping/
+├── ALL_PROVIDERS_CONSOLIDATED.csv    ← Start here for data
+├── MASTER_REPORT.md                  ← Start here for analysis
+├── README.md                         ← Start here for overview
+├── QUICK_REFERENCE.md               ← This file
+│
+├── Provider Catalogs (7 × 3 = 21 files)
+│   ├── {provider}_catalog.json
+│   ├── {provider}_catalog.csv
+│   └── {provider}_report.md
+│
+├── Scripts (reproducible)
+│   ├── analyze_providers.py
+│   ├── scrape_all_providers.py
+│   └── scrape_targeted.py
+│
+└── Metadata
+    ├── final_summary.json
+    └── provider_analysis.json
+```
+
+---
+
+## Next Actions for LinkedIn Team
+
+1. **Content Review** (1-2 hours)
+   - Open `ALL_PROVIDERS_CONSOLIDATED.csv`
+   - Sort by provider and browse course titles
+   - Identify topics that align with LinkedIn Learning
+
+2. **Deep Dive Top Providers** (2-4 hours)
+   - Visit Canonical Academy (102 courses)
+   - Visit Astronomer Academy (46 courses)
+   - Visit Mailchimp Academy (42 courses)
+   - Assess content quality and production values
+
+3. **Competitive Analysis** (1-2 hours)
+   - Compare course topics with existing LinkedIn Learning content
+   - Identify gaps and opportunities
+   - Check for duplicate/overlapping content
+
+4. **Licensing Evaluation** (varies)
+   - Contact top 3 providers for licensing discussions
+   - Request sample course access
+   - Evaluate pricing and terms
+
+5. **Technical Follow-up** (if needed)
+   - Implement Selenium scraper for Zendesk (get full catalog)
+   - Contact American Staffing for catalog access
+   - Contact JetBrains for API or catalog access
+
+---
+
+## Questions?
+
+- Technical details → See `MASTER_REPORT.md`
+- How to use files → See `README.md`
+- Re-run scrapers → See script files (`.py`)
+- Course data → See CSV files
+
+---
+
+**Date**: 2026-02-05
+**Total Courses**: 249
+**Providers**: 7/9 successful

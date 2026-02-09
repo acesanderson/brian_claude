@@ -1,0 +1,18 @@
+2026-02-09T20:03:27.166Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-09T20:03:27.166Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-09T20:03:27.166Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-09T20:03:27.166Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-09T20:03:27.201Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-09T20:03:27.208Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-09T20:03:27.209Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-09T20:03:27.209Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-09T20:03:27.209Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-09T20:03:27.442Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.41646.1770667407442
+2026-02-09T20:03:27.442Z [DEBUG] Preserving file permissions: 100644
+2026-02-09T20:03:27.443Z [DEBUG] Temp file written successfully, size: 24973 bytes
+2026-02-09T20:03:27.443Z [DEBUG] Applied original permissions to temp file
+2026-02-09T20:03:27.443Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.41646.1770667407442 to /Users/bianders/.claude.json
+2026-02-09T20:03:27.443Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-09T20:03:27.456Z [DEBUG] Policy limits: Fetched successfully
+2026-02-09T20:03:27.505Z [DEBUG] Remote settings: No settings found (404)
+2026-02-09T20:03:27.505Z [DEBUG] Programmatic settings change notification for policySettings

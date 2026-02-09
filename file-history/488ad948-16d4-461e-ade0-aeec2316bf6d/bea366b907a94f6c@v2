@@ -1,0 +1,148 @@
+from __future__ import annotations
+
+import json
+from datetime import datetime
+
+import pandas as pd
+
+# Load cleaned data
+with open('zendesk_catalog.json', 'r', encoding='utf-8') as f:
+    courses = json.load(f)
+
+df = pd.DataFrame(courses)
+
+# Calculate stats
+total = len(courses)
+completeness = {
+    'title': (df['title'].notna() & (df['title'] != '')).sum() / total * 100,
+    'description': (df['description'].notna() & (df['description'] != '')).sum() / total * 100,
+    'url': (df['url'].notna() & (df['url'] != '')).sum() / total * 100,
+    'language': (df['language'].notna() & (df['language'] != '')).sum() / total * 100,
+}
+
+# Type breakdown
+type_counts = df['learning_path'].value_counts()
+language_counts = df['language'].value_counts()
+role_counts = df['target_role'].value_counts()
+
+# Generate report
+report = f"""# Zendesk Training Catalog Scraping Report
+
+**Date**: {datetime.now().strftime('%Y-%m-%d')}
+**URL**: https://training.zendesk.com
+**Total Courses/Paths**: {total}
+
+## Architecture
+- **Type**: Single Page Catalog
+- **Platform**: Skilljar (SaaS learning platform)
+- **Data Source**: Server-rendered HTML
+- **Obstacles**: CloudFront protection (bypassed with proper User-Agent headers)
+
+## Extraction Method
+Extracted course and learning path links from the main catalog page. The site organizes content into:
+- **Learning Paths**: Curated sequences of courses organized by topic
+- **Plans**: Training packages (e.g., Digital Launch Package)
+- **Individual Courses**: Standalone training modules
+
+Used BeautifulSoup to parse HTML and extract all links with `/course`, `/path`, or `/plan` in the URL.
+Template variables and metadata tags were cleaned from titles and descriptions.
+
+## Data Quality
+- Title: {completeness['title']:.1f}% complete
+- Description: {completeness['description']:.1f}% complete
+- URL: {completeness['url']:.1f}% complete
+- Language: {completeness['language']:.1f}% complete
+
+## Content Type Breakdown
+"""
+
+for content_type, count in type_counts.items():
+    report += f"- **{content_type}**: {count} items\n"
+
+report += "\n## Language Distribution\n"
+for lang, count in language_counts.head(10).items():
+    report += f"- **{lang}**: {count} items\n"
+
+report += "\n## Target Role Distribution\n"
+for role, count in role_counts.items():
+    if role:  # Skip empty roles
+        report += f"- **{role}**: {count} items\n"
+
+report += f"""
+## Key Findings
+- **Multi-language Support**: Extensive localization with {len(language_counts)} language versions
+- **Role-Based Learning**: Content targeted at Admins, Agents, Analysts, and Developers
+- **Product-Focused**: All content centers on Zendesk platform features and configuration
+- **Certification Prep**: Multiple certification preparation paths available
+- **AI/Automation**: New content focusing on AI agents and automation features
+
+## Limitations
+- Duration information not consistently available on catalog page (would require individual page scraping)
+- Level/difficulty not explicitly stated for most courses
+- Descriptions are abbreviated; full details would require visiting individual course pages
+- Prerequisites and learning objectives only available on individual course pages
+- Some duplicate content due to multi-language versions of same courses
+
+## Recommendations for LinkedIn Learning Licensing
+- **Limited Appeal**: Content is highly specific to Zendesk platform - only valuable to Zendesk customers
+- **Not Recommended**: Does not meet broad professional learning objectives
+- **Alternative**: Consider platform-agnostic customer service, CRM, or IT support training
+- **Audience**: If pursued, target would be extremely narrow (Zendesk-using organizations only)
+
+## Notable Content Areas
+1. **AI & Automation**: New focus on AI agents, Copilot, and automation tools
+2. **Omnichannel Support**: Multi-channel customer engagement (email, chat, voice, messaging)
+3. **Analytics**: Reporting and data analysis for CX teams
+4. **Self-Service**: Knowledge base and help center configuration
+5. **Certification**: Multiple specialist and expert certification prep paths
+
+## Sample Courses
+
+"""
+
+# Add sample courses from different categories
+# Get diverse sample
+english_courses = [c for c in courses if c.get('language') == 'English']
+non_english = [c for c in courses if c.get('language') != 'English']
+
+samples = english_courses[:7] + non_english[:3] if len(non_english) >= 3 else english_courses[:10]
+
+for i, course in enumerate(samples, 1):
+    title = course['title'][:100] + ('...' if len(course['title']) > 100 else '')
+    desc = course['description'][:150] + ('...' if len(course['description']) > 150 else '')
+
+    report += f"""### {i}. {title}
+- **Type**: {course.get('learning_path', 'Course')}
+- **Language**: {course.get('language', 'English')}
+- **Target Role**: {course.get('target_role', 'Not specified')}
+- **URL**: {course['url']}
+- **Description**: {desc if desc else 'No description available'}
+
+"""
+
+# Add technical details
+report += """
+## Technical Details
+- **Scraping Method**: HTTP requests with BeautifulSoup HTML parsing
+- **Rate Limiting**: Minimal (single page extraction)
+- **Authentication**: Not required for catalog access
+- **Updates**: Re-run scraper to capture new courses
+- **Script**: `scrape_zendesk_fixed.py`
+
+## Files Generated
+- `zendesk_catalog.json` - Raw JSON data with all fields
+- `zendesk_catalog.csv` - Tabular format for analysis
+- `zendesk_report.md` - This report
+"""
+
+# Write report
+with open('zendesk_report.md', 'w', encoding='utf-8') as f:
+    f.write(report)
+
+print("✓ Report generated: zendesk_report.md")
+print(f"\nSummary:")
+print(f"  Total items: {total}")
+print(f"  Learning Paths: {type_counts.get('Learning Path', 0)}")
+print(f"  Plans: {type_counts.get('Plan', 0)}")
+print(f"  Languages: {len(language_counts)}")
+print(f"  Roles: {len([r for r in role_counts.index if r])}")

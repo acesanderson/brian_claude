@@ -1,0 +1,178 @@
+# Batch Dispatch - Docker Isolation
+
+## Overview
+
+The batch-dispatch skill uses Docker containers to provide secure isolation for parallel task execution. This prevents workers from accessing or modifying files outside their designated task directories.
+
+## Architecture
+
+```
+Main Process (batch_runner.py)
+├── Docker Container 1 (worker)
+│   ├── Read-only: ~/.claude/skills
+│   ├── Read-write: /work (task_0/)
+│   └── Isolated network (--network none)
+├── Docker Container 2 (worker)
+│   ├── Read-only: ~/.claude/skills
+│   ├── Read-write: /work (task_1/)
+│   └── Isolated network
+└── ... (up to max-workers)
+```
+
+## Security Guarantees
+
+**With Docker (default):**
+- ✅ Workers cannot access home directory
+- ✅ Workers cannot modify skills directory
+- ✅ Workers cannot access git repositories
+- ✅ Workers cannot make network requests
+- ✅ Workers have limited CPU and memory
+- ✅ Workers are destroyed after task completion
+
+**Without Docker (`--no-docker`):**
+- ❌ Full filesystem access
+- ❌ Can delete/modify any file
+- ❌ Can make network requests
+- ❌ Can access credentials and secrets
+
+## Docker Image
+
+The `claude-batch-worker` image is based on `python:3.12-slim` and includes:
+- Python 3.12
+- uv (for running scripts with dependencies)
+- Claude Code CLI
+- Non-root user `worker` (UID 1000)
+
+### Building the Image
+
+```bash
+cd ~/.claude/skills/batch-dispatch/references
+docker build -t claude-batch-worker .
+```
+
+The image will be built automatically on first use if not present.
+
+## Performance Characteristics
+
+### Container Startup Overhead
+- Image already built: ~0.5-1.0s per container
+- First-time build: ~30-60s (one-time cost)
+
+### Resource Limits
+- Memory: 2GB per container
+- CPU: 1 core per container
+- Network: None (isolated)
+
+### Realistic Impact
+For typical catalog-scraper tasks (120-180s execution):
+- Container startup: ~1s
+- **Overhead: <1% (negligible)**
+
+## Troubleshooting
+
+### "Docker is not installed or not running"
+
+**Check Docker status:**
+```bash
+docker --version
+docker info
+```
+
+**Start Docker:**
+- macOS: Open Docker Desktop app
+- Linux: `sudo systemctl start docker`
+- Windows: Start Docker Desktop
+
+### "Failed to build Docker image"
+
+**Verify Dockerfile exists:**
+```bash
+ls ~/.claude/skills/batch-dispatch/references/Dockerfile
+```
+
+**Manual build with verbose output:**
+```bash
+cd ~/.claude/skills/batch-dispatch/references
+docker build -t claude-batch-worker . --progress=plain
+```
+
+### "Permission denied" errors
+
+**Check Docker permissions (Linux):**
+```bash
+sudo usermod -aG docker $USER
+# Log out and back in for changes to take effect
+```
+
+### Container networking issues
+
+By default, containers have `--network none` for security. If your skill needs network access:
+
+1. Edit `batch_runner.py`
+2. Remove or modify the `--network none` flag
+3. **Warning**: This reduces security isolation
+
+## Customization
+
+### Increase Resource Limits
+
+Edit `batch_runner.py`:
+```python
+"--memory", "4g",  # Increase to 4GB
+"--cpus", "2",     # Allow 2 cores
+```
+
+### Enable Network Access
+
+**Not recommended**, but if needed:
+```python
+# Remove this line from batch_runner.py:
+# "--network", "none",
+
+# Or use specific network:
+"--network", "my-custom-network",
+```
+
+### Mount Additional Directories
+
+```python
+cmd.extend([
+    "-v", "/path/to/data:/data:ro",  # Read-only data
+])
+```
+
+## Development
+
+### Testing the Docker Image
+
+```bash
+# Run interactive container
+docker run -it --rm claude-batch-worker bash
+
+# Test Claude CLI
+docker run --rm claude-batch-worker claude --version
+
+# Test with mounted skills
+docker run --rm \
+  -v ~/.claude/skills:/claude/skills:ro \
+  claude-batch-worker \
+  ls -la /claude/skills
+```
+
+### Debugging Worker Execution
+
+Set environment variable for verbose output:
+```bash
+export BATCH_DEBUG=1
+uv run batch_runner.py ...
+```
+
+## Future Improvements
+
+Potential enhancements:
+- [ ] Worker pool mode (reuse containers)
+- [ ] Configurable resource limits via CLI args
+- [ ] Support for custom Docker images
+- [ ] Network isolation with DNS filtering
+- [ ] Disk quota enforcement
+- [ ] Seccomp profiles for syscall filtering

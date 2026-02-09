@@ -1,0 +1,114 @@
+---
+name: batch-dispatch
+description: Orchestrates parallel, isolated execution of a skill across a list of inputs with Docker isolation.
+---
+
+## 🔒 Security: Docker Isolation by Default
+
+**This skill runs workers in isolated Docker containers by default** to protect your filesystem from accidental or malicious damage. Workers can only:
+- Read skills from `~/.claude/skills` (read-only)
+- Write to their isolated task directory
+- **Cannot** access your home directory, git repos, or other files
+
+## Setup
+
+**First-time setup:**
+```bash
+# Ensure Docker is installed and running
+docker --version
+
+# The Docker image will build automatically on first run
+# Or build manually:
+cd ~/.claude/skills/batch-dispatch/references
+docker build -t claude-batch-worker .
+```
+
+## Usage
+/batch-dispatch <skill_name> <list_of_inputs> <instruction_template> [OPTIONS]
+
+## Arguments
+- `skill_name`: Name of the skill to execute in parallel
+- `list_of_inputs`: JSON array of inputs (e.g., `'["url1", "url2"]'`)
+- `instruction_template`: Jinja2 template for task instructions (use `{{ item }}` for current input)
+
+## Options
+- `--timeout SECONDS`: Timeout per task in seconds (default: 600 = 10 minutes)
+- `--max-workers N`: Maximum concurrent workers (default: 5)
+- `--no-docker`: **DANGEROUS** - Disable Docker isolation for speed (not recommended)
+
+## Examples
+
+**Basic usage (Docker-isolated, safe):**
+```bash
+/batch-dispatch catalog-scraper '["https://site1.com", "https://site2.com"]' "Scrape {{ item }}"
+```
+
+**With custom timeout:**
+```bash
+/batch-dispatch catalog-scraper '["https://site1.com", "https://site2.com"]' "Scrape {{ item }}" --timeout 300
+```
+
+**Dangerous mode (no isolation):**
+```bash
+# Only use with fully trusted skills!
+/batch-dispatch my-skill '["a", "b"]' "Process {{ item }}" --no-docker
+```
+
+## Behavior
+
+1. **Docker Isolation (Default)**: Each worker runs in an isolated container
+   - Read-only access to `~/.claude/skills`
+   - Write access only to isolated task directory
+   - No network access (`--network none`)
+   - Memory limit: 2GB, CPU limit: 1 core
+
+2. **Parallel Execution**: Up to `max-workers` tasks run concurrently
+
+3. **Result Collection**: Workers save structured data to `result.json`
+
+4. **Automatic Cleanup**: Moves artifacts to `batch_results_<timestamp>/` in CWD and deletes temp directories
+
+## Output
+
+Final artifacts in `batch_results_YYYYMMDD_HHMMSS/`:
+- All output files (JSON, XLSX, MD, CSV) from successful tasks
+- `summary.json` with aggregated results and status for each task
+
+## Security Model
+
+**What workers CAN do (with Docker):**
+- ✅ Read skills (read-only)
+- ✅ Write files to task directory
+- ✅ Use approved skills
+- ✅ Read config (read-only)
+
+**What workers CANNOT do (with Docker):**
+- ❌ Modify your home directory
+- ❌ Delete files outside task directory
+- ❌ Access network (isolated)
+- ❌ Modify skills directory
+- ❌ Access git repositories
+- ❌ Read sensitive files
+
+**Without Docker (`--no-docker`):**
+- ⚠️ Full filesystem access
+- ⚠️ Can delete any file you have permissions for
+- ⚠️ Only use with trusted skills
+
+## Troubleshooting
+
+**"Docker is not installed":**
+- Install Docker: https://docs.docker.com/get-docker/
+- Ensure Docker daemon is running
+
+**"Failed to build Docker image":**
+- Check Dockerfile exists: `~/.claude/skills/batch-dispatch/references/Dockerfile`
+- Try manual build: `docker build -t claude-batch-worker <path>`
+
+## Implementation
+```bash
+#!/bin/bash
+SKILL_DIR="$HOME/.claude/skills/batch-dispatch"
+SCRIPT_PATH="$SKILL_DIR/references/batch_runner.py"
+uv run "$SCRIPT_PATH" "$@"
+```

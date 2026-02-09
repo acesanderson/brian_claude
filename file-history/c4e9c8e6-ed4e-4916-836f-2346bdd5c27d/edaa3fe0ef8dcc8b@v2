@@ -1,0 +1,136 @@
+from __future__ import annotations
+
+import asyncio
+import pandas as pd
+from pathlib import Path
+import re
+
+from conduit.async_ import ConduitAsync, GenerationParams, ConduitOptions, Verbosity
+from conduit.batch import ConduitBatchAsync
+from conduit.config import settings
+from conduit.core.workflow.step import step, resolve_param
+from conduit.core.workflow.harness import ConduitHarness
+
+from conduit.core.prompt.prompt_loader import PromptLoader
+from pydantic import BaseModel, Field, HttpUrl
+from typing import Literal, Optional
+
+from workflow import (
+    LicensingProspect,
+    ProspectDiscovery,
+    LicensingValidation,
+    validate_prospects_step,
+    generate_report_step,
+)
+
+PROMPTS_PATH = Path(__file__).parent / "prompts"
+PROJECT_NAME = "licensing"
+
+prompt_loader = PromptLoader(PROMPTS_PATH)
+
+
+@step
+async def discover_partner_urls_step(partners: list[str]) -> ProspectDiscovery:
+    """Discovers academy URLs for a known list of partners."""
+    model = resolve_param("model", "sonar")
+    use_cache = resolve_param("use_cache", True)
+
+    params = GenerationParams(
+        model=model, response_model=ProspectDiscovery, output_type="structured_response"
+    )
+
+    options = ConduitOptions(
+        project_name="licensing",
+        cache=settings.default_cache("licensing"),
+        verbosity=Verbosity.PROGRESS,
+        use_cache=use_cache,
+    )
+
+    prompt = prompt_loader["partner_url_discovery"]
+    conduit = ConduitAsync(prompt=prompt)
+
+    result = await conduit.run(
+        input_variables={"partners": partners},
+        params=params,
+        options=options,
+    )
+    return result.last.parsed
+
+
+@step
+async def main_partner_licensing_flow(partners: list[str]) -> str:
+    """Root orchestrator for partner-based workflow."""
+    discovery = await discover_partner_urls_step(partners)
+    validations = await validate_prospects_step(discovery)
+    report_file = await generate_report_step(discovery, validations)
+    return f"Success. Generated report: {report_file}"
+
+
+if __name__ == "__main__":
+    prof_cert_partners = """
+Adobe
+Aha!
+All Tech Is Human
+American Marketing Association (AMA)
+American Negotiation Institute (ANI)
+American Nurses Association (ANA)
+American Staffing Association (ASA)
+Anaconda
+Arista Networks
+Astronomer
+Atlassian
+Canonical
+ChurnZero
+Content Marketing Institute
+Corporate Finance Institute (CFI)
+Council of Supply Chain Management (CSCMP)
+Cybrary
+Docker
+GitHub
+Grammarly
+Hootsuite
+Intuit Mailchimp
+Jack Welch Management Institute
+JetBrains
+KNIME
+Kong
+TestMU AI (formerly LambdaTest)
+Microsoft
+Moz
+Mozilla
+National Association of Sales Professionals (NASP)
+OpenEDG C++ Institute
+OpenEDG Python Institute
+PagerDuty
+Procore
+Sales Management Association
+ServiceNow
+Snowflake
+SS&C Blue Prism
+The Chartered Institute of Personnel Development (CIPD)
+Toastmasters International
+Twilio
+Weaviate
+Wolfram Research
+Xero
+Zendesk
+    """.strip().splitlines()
+
+    partner_list = [p.strip() for p in prof_cert_partners if p.strip()]
+
+    config = {
+        "use_cache": True,
+        "discover_partner_urls_step.model": "sonar",
+        "validate_prospects_step.model": "sonar-pro",
+        "validate_prospects_step.max_concurrent": 10,
+        "generate_report_step.output_path": "partner_licensing_analysis.xlsx",
+    }
+
+    harness = ConduitHarness(config=config)
+
+    async def run_pipeline():
+        result = await harness.run(main_partner_licensing_flow, partner_list)
+        print(f"\nWorkflow Output: {result}")
+        harness.view_trace()
+
+    asyncio.run(run_pipeline())

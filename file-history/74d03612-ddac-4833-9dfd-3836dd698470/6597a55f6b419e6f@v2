@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "conduit-websearch": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/Users/bianders/.claude/mcp-servers/conduit-websearch",
+        "run",
+        "server.py"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      }
+    }
+  }
+}

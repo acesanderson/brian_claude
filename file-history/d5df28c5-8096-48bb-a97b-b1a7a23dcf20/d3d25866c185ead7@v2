@@ -1,0 +1,30 @@
+from __future__ import annotations
+
+from collections.abc import Iterator
+
+import requests
+from bs4 import BeautifulSoup
+
+
+def get_topics(url: str) -> Iterator[tuple[str, str]]:
+    """Extract topic names and URLs from AMA topics page."""
+    response = requests.get(url)
+    response.raise_for_status()
+
+    soup = BeautifulSoup(response.text, "html.parser")
+
+    # Find paragraphs with the blue color class containing topic links
+    for p in soup.find_all("p", class_="has-blue-700-color"):
+        link = p.find("a")
+        if link and link.get("href", "").startswith("https://www.ama.org/topics/"):
+            topic_name = link.get_text(strip=True)
+            topic_url = link["href"]
+            yield topic_name, topic_url
+
+
+if __name__ == "__main__":
+    url = "https://www.ama.org/topics/"
+
+    print("AMA Topics:\n")
+    for name, url in get_topics(url):
+        print(f"{name}: {url}")

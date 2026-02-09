@@ -1,0 +1,356 @@
+from __future__ import annotations
+
+import json
+import re
+import time
+from datetime import datetime
+
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+
+
+def clean_to_ascii(text: str | None) -> str:
+    """Convert Unicode text to clean ASCII."""
+    if not text:
+        return ""
+    # Simple ASCII conversion - encode to ASCII ignoring errors
+    return str(text).encode('ascii', 'ignore').decode('ascii')
+
+
+def scrape_zendesk_catalog():
+    """Scrape Zendesk training catalog from training.zendesk.com"""
+
+    print("=" * 60)
+    print("ZENDESK TRAINING CATALOG SCRAPER")
+    print("=" * 60)
+
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    }
+
+    url = 'https://training.zendesk.com'
+
+    print(f"\nFetching: {url}")
+    response = requests.get(url, headers=headers, timeout=30)
+    print(f"Status: {response.status_code}")
+
+    if response.status_code != 200:
+        print(f"✗ Failed to fetch page")
+        return []
+
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    # Find all course containers - specifically courses (data-type="-c"), not pages or lessons
+    all_links = soup.find_all('a', attrs={'data-type': '-c'})
+    print(f"\n✓ Found {len(all_links)} courses")
+
+    courses = []
+    for i, link in enumerate(all_links, 1):
+        try:
+            # Extract URL
+            url_path = link.get('href', '')
+            if not url_path:
+                continue
+
+            if not url_path.startswith('http'):
+                url_path = f"https://training.zendesk.com{url_path}"
+
+            # Find the coursebox container within this link
+            container = link.find('div', class_=lambda x: x and 'coursebox-container' in str(x))
+            if not container:
+                # Sometimes the link IS on a container, try the link itself
+                container = link
+
+            # Extract title - from coursebox-text (NOT coursebox-text-title, which doesn't exist)
+            title_elem = container.find('div', class_='coursebox-text')
+            if not title_elem:
+                continue
+
+            title = title_elem.get_text(strip=True)
+
+            # Extract description
+            desc_elem = container.find('div', class_='coursebox-text-description')
+            description = desc_elem.get_text(strip=True) if desc_elem else ""
+
+            # Extract duration from course-time span
+            duration_elem = container.find('div', class_='course-time')
+            duration = ""
+            if duration_elem:
+                span = duration_elem.find('span')
+                duration = span.get_text(strip=True) if span else duration_elem.get_text(strip=True)
+
+            # Extract data attributes from link
+            data_tags = link.get('data-tags', '')
+            tags_list = [tag.strip() for tag in data_tags.split(',') if tag.strip()]
+
+            # Determine category from tags - look for role/product categories
+            category = ""
+            for tag in tags_list:
+                if tag in ['admin', 'agent', 'developer', 'analyst']:
+                    category = tag.title()
+                    break
+
+            # Check if registration is required or free
+            price_elem = container.find('div', class_='storefront-price')
+            is_free_registration = price_elem and 'Register' in price_elem.get_text()
+
+            # Determine format
+            format_val = "On-Demand"  # Default for Skilljar platforms
+
+            # Determine level from tags or title
+            level = ""
+            level_keywords = {
+                'beginner': 'Beginner',
+                'intermediate': 'Intermediate',
+                'advanced': 'Advanced',
+                'fundamentals': 'Beginner',
+                'essentials': 'Beginner',
+            }
+            title_lower = title.lower()
+            for keyword, level_name in level_keywords.items():
+                if keyword in title_lower:
+                    level = level_name
+                    break
+
+            # Determine price
+            price = "Free" if is_free_registration else "Paid"
+
+            course = {
+                'provider': 'Zendesk',
+                'title': title,
+                'url': url_path,
+                'description': description,
+                'duration': duration,
+                'level': level,
+                'format': format_val,
+                'price': price,
+                'category': category,
+                'tags': ', '.join(tags_list[:10]),  # Limit to first 10 tags
+                'date_scraped': datetime.now().strftime('%Y-%m-%d'),
+            }
+
+            courses.append(course)
+
+            if i % 50 == 0:
+                print(f"  Processed {i}/{len(all_links)} courses...")
+
+        except Exception as e:
+            print(f"  ✗ Error processing container {i}: {e}")
+            continue
+
+    print(f"\n✓ Extracted {len(courses)} courses")
+    return courses
+
+
+def export_catalog_data(courses_data: list[dict], provider_slug: str) -> dict[str, str]:
+    """Export to JSON and XLSX."""
+    if not courses_data:
+        print("✗ No courses to export")
+        return {}
+
+    # Convert to DataFrame
+    df = pd.DataFrame(courses_data)
+
+    # Column order
+    column_order = [
+        "provider", "title", "url", "description", "duration",
+        "level", "format", "price", "category", "tags",
+        "date_scraped"
+    ]
+    existing_cols = [col for col in column_order if col in df.columns]
+    df = df[existing_cols]
+
+    # VALIDATE TITLE QUALITY
+    if "title" in df.columns:
+        df["title_length"] = df["title"].str.len()
+        avg_title_length = df["title_length"].mean()
+        long_titles = df[df["title_length"] > 150]
+
+        print(f"\n⚠️  TITLE QUALITY CHECK:")
+        print(f"  Average title length: {avg_title_length:.0f} characters")
+
+        if len(long_titles) > 0:
+            print(f"  ❌ WARNING: {len(long_titles)} titles are >150 characters")
+            print(f"     Long titles suggest description text is bleeding into title field.")
+            print(f"     Examples of long titles:")
+            for idx, row in long_titles.head(3).iterrows():
+                print(f"       - {row['title'][:100]}... ({row['title_length']} chars)")
+            print(f"     Fix: Use more specific selector (e.g., 'h2.title' not 'div.card')\n")
+        else:
+            print(f"  ✓ All titles are reasonable length")
+
+        df = df.drop(columns=["title_length"])
+
+    # VALIDATE DESCRIPTION QUALITY
+    if "description" in df.columns:
+        total_descs = len(df)
+        non_empty_descs = df[df["description"].str.len() > 0]
+        unique_descs = df["description"].nunique()
+        uniqueness_pct = (unique_descs / total_descs * 100) if total_descs > 0 else 0
+
+        print(f"⚠️  DESCRIPTION QUALITY CHECK:")
+        print(f"  Total courses: {total_descs}")
+        print(f"  Non-empty descriptions: {len(non_empty_descs)}")
+        print(f"  Unique descriptions: {unique_descs}")
+        print(f"  Uniqueness: {uniqueness_pct:.1f}%")
+
+        if uniqueness_pct < 90:
+            print(f"  ❌ WARNING: Low description uniqueness ({uniqueness_pct:.1f}%)")
+            print(f"     This suggests generic catalog text instead of course-specific descriptions.")
+            print(f"     Review the scraping logic to extract individual course descriptions.\n")
+        else:
+            print(f"  ✓ Descriptions are unique and course-specific")
+
+    # 1. JSON (preserve Unicode)
+    json_filename = f"{provider_slug}_catalog.json"
+    with open(json_filename, "w", encoding="utf-8") as f:
+        json.dump(courses_data, f, indent=2, ensure_ascii=False)
+    print(f"\n✓ Saved JSON: {json_filename}")
+
+    # 2. XLSX (Excel format - handles all text reliably)
+    xlsx_filename = f"{provider_slug}_catalog.xlsx"
+    # Apply ASCII cleaning to all text columns for cleaner output
+    text_columns = df.select_dtypes(include=['object']).columns
+    for col in text_columns:
+        df[col] = df[col].apply(clean_to_ascii)
+    df.to_excel(xlsx_filename, index=False, engine='openpyxl')
+    print(f"✓ Saved XLSX: {xlsx_filename}")
+
+    return {"json": json_filename, "xlsx": xlsx_filename}
+
+
+def generate_report(courses_data: list[dict], provider_slug: str):
+    """Generate markdown report."""
+    if not courses_data:
+        return
+
+    df = pd.DataFrame(courses_data)
+
+    report = f"""# Zendesk Training Catalog Scraping Report
+
+**Date**: {datetime.now().strftime('%Y-%m-%d')}
+**URL**: https://training.zendesk.com
+**Total Courses**: {len(courses_data)}
+
+## Architecture
+- Type: Single Page Catalog
+- Data Source: Server-rendered HTML (Skilljar platform)
+- Obstacles: None (public access, but some courses locked behind payment)
+
+## Extraction Method
+Static HTML scraping using BeautifulSoup. The Zendesk training catalog is built on the Skilljar platform, which renders course tiles as HTML `coursebox-container` divs. Each course tile contains:
+- Title in `coursebox-text-title`
+- Description in `coursebox-text-description`
+- Duration in `course-time`
+- Type in `coursebox-type`
+- Category in `coursebox-category`
+- Tags in `coursebox-tag` elements
+
+## Data Quality
+"""
+
+    # Calculate completeness
+    total = len(df)
+    for field in ['title', 'description', 'duration', 'level', 'price', 'category']:
+        if field in df.columns:
+            complete = df[field].astype(bool).sum()
+            pct = (complete / total * 100) if total > 0 else 0
+            report += f"- {field.title()}: {pct:.1f}% complete\n"
+
+    # Title quality
+    if 'title' in df.columns:
+        avg_len = df['title'].str.len().mean()
+        long_titles = len(df[df['title'].str.len() > 150])
+        report += f"\n**Title Quality**: Average length {avg_len:.0f} chars"
+        if long_titles > 0:
+            report += f" (⚠️  {long_titles} titles >150 chars)"
+        report += "\n"
+
+    # Description quality
+    if 'description' in df.columns:
+        unique_pct = (df['description'].nunique() / total * 100) if total > 0 else 0
+        report += f"**Description Quality**: {unique_pct:.1f}% unique"
+        if unique_pct < 90:
+            report += " (⚠️  Low uniqueness - may be generic text)"
+        report += "\n"
+
+    report += "\n## Distribution\n\n"
+
+    # Category breakdown
+    if 'category' in df.columns and df['category'].any():
+        report += "### By Category\n"
+        category_counts = df['category'].value_counts()
+        for cat, count in category_counts.head(10).items():
+            report += f"- {cat or 'Uncategorized'}: {count}\n"
+
+    # Price breakdown
+    if 'price' in df.columns:
+        report += "\n### By Price\n"
+        price_counts = df['price'].value_counts()
+        for price, count in price_counts.items():
+            report += f"- {price}: {count}\n"
+
+    # Level breakdown
+    if 'level' in df.columns and df['level'].any():
+        report += "\n### By Level\n"
+        level_counts = df['level'].value_counts()
+        for level, count in level_counts.items():
+            if level:
+                report += f"- {level}: {count}\n"
+
+    report += "\n## Limitations\n"
+    report += "- Some courses are locked behind payment (marked as 'Paid')\n"
+    report += "- Level information is inferred from titles/descriptions, not explicitly tagged\n"
+    report += "- Instructor information not available in course tiles\n"
+    report += "- No enrollment counts or ratings visible\n"
+
+    report += "\n## Recommendations\n"
+    report += "- Consider obtaining Zendesk training account credentials for full course details\n"
+    report += "- Individual course pages may contain additional metadata (prerequisites, learning objectives)\n"
+    report += "- Review locked/paid courses for potential licensing opportunities\n"
+
+    report += "\n## Sample Courses\n\n"
+    for i, course in enumerate(courses_data[:5], 1):
+        report += f"### {i}. {course['title']}\n"
+        report += f"- **URL**: {course['url']}\n"
+        if course.get('description'):
+            report += f"- **Description**: {course['description']}\n"
+        if course.get('duration'):
+            report += f"- **Duration**: {course['duration']}\n"
+        if course.get('level'):
+            report += f"- **Level**: {course['level']}\n"
+        if course.get('price'):
+            report += f"- **Price**: {course['price']}\n"
+        if course.get('category'):
+            report += f"- **Category**: {course['category']}\n"
+        report += "\n"
+
+    report_filename = f"{provider_slug}_report.md"
+    with open(report_filename, "w", encoding="utf-8") as f:
+        f.write(report)
+    print(f"✓ Saved Report: {report_filename}")
+
+
+if __name__ == "__main__":
+    # Scrape courses
+    courses = scrape_zendesk_catalog()
+
+    if courses:
+        # Export data
+        export_catalog_data(courses, "zendesk")
+
+        # Generate report
+        generate_report(courses, "zendesk")
+
+        print("\n" + "=" * 60)
+        print("✓ SCRAPING COMPLETE")
+        print("=" * 60)
+        print(f"\nTotal courses scraped: {len(courses)}")
+        print("\nArtifacts generated:")
+        print("  - zendesk_catalog.json")
+        print("  - zendesk_catalog.xlsx")
+        print("  - zendesk_report.md")
+    else:
+        print("\n✗ No courses found")

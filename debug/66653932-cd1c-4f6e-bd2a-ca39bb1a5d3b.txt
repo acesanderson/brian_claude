@@ -1,0 +1,487 @@
+2026-02-06T00:21:50.098Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-06T00:21:50.098Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-06T00:21:50.098Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-06T00:21:50.098Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-06T00:21:50.121Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-02-06T00:21:50.123Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-06T00:21:50.126Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-06T00:21:50.126Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-06T00:21:50.126Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-06T00:21:50.127Z [DEBUG] [ToolSearch:optimistic] mode=standard, ENABLE_TOOL_SEARCH=undefined, result=false
+2026-02-06T00:21:50.127Z [DEBUG] [STARTUP] Running setup()...
+2026-02-06T00:21:50.127Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-06T00:21:50.131Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at ATD (/$bunfs/root/claude:122:1170)
+2026-02-06T00:21:50.131Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at KZA (/$bunfs/root/claude:1829:18763)
+    at KZA (/$bunfs/root/claude:1829:19585)
+    at M6B (/$bunfs/root/claude:1829:19668)
+2026-02-06T00:21:50.131Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at tzT (/$bunfs/root/claude:344:1185)
+2026-02-06T00:21:50.131Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at szT (/$bunfs/root/claude:344:1790)
+2026-02-06T00:21:50.131Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at qbA (/$bunfs/root/claude:3622:10176)
+2026-02-06T00:21:50.131Z [DEBUG] Error log sink initialized
+2026-02-06T00:21:50.132Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-06T00:21:50.132Z [DEBUG] Total plugin skills loaded: 0
+2026-02-06T00:21:50.132Z [DEBUG] Total plugin commands loaded: 0
+2026-02-06T00:21:50.132Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-06T00:21:50.132Z [DEBUG] [STARTUP] setup() completed in 5ms
+2026-02-06T00:21:50.132Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-02-06T00:21:50.133Z [DEBUG] Total plugin agents loaded: 0
+2026-02-06T00:21:50.133Z [DEBUG] Loaded 6 unique skills (managed: 0, user: 6, project: 0, additional: 0, legacy commands: 0)
+2026-02-06T00:21:50.133Z [DEBUG] getSkills returning: 6 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-06T00:21:50.133Z [DEBUG] [STARTUP] Commands and agents loaded in 1ms
+2026-02-06T00:21:50.134Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-02-06T00:21:50.134Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-02-06T00:21:50.134Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-02-06T00:21:50.134Z [DEBUG] Total LSP servers loaded: 0
+2026-02-06T00:21:50.134Z [DEBUG] [STARTUP] MCP configs loaded in 13ms
+2026-02-06T00:21:50.134Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-02-06T00:21:50.134Z [DEBUG] LSP manager initialized with 0 servers
+2026-02-06T00:21:50.134Z [DEBUG] LSP server manager initialized successfully
+2026-02-06T00:21:50.134Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-02-06T00:21:50.137Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at Cy8 (/$bunfs/root/claude:7494:6151)
+2026-02-06T00:21:50.137Z [DEBUG] installed_plugins.json doesn't exist, returning empty V2 object
+2026-02-06T00:21:50.137Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-02-06T00:21:50.141Z [DEBUG] Writing to temp file: /Users/bianders/.claude/todos/66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b-agent-66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b.json.tmp.62943.1770337310141
+2026-02-06T00:21:50.142Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-02-06T00:21:50.142Z [DEBUG] Renaming /Users/bianders/.claude/todos/66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b-agent-66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b.json.tmp.62943.1770337310141 to /Users/bianders/.claude/todos/66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b-agent-66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b.json
+2026-02-06T00:21:50.142Z [DEBUG] File /Users/bianders/.claude/todos/66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b-agent-66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b.json written atomically
+2026-02-06T00:21:50.147Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at am (/$bunfs/root/claude:3622:10292)
+2026-02-06T00:21:50.148Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at am (/$bunfs/root/claude:3622:10292)
+2026-02-06T00:21:50.148Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-02-06T00:21:50.148Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:21:50.148Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-02-06T00:21:50.151Z [DEBUG] [SystemPrompt] path=simple proactive=false
+2026-02-06T00:21:50.152Z [DEBUG] Total plugin output styles loaded: 0
+2026-02-06T00:21:50.163Z [DEBUG] Cannot acquire lock for 2.1.32 - held by PID 61634
+2026-02-06T00:21:50.163Z [ERROR] Error: Error: NON-FATAL: Lock acquisition failed for /Users/bianders/.local/share/claude/versions/2.1.32 (expected in multi-process scenarios)
+    at CFR (/$bunfs/root/claude:3667:2098)
+    at KkA (/$bunfs/root/claude:3667:1209)
+    at processTicksAndRejections (native:7:39)
+2026-02-06T00:21:50.193Z [DEBUG] Watching for changes in skill/command directories: /Users/bianders/.claude/skills...
+2026-02-06T00:21:50.201Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:21:50.201Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:21:50.201Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:21:50.201Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:21:50.201Z [DEBUG] Sending 7 skills via attachment (initial, 7 total sent)
+2026-02-06T00:21:50.203Z [ERROR] Error: Error: ENOENT: no such file or directory, open '/Users/bianders/.claude/remote-settings.json'
+    at openSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:947)
+    at o5 (/$bunfs/root/claude:11:41126)
+    at readSync (/$bunfs/root/claude:12:875)
+    at t5 (/$bunfs/root/claude:6170:113)
+    at D5 (/$bunfs/root/claude:6172:226)
+    at $pR (/$bunfs/root/claude:121:25774)
+    at HpR (/$bunfs/root/claude:121:25937)
+    at E_ (/$bunfs/root/claude:121:27674)
+    at am (/$bunfs/root/claude:3622:10292)
+2026-02-06T00:21:50.203Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-02-06T00:21:50.203Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:21:50.203Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-06T00:21:50.204Z [DEBUG] autocompact: tokens=145 threshold=167000 effectiveWindow=180000
+2026-02-06T00:21:50.206Z [DEBUG] Stats cache is up to date
+2026-02-06T00:21:50.322Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:21:50.325Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:21:50.325Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:21:50.326Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:21:50.330Z [DEBUG] Policy limits: Fetched successfully
+2026-02-06T00:21:50.379Z [DEBUG] Remote settings: No settings found (404)
+2026-02-06T00:21:50.379Z [DEBUG] Programmatic settings change notification for policySettings
+2026-02-06T00:21:50.379Z [DEBUG] Plugin hooks: reloading due to policySettings change
+2026-02-06T00:21:50.380Z [DEBUG] Settings changed from policySettings, updating app state
+2026-02-06T00:21:50.380Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-06T00:21:50.380Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-02-06T00:21:50.381Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-02-06T00:21:50.598Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:21:50.598Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:21:50.598Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:21:50.794Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/bianders/.local/share/claude/versions/2.1.32)
+2026-02-06T00:21:50.975Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-02-06T00:21:50.975Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-02-06T00:21:51.841Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:21:52.799Z [DEBUG] executePreToolHooks called for tool: Skill
+2026-02-06T00:21:52.800Z [DEBUG] Getting matching hook commands for PreToolUse with query: Skill
+2026-02-06T00:21:52.800Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:21:52.800Z [DEBUG] Matched 0 unique hooks for query "Skill" (0 before deduplication)
+2026-02-06T00:21:52.809Z [DEBUG] Writing to temp file: /Users/bianders/.claude.json.tmp.62943.1770337312809
+2026-02-06T00:21:52.809Z [DEBUG] Preserving file permissions: 100644
+2026-02-06T00:21:52.810Z [DEBUG] Temp file written successfully, size: 21045 bytes
+2026-02-06T00:21:52.810Z [DEBUG] Applied original permissions to temp file
+2026-02-06T00:21:52.810Z [DEBUG] Renaming /Users/bianders/.claude.json.tmp.62943.1770337312809 to /Users/bianders/.claude.json
+2026-02-06T00:21:52.811Z [DEBUG] File /Users/bianders/.claude.json written atomically
+2026-02-06T00:21:52.818Z [DEBUG] Metadata string for catalog-scraper:
+2026-02-06T00:21:52.818Z [DEBUG] <command-message>catalog-scraper</command-message>
+<command-name>/catalog-scraper</command-name>
+<command-args>https://canonical.com/academy</command-args>
+2026-02-06T00:21:52.818Z [DEBUG] command-message tags in metadata: 1
+2026-02-06T00:21:52.819Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:21:52.819Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:21:52.819Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:21:52.819Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:21:52.819Z [DEBUG] processPromptSlashCommand creating 3 messages for catalog-scraper
+2026-02-06T00:21:52.819Z [DEBUG] Message 1: <command-message>catalog-scraper</command-message>
+<command-name>/catalog-scraper</command-name>
+<command-args>https://canonical.com/academy</command-args>
+2026-02-06T00:21:52.819Z [DEBUG] Message 2 [META]: [{"type":"text","text":"Base directory for this skill: /Users/bianders/.claude/skills/catalog-scraper\n\n# Course Catalog Scraper\n\n## Input Parameters\n- **Provider Name**: Name of the training plat
+2026-02-06T00:21:52.819Z [DEBUG] Message 3: [ATTACHMENT]
+2026-02-06T00:21:52.819Z [DEBUG] SkillTool returning 2 newMessages for skill catalog-scraper
+2026-02-06T00:21:52.819Z [DEBUG] newMessage 1: [{"type":"text","text":"Base directory for this skill: /Users/bianders/.claude/skills/catalog-scraper\n\n# Course Catalog Scraper\n\n## Input Paramete...
+2026-02-06T00:21:52.820Z [DEBUG] Getting matching hook commands for PostToolUse with query: Skill
+2026-02-06T00:21:52.820Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:21:52.820Z [DEBUG] Matched 0 unique hooks for query "Skill" (0 before deduplication)
+2026-02-06T00:21:52.823Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:21:52.823Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:21:52.823Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:21:52.823Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:21:52.823Z [DEBUG] autocompact: tokens=24156 threshold=167000 effectiveWindow=180000
+2026-02-06T00:21:52.824Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:21:52.827Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:21:52.827Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:21:52.827Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:21:54.667Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:21:58.511Z [DEBUG] executePreToolHooks called for tool: WebFetch
+2026-02-06T00:21:58.511Z [DEBUG] Getting matching hook commands for PreToolUse with query: WebFetch
+2026-02-06T00:21:58.511Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:21:58.511Z [DEBUG] Matched 0 unique hooks for query "WebFetch" (0 before deduplication)
+2026-02-06T00:21:59.468Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:21:59.469Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:21:59.469Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:21:59.469Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:00.683Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:05.569Z [DEBUG] Getting matching hook commands for PostToolUse with query: WebFetch
+2026-02-06T00:22:05.569Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:22:05.569Z [DEBUG] Matched 0 unique hooks for query "WebFetch" (0 before deduplication)
+2026-02-06T00:22:05.570Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:22:05.570Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:22:05.570Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:22:05.570Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:22:05.571Z [DEBUG] autocompact: tokens=25096 threshold=167000 effectiveWindow=180000
+2026-02-06T00:22:05.572Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:22:05.577Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:05.577Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:05.578Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:06.968Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:08.933Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-06T00:22:08.933Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-06T00:22:08.933Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:22:08.933Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:22:08.958Z [DEBUG] tree-sitter: loaded from embedded
+2026-02-06T00:22:08.963Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:22:08.964Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:08.964Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:08.964Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:09.306Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:09.380Z [DEBUG] Creating shell snapshot for zsh (/bin/zsh)
+2026-02-06T00:22:09.381Z [DEBUG] Looking for shell config file: /Users/bianders/.zshrc
+2026-02-06T00:22:09.381Z [DEBUG] Snapshots directory: /Users/bianders/.claude/shell-snapshots
+2026-02-06T00:22:09.381Z [DEBUG] Creating snapshot at: /Users/bianders/.claude/shell-snapshots/snapshot-zsh-1770337329381-8uqgo0.sh
+2026-02-06T00:22:09.381Z [DEBUG] Shell binary exists: true
+2026-02-06T00:22:09.381Z [DEBUG] Execution timeout: 10000ms
+2026-02-06T00:22:09.903Z [DEBUG] Shell snapshot created successfully (18710 bytes)
+2026-02-06T00:22:09.904Z [DEBUG] No session environment scripts found
+2026-02-06T00:22:11.012Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:22:11.013Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:11.013Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:11.013Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-06T00:22:11.013Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:22:11.013Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:22:11.013Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:11.016Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:22:11.016Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:22:11.016Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:22:11.016Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:22:11.018Z [DEBUG] autocompact: tokens=25287 threshold=167000 effectiveWindow=180000
+2026-02-06T00:22:11.018Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:22:11.024Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:11.024Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:11.024Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:11.451Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:11.598Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:11.598Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:11.598Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:12.042Z [ERROR] MaxFileReadTokenExceededError: MaxFileReadTokenExceededError: File content (67710 tokens) exceeds maximum allowed tokens (25000). Please use offset and limit parameters to read specific portions of the file, or use the GrepTool to search for specific content.
+    at MyB (/$bunfs/root/claude:3601:3309)
+    at async call (/$bunfs/root/claude:3610:2420)
+    at async <anonymous> (/$bunfs/root/claude:3622:1676)
+    at processTicksAndRejections (native:7:39)
+2026-02-06T00:22:13.911Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:15.477Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-06T00:22:15.477Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-06T00:22:15.477Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:22:15.477Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-06T00:22:15.485Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-06T00:22:15.485Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:22:15.485Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-06T00:22:15.503Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:22:15.503Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:22:15.503Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:22:15.503Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:22:15.504Z [DEBUG] autocompact: tokens=28721 threshold=167000 effectiveWindow=180000
+2026-02-06T00:22:15.504Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:22:15.508Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:15.508Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:15.508Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:16.838Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:18.409Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-06T00:22:18.409Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-06T00:22:18.409Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:22:18.409Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:22:18.752Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:22:18.753Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:18.753Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:18.753Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-06T00:22:18.753Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:22:18.753Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:22:18.753Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:18.754Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:22:18.754Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:22:18.754Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:22:18.754Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:22:18.754Z [DEBUG] autocompact: tokens=30637 threshold=167000 effectiveWindow=180000
+2026-02-06T00:22:18.754Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:22:18.756Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:18.756Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:18.756Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:19.289Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:19.466Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:19.466Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:19.466Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:19.657Z [ERROR] MaxFileReadTokenExceededError: MaxFileReadTokenExceededError: File content (67710 tokens) exceeds maximum allowed tokens (25000). Please use offset and limit parameters to read specific portions of the file, or use the GrepTool to search for specific content.
+    at MyB (/$bunfs/root/claude:3601:3309)
+    at async call (/$bunfs/root/claude:3610:2420)
+    at async <anonymous> (/$bunfs/root/claude:3622:1676)
+    at processTicksAndRejections (native:7:39)
+2026-02-06T00:22:20.482Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:22.481Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-06T00:22:22.481Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-06T00:22:22.481Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:22:22.481Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-06T00:22:22.486Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-06T00:22:22.486Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:22:22.486Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-06T00:22:22.522Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:22:22.523Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:22:22.523Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:22:22.523Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:22:22.524Z [DEBUG] autocompact: tokens=32665 threshold=167000 effectiveWindow=180000
+2026-02-06T00:22:22.524Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:22:22.530Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:22.530Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:22.530Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:24.320Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:56.146Z [DEBUG] executePreToolHooks called for tool: Write
+2026-02-06T00:22:56.146Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-02-06T00:22:56.146Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:22:56.146Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-06T00:22:56.611Z [DEBUG] Writing to temp file: /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/scrape_canonical_academy.py.tmp.62943.1770337376611
+2026-02-06T00:22:56.611Z [DEBUG] Temp file written successfully, size: 6515 bytes
+2026-02-06T00:22:56.611Z [DEBUG] Renaming /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/scrape_canonical_academy.py.tmp.62943.1770337376611 to /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/scrape_canonical_academy.py
+2026-02-06T00:22:56.612Z [DEBUG] File /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/scrape_canonical_academy.py written atomically
+2026-02-06T00:22:56.613Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-02-06T00:22:56.613Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:22:56.613Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-02-06T00:22:56.615Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:22:56.615Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:22:56.615Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:22:56.615Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:22:56.615Z [DEBUG] autocompact: tokens=35655 threshold=167000 effectiveWindow=180000
+2026-02-06T00:22:56.616Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:22:56.618Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:56.618Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:56.619Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:58.673Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:22:59.581Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-06T00:22:59.581Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-06T00:22:59.581Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:22:59.581Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:22:59.583Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:22:59.583Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:22:59.583Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:22:59.584Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:22:59.958Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:01.816Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:23:01.816Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:01.816Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:01.816Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-06T00:23:01.816Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:23:01.816Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:23:01.816Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:01.817Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:23:01.817Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:23:01.817Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:23:01.817Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:23:01.817Z [DEBUG] autocompact: tokens=36041 threshold=167000 effectiveWindow=180000
+2026-02-06T00:23:01.818Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:23:01.819Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:01.819Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:01.819Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:02.173Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:03.455Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:03.997Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-06T00:23:03.997Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-06T00:23:03.997Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:23:03.997Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-06T00:23:03.999Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-06T00:23:03.999Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:23:03.999Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-06T00:23:04.016Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:23:04.016Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:23:04.016Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:23:04.016Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:23:04.016Z [DEBUG] autocompact: tokens=36852 threshold=167000 effectiveWindow=180000
+2026-02-06T00:23:04.016Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:23:04.019Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:04.019Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:04.019Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:05.433Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:33.404Z [DEBUG] executePreToolHooks called for tool: Write
+2026-02-06T00:23:33.405Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-02-06T00:23:33.405Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:23:33.405Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-06T00:23:33.406Z [DEBUG] Writing to temp file: /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/canonical_academy_report.md.tmp.62943.1770337413406
+2026-02-06T00:23:33.407Z [DEBUG] Temp file written successfully, size: 5191 bytes
+2026-02-06T00:23:33.407Z [DEBUG] Renaming /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/canonical_academy_report.md.tmp.62943.1770337413406 to /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/canonical_academy_report.md
+2026-02-06T00:23:33.407Z [DEBUG] File /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/canonical_academy_report.md written atomically
+2026-02-06T00:23:33.408Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-02-06T00:23:33.408Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:23:33.409Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-02-06T00:23:33.420Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:23:33.420Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:23:33.420Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:23:33.420Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:23:33.421Z [DEBUG] autocompact: tokens=38518 threshold=167000 effectiveWindow=180000
+2026-02-06T00:23:33.421Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:23:33.424Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:33.424Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:33.424Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:35.000Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:43.506Z [DEBUG] executePreToolHooks called for tool: Write
+2026-02-06T00:23:43.506Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-02-06T00:23:43.506Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:23:43.506Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-06T00:23:43.510Z [DEBUG] Writing to temp file: /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/result.json.tmp.62943.1770337423510
+2026-02-06T00:23:43.517Z [DEBUG] Temp file written successfully, size: 2945 bytes
+2026-02-06T00:23:43.517Z [DEBUG] Renaming /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/result.json.tmp.62943.1770337423510 to /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/result.json
+2026-02-06T00:23:43.519Z [DEBUG] File /Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260205_182139/task_4/result.json written atomically
+2026-02-06T00:23:43.520Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-02-06T00:23:43.520Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:23:43.520Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-02-06T00:23:43.522Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:23:43.522Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:23:43.522Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:23:43.522Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:23:43.522Z [DEBUG] autocompact: tokens=39561 threshold=167000 effectiveWindow=180000
+2026-02-06T00:23:43.523Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:23:43.525Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:43.525Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:43.525Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:45.356Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:46.499Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-06T00:23:46.499Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-06T00:23:46.499Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:23:46.499Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:23:46.507Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:23:46.508Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:46.508Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:46.508Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:46.903Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:47.325Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-06T00:23:47.325Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:47.325Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:47.326Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-06T00:23:47.326Z [DEBUG] Found 5 hook matchers in settings
+2026-02-06T00:23:47.326Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-06T00:23:47.326Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:47.326Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-06T00:23:47.326Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-06T00:23:47.326Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-06T00:23:47.326Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-06T00:23:47.327Z [DEBUG] autocompact: tokens=39724 threshold=167000 effectiveWindow=180000
+2026-02-06T00:23:47.327Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-06T00:23:47.328Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-06T00:23:47.328Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-06T00:23:47.328Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-06T00:23:47.823Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:48.984Z [DEBUG] Stream started - received first chunk
+2026-02-06T00:23:51.796Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-02-06T00:23:51.796Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:23:51.796Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-06T00:23:51.798Z [DEBUG] Getting matching hook commands for SessionEnd with query: other
+2026-02-06T00:23:51.798Z [DEBUG] Found 0 hook matchers in settings
+2026-02-06T00:23:51.798Z [DEBUG] Matched 0 unique hooks for query "other" (0 before deduplication)

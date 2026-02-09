@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "conduit-websearch": {
+      "command": "/opt/homebrew/bin/uv",
+      "args": [
+        "--directory",
+        "/Users/bianders/.claude/mcp-servers/conduit-websearch",
+        "run",
+        "server.py"
+      ]
+    }
+  }
+}

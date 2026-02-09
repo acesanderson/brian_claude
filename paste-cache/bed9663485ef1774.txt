@@ -1,0 +1,1020 @@
+.
+├── cache
+│   └── changelog.md
+├── CLAUDE.md
+├── debug
+│   ├── 0143cf0a-e9bd-4695-a6e1-d69610f0dd58.txt
+│   ├── 03632e4c-1ac1-46ea-9be0-df68bdc99473.txt
+│   ├── 05c30f24-6278-4652-8617-07dc9fea4323.txt
+│   ├── 0fce4736-f02b-46be-9825-1425ac4e9b4a.txt
+│   ├── 13aba559-c3d2-4771-aeee-050b5f1e5e92.txt
+│   ├── 1758136f-7c7b-4b6e-a247-ed27799fd97a.txt
+│   ├── 18de27fd-a670-47cc-a3c9-41f40a4b4bb3.txt
+│   ├── 1b22d108-275e-437e-94b5-8f9a0f3d741e.txt
+│   ├── 1c455737-aab4-4352-aa5e-90018bdb2d0c.txt
+│   ├── 1cbbf107-fa41-4741-8c24-a9ac95d2439c.txt
+│   ├── 1d107771-2794-42c2-b4c4-9672782f57fd.txt
+│   ├── 1dc17df3-fe91-4849-9344-5beb2ce90003.txt
+│   ├── 21bc776d-7bd7-4912-8131-d3ab9fcf31b4.txt
+│   ├── 25e37ff8-cc4f-43a7-92c0-de09a18a98d0.txt
+│   ├── 2a65dc21-55e0-4da1-a069-9b99f1832e2e.txt
+│   ├── 2a749280-a0e1-4275-92a9-29991e5c40ec.txt
+│   ├── 2d0223a4-447b-413b-b23c-ce96427c2f41.txt
+│   ├── 2e6c2e40-48d7-4003-84be-4d82c40197c2.txt
+│   ├── 2e8bdd55-5fc0-4631-816a-d91957693ce0.txt
+│   ├── 33b0cc7c-16a8-4c5c-b11b-ff2aa43fffeb.txt
+│   ├── 35dfd2fa-763f-40e8-85b4-045ccd379c16.txt
+│   ├── 3b3e8546-5acc-4c4b-94fb-9ab7f63e29de.txt
+│   ├── 3ccb6598-dbce-4900-8df5-387e5bac3c50.txt
+│   ├── 3f95bf3a-fb96-46d1-bc78-964afcc626bb.txt
+│   ├── 3fd43bf2-49b0-4a49-a7e4-026354f41a68.txt
+│   ├── 40341ae4-4010-4765-a06e-059e5c6da3f1.txt
+│   ├── 42214f7d-7fea-48b5-b2d2-f4ee70e77f7e.txt
+│   ├── 43f6b447-2226-4eb8-b1c8-c86eb760843f.txt
+│   ├── 440e6f2f-cc8c-4aee-8e2b-744ff51e77c1.txt
+│   ├── 45e30e18-7c76-4805-b5cd-6fc0be6457dd.txt
+│   ├── 45f9b02b-d21c-4ba7-9334-a3d5b7271edb.txt
+│   ├── 468c20a4-067d-47c1-b5db-8b029de63795.txt
+│   ├── 46ba6700-676e-4a46-bba8-69b5906a4ec2.txt
+│   ├── 488ad948-16d4-461e-ade0-aeec2316bf6d.txt
+│   ├── 4a14a4af-2ff5-4b18-ade1-9f339e239958.txt
+│   ├── 4b0b0194-015a-4d23-9fad-42866b470557.txt
+│   ├── 4ec083e9-da12-4c35-96de-d70bff78d0c7.txt
+│   ├── 4f10b742-c22e-4901-8318-6fb59aaa7aa4.txt
+│   ├── 4f4dceea-20c4-4c05-803a-d3bb0f16d6c1.txt
+│   ├── 523c45e5-72b7-49e9-91a3-2581fbf9e096.txt
+│   ├── 53533a0f-a575-4494-8490-ac86f46c6218.txt
+│   ├── 542436e5-f66c-4396-817e-9a7d2930bd3a.txt
+│   ├── 5657d355-3866-4265-ab74-2bc416744fef.txt
+│   ├── 56645bd7-f084-4308-bd2c-5c68c1cbe06b.txt
+│   ├── 56be06c5-adca-4d66-abb2-287295f20bc0.txt
+│   ├── 58cec1db-08aa-40e4-ad6f-79a51b272f87.txt
+│   ├── 58e72dc7-a07e-4fb2-a23c-5db5df9ac9fb.txt
+│   ├── 5cf38634-bbc0-4ae8-8f81-035cb3fc6041.txt
+│   ├── 601a8a4f-b7a0-45a0-910a-82f88f8c35f9.txt
+│   ├── 60ccd4b0-8bba-44b7-8a63-9c60b32a7697.txt
+│   ├── 62c8a1ab-6a5b-4bf7-a3df-4cdeae79365a.txt
+│   ├── 63341d9d-c2af-4fb2-a7b2-6f57646b07ff.txt
+│   ├── 64c50d02-927e-4771-82f6-9d53a05261f4.txt
+│   ├── 650ce921-7fa3-4204-b3be-d026494bc504.txt
+│   ├── 65bc5357-c71a-41e9-a0be-bfd21e78921b.txt
+│   ├── 66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b.txt
+│   ├── 69d68c43-218a-48e2-9c12-5be38e157397.txt
+│   ├── 6b299e10-31ee-4dde-b40a-8cac6b9f1a8a.txt
+│   ├── 6b76df7f-4514-4c0b-8f8a-c45c87ab3d5c.txt
+│   ├── 6d9c1164-d35d-4b16-aac9-9faea9b509ad.txt
+│   ├── 70b13a08-03c0-4c20-be73-0c8e89126a22.txt
+│   ├── 723aa472-c762-4330-a073-a644310a7152.txt
+│   ├── 72e40979-5c03-4263-b370-37c38b60506c.txt
+│   ├── 743f8c01-c5e4-4812-aefe-32a32fc8ea60.txt
+│   ├── 74964304-ce27-45a0-8ad7-78b6c98ce30f.txt
+│   ├── 74d03612-ddac-4833-9dfd-3836dd698470.txt
+│   ├── 75900338-16c7-4203-a9ef-5e00a16fa76e.txt
+│   ├── 781d5ea7-cce0-4e87-86f6-033c07ffea56.txt
+│   ├── 78ac80b9-f982-49b5-ad7c-1b9f2509ead0.txt
+│   ├── 79f5a76f-43b6-49aa-a80b-b76c6c8baf4d.txt
+│   ├── 7aced4ef-bad8-47da-b93e-d8f2e51ecf5c.txt
+│   ├── 7fb41396-e97c-4e7a-a56c-9a45ce0991f2.txt
+│   ├── 80682671-6e63-4c04-9477-85ac19197c62.txt
+│   ├── 81a9d071-3633-4586-b9b6-c31c3a3cfa6e.txt
+│   ├── 81ee356c-d874-4454-b0eb-320f93f07489.txt
+│   ├── 85cc9edf-4652-46ba-bbc7-0b84e6f16b52.txt
+│   ├── 8997d6d0-97ec-4202-8998-60f5cfe374cb.txt
+│   ├── 89ec5cb2-246c-4fbe-af47-85d47dee9059.txt
+│   ├── 8bf6af1f-c4f1-4e56-9b4b-939c929a6fd2.txt
+│   ├── 8c54a996-a1fe-451c-ba02-5cfcaf497aba.txt
+│   ├── 90e9c0ff-f0ec-4791-99cd-4f6303c65b43.txt
+│   ├── 915bfd88-2b91-46cc-a89f-543fc14eabb1.txt
+│   ├── 923f4e9b-71ed-4ea5-9afe-7d19dd5d7660.txt
+│   ├── 95f77ebc-4bfa-4206-a3d4-127f9ff08ae3.txt
+│   ├── 993eccc7-c480-4a93-b21b-3232fc0e343d.txt
+│   ├── 9b3cca40-245d-4e3c-b5bf-9809105398cb.txt
+│   ├── 9b408748-fb3d-4974-a932-01938f821777.txt
+│   ├── a2ecbf62-7c69-41a2-96e2-ae266d389cd1.txt
+│   ├── a62de7cc-e567-4525-8247-b9c1812b2bbf.txt
+│   ├── a63f2d8e-a576-4f57-bb33-e70d41f43983.txt
+│   ├── a9fb28f2-0a4a-4a66-944f-bc1695f2263d.txt
+│   ├── aa306ba8-aeeb-478d-842c-da7d1693a05c.txt
+│   ├── aa53188b-97d6-4a5c-aa47-1c41fb8d162f.txt
+│   ├── aba4f076-4e8f-453c-8e72-307796a9253a.txt
+│   ├── aba5f947-4cfb-4cfa-a942-dbf2edf8ff0d.txt
+│   ├── ac61fe5b-8f94-4bfc-bca6-582ff6728844.txt
+│   ├── ad452e37-e33a-4f6d-a94d-7b4656abc161.txt
+│   ├── afcbb012-54d8-48cb-a6ec-81749b3fe35b.txt
+│   ├── b0d4d9e9-9e1d-4647-b5e8-b130b8436f88.txt
+│   ├── b2e8e157-78db-4f78-8d35-343b0d4f86ca.txt
+│   ├── b422fb7c-7526-4ab0-af58-769f943bb8ec.txt
+│   ├── bd9013dd-37a2-46b1-ac1c-39dfaf0d4773.txt
+│   ├── bebe0a9d-de57-4ba7-8da5-705e35d66e04.txt
+│   ├── bf64a986-73af-477d-b137-ec51c7c8a6b4.txt
+│   ├── c18b39a8-c801-46a9-a82b-434329b5ed95.txt
+│   ├── c36e5f71-8617-4c48-9f6d-34be9f512d19.txt
+│   ├── c4e9c8e6-ed4e-4916-836f-2346bdd5c27d.txt
+│   ├── c682e4ce-d45f-4e0d-a377-566e1b9eb50a.txt
+│   ├── c7bc94fe-6699-4dc3-9501-088a15280f25.txt
+│   ├── cfc3c5f0-ffd7-4143-9290-fa7a9b9df278.txt
+│   ├── d1740148-d3ab-4b80-aff7-3dc181b18168.txt
+│   ├── d24e7c57-08cb-47fa-b4a7-2078ea41c7d3.txt
+│   ├── d2f8f459-db21-413e-a477-465850b35c9f.txt
+│   ├── d5df28c5-8096-48bb-a97b-b1a7a23dcf20.txt
+│   ├── d65f4c0e-0ec7-47b1-ad03-52f7e1ba5169.txt
+│   ├── d9d0d6fb-f846-4627-868d-1443e83b7cc8.txt
+│   ├── dc7fbcc1-bcba-4837-a839-51edfbbe832a.txt
+│   ├── e2d53f98-8b59-46ea-8d27-e11fff255c28.txt
+│   ├── e8dc9bb5-f721-4081-bc24-d3b3f6b802ec.txt
+│   ├── e9ddd318-0bd7-41fd-8a82-5f223a95fe32.txt
+│   ├── eda691e5-3805-4aa0-98a7-33e52c9154ef.txt
+│   └── latest -> /Users/bianders/.claude/debug/3f95bf3a-fb96-46d1-bc78-964afcc626bb.txt
+├── downloads
+├── file-history
+│   ├── 13aba559-c3d2-4771-aeee-050b5f1e5e92
+│   │   ├── 4c2cafa7e0936d62@v1
+│   │   ├── 4c2cafa7e0936d62@v2
+│   │   ├── 4c2cafa7e0936d62@v3
+│   │   ├── 4c2cafa7e0936d62@v4
+│   │   └── 4c2cafa7e0936d62@v5
+│   ├── 2a749280-a0e1-4275-92a9-29991e5c40ec
+│   │   └── e1de94449a5e3bc4@v2
+│   ├── 33b0cc7c-16a8-4c5c-b11b-ff2aa43fffeb
+│   │   ├── fea15b0f34a72970@v1
+│   │   ├── fea15b0f34a72970@v2
+│   │   └── fea15b0f34a72970@v3
+│   ├── 40341ae4-4010-4765-a06e-059e5c6da3f1
+│   │   ├── 004142cee426443a@v1
+│   │   └── 903929c212f73515@v2
+│   ├── 488ad948-16d4-461e-ade0-aeec2316bf6d
+│   │   ├── 4f617394d95ffe8c@v2
+│   │   ├── 8633b9d9754acf4b@v2
+│   │   ├── a1467aa710124c3f@v2
+│   │   ├── bea366b907a94f6c@v2
+│   │   ├── cc7cfad2da1ddb65@v2
+│   │   ├── d7f28417cc83a06f@v2
+│   │   └── e3c104583553e668@v2
+│   ├── 4a14a4af-2ff5-4b18-ade1-9f339e239958
+│   │   ├── 33270860f57d2804@v1
+│   │   ├── 33270860f57d2804@v2
+│   │   ├── 33270860f57d2804@v3
+│   │   ├── 33270860f57d2804@v4
+│   │   ├── 33270860f57d2804@v5
+│   │   ├── 33270860f57d2804@v6
+│   │   ├── 8a192d5c5eb158ea@v2
+│   │   ├── 8ede9c4e7cf47815@v2
+│   │   ├── 8ede9c4e7cf47815@v3
+│   │   ├── a42be020ba17b778@v1
+│   │   ├── a42be020ba17b778@v2
+│   │   ├── a42be020ba17b778@v3
+│   │   └── a42be020ba17b778@v4
+│   ├── 4f10b742-c22e-4901-8318-6fb59aaa7aa4
+│   │   ├── 0c522617d6f3bd00@v2
+│   │   ├── 18dc496ccc227e7e@v2
+│   │   ├── 38bd3b00722f61b9@v2
+│   │   ├── 4c1e8a2c8d112334@v2
+│   │   ├── 67e134ee4b23eb99@v2
+│   │   └── 82f8ef59a03714bb@v2
+│   ├── 6d9c1164-d35d-4b16-aac9-9faea9b509ad
+│   │   └── ffa95ebb4b259fb0@v2
+│   ├── 74d03612-ddac-4833-9dfd-3836dd698470
+│   │   ├── 148d7eb4fa18a8cb@v1
+│   │   ├── 148d7eb4fa18a8cb@v2
+│   │   ├── 148d7eb4fa18a8cb@v3
+│   │   ├── 49ebf467406b6e1a@v2
+│   │   ├── 6597a55f6b419e6f@v1
+│   │   ├── 6597a55f6b419e6f@v2
+│   │   ├── 9b25ddcd9655f771@v2
+│   │   ├── a8a3724671743fb0@v2
+│   │   ├── de3bbc12b9a5d1b8@v2
+│   │   └── ece1db0ab31295d6@v2
+│   ├── 89ec5cb2-246c-4fbe-af47-85d47dee9059
+│   │   ├── b12a1526f7fd311c@v1
+│   │   └── b12a1526f7fd311c@v2
+│   ├── 95f77ebc-4bfa-4206-a3d4-127f9ff08ae3
+│   │   ├── 6d39e08c822e9675@v1
+│   │   ├── 6d39e08c822e9675@v2
+│   │   └── d057cc9abc1df198@v2
+│   ├── ad452e37-e33a-4f6d-a94d-7b4656abc161
+│   │   └── a954ef8778fa1c57@v2
+│   ├── bf64a986-73af-477d-b137-ec51c7c8a6b4
+│   │   ├── 02cd522ba407994d@v1
+│   │   ├── 02cd522ba407994d@v2
+│   │   ├── 02cd522ba407994d@v3
+│   │   ├── 02cd522ba407994d@v4
+│   │   ├── 52fba10d08631067@v2
+│   │   └── 87b4f682111c482d@v2
+│   ├── c4e9c8e6-ed4e-4916-836f-2346bdd5c27d
+│   │   ├── 574a92922f4b8d61@v2
+│   │   └── edaa3fe0ef8dcc8b@v2
+│   └── d5df28c5-8096-48bb-a97b-b1a7a23dcf20
+│       ├── 151aaad424b6f640@v2
+│       ├── 151aaad424b6f640@v3
+│       ├── 151aaad424b6f640@v4
+│       ├── 4c2cafa7e0936d62@v1
+│       ├── 4c2cafa7e0936d62@v2
+│       ├── d3d25866c185ead7@v2
+│       ├── d3d25866c185ead7@v3
+│       ├── d3d25866c185ead7@v4
+│       ├── d3d25866c185ead7@v5
+│       ├── d4048ba73608a379@v2
+│       ├── d4048ba73608a379@v3
+│       ├── f373af6a2f8a916c@v2
+│       ├── f7b00eb625fda63e@v2
+│       ├── f7b00eb625fda63e@v3
+│       ├── f7b00eb625fda63e@v4
+│       └── f7b00eb625fda63e@v5
+├── history.jsonl
+├── mcp-servers
+│   └── conduit-websearch
+│       ├── __pycache__
+│       │   └── fetch_tools.cpython-312.pyc
+│       ├── fetch_tools.py
+│       ├── pyproject.toml
+│       ├── README.md
+│       ├── server.py
+│       └── uv.lock
+├── paste-cache
+│   ├── 1b28990be6d29c10.txt
+│   ├── 1b4985f798e7497a.txt
+│   ├── 1bd1a2a665a6a93e.txt
+│   ├── 55ae97f7592b828f.txt
+│   └── da0f2b67f513f723.txt
+├── plans
+├── plugins
+│   ├── known_marketplaces.json
+│   └── marketplaces
+│       └── claude-plugins-official
+│           ├── external_plugins
+│           │   ├── asana
+│           │   ├── context7
+│           │   ├── firebase
+│           │   ├── github
+│           │   ├── gitlab
+│           │   ├── greptile
+│           │   │   └── README.md
+│           │   ├── laravel-boost
+│           │   ├── linear
+│           │   ├── playwright
+│           │   ├── serena
+│           │   ├── slack
+│           │   ├── stripe
+│           │   │   ├── commands
+│           │   │   │   ├── explain-error.md
+│           │   │   │   └── test-cards.md
+│           │   │   └── skills
+│           │   │       └── stripe-best-practices
+│           │   │           └── SKILL.md
+│           │   └── supabase
+│           ├── plugins
+│           │   ├── agent-sdk-dev
+│           │   │   ├── agents
+│           │   │   │   ├── agent-sdk-verifier-py.md
+│           │   │   │   └── agent-sdk-verifier-ts.md
+│           │   │   ├── commands
+│           │   │   │   └── new-sdk-app.md
+│           │   │   └── README.md
+│           │   ├── clangd-lsp
+│           │   │   └── README.md
+│           │   ├── claude-code-setup
+│           │   │   ├── automation-recommender-example.png
+│           │   │   ├── README.md
+│           │   │   └── skills
+│           │   │       └── claude-automation-recommender
+│           │   │           ├── references
+│           │   │           │   ├── hooks-patterns.md
+│           │   │           │   ├── mcp-servers.md
+│           │   │           │   ├── plugins-reference.md
+│           │   │           │   ├── skills-reference.md
+│           │   │           │   └── subagent-templates.md
+│           │   │           └── SKILL.md
+│           │   ├── claude-md-management
+│           │   │   ├── claude-md-improver-example.png
+│           │   │   ├── commands
+│           │   │   │   └── revise-claude-md.md
+│           │   │   ├── README.md
+│           │   │   ├── revise-claude-md-example.png
+│           │   │   └── skills
+│           │   │       └── claude-md-improver
+│           │   │           ├── references
+│           │   │           │   ├── quality-criteria.md
+│           │   │           │   ├── templates.md
+│           │   │           │   └── update-guidelines.md
+│           │   │           └── SKILL.md
+│           │   ├── code-review
+│           │   │   ├── commands
+│           │   │   │   └── code-review.md
+│           │   │   └── README.md
+│           │   ├── code-simplifier
+│           │   │   └── agents
+│           │   │       └── code-simplifier.md
+│           │   ├── commit-commands
+│           │   │   ├── commands
+│           │   │   │   ├── clean_gone.md
+│           │   │   │   ├── commit-push-pr.md
+│           │   │   │   └── commit.md
+│           │   │   └── README.md
+│           │   ├── csharp-lsp
+│           │   │   └── README.md
+│           │   ├── example-plugin
+│           │   │   ├── commands
+│           │   │   │   └── example-command.md
+│           │   │   ├── README.md
+│           │   │   └── skills
+│           │   │       └── example-skill
+│           │   │           └── SKILL.md
+│           │   ├── explanatory-output-style
+│           │   │   ├── hooks
+│           │   │   │   └── hooks.json
+│           │   │   ├── hooks-handlers
+│           │   │   │   └── session-start.sh
+│           │   │   └── README.md
+│           │   ├── feature-dev
+│           │   │   ├── agents
+│           │   │   │   ├── code-architect.md
+│           │   │   │   ├── code-explorer.md
+│           │   │   │   └── code-reviewer.md
+│           │   │   ├── commands
+│           │   │   │   └── feature-dev.md
+│           │   │   └── README.md
+│           │   ├── frontend-design
+│           │   │   ├── README.md
+│           │   │   └── skills
+│           │   │       └── frontend-design
+│           │   │           └── SKILL.md
+│           │   ├── gopls-lsp
+│           │   │   └── README.md
+│           │   ├── hookify
+│           │   │   ├── agents
+│           │   │   │   └── conversation-analyzer.md
+│           │   │   ├── commands
+│           │   │   │   ├── configure.md
+│           │   │   │   ├── help.md
+│           │   │   │   ├── hookify.md
+│           │   │   │   └── list.md
+│           │   │   ├── core
+│           │   │   │   ├── __init__.py
+│           │   │   │   ├── config_loader.py
+│           │   │   │   └── rule_engine.py
+│           │   │   ├── examples
+│           │   │   │   ├── console-log-warning.local.md
+│           │   │   │   ├── dangerous-rm.local.md
+│           │   │   │   ├── require-tests-stop.local.md
+│           │   │   │   └── sensitive-files-warning.local.md
+│           │   │   ├── hooks
+│           │   │   │   ├── __init__.py
+│           │   │   │   ├── hooks.json
+│           │   │   │   ├── posttooluse.py
+│           │   │   │   ├── pretooluse.py
+│           │   │   │   ├── stop.py
+│           │   │   │   └── userpromptsubmit.py
+│           │   │   ├── matchers
+│           │   │   │   └── __init__.py
+│           │   │   ├── README.md
+│           │   │   ├── skills
+│           │   │   │   └── writing-rules
+│           │   │   │       └── SKILL.md
+│           │   │   └── utils
+│           │   │       └── __init__.py
+│           │   ├── jdtls-lsp
+│           │   │   └── README.md
+│           │   ├── kotlin-lsp
+│           │   │   └── README.md
+│           │   ├── learning-output-style
+│           │   │   ├── hooks
+│           │   │   │   └── hooks.json
+│           │   │   ├── hooks-handlers
+│           │   │   │   └── session-start.sh
+│           │   │   └── README.md
+│           │   ├── lua-lsp
+│           │   │   └── README.md
+│           │   ├── php-lsp
+│           │   │   └── README.md
+│           │   ├── playground
+│           │   │   ├── README.md
+│           │   │   └── skills
+│           │   │       └── playground
+│           │   │           ├── SKILL.md
+│           │   │           └── templates
+│           │   │               ├── code-map.md
+│           │   │               ├── concept-map.md
+│           │   │               ├── data-explorer.md
+│           │   │               ├── design-playground.md
+│           │   │               ├── diff-review.md
+│           │   │               └── document-critique.md
+│           │   ├── plugin-dev
+│           │   │   ├── agents
+│           │   │   │   ├── agent-creator.md
+│           │   │   │   ├── plugin-validator.md
+│           │   │   │   └── skill-reviewer.md
+│           │   │   ├── commands
+│           │   │   │   └── create-plugin.md
+│           │   │   ├── README.md
+│           │   │   └── skills
+│           │   │       ├── agent-development
+│           │   │       │   ├── examples
+│           │   │       │   │   ├── agent-creation-prompt.md
+│           │   │       │   │   └── complete-agent-examples.md
+│           │   │       │   ├── references
+│           │   │       │   │   ├── agent-creation-system-prompt.md
+│           │   │       │   │   ├── system-prompt-design.md
+│           │   │       │   │   └── triggering-examples.md
+│           │   │       │   ├── scripts
+│           │   │       │   │   └── validate-agent.sh
+│           │   │       │   └── SKILL.md
+│           │   │       ├── command-development
+│           │   │       │   ├── examples
+│           │   │       │   │   ├── plugin-commands.md
+│           │   │       │   │   └── simple-commands.md
+│           │   │       │   ├── README.md
+│           │   │       │   ├── references
+│           │   │       │   │   ├── advanced-workflows.md
+│           │   │       │   │   ├── documentation-patterns.md
+│           │   │       │   │   ├── frontmatter-reference.md
+│           │   │       │   │   ├── interactive-commands.md
+│           │   │       │   │   ├── marketplace-considerations.md
+│           │   │       │   │   ├── plugin-features-reference.md
+│           │   │       │   │   └── testing-strategies.md
+│           │   │       │   └── SKILL.md
+│           │   │       ├── hook-development
+│           │   │       │   ├── examples
+│           │   │       │   │   ├── load-context.sh
+│           │   │       │   │   ├── validate-bash.sh
+│           │   │       │   │   └── validate-write.sh
+│           │   │       │   ├── references
+│           │   │       │   │   ├── advanced.md
+│           │   │       │   │   ├── migration.md
+│           │   │       │   │   └── patterns.md
+│           │   │       │   ├── scripts
+│           │   │       │   │   ├── hook-linter.sh
+│           │   │       │   │   ├── README.md
+│           │   │       │   │   ├── test-hook.sh
+│           │   │       │   │   └── validate-hook-schema.sh
+│           │   │       │   └── SKILL.md
+│           │   │       ├── mcp-integration
+│           │   │       │   ├── examples
+│           │   │       │   │   ├── http-server.json
+│           │   │       │   │   ├── sse-server.json
+│           │   │       │   │   └── stdio-server.json
+│           │   │       │   ├── references
+│           │   │       │   │   ├── authentication.md
+│           │   │       │   │   ├── server-types.md
+│           │   │       │   │   └── tool-usage.md
+│           │   │       │   └── SKILL.md
+│           │   │       ├── plugin-settings
+│           │   │       │   ├── examples
+│           │   │       │   │   ├── create-settings-command.md
+│           │   │       │   │   ├── example-settings.md
+│           │   │       │   │   └── read-settings-hook.sh
+│           │   │       │   ├── references
+│           │   │       │   │   ├── parsing-techniques.md
+│           │   │       │   │   └── real-world-examples.md
+│           │   │       │   ├── scripts
+│           │   │       │   │   ├── parse-frontmatter.sh
+│           │   │       │   │   └── validate-settings.sh
+│           │   │       │   └── SKILL.md
+│           │   │       ├── plugin-structure
+│           │   │       │   ├── examples
+│           │   │       │   │   ├── advanced-plugin.md
+│           │   │       │   │   ├── minimal-plugin.md
+│           │   │       │   │   └── standard-plugin.md
+│           │   │       │   ├── README.md
+│           │   │       │   ├── references
+│           │   │       │   │   ├── component-patterns.md
+│           │   │       │   │   └── manifest-reference.md
+│           │   │       │   └── SKILL.md
+│           │   │       └── skill-development
+│           │   │           ├── references
+│           │   │           │   └── skill-creator-original.md
+│           │   │           └── SKILL.md
+│           │   ├── pr-review-toolkit
+│           │   │   ├── agents
+│           │   │   │   ├── code-reviewer.md
+│           │   │   │   ├── code-simplifier.md
+│           │   │   │   ├── comment-analyzer.md
+│           │   │   │   ├── pr-test-analyzer.md
+│           │   │   │   ├── silent-failure-hunter.md
+│           │   │   │   └── type-design-analyzer.md
+│           │   │   ├── commands
+│           │   │   │   └── review-pr.md
+│           │   │   └── README.md
+│           │   ├── pyright-lsp
+│           │   │   └── README.md
+│           │   ├── ralph-loop
+│           │   │   ├── commands
+│           │   │   │   ├── cancel-ralph.md
+│           │   │   │   ├── help.md
+│           │   │   │   └── ralph-loop.md
+│           │   │   ├── hooks
+│           │   │   │   ├── hooks.json
+│           │   │   │   └── stop-hook.sh
+│           │   │   ├── README.md
+│           │   │   └── scripts
+│           │   │       └── setup-ralph-loop.sh
+│           │   ├── rust-analyzer-lsp
+│           │   │   └── README.md
+│           │   ├── security-guidance
+│           │   │   └── hooks
+│           │   │       ├── hooks.json
+│           │   │       └── security_reminder_hook.py
+│           │   ├── swift-lsp
+│           │   │   └── README.md
+│           │   └── typescript-lsp
+│           │       └── README.md
+│           └── README.md
+├── projects
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-0
+│   │   ├── aa306ba8-aeeb-478d-842c-da7d1693a05c.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-1
+│   │   ├── 1b22d108-275e-437e-94b5-8f9a0f3d741e.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-2
+│   │   ├── 0143cf0a-e9bd-4695-a6e1-d69610f0dd58.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-3
+│   │   ├── 6b299e10-31ee-4dde-b40a-8cac6b9f1a8a
+│   │   │   └── tool-results
+│   │   │       └── toolu_01XZictDffUUSAxQ1k56FRDZ.txt
+│   │   ├── 6b299e10-31ee-4dde-b40a-8cac6b9f1a8a.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-4
+│   │   ├── 66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-5
+│   │   ├── 6b76df7f-4514-4c0b-8f8a-c45c87ab3d5c.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-6
+│   │   ├── aba4f076-4e8f-453c-8e72-307796a9253a.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-7
+│   │   ├── 7aced4ef-bad8-47da-b93e-d8f2e51ecf5c.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260205-182139-task-8
+│   │   ├── 72e40979-5c03-4263-b370-37c38b60506c
+│   │   │   └── tool-results
+│   │   │       ├── toolu_01HKg7xSdYQu9Q31AGycWwRt.txt
+│   │   │       ├── toolu_01KmML6Mr6cfPckwRhMwdFDV.txt
+│   │   │       └── toolu_01MXocLSPEmtJkctAGnSzseW.txt
+│   │   ├── 72e40979-5c03-4263-b370-37c38b60506c.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-0
+│   │   └── b0d4d9e9-9e1d-4647-b5e8-b130b8436f88.jsonl
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-1
+│   │   ├── d1740148-d3ab-4b80-aff7-3dc181b18168.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-10
+│   │   ├── 05c30f24-6278-4652-8617-07dc9fea4323.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-11
+│   │   ├── 53533a0f-a575-4494-8490-ac86f46c6218.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-12
+│   │   ├── ac61fe5b-8f94-4bfc-bca6-582ff6728844.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-13
+│   │   ├── e9ddd318-0bd7-41fd-8a82-5f223a95fe32.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-14
+│   │   ├── c7bc94fe-6699-4dc3-9501-088a15280f25.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-15
+│   │   ├── 923f4e9b-71ed-4ea5-9afe-7d19dd5d7660.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-16
+│   │   ├── 5657d355-3866-4265-ab74-2bc416744fef.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-17
+│   │   ├── d24e7c57-08cb-47fa-b4a7-2078ea41c7d3.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-18
+│   │   ├── 90e9c0ff-f0ec-4791-99cd-4f6303c65b43.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-19
+│   │   ├── bd9013dd-37a2-46b1-ac1c-39dfaf0d4773.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-2
+│   │   ├── 2a65dc21-55e0-4da1-a069-9b99f1832e2e
+│   │   │   └── tool-results
+│   │   │       ├── toolu_016LcT3s2bYC8BpPgjWHkgqS.txt
+│   │   │       └── toolu_01WEEEEvMYgv9XgfiVBG1EZG.txt
+│   │   ├── 2a65dc21-55e0-4da1-a069-9b99f1832e2e.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-3
+│   │   ├── 9b3cca40-245d-4e3c-b5bf-9809105398cb.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-4
+│   │   ├── 65bc5357-c71a-41e9-a0be-bfd21e78921b.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-5
+│   │   ├── 64c50d02-927e-4771-82f6-9d53a05261f4.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-6
+│   │   ├── 2e6c2e40-48d7-4003-84be-4d82c40197c2.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-7
+│   │   ├── 8bf6af1f-c4f1-4e56-9b4b-939c929a6fd2.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-8
+│   │   ├── 45e30e18-7c76-4805-b5cd-6fc0be6457dd
+│   │   │   └── tool-results
+│   │   │       └── toolu_01XjW638g2Nim8FKehEw3T5y.txt
+│   │   ├── 45e30e18-7c76-4805-b5cd-6fc0be6457dd.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-batch-runs-20260209-091824-task-9
+│   │   ├── 3ccb6598-dbce-4900-8df5-387e5bac3c50.jsonl
+│   │   └── memory
+│   ├── -Users-bianders--claude-skills-batch-dispatch-references
+│   │   └── 2d0223a4-447b-413b-b23c-ce96427c2f41.jsonl
+│   ├── -Users-bianders--local-bin
+│   │   └── 4ec083e9-da12-4c35-96de-d70bff78d0c7.jsonl
+│   ├── -Users-bianders-Brian-Code-conduit-project
+│   │   ├── 89ec5cb2-246c-4fbe-af47-85d47dee9059
+│   │   │   └── subagents
+│   │   │       ├── agent-a21d3d5.jsonl
+│   │   │       ├── agent-aprompt_suggestion-145224.jsonl
+│   │   │       └── agent-aprompt_suggestion-25c23f.jsonl
+│   │   ├── 89ec5cb2-246c-4fbe-af47-85d47dee9059.jsonl
+│   │   └── sessions-index.json
+│   ├── -Users-bianders-Brian-Code-conduit-project-src-conduit
+│   │   ├── c36e5f71-8617-4c48-9f6d-34be9f512d19
+│   │   │   └── subagents
+│   │   │       └── agent-aprompt_suggestion-1c837d.jsonl
+│   │   ├── c36e5f71-8617-4c48-9f6d-34be9f512d19.jsonl
+│   │   └── sessions-index.json
+│   ├── -Users-bianders-Brian-Code-headwater-headwater-server-src-headwater-server-services-curator-service
+│   │   └── 2e8bdd55-5fc0-4631-816a-d91957693ce0.jsonl
+│   ├── -Users-bianders-Brian-Code-kramer-project-src-kramer-courses
+│   │   ├── 58cec1db-08aa-40e4-ad6f-79a51b272f87.jsonl
+│   │   ├── 60ccd4b0-8bba-44b7-8a63-9c60b32a7697.jsonl
+│   │   ├── 743f8c01-c5e4-4812-aefe-32a32fc8ea60.jsonl
+│   │   ├── 9b408748-fb3d-4974-a932-01938f821777.jsonl
+│   │   ├── a9fb28f2-0a4a-4a66-944f-bc1695f2263d.jsonl
+│   │   ├── cfc3c5f0-ffd7-4143-9290-fa7a9b9df278.jsonl
+│   │   └── sessions-index.json
+│   ├── -Users-bianders-Brian-Code-kramer-project-src-kramer-database
+│   │   ├── 33b0cc7c-16a8-4c5c-b11b-ff2aa43fffeb
+│   │   │   └── subagents
+│   │   │       ├── agent-aprompt_suggestion-351ea0.jsonl
+│   │   │       ├── agent-aprompt_suggestion-4b32d7.jsonl
+│   │   │       ├── agent-aprompt_suggestion-638111.jsonl
+│   │   │       ├── agent-aprompt_suggestion-927801.jsonl
+│   │   │       └── agent-aprompt_suggestion-f84f69.jsonl
+│   │   ├── 33b0cc7c-16a8-4c5c-b11b-ff2aa43fffeb.jsonl
+│   │   └── sessions-index.json
+│   ├── -Users-bianders-Brian-Code-rubric-project
+│   │   ├── aba5f947-4cfb-4cfa-a942-dbf2edf8ff0d.jsonl
+│   │   └── sessions-index.json
+│   ├── -Users-bianders-Brian-Code-sandbox
+│   │   ├── 18de27fd-a670-47cc-a3c9-41f40a4b4bb3.jsonl
+│   │   ├── 45f9b02b-d21c-4ba7-9334-a3d5b7271edb.jsonl
+│   │   ├── 542436e5-f66c-4396-817e-9a7d2930bd3a.jsonl
+│   │   ├── 650ce921-7fa3-4204-b3be-d026494bc504.jsonl
+│   │   ├── 75900338-16c7-4203-a9ef-5e00a16fa76e.jsonl
+│   │   ├── 80682671-6e63-4c04-9477-85ac19197c62.jsonl
+│   │   ├── b422fb7c-7526-4ab0-af58-769f943bb8ec.jsonl
+│   │   ├── d65f4c0e-0ec7-47b1-ad03-52f7e1ba5169.jsonl
+│   │   └── memory
+│   ├── -Users-bianders-Brian-Code-sandbox-batch-runs-20260205-180721-task-0
+│   │   └── afcbb012-54d8-48cb-a6ec-81749b3fe35b.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-batch-runs-20260205-180721-task-1
+│   │   └── 3b3e8546-5acc-4c4b-94fb-9ab7f63e29de.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-batch-runs-20260205-180721-task-2
+│   │   ├── 70b13a08-03c0-4c20-be73-0c8e89126a22
+│   │   │   └── tool-results
+│   │   │       └── toolu_014kqsTUo8dfTzW95Bz2vJWu.txt
+│   │   └── 70b13a08-03c0-4c20-be73-0c8e89126a22.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-batch-runs-20260205-180721-task-3
+│   │   └── 723aa472-c762-4330-a073-a644310a7152.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-licensing
+│   │   ├── c4e9c8e6-ed4e-4916-836f-2346bdd5c27d
+│   │   │   └── subagents
+│   │   │       └── agent-aprompt_suggestion-199279.jsonl
+│   │   ├── c4e9c8e6-ed4e-4916-836f-2346bdd5c27d.jsonl
+│   │   └── sessions-index.json
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping
+│   │   ├── 13aba559-c3d2-4771-aeee-050b5f1e5e92.jsonl
+│   │   ├── 2a749280-a0e1-4275-92a9-29991e5c40ec
+│   │   │   └── tool-results
+│   │   │       └── toolu_01RYASUJGTauuVyeVNZANfYX.txt
+│   │   ├── 2a749280-a0e1-4275-92a9-29991e5c40ec.jsonl
+│   │   ├── 3f95bf3a-fb96-46d1-bc78-964afcc626bb
+│   │   │   └── subagents
+│   │   │       └── agent-aef8584.jsonl
+│   │   ├── 3f95bf3a-fb96-46d1-bc78-964afcc626bb.jsonl
+│   │   ├── 46ba6700-676e-4a46-bba8-69b5906a4ec2.jsonl
+│   │   ├── 488ad948-16d4-461e-ade0-aeec2316bf6d.jsonl
+│   │   ├── 4a14a4af-2ff5-4b18-ade1-9f339e239958
+│   │   │   └── tool-results
+│   │   │       └── toolu_01GF9ZBxcEXR3bLXfyxaisBr.txt
+│   │   ├── 4a14a4af-2ff5-4b18-ade1-9f339e239958.jsonl
+│   │   ├── 4f10b742-c22e-4901-8318-6fb59aaa7aa4.jsonl
+│   │   ├── 74d03612-ddac-4833-9dfd-3836dd698470.jsonl
+│   │   ├── 95f77ebc-4bfa-4206-a3d4-127f9ff08ae3.jsonl
+│   │   ├── a2ecbf62-7c69-41a2-96e2-ae266d389cd1.jsonl
+│   │   ├── ad452e37-e33a-4f6d-a94d-7b4656abc161
+│   │   │   └── tool-results
+│   │   │       └── toolu_01EN3xVG2qTyUrZQpt32sUUH.txt
+│   │   ├── ad452e37-e33a-4f6d-a94d-7b4656abc161.jsonl
+│   │   ├── d5df28c5-8096-48bb-a97b-b1a7a23dcf20
+│   │   │   └── tool-results
+│   │   │       ├── toolu_018nezKtJegFZ83piwJTrD1R.txt
+│   │   │       ├── toolu_01JoSfLE53y9zdBRnL9m9Bwx.txt
+│   │   │       ├── toolu_01Miokgppafy8UA5dS5nJq4r.txt
+│   │   │       ├── toolu_01TuaqX8FGvkqS4f3EDvaV4Y.txt
+│   │   │       ├── toolu_01WGThsaZ62tHxfjzwUV7S3E.txt
+│   │   │       └── toolu_01X68zQheuwzUCvNB1KRZbQb.txt
+│   │   ├── d5df28c5-8096-48bb-a97b-b1a7a23dcf20.jsonl
+│   │   └── e8dc9bb5-f721-4081-bc24-d3b3f6b802ec.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-results-20260205-183648
+│   │   └── 6d9c1164-d35d-4b16-aac9-9faea9b509ad.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-0
+│   │   └── 21bc776d-7bd7-4912-8131-d3ab9fcf31b4.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-1
+│   │   └── 56be06c5-adca-4d66-abb2-287295f20bc0.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-2
+│   │   └── aa53188b-97d6-4a5c-aa47-1c41fb8d162f.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-3
+│   │   ├── 468c20a4-067d-47c1-b5db-8b029de63795
+│   │   │   └── tool-results
+│   │   │       ├── toolu_01WGrvj6bVomuex1St4dbpNa.txt
+│   │   │       └── toolu_01XuSwSBb2C2eE8bVxfdWD8H.txt
+│   │   └── 468c20a4-067d-47c1-b5db-8b029de63795.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-4
+│   │   └── 58e72dc7-a07e-4fb2-a23c-5db5df9ac9fb.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-5
+│   │   └── eda691e5-3805-4aa0-98a7-33e52c9154ef.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-6
+│   │   └── 1dc17df3-fe91-4849-9344-5beb2ce90003.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-7
+│   │   ├── 63341d9d-c2af-4fb2-a7b2-6f57646b07ff
+│   │   │   └── tool-results
+│   │   │       └── toolu_01AXa4JYxgXg6uQyE5Z9K2eQ.txt
+│   │   └── 63341d9d-c2af-4fb2-a7b2-6f57646b07ff.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-scraping-batch-runs-20260205-183648-task-8
+│   │   ├── 4f4dceea-20c4-4c05-803a-d3bb0f16d6c1
+│   │   │   └── tool-results
+│   │   │       └── toolu_01G6aB8fbeifGQdHzFXmU6FB.txt
+│   │   └── 4f4dceea-20c4-4c05-803a-d3bb0f16d6c1.jsonl
+│   ├── -Users-bianders-Brian-Code-sandbox-sotr
+│   │   ├── bf64a986-73af-477d-b137-ec51c7c8a6b4
+│   │   │   └── tool-results
+│   │   │       ├── toolu_011VEFDxHPw8Hp3JruK1hYxS.txt
+│   │   │       ├── toolu_01LxrkxBB4Vae3811hLeBJ5j.txt
+│   │   │       ├── toolu_01V4QVV3qp3CbEe9FiBUcSad.txt
+│   │   │       └── toolu_01W3fGNtvKeTue3V61qVwBY5.txt
+│   │   └── bf64a986-73af-477d-b137-ec51c7c8a6b4.jsonl
+│   ├── -Users-bianders-Downloads
+│   │   ├── 74964304-ce27-45a0-8ad7-78b6c98ce30f.jsonl
+│   │   ├── 78ac80b9-f982-49b5-ad7c-1b9f2509ead0.jsonl
+│   │   ├── 79f5a76f-43b6-49aa-a80b-b76c6c8baf4d.jsonl
+│   │   ├── 81a9d071-3633-4586-b9b6-c31c3a3cfa6e.jsonl
+│   │   ├── 8c54a996-a1fe-451c-ba02-5cfcaf497aba
+│   │   │   ├── subagents
+│   │   │   │   └── agent-ad1385a.jsonl
+│   │   │   └── tool-results
+│   │   │       └── toolu_01SbE2iDqmQoxXscqF6dJkAx.txt
+│   │   ├── 8c54a996-a1fe-451c-ba02-5cfcaf497aba.jsonl
+│   │   ├── a63f2d8e-a576-4f57-bb33-e70d41f43983.jsonl
+│   │   ├── bebe0a9d-de57-4ba7-8da5-705e35d66e04.jsonl
+│   │   └── sessions-index.json
+│   └── -Users-bianders-morphy
+│       ├── 40341ae4-4010-4765-a06e-059e5c6da3f1.jsonl
+│       ├── 43f6b447-2226-4eb8-b1c8-c86eb760843f.jsonl
+│       ├── 915bfd88-2b91-46cc-a89f-543fc14eabb1.jsonl
+│       └── sessions-index.json
+├── session-env
+│   ├── 0143cf0a-e9bd-4695-a6e1-d69610f0dd58
+│   ├── 13aba559-c3d2-4771-aeee-050b5f1e5e92
+│   ├── 18de27fd-a670-47cc-a3c9-41f40a4b4bb3
+│   ├── 1b22d108-275e-437e-94b5-8f9a0f3d741e
+│   ├── 1dc17df3-fe91-4849-9344-5beb2ce90003
+│   ├── 21bc776d-7bd7-4912-8131-d3ab9fcf31b4
+│   ├── 2a65dc21-55e0-4da1-a069-9b99f1832e2e
+│   ├── 2a749280-a0e1-4275-92a9-29991e5c40ec
+│   ├── 2d0223a4-447b-413b-b23c-ce96427c2f41
+│   ├── 2e6c2e40-48d7-4003-84be-4d82c40197c2
+│   ├── 2e8bdd55-5fc0-4631-816a-d91957693ce0
+│   ├── 3b3e8546-5acc-4c4b-94fb-9ab7f63e29de
+│   ├── 40341ae4-4010-4765-a06e-059e5c6da3f1
+│   ├── 45e30e18-7c76-4805-b5cd-6fc0be6457dd
+│   ├── 45f9b02b-d21c-4ba7-9334-a3d5b7271edb
+│   ├── 468c20a4-067d-47c1-b5db-8b029de63795
+│   ├── 488ad948-16d4-461e-ade0-aeec2316bf6d
+│   ├── 4a14a4af-2ff5-4b18-ade1-9f339e239958
+│   ├── 4f10b742-c22e-4901-8318-6fb59aaa7aa4
+│   ├── 4f4dceea-20c4-4c05-803a-d3bb0f16d6c1
+│   ├── 542436e5-f66c-4396-817e-9a7d2930bd3a
+│   ├── 56be06c5-adca-4d66-abb2-287295f20bc0
+│   ├── 58e72dc7-a07e-4fb2-a23c-5db5df9ac9fb
+│   ├── 63341d9d-c2af-4fb2-a7b2-6f57646b07ff
+│   ├── 64c50d02-927e-4771-82f6-9d53a05261f4
+│   ├── 650ce921-7fa3-4204-b3be-d026494bc504
+│   ├── 65bc5357-c71a-41e9-a0be-bfd21e78921b
+│   ├── 66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b
+│   ├── 6b299e10-31ee-4dde-b40a-8cac6b9f1a8a
+│   ├── 6b76df7f-4514-4c0b-8f8a-c45c87ab3d5c
+│   ├── 6d9c1164-d35d-4b16-aac9-9faea9b509ad
+│   ├── 70b13a08-03c0-4c20-be73-0c8e89126a22
+│   ├── 723aa472-c762-4330-a073-a644310a7152
+│   ├── 72e40979-5c03-4263-b370-37c38b60506c
+│   ├── 74d03612-ddac-4833-9dfd-3836dd698470
+│   ├── 75900338-16c7-4203-a9ef-5e00a16fa76e
+│   ├── 78ac80b9-f982-49b5-ad7c-1b9f2509ead0
+│   ├── 7aced4ef-bad8-47da-b93e-d8f2e51ecf5c
+│   ├── 80682671-6e63-4c04-9477-85ac19197c62
+│   ├── 89ec5cb2-246c-4fbe-af47-85d47dee9059
+│   ├── 8bf6af1f-c4f1-4e56-9b4b-939c929a6fd2
+│   ├── 8c54a996-a1fe-451c-ba02-5cfcaf497aba
+│   ├── 95f77ebc-4bfa-4206-a3d4-127f9ff08ae3
+│   ├── 9b3cca40-245d-4e3c-b5bf-9809105398cb
+│   ├── aa306ba8-aeeb-478d-842c-da7d1693a05c
+│   ├── aa53188b-97d6-4a5c-aa47-1c41fb8d162f
+│   ├── aba4f076-4e8f-453c-8e72-307796a9253a
+│   ├── ad452e37-e33a-4f6d-a94d-7b4656abc161
+│   ├── afcbb012-54d8-48cb-a6ec-81749b3fe35b
+│   ├── b0d4d9e9-9e1d-4647-b5e8-b130b8436f88
+│   ├── b422fb7c-7526-4ab0-af58-769f943bb8ec
+│   ├── bf64a986-73af-477d-b137-ec51c7c8a6b4
+│   ├── c4e9c8e6-ed4e-4916-836f-2346bdd5c27d
+│   ├── d1740148-d3ab-4b80-aff7-3dc181b18168
+│   ├── d5df28c5-8096-48bb-a97b-b1a7a23dcf20
+│   ├── d65f4c0e-0ec7-47b1-ad03-52f7e1ba5169
+│   ├── e8dc9bb5-f721-4081-bc24-d3b3f6b802ec
+│   └── eda691e5-3805-4aa0-98a7-33e52c9154ef
+├── settings.json
+├── shell-snapshots
+│   ├── snapshot-zsh-113b9164.sh
+│   ├── snapshot-zsh-1770333497572-seeahw.sh
+│   ├── snapshot-zsh-1770333505581-isu05o.sh
+│   ├── snapshot-zsh-1770333519692-muw2sv.sh
+│   ├── snapshot-zsh-1770333550393-0t38vv.sh
+│   ├── snapshot-zsh-1770337377087-jr827d.sh
+│   ├── snapshot-zsh-1770337510470-kbxw7f.sh
+│   ├── snapshot-zsh-1770338247073-0jdus0.sh
+│   ├── snapshot-zsh-1770650703682-f74cxa.sh
+│   └── snapshot-zsh-d61a0b9d.sh
+├── skills
+│   ├── batch-dispatch
+│   │   ├── batch_results_20260209_091824
+│   │   │   ├── anthropic_catalog.json
+│   │   │   ├── anthropic_catalog.xlsx
+│   │   │   ├── anthropic_report.md
+│   │   │   ├── bain_catalog.json
+│   │   │   ├── bain_catalog.xlsx
+│   │   │   ├── bain_report.md
+│   │   │   ├── datadog_catalog.json
+│   │   │   ├── datadog_catalog.xlsx
+│   │   │   ├── datadog_report.md
+│   │   │   ├── replit_catalog.json
+│   │   │   ├── replit_catalog.xlsx
+│   │   │   ├── replit_report.md
+│   │   │   ├── sans_catalog.json
+│   │   │   ├── sans_catalog.xlsx
+│   │   │   ├── sans_report.md
+│   │   │   └── summary.json
+│   │   ├── references
+│   │   │   ├── batch_runner.py
+│   │   │   └── README.md
+│   │   └── SKILL.md
+│   ├── catalog-scraper
+│   │   ├── references
+│   │   │   ├── json-schema.md
+│   │   │   ├── licensing-criteria.md
+│   │   │   └── report-template.md
+│   │   └── SKILL.md
+│   ├── find-catalogues
+│   │   └── SKILL.md
+│   ├── linkedin_context
+│   │   └── SKILL.md
+│   ├── obsidian-save
+│   │   └── SKILL.md
+│   ├── python_style
+│   │   └── SKILL.md
+│   └── skill-creator
+│       ├── LICENSE.txt
+│       ├── references
+│       │   ├── output-patterns.md
+│       │   └── workflows.md
+│       ├── scripts
+│       │   ├── __pycache__
+│       │   │   └── quick_validate.cpython-312.pyc
+│       │   ├── init_skill.py
+│       │   ├── package_skill.py
+│       │   └── quick_validate.py
+│       └── SKILL.md
+├── stats-cache.json
+├── statsig
+│   ├── statsig.cached.evaluations.6ff37d2cdb
+│   ├── statsig.failed_logs.658916400
+│   ├── statsig.last_modified_time.evaluations
+│   ├── statsig.session_id.2656274335
+│   └── statsig.stable_id.2656274335
+├── telemetry
+└── todos
+    ├── 0143cf0a-e9bd-4695-a6e1-d69610f0dd58-agent-0143cf0a-e9bd-4695-a6e1-d69610f0dd58.json
+    ├── 05c30f24-6278-4652-8617-07dc9fea4323-agent-05c30f24-6278-4652-8617-07dc9fea4323.json
+    ├── 13aba559-c3d2-4771-aeee-050b5f1e5e92-agent-13aba559-c3d2-4771-aeee-050b5f1e5e92.json
+    ├── 1758136f-7c7b-4b6e-a247-ed27799fd97a-agent-1758136f-7c7b-4b6e-a247-ed27799fd97a.json
+    ├── 18de27fd-a670-47cc-a3c9-41f40a4b4bb3-agent-18de27fd-a670-47cc-a3c9-41f40a4b4bb3.json
+    ├── 1b22d108-275e-437e-94b5-8f9a0f3d741e-agent-1b22d108-275e-437e-94b5-8f9a0f3d741e.json
+    ├── 1d107771-2794-42c2-b4c4-9672782f57fd-agent-1d107771-2794-42c2-b4c4-9672782f57fd.json
+    ├── 1dc17df3-fe91-4849-9344-5beb2ce90003-agent-1dc17df3-fe91-4849-9344-5beb2ce90003.json
+    ├── 1faa5891-0a5f-4e1e-924e-111f5c203ab3-agent-1faa5891-0a5f-4e1e-924e-111f5c203ab3.json
+    ├── 21bc776d-7bd7-4912-8131-d3ab9fcf31b4-agent-21bc776d-7bd7-4912-8131-d3ab9fcf31b4.json
+    ├── 28da8d04-81fc-4f51-b68b-3427fc6f3155-agent-28da8d04-81fc-4f51-b68b-3427fc6f3155.json
+    ├── 2a65dc21-55e0-4da1-a069-9b99f1832e2e-agent-2a65dc21-55e0-4da1-a069-9b99f1832e2e.json
+    ├── 2a749280-a0e1-4275-92a9-29991e5c40ec-agent-2a749280-a0e1-4275-92a9-29991e5c40ec.json
+    ├── 2d0223a4-447b-413b-b23c-ce96427c2f41-agent-2d0223a4-447b-413b-b23c-ce96427c2f41.json
+    ├── 2e6c2e40-48d7-4003-84be-4d82c40197c2-agent-2e6c2e40-48d7-4003-84be-4d82c40197c2.json
+    ├── 2e8bdd55-5fc0-4631-816a-d91957693ce0-agent-2e8bdd55-5fc0-4631-816a-d91957693ce0.json
+    ├── 33b0cc7c-16a8-4c5c-b11b-ff2aa43fffeb-agent-33b0cc7c-16a8-4c5c-b11b-ff2aa43fffeb.json
+    ├── 35dfd2fa-763f-40e8-85b4-045ccd379c16-agent-35dfd2fa-763f-40e8-85b4-045ccd379c16.json
+    ├── 3b3e8546-5acc-4c4b-94fb-9ab7f63e29de-agent-3b3e8546-5acc-4c4b-94fb-9ab7f63e29de.json
+    ├── 3ccb6598-dbce-4900-8df5-387e5bac3c50-agent-3ccb6598-dbce-4900-8df5-387e5bac3c50.json
+    ├── 3f95bf3a-fb96-46d1-bc78-964afcc626bb-agent-3f95bf3a-fb96-46d1-bc78-964afcc626bb.json
+    ├── 40341ae4-4010-4765-a06e-059e5c6da3f1-agent-40341ae4-4010-4765-a06e-059e5c6da3f1.json
+    ├── 43f6b447-2226-4eb8-b1c8-c86eb760843f-agent-43f6b447-2226-4eb8-b1c8-c86eb760843f.json
+    ├── 45e30e18-7c76-4805-b5cd-6fc0be6457dd-agent-45e30e18-7c76-4805-b5cd-6fc0be6457dd.json
+    ├── 45f9b02b-d21c-4ba7-9334-a3d5b7271edb-agent-45f9b02b-d21c-4ba7-9334-a3d5b7271edb.json
+    ├── 468c20a4-067d-47c1-b5db-8b029de63795-agent-468c20a4-067d-47c1-b5db-8b029de63795.json
+    ├── 46ba6700-676e-4a46-bba8-69b5906a4ec2-agent-46ba6700-676e-4a46-bba8-69b5906a4ec2.json
+    ├── 488ad948-16d4-461e-ade0-aeec2316bf6d-agent-488ad948-16d4-461e-ade0-aeec2316bf6d.json
+    ├── 4a14a4af-2ff5-4b18-ade1-9f339e239958-agent-4a14a4af-2ff5-4b18-ade1-9f339e239958.json
+    ├── 4ec083e9-da12-4c35-96de-d70bff78d0c7-agent-4ec083e9-da12-4c35-96de-d70bff78d0c7.json
+    ├── 4f10b742-c22e-4901-8318-6fb59aaa7aa4-agent-4f10b742-c22e-4901-8318-6fb59aaa7aa4.json
+    ├── 4f4dceea-20c4-4c05-803a-d3bb0f16d6c1-agent-4f4dceea-20c4-4c05-803a-d3bb0f16d6c1.json
+    ├── 53533a0f-a575-4494-8490-ac86f46c6218-agent-53533a0f-a575-4494-8490-ac86f46c6218.json
+    ├── 542436e5-f66c-4396-817e-9a7d2930bd3a-agent-542436e5-f66c-4396-817e-9a7d2930bd3a.json
+    ├── 5657d355-3866-4265-ab74-2bc416744fef-agent-5657d355-3866-4265-ab74-2bc416744fef.json
+    ├── 56be06c5-adca-4d66-abb2-287295f20bc0-agent-56be06c5-adca-4d66-abb2-287295f20bc0.json
+    ├── 58cec1db-08aa-40e4-ad6f-79a51b272f87-agent-58cec1db-08aa-40e4-ad6f-79a51b272f87.json
+    ├── 58e72dc7-a07e-4fb2-a23c-5db5df9ac9fb-agent-58e72dc7-a07e-4fb2-a23c-5db5df9ac9fb.json
+    ├── 5d0553dd-d200-401d-a5bd-19e41b7405dd-agent-5d0553dd-d200-401d-a5bd-19e41b7405dd.json
+    ├── 60ccd4b0-8bba-44b7-8a63-9c60b32a7697-agent-60ccd4b0-8bba-44b7-8a63-9c60b32a7697.json
+    ├── 63341d9d-c2af-4fb2-a7b2-6f57646b07ff-agent-63341d9d-c2af-4fb2-a7b2-6f57646b07ff.json
+    ├── 64c50d02-927e-4771-82f6-9d53a05261f4-agent-64c50d02-927e-4771-82f6-9d53a05261f4.json
+    ├── 650ce921-7fa3-4204-b3be-d026494bc504-agent-650ce921-7fa3-4204-b3be-d026494bc504.json
+    ├── 65bc5357-c71a-41e9-a0be-bfd21e78921b-agent-65bc5357-c71a-41e9-a0be-bfd21e78921b.json
+    ├── 66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b-agent-66653932-cd1c-4f6e-bd2a-ca39bb1a5d3b.json
+    ├── 6b299e10-31ee-4dde-b40a-8cac6b9f1a8a-agent-6b299e10-31ee-4dde-b40a-8cac6b9f1a8a.json
+    ├── 6b76df7f-4514-4c0b-8f8a-c45c87ab3d5c-agent-6b76df7f-4514-4c0b-8f8a-c45c87ab3d5c.json
+    ├── 6d9c1164-d35d-4b16-aac9-9faea9b509ad-agent-6d9c1164-d35d-4b16-aac9-9faea9b509ad.json
+    ├── 70b13a08-03c0-4c20-be73-0c8e89126a22-agent-70b13a08-03c0-4c20-be73-0c8e89126a22.json
+    ├── 723aa472-c762-4330-a073-a644310a7152-agent-723aa472-c762-4330-a073-a644310a7152.json
+    ├── 72e40979-5c03-4263-b370-37c38b60506c-agent-72e40979-5c03-4263-b370-37c38b60506c.json
+    ├── 743f8c01-c5e4-4812-aefe-32a32fc8ea60-agent-743f8c01-c5e4-4812-aefe-32a32fc8ea60.json
+    ├── 74964304-ce27-45a0-8ad7-78b6c98ce30f-agent-74964304-ce27-45a0-8ad7-78b6c98ce30f.json
+    ├── 74d03612-ddac-4833-9dfd-3836dd698470-agent-74d03612-ddac-4833-9dfd-3836dd698470.json
+    ├── 75900338-16c7-4203-a9ef-5e00a16fa76e-agent-75900338-16c7-4203-a9ef-5e00a16fa76e.json
+    ├── 781d5ea7-cce0-4e87-86f6-033c07ffea56-agent-781d5ea7-cce0-4e87-86f6-033c07ffea56.json
+    ├── 78ac80b9-f982-49b5-ad7c-1b9f2509ead0-agent-78ac80b9-f982-49b5-ad7c-1b9f2509ead0.json
+    ├── 79f5a76f-43b6-49aa-a80b-b76c6c8baf4d-agent-79f5a76f-43b6-49aa-a80b-b76c6c8baf4d.json
+    ├── 7aced4ef-bad8-47da-b93e-d8f2e51ecf5c-agent-7aced4ef-bad8-47da-b93e-d8f2e51ecf5c.json
+    ├── 80682671-6e63-4c04-9477-85ac19197c62-agent-80682671-6e63-4c04-9477-85ac19197c62.json
+    ├── 81a9d071-3633-4586-b9b6-c31c3a3cfa6e-agent-81a9d071-3633-4586-b9b6-c31c3a3cfa6e.json
+    ├── 895a7283-f1c8-4c4a-a108-74368357865d-agent-895a7283-f1c8-4c4a-a108-74368357865d.json
+    ├── 89ec5cb2-246c-4fbe-af47-85d47dee9059-agent-89ec5cb2-246c-4fbe-af47-85d47dee9059.json
+    ├── 8bf6af1f-c4f1-4e56-9b4b-939c929a6fd2-agent-8bf6af1f-c4f1-4e56-9b4b-939c929a6fd2.json
+    ├── 8c54a996-a1fe-451c-ba02-5cfcaf497aba-agent-8c54a996-a1fe-451c-ba02-5cfcaf497aba.json
+    ├── 90e9c0ff-f0ec-4791-99cd-4f6303c65b43-agent-90e9c0ff-f0ec-4791-99cd-4f6303c65b43.json
+    ├── 915bfd88-2b91-46cc-a89f-543fc14eabb1-agent-915bfd88-2b91-46cc-a89f-543fc14eabb1.json
+    ├── 923f4e9b-71ed-4ea5-9afe-7d19dd5d7660-agent-923f4e9b-71ed-4ea5-9afe-7d19dd5d7660.json
+    ├── 95f77ebc-4bfa-4206-a3d4-127f9ff08ae3-agent-95f77ebc-4bfa-4206-a3d4-127f9ff08ae3.json
+    ├── 96d28e9b-00c7-4dde-9a81-fe640410ece4-agent-96d28e9b-00c7-4dde-9a81-fe640410ece4.json
+    ├── 993eccc7-c480-4a93-b21b-3232fc0e343d-agent-993eccc7-c480-4a93-b21b-3232fc0e343d.json
+    ├── 9b3cca40-245d-4e3c-b5bf-9809105398cb-agent-9b3cca40-245d-4e3c-b5bf-9809105398cb.json
+    ├── 9b408748-fb3d-4974-a932-01938f821777-agent-9b408748-fb3d-4974-a932-01938f821777.json
+    ├── a62de7cc-e567-4525-8247-b9c1812b2bbf-agent-a62de7cc-e567-4525-8247-b9c1812b2bbf.json
+    ├── a63f2d8e-a576-4f57-bb33-e70d41f43983-agent-a63f2d8e-a576-4f57-bb33-e70d41f43983.json
+    ├── a9fb28f2-0a4a-4a66-944f-bc1695f2263d-agent-a9fb28f2-0a4a-4a66-944f-bc1695f2263d.json
+    ├── aa306ba8-aeeb-478d-842c-da7d1693a05c-agent-aa306ba8-aeeb-478d-842c-da7d1693a05c.json
+    ├── aa53188b-97d6-4a5c-aa47-1c41fb8d162f-agent-aa53188b-97d6-4a5c-aa47-1c41fb8d162f.json
+    ├── aba4f076-4e8f-453c-8e72-307796a9253a-agent-aba4f076-4e8f-453c-8e72-307796a9253a.json
+    ├── aba5f947-4cfb-4cfa-a942-dbf2edf8ff0d-agent-aba5f947-4cfb-4cfa-a942-dbf2edf8ff0d.json
+    ├── ac61fe5b-8f94-4bfc-bca6-582ff6728844-agent-ac61fe5b-8f94-4bfc-bca6-582ff6728844.json
+    ├── ad452e37-e33a-4f6d-a94d-7b4656abc161-agent-ad452e37-e33a-4f6d-a94d-7b4656abc161.json
+    ├── afcbb012-54d8-48cb-a6ec-81749b3fe35b-agent-afcbb012-54d8-48cb-a6ec-81749b3fe35b.json
+    ├── b0d4d9e9-9e1d-4647-b5e8-b130b8436f88-agent-b0d4d9e9-9e1d-4647-b5e8-b130b8436f88.json
+    ├── b422fb7c-7526-4ab0-af58-769f943bb8ec-agent-b422fb7c-7526-4ab0-af58-769f943bb8ec.json
+    ├── b4458fc0-200f-4b00-9f72-b9698c6a9464-agent-b4458fc0-200f-4b00-9f72-b9698c6a9464.json
+    ├── bd9013dd-37a2-46b1-ac1c-39dfaf0d4773-agent-bd9013dd-37a2-46b1-ac1c-39dfaf0d4773.json
+    ├── bebe0a9d-de57-4ba7-8da5-705e35d66e04-agent-bebe0a9d-de57-4ba7-8da5-705e35d66e04.json
+    ├── bf64a986-73af-477d-b137-ec51c7c8a6b4-agent-bf64a986-73af-477d-b137-ec51c7c8a6b4.json
+    ├── c36e5f71-8617-4c48-9f6d-34be9f512d19-agent-c36e5f71-8617-4c48-9f6d-34be9f512d19.json
+    ├── c45f6034-4f25-406b-8687-c66616925a0f-agent-c45f6034-4f25-406b-8687-c66616925a0f.json
+    ├── c4e9c8e6-ed4e-4916-836f-2346bdd5c27d-agent-c4e9c8e6-ed4e-4916-836f-2346bdd5c27d.json
+    ├── c7bc94fe-6699-4dc3-9501-088a15280f25-agent-c7bc94fe-6699-4dc3-9501-088a15280f25.json
+    ├── cfc3c5f0-ffd7-4143-9290-fa7a9b9df278-agent-cfc3c5f0-ffd7-4143-9290-fa7a9b9df278.json
+    ├── d1740148-d3ab-4b80-aff7-3dc181b18168-agent-d1740148-d3ab-4b80-aff7-3dc181b18168.json
+    ├── d24e7c57-08cb-47fa-b4a7-2078ea41c7d3-agent-d24e7c57-08cb-47fa-b4a7-2078ea41c7d3.json
+    ├── d2f8f459-db21-413e-a477-465850b35c9f-agent-d2f8f459-db21-413e-a477-465850b35c9f.json
+    ├── d5df28c5-8096-48bb-a97b-b1a7a23dcf20-agent-d5df28c5-8096-48bb-a97b-b1a7a23dcf20.json
+    ├── d65f4c0e-0ec7-47b1-ad03-52f7e1ba5169-agent-d65f4c0e-0ec7-47b1-ad03-52f7e1ba5169.json
+    ├── dd355868-3f87-43d7-be9e-d7b6408cc0cd-agent-dd355868-3f87-43d7-be9e-d7b6408cc0cd.json
+    ├── e4345f4f-b955-484e-9815-69fedb853b3e-agent-e4345f4f-b955-484e-9815-69fedb853b3e.json
+    ├── e8dc9bb5-f721-4081-bc24-d3b3f6b802ec-agent-e8dc9bb5-f721-4081-bc24-d3b3f6b802ec.json
+    ├── e9ddd318-0bd7-41fd-8a82-5f223a95fe32-agent-e9ddd318-0bd7-41fd-8a82-5f223a95fe32.json
+    ├── eda691e5-3805-4aa0-98a7-33e52c9154ef-agent-eda691e5-3805-4aa0-98a7-33e52c9154ef.json
+    ├── f3d1d9a8-c3dc-4a5f-8fb6-824eaf8325d0-agent-f3d1d9a8-c3dc-4a5f-8fb6-824eaf8325d0.json
+    ├── f47ef533-b3dc-4f95-af3c-4969677c590a-agent-f47ef533-b3dc-4f95-af3c-4969677c590a.json
+    ├── f7457823-7dd9-454f-8856-f7511a667464-agent-f7457823-7dd9-454f-8856-f7511a667464.json
+    └── fa1f20b5-8df4-4dde-9f80-d5572c81494e-agent-fa1f20b5-8df4-4dde-9f80-d5572c81494e.json
+
+344 directories, 674 files

@@ -1,0 +1,90 @@
+"""
+Code snippet for exporting course catalog data to JSON and CSV formats.
+"""
+from __future__ import annotations
+
+import json
+from datetime import datetime
+
+import pandas as pd
+
+
+def export_catalog_data(courses_data: list[dict], provider_slug: str) -> dict[str, str]:
+    """
+    Export course catalog to JSON and CSV.
+
+    Args:
+        courses_data: List of course dictionaries
+        provider_slug: Provider name slug (e.g., "astronomer", "hubspot")
+
+    Returns:
+        Dictionary with paths for both artifacts
+    """
+    # Convert to DataFrame
+    df = pd.DataFrame(courses_data)
+
+    # Define standard column order
+    column_order = [
+        "provider",
+        "title",
+        "url",
+        "description",
+        "duration",
+        "level",
+        "format",
+        "price",
+        "category",
+        "learning_path",
+        "date_scraped",
+    ]
+
+    # Reorder columns (only include columns that exist)
+    existing_cols = [col for col in column_order if col in df.columns]
+    df = df[existing_cols]
+
+    # 1. Export to JSON
+    json_filename = f"{provider_slug}_catalog.json"
+    with open(json_filename, "w", encoding="utf-8") as f:
+        json.dump(courses_data, f, indent=2, ensure_ascii=False)
+
+    # 2. Export to CSV
+    csv_filename = f"{provider_slug}_catalog.csv"
+    df.to_csv(csv_filename, index=False)
+
+    return {
+        "json": json_filename,
+        "csv": csv_filename,
+    }
+
+
+# Example usage in scraper:
+if __name__ == "__main__":
+    # After collecting all course data...
+    all_courses_data = [
+        {
+            "provider": "Astronomer Academy",
+            "title": "Introduction to Airflow",
+            "url": "https://academy.astronomer.io/course/intro",
+            "description": "Learn Apache Airflow basics",
+            "duration": "1 hour",
+            "level": "Beginner",
+            "format": "On-Demand",
+            "price": "Free",
+            "category": "Data Engineering",
+            "learning_path": "airflow-101",
+            "date_scraped": datetime.now().strftime("%Y-%m-%d"),
+        },
+        # ... more courses
+    ]
+
+    # Export to all formats
+    provider_slug = "astronomer"
+    artifacts = export_catalog_data(all_courses_data, provider_slug)
+
+    # Display results
+    print("\n" + "=" * 80)
+    print("CATALOG EXPORT COMPLETE")
+    print("=" * 80)
+    print(f"\n✓ JSON: {artifacts['json']}")
+    print(f"✓ CSV:  {artifacts['csv']}")
+    print()

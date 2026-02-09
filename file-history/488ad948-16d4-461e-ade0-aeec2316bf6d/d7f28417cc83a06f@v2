@@ -1,0 +1,61 @@
+from __future__ import annotations
+
+import json
+import re
+
+import requests
+from bs4 import BeautifulSoup
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+}
+
+url = 'https://training.zendesk.com'
+response = requests.get(url, headers=headers, timeout=30)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+print("=== PAGE ANALYSIS ===\n")
+
+# Check for navigation/catalog links
+print("1. CATALOG/COURSE LINKS:")
+catalog_links = soup.find_all('a', href=re.compile(r'catalog|course|class|training'))
+for link in catalog_links[:10]:
+    print(f"   - {link.get('href')} | {link.get_text(strip=True)[:50]}")
+
+print("\n2. MAIN NAVIGATION:")
+nav = soup.find_all(['nav', 'header'])
+for n in nav[:3]:
+    links = n.find_all('a')[:10]
+    for link in links:
+        print(f"   - {link.get('href')} | {link.get_text(strip=True)[:50]}")
+
+print("\n3. COURSE CONTAINERS:")
+# Look for course cards or list items
+course_containers = soup.find_all(['div', 'article', 'li'], class_=re.compile(r'course|class|card|item', re.I))
+print(f"   Found {len(course_containers)} potential course containers")
+if course_containers:
+    print(f"   First container classes: {course_containers[0].get('class')}")
+
+print("\n4. JSON DATA:")
+# Look for embedded JSON
+scripts = soup.find_all('script', type='application/json')
+print(f"   Found {len(scripts)} JSON scripts")
+for i, script in enumerate(scripts[:3]):
+    content = script.string[:200] if script.string else "None"
+    print(f"   Script {i}: {content}")
+
+print("\n5. JAVASCRIPT VARIABLES:")
+# Look for JS data
+all_scripts = soup.find_all('script')
+for script in all_scripts:
+    if script.string and ('courses' in script.string.lower() or 'catalog' in script.string.lower()):
+        content = script.string[:500]
+        print(f"   Found relevant script:\n{content}\n")
+        break
+
+print("\n6. PAGE STRUCTURE:")
+print(f"   Title: {soup.title.string if soup.title else 'None'}")
+main_content = soup.find(['main', 'div'], id=re.compile(r'content|main', re.I))
+if main_content:
+    print(f"   Main content ID/class: {main_content.get('id')} / {main_content.get('class')}")

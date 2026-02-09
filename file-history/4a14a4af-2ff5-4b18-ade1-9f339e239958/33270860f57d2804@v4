@@ -1,0 +1,381 @@
+# /// script
+# dependencies = [
+#   "jinja2",
+# ]
+# ///
+
+import asyncio
+import sys
+import json
+import os
+import shutil
+import argparse
+import subprocess
+from pathlib import Path
+from datetime import datetime
+from jinja2 import Template
+
+# --- DEFAULTS ---
+DEFAULT_MAX_WORKERS = 5
+DEFAULT_TIMEOUT = 600
+BATCH_DIR_NAME = "batch_runs"
+DOCKER_IMAGE = "claude-batch-worker"
+
+
+def check_docker_available():
+    """Check if Docker is installed and running."""
+    try:
+        result = shutil.which("docker")
+        if not result:
+            return False
+        # Check if Docker daemon is running
+        subprocess.run(
+            ["docker", "info"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=True,
+            timeout=5,
+        )
+        return True
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        return False
+
+
+def ensure_docker_image():
+    """Ensure Docker image exists, build if necessary."""
+    try:
+        # Check if image exists locally
+        result = subprocess.run(
+            ["docker", "images", "-q", DOCKER_IMAGE],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        if result.stdout.strip():
+            print(f"Using existing Docker image: {DOCKER_IMAGE}")
+            return True
+
+        # Image doesn't exist, try to build it
+        print(f"Docker image '{DOCKER_IMAGE}' not found. Building...")
+        script_dir = Path(__file__).parent
+        dockerfile_path = script_dir / "Dockerfile"
+
+        if not dockerfile_path.exists():
+            print(f"Error: Dockerfile not found at {dockerfile_path}")
+            return False
+
+        build_result = subprocess.run(
+            ["docker", "build", "-t", DOCKER_IMAGE, str(script_dir)],
+            check=True,
+        )
+        print(f"Successfully built Docker image: {DOCKER_IMAGE}")
+        return True
+
+    except subprocess.CalledProcessError as e:
+        print(f"Error with Docker: {e}")
+        return False
+
+
+async def run_worker(
+    sem, run_id, index, item, skill_name, user_template, timeout, use_docker=True
+):
+    """
+    Spawns a single isolated Claude Code instance.
+    """
+    async with sem:
+        # 1. Setup Isolation
+        # We create a folder, but we DO NOT change the CWD of the subprocess.
+        # This ensures Claude still sees .claude/config.toml and project-level skills.
+        task_dir = os.path.abspath(
+            os.path.join(BATCH_DIR_NAME, run_id, f"task_{index}")
+        )
+        os.makedirs(task_dir, exist_ok=True)
+
+        output_file = os.path.join(task_dir, "result.json")
+
+        # 2. Render Prompt
+        # We inject strict instructions about where to write.
+        system_instructions = (
+            f"SYSTEM OVERRIDE: You are a headless worker agent. "
+            f"You are restricted to working strictly within this directory: {task_dir}. "
+            f"You have permission to use the '{skill_name}' tool. "
+            f"Do not ask for confirmation. Do not output conversational filler. "
+            f"Perform the task and save the final structured data to: {output_file}."
+        )
+
+        try:
+            # Jinja2 rendering for the user's specific task
+            t = Template(user_template)
+            task_prompt = t.render(item=item, task_id=index, output_file=output_file)
+        except Exception as e:
+            return {
+                "status": "error",
+                "item": item,
+                "error": f"Template Error: {str(e)}",
+                "task_dir": task_dir,
+            }
+
+        full_prompt = (
+            f"{system_instructions}\n\nTASK INPUT: {item}\nINSTRUCTIONS: {task_prompt}"
+        )
+
+        # 3. Construct Command
+        if use_docker:
+            # Docker-isolated execution
+            home = os.path.expanduser("~")
+            skills_dir = os.path.join(home, ".claude", "skills")
+            config_file = os.path.join(home, ".claude", "config.toml")
+
+            cmd = [
+                "docker",
+                "run",
+                "--rm",
+                "-v",
+                f"{skills_dir}:/claude/skills:ro",  # Read-only skills
+                "-v",
+                f"{task_dir}:/work:rw",  # Read-write task dir
+                "-w",
+                "/work",
+                "--memory",
+                "2g",  # Memory limit
+                "--cpus",
+                "1",  # CPU limit
+                "--network",
+                "none",  # No network access
+                DOCKER_IMAGE,
+                "claude",
+                "-p",
+                full_prompt,
+                "--dangerously-skip-permissions",
+            ]
+
+            # Optionally mount config if it exists
+            if os.path.exists(config_file):
+                cmd.insert(4, "-v")
+                cmd.insert(5, f"{config_file}:/claude/config.toml:ro")
+        else:
+            # Direct execution (no isolation - dangerous!)
+            cmd = ["claude", "-p", full_prompt, "--dangerously-skip-permissions"]
+
+        isolation_mode = "🐳 Docker" if use_docker else "⚠️  No isolation"
+        print(f"[{index}] Starting task for: {item} ({isolation_mode})...")
+
+        try:
+            # 4. Execute
+            process = await asyncio.create_subprocess_exec(
+                *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+            )
+
+            # Wait with timeout
+            stdout, stderr = await asyncio.wait_for(
+                process.communicate(), timeout=timeout
+            )
+
+            # 5. Harvest Results
+            if process.returncode == 0:
+                # Check if the output file actually exists
+                if os.path.exists(output_file):
+                    try:
+                        with open(output_file, "r") as f:
+                            data = json.load(f)
+                        print(f"[{index}] Success.")
+                        return {
+                            "status": "success",
+                            "item": item,
+                            "data": data,
+                            "task_dir": task_dir,
+                        }
+                    except json.JSONDecodeError:
+                        print(f"[{index}] Failed: Output was not valid JSON.")
+                        return {
+                            "status": "error",
+                            "item": item,
+                            "error": "Invalid JSON in output file",
+                            "task_dir": task_dir,
+                        }
+                else:
+                    print(f"[{index}] Failed: No output file found.")
+                    return {
+                        "status": "error",
+                        "item": item,
+                        "error": "Output file missing",
+                        "logs": stdout.decode(),
+                        "task_dir": task_dir,
+                    }
+            else:
+                print(f"[{index}] Crushed (Exit Code {process.returncode}).")
+                return {
+                    "status": "error",
+                    "item": item,
+                    "error": stderr.decode(),
+                    "task_dir": task_dir,
+                }
+
+        except asyncio.TimeoutError:
+            print(f"[{index}] Timed out after {timeout}s. Killing.")
+            try:
+                process.kill()
+            except:
+                pass
+            return {"status": "timeout", "item": item, "task_dir": task_dir}
+
+
+def cleanup_and_finalize(run_id, run_dir, results):
+    """
+    Move artifacts to output directory in CWD and clean up temp directories.
+    """
+    cwd = os.getcwd()
+    output_dir = os.path.join(cwd, f"batch_results_{run_id}")
+    os.makedirs(output_dir, exist_ok=True)
+
+    print(f"\n--- Cleanup & Finalize ---")
+    print(f"Moving artifacts to: {output_dir}")
+
+    moved_count = 0
+    for result in results:
+        if result["status"] == "success" and "task_dir" in result:
+            task_dir = result["task_dir"]
+            # Move all files except result.json and .py scripts
+            if os.path.exists(task_dir):
+                for filename in os.listdir(task_dir):
+                    if filename.endswith((".json", ".xlsx", ".md", ".csv")):
+                        if filename != "result.json":  # Skip the internal result file
+                            src = os.path.join(task_dir, filename)
+                            dst = os.path.join(output_dir, filename)
+                            shutil.copy2(src, dst)
+                            moved_count += 1
+
+    # Save summary to output directory
+    summary_path = os.path.join(output_dir, "summary.json")
+    with open(summary_path, "w") as f:
+        json.dump(results, f, indent=2)
+
+    print(f"Moved {moved_count} artifact files")
+    print(f"Summary saved to: {summary_path}")
+
+    # Delete temp batch_runs directory
+    try:
+        shutil.rmtree(BATCH_DIR_NAME)
+        print(f"Cleaned up temp directory: {BATCH_DIR_NAME}/")
+    except Exception as e:
+        print(f"Warning: Could not delete temp directory: {e}")
+
+    return output_dir
+
+
+async def main():
+    parser = argparse.ArgumentParser(
+        description="Batch dispatch: Run a skill in parallel across multiple inputs",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  # Basic usage
+  batch_runner.py catalog-scraper '["url1", "url2"]' "Scrape {{ item }}"
+
+  # With custom timeout (10 minutes)
+  batch_runner.py catalog-scraper '["url1", "url2"]' "Scrape {{ item }}" --timeout 600
+
+  # With custom concurrency
+  batch_runner.py my-skill '["a", "b", "c"]' "Process {{ item }}" --max-workers 3
+        """,
+    )
+    parser.add_argument("skill", help="Name of the skill to execute")
+    parser.add_argument(
+        "inputs", help='JSON array of inputs (e.g., \'["url1", "url2"]\')'
+    )
+    parser.add_argument("template", help="Jinja2 template for task instructions")
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=DEFAULT_TIMEOUT,
+        help=f"Timeout per task in seconds (default: {DEFAULT_TIMEOUT})",
+    )
+    parser.add_argument(
+        "--max-workers",
+        type=int,
+        default=DEFAULT_MAX_WORKERS,
+        help=f"Maximum concurrent workers (default: {DEFAULT_MAX_WORKERS})",
+    )
+    parser.add_argument(
+        "--no-docker",
+        action="store_true",
+        help="DANGEROUS: Disable Docker isolation (faster but unsafe)",
+    )
+
+    args = parser.parse_args()
+
+    # Determine isolation mode
+    use_docker = not args.no_docker
+
+    # Check Docker availability if needed
+    if use_docker:
+        if not check_docker_available():
+            print("ERROR: Docker is not installed or not running.")
+            print("Install Docker: https://docs.docker.com/get-docker/")
+            print("Or run with --no-docker (WARNING: unsafe)")
+            sys.exit(1)
+
+        if not ensure_docker_image():
+            print(f"ERROR: Failed to build Docker image '{DOCKER_IMAGE}'")
+            sys.exit(1)
+
+    try:
+        inputs = json.loads(args.inputs)
+        if not isinstance(inputs, list):
+            print("Error: Inputs must be a JSON array")
+            sys.exit(1)
+    except json.JSONDecodeError as e:
+        print(f"Error: Invalid JSON in inputs: {e}")
+        sys.exit(1)
+
+    run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_dir = os.path.join(BATCH_DIR_NAME, run_id)
+    os.makedirs(run_dir, exist_ok=True)
+
+    isolation_status = "🐳 Docker (SAFE)" if use_docker else "⚠️  No isolation (UNSAFE)"
+
+    print(f"--- Batch Dispatch Initiated ---")
+    print(f"Run ID: {run_id}")
+    print(f"Items: {len(inputs)}")
+    print(f"Skill: {args.skill}")
+    print(f"Timeout: {args.timeout}s per task")
+    print(f"Max Workers: {args.max_workers}")
+    print(f"Isolation: {isolation_status}")
+
+    if not use_docker:
+        print("\n⚠️  WARNING: Running without Docker isolation!")
+        print("⚠️  Workers have full access to your filesystem!")
+        print("⚠️  Only use --no-docker with trusted skills!\n")
+
+    sem = asyncio.Semaphore(args.max_workers)
+
+    tasks = [
+        run_worker(
+            sem, run_id, i, item, args.skill, args.template, args.timeout, use_docker
+        )
+        for i, item in enumerate(inputs)
+    ]
+
+    # Run all
+    results = await asyncio.gather(*tasks)
+
+    # Count successes/failures
+    success_count = sum(1 for r in results if r["status"] == "success")
+    error_count = sum(1 for r in results if r["status"] == "error")
+    timeout_count = sum(1 for r in results if r["status"] == "timeout")
+
+    print(f"\n--- Batch Job Complete ---")
+    print(f"Success: {success_count}/{len(inputs)}")
+    if error_count > 0:
+        print(f"Errors: {error_count}")
+    if timeout_count > 0:
+        print(f"Timeouts: {timeout_count}")
+
+    # Cleanup and finalize
+    output_dir = cleanup_and_finalize(run_id, run_dir, results)
+
+    print(f"\nFinal output directory: {output_dir}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

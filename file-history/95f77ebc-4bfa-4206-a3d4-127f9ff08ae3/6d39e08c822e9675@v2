@@ -1,0 +1,89 @@
+# Procore Learning Catalog Scraping Report
+
+**Date**: 2026-02-05
+**URL**: https://learn.procore.com/
+**Total Courses**: 162
+
+## Architecture
+- **Type**: Multiple category/topic landing pages with JavaScript data
+- **Data Source**: JavaScript `skilljarCatalogPage` object embedded in page HTML
+- **Obstacles**: None (publicly accessible, no authentication required)
+- **Extraction Method**: Regex-based extraction from JavaScript objects
+
+## Extraction Method
+The site embeds course metadata in JavaScript `skilljarCatalogPage.catalog_page_items` arrays on category pages. The scraper:
+1. Fetches 16 different category/role-based landing pages
+2. Extracts course data from JavaScript objects using regex patterns
+3. Parses course ID, title, slug, and type from each item
+4. Constructs course URLs from slugs
+5. Deduplicates courses that appear in multiple categories
+6. Categorizes courses based on the source page
+
+## Data Quality
+- **Title**: 100.0% complete
+- **Description**: 0.0% complete
+- **Duration**: 0.0% complete
+- **Category**: 100.0% complete
+- **Level**: 0% complete (not available on listing page)
+- **Price**: 100% inferred (platform is free)
+
+## Category Breakdown
+- Procore Tool Training: 64 courses
+- Construction Education: 59 courses
+- Product Education: 31 courses
+- AI in Construction: 6 courses
+- Project Management: 1 courses
+- Procore Safety Qualified: 1 courses
+
+## Limitations
+- **Description and duration** not available in the catalog_page_items arrays (only ID, title, slug, and type)
+- **Level information** not visible on catalog pages
+- **Instructor information** not available
+- **Site claims 291+ courses** but only 162 unique courses were found across all category pages
+  - Possible reasons: duplicate counting, archived courses, or courses behind filters not captured
+
+## Recommendations
+1. **For complete metadata**: Scrape individual course pages to extract:
+   - Detailed descriptions (available in skilljarCourse object on course pages)
+   - Duration estimates
+   - Learning objectives
+   - Tags and target roles
+   - Certification information
+2. **For missing courses**: Investigate if there are additional category pages or search filters not captured
+3. **LinkedIn Learning licensing perspective**:
+   - Focus on Product Certifications (role-based training)
+   - Construction Education courses are valuable for construction industry professionals
+   - Many courses are product-specific (Procore tool training) which may not align with LinkedIn Learning's broader approach
+
+## Sample Courses
+
+### Project Manager: Core Tools -- General Contractor
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-core-tools-general-contractor
+- **Description**: ...
+
+### Project Manager: Core Tools -- Owner
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-core-tools-owner
+- **Description**: ...
+
+### Project Manager: Core Tools -- Specialty Contractor
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-core-tools-specialty-contractor
+- **Description**: ...
+
+### Project Manager: Project Management -- General Contractor
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-project-management-general-contractor
+- **Description**: ...
+
+### Project Manager: Project Management -- Owner
+- **Category**: Product Education
+- **Duration**: 
+- **URL**: https://learn.procore.com/product-certification-project-manager-project-management-owner
+- **Description**: ...
+
