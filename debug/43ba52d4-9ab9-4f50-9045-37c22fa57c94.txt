@@ -2844,3 +2844,592 @@
 2026-02-09T20:18:31.433Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
 2026-02-09T20:18:44.136Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
 2026-02-09T20:18:44.644Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:20:29.963Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:20:31.093Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:20:32.318Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:20:35.155Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:22:56.981Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:22:59.254Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:23:03.316Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:23:41.902Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:23:48.410Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:24:00.724Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:25:21.259Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:25:21.642Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:29:53.703Z [DEBUG] High write ratio: blit=1649, write=6020 (78.5% writes), screen=185x97
+2026-02-09T20:30:03.503Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T20:30:03.503Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T20:30:03.503Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T20:30:03.503Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T20:30:03.506Z [DEBUG] Sending 8 skills via attachment (initial, 8 total sent)
+2026-02-09T20:30:03.508Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-02-09T20:30:03.508Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:03.508Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-09T20:30:03.508Z [DEBUG] FileHistory: Making snapshot for message 72554782-0360-450c-8bfc-fd224a1b8bb8
+2026-02-09T20:30:03.509Z [DEBUG] FileHistory: Added snapshot for 72554782-0360-450c-8bfc-fd224a1b8bb8, tracking 0 files
+2026-02-09T20:30:03.510Z [DEBUG] [useDeferredValue] Messages deferred by 2 (561→563)
+2026-02-09T20:30:03.529Z [DEBUG] High write ratio: blit=0, write=6649 (100.0% writes), screen=187x97
+2026-02-09T20:30:03.537Z [DEBUG] Started caffeinate to prevent sleep
+2026-02-09T20:30:03.539Z [DEBUG] [SystemPrompt] path=simple proactive=false
+2026-02-09T20:30:03.539Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:03.540Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.536; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:03.540Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:03.540Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:03.540Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:03.541Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:03.541Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:03.542Z [DEBUG] autocompact: tokens=42025 threshold=167000 effectiveWindow=180000
+2026-02-09T20:30:03.542Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T20:30:03.546Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.fbe; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:03.546Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:03.546Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:03.546Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:03.547Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:03.547Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:03.554Z [DEBUG] [useDeferredValue] Messages deferred by 2 (561→563)
+2026-02-09T20:30:03.582Z [DEBUG] High write ratio: blit=0, write=6663 (100.0% writes), screen=189x97
+2026-02-09T20:30:04.386Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:04.559Z [DEBUG] High write ratio: blit=1649, write=6069 (78.6% writes), screen=189x97
+2026-02-09T20:30:05.522Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:06.884Z [DEBUG] [useDeferredValue] Messages deferred by 1 (563→564)
+2026-02-09T20:30:06.916Z [DEBUG] High write ratio: blit=0, write=6673 (100.0% writes), screen=189x97
+2026-02-09T20:30:07.194Z [DEBUG] [useDeferredValue] Messages deferred by 1 (564→565)
+2026-02-09T20:30:07.220Z [DEBUG] High write ratio: blit=0, write=6673 (100.0% writes), screen=189x97
+2026-02-09T20:30:07.257Z [DEBUG] High write ratio: blit=0, write=6708 (100.0% writes), screen=191x97
+2026-02-09T20:30:07.595Z [DEBUG] Detected skill change: /Users/bianders/.claude/skills/batch-dispatch/SKILL.md
+2026-02-09T20:30:07.605Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/bianders/.claude/skills, project=[]
+2026-02-09T20:30:07.610Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-02-09T20:30:07.610Z [DEBUG] Total plugin skills loaded: 0
+2026-02-09T20:30:07.610Z [DEBUG] Total plugin commands loaded: 0
+2026-02-09T20:30:07.610Z [DEBUG] Loaded 7 unique skills (managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
+2026-02-09T20:30:07.610Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-09T20:30:07.648Z [DEBUG] High write ratio: blit=0, write=6708 (100.0% writes), screen=191x97
+2026-02-09T20:30:07.864Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:30:07.864Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:30:07.864Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:07.864Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:07.869Z [DEBUG] [useDeferredValue] Messages deferred by 1 (565→566)
+2026-02-09T20:30:07.899Z [DEBUG] High write ratio: blit=0, write=6771 (100.0% writes), screen=194x97
+2026-02-09T20:30:08.388Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:08.389Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.5f8; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:08.389Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:08.389Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:08.389Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:08.389Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:30:08.389Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:30:08.389Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:08.389Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:08.389Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:08.416Z [DEBUG] High write ratio: blit=1649, write=6177 (78.9% writes), screen=194x97
+2026-02-09T20:30:08.626Z [DEBUG] [useDeferredValue] Messages deferred by 1 (566→567)
+2026-02-09T20:30:08.640Z [DEBUG] High write ratio: blit=0, write=6771 (100.0% writes), screen=194x97
+2026-02-09T20:30:08.641Z [DEBUG] [useDeferredValue] Messages deferred by 1 (566→567)
+2026-02-09T20:30:08.642Z [DEBUG] [useDeferredValue] Messages deferred by 1 (566→567)
+2026-02-09T20:30:08.668Z [DEBUG] High write ratio: blit=0, write=7057 (100.0% writes), screen=200x97
+2026-02-09T20:30:09.048Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:30:09.049Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:30:09.049Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:09.049Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:09.060Z [DEBUG] [useDeferredValue] Messages deferred by 1 (567→568)
+2026-02-09T20:30:09.107Z [DEBUG] High write ratio: blit=0, write=7099 (100.0% writes), screen=202x97
+2026-02-09T20:30:09.342Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:09.342Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.5be; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:09.342Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:09.342Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:09.342Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:09.342Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:30:09.342Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:30:09.342Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:09.342Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:09.342Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:09.782Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:09.786Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:10.099Z [DEBUG] [useDeferredValue] Messages deferred by 1 (568→569)
+2026-02-09T20:30:10.117Z [DEBUG] High write ratio: blit=0, write=7099 (100.0% writes), screen=202x97
+2026-02-09T20:30:10.118Z [DEBUG] [useDeferredValue] Messages deferred by 1 (568→569)
+2026-02-09T20:30:10.161Z [DEBUG] High write ratio: blit=0, write=7099 (100.0% writes), screen=202x97
+2026-02-09T20:30:10.517Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:30:10.518Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:30:10.518Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:10.518Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:10.523Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:10.523Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:10.523Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:10.523Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.4ac; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:10.523Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:10.523Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:10.523Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.29a; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:10.523Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:10.523Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:10.523Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.29a; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:10.523Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:10.523Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:10.523Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:10.523Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:10.523Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:10.524Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:10.524Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:10.524Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:10.524Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:10.524Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:10.524Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:10.524Z [DEBUG] [useDeferredValue] Messages deferred by 1 (569→570)
+2026-02-09T20:30:10.540Z [DEBUG] High write ratio: blit=0, write=7239 (100.0% writes), screen=206x97
+2026-02-09T20:30:11.022Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:11.044Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:11.169Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:11.176Z [DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Read",
+        "ruleContent": "//Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260209_141215/**"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "session"
+  },
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Bash",
+        "ruleContent": "done"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "localSettings"
+  }
+]
+2026-02-09T20:30:11.176Z [DEBUG] executePermissionRequestHooks called for tool: Bash
+2026-02-09T20:30:11.177Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Bash
+2026-02-09T20:30:11.177Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:11.177Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:11.194Z [DEBUG] High write ratio: blit=0, write=7379 (100.0% writes), screen=213x97
+2026-02-09T20:30:11.195Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-02-09T20:30:11.468Z [DEBUG] [useDeferredValue] Messages deferred by 1 (570→571)
+2026-02-09T20:30:11.470Z [WARN] [PROMPT CACHE BREAK] unknown cause [source=repl_main_thread, call #19, cache read: 38927 → 17884, creation: 24055]
+2026-02-09T20:30:11.471Z [DEBUG] [useDeferredValue] Messages deferred by 1 (570→571)
+2026-02-09T20:30:11.479Z [DEBUG] High write ratio: blit=0, write=7379 (100.0% writes), screen=213x97
+2026-02-09T20:30:11.482Z [DEBUG] [useDeferredValue] Messages deferred by 1 (570→571)
+2026-02-09T20:30:11.515Z [DEBUG] High write ratio: blit=0, write=7414 (100.0% writes), screen=215x97
+2026-02-09T20:30:14.740Z [DEBUG] High write ratio: blit=1649, write=6820 (80.5% writes), screen=215x97
+2026-02-09T20:30:17.200Z [DEBUG] Persisting permission update: addRules to source 'localSettings'
+2026-02-09T20:30:17.200Z [DEBUG] Persisting 1 allow rule(s) to localSettings
+2026-02-09T20:30:17.202Z [DEBUG] Writing to temp file: /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json.tmp.39986.1770669017202
+2026-02-09T20:30:17.202Z [DEBUG] Preserving file permissions: 100644
+2026-02-09T20:30:17.204Z [DEBUG] Temp file written successfully, size: 3236 bytes
+2026-02-09T20:30:17.204Z [DEBUG] Applied original permissions to temp file
+2026-02-09T20:30:17.204Z [DEBUG] Renaming /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json.tmp.39986.1770669017202 to /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json
+2026-02-09T20:30:17.204Z [DEBUG] File /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json written atomically
+2026-02-09T20:30:17.221Z [DEBUG] Applying permission update: Adding 1 allow rule(s) to destination 'session': ["Read(//Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260209_141215/**)"]
+2026-02-09T20:30:17.221Z [DEBUG] Applying permission update: Adding 1 allow rule(s) to destination 'localSettings': ["Bash(done)"]
+2026-02-09T20:30:17.244Z [DEBUG] High write ratio: blit=0, write=7261 (100.0% writes), screen=208x97
+2026-02-09T20:30:17.247Z [DEBUG] Started caffeinate to prevent sleep
+2026-02-09T20:30:17.248Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-09T20:30:17.447Z [DEBUG] Checking for native installer update to version 2.1.37
+2026-02-09T20:30:17.447Z [DEBUG] Found 2.1.37 at /Users/bianders/.local/bin/claude, skipping install
+2026-02-09T20:30:17.506Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:17.506Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.f7b; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:17.506Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:17.506Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:17.506Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:17.506Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:30:17.506Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:30:17.506Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:17.506Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:17.506Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:17.507Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:30:17.507Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:30:17.507Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:17.507Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:17.511Z [DEBUG] [useDeferredValue] Messages deferred by 1 (571→572)
+2026-02-09T20:30:17.521Z [DEBUG] High write ratio: blit=0, write=7261 (100.0% writes), screen=208x97
+2026-02-09T20:30:17.557Z [DEBUG] High write ratio: blit=0, write=7309 (100.0% writes), screen=211x97
+2026-02-09T20:30:17.758Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:17.759Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.c90; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:17.759Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:17.759Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:17.759Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:17.759Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:30:17.759Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:30:17.759Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:17.759Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:17.759Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:17.760Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T20:30:17.760Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T20:30:17.760Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T20:30:17.760Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T20:30:17.760Z [DEBUG] Sending 8 skills via attachment (initial, 8 total sent)
+2026-02-09T20:30:17.760Z [DEBUG] autocompact: tokens=44492 threshold=167000 effectiveWindow=180000
+2026-02-09T20:30:17.760Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T20:30:17.762Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.fbe; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:17.762Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:17.762Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:17.762Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:17.762Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:17.762Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:17.763Z [DEBUG] [useDeferredValue] Messages deferred by 3 (572→575)
+2026-02-09T20:30:17.771Z [DEBUG] High write ratio: blit=0, write=7309 (100.0% writes), screen=211x97
+2026-02-09T20:30:17.801Z [DEBUG] High write ratio: blit=0, write=7309 (100.0% writes), screen=211x97
+2026-02-09T20:30:18.016Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:18.184Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:19.445Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:22.267Z [DEBUG] [useDeferredValue] Messages deferred by 1 (575→576)
+2026-02-09T20:30:22.314Z [DEBUG] High write ratio: blit=0, write=7321 (100.0% writes), screen=211x97
+2026-02-09T20:30:23.157Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:30:23.158Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:30:23.158Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:23.158Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:23.169Z [DEBUG] [useDeferredValue] Messages deferred by 1 (576→577)
+2026-02-09T20:30:23.182Z [DEBUG] High write ratio: blit=0, write=7325 (100.0% writes), screen=211x97
+2026-02-09T20:30:23.218Z [DEBUG] High write ratio: blit=0, write=7419 (100.0% writes), screen=214x97
+2026-02-09T20:30:23.533Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:23.533Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.5f8; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:23.533Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:23.533Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:23.534Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:23.534Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:30:23.534Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:30:23.534Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:23.534Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:23.534Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:23.535Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T20:30:23.535Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T20:30:23.535Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T20:30:23.535Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T20:30:23.536Z [DEBUG] autocompact: tokens=47666 threshold=167000 effectiveWindow=180000
+2026-02-09T20:30:23.536Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T20:30:23.538Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.fbe; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:23.538Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:23.538Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:23.538Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:23.538Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:23.539Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:23.540Z [DEBUG] [useDeferredValue] Messages deferred by 1 (577→578)
+2026-02-09T20:30:23.548Z [DEBUG] High write ratio: blit=0, write=7419 (100.0% writes), screen=214x97
+2026-02-09T20:30:23.574Z [DEBUG] High write ratio: blit=0, write=7706 (100.0% writes), screen=220x97
+2026-02-09T20:30:24.005Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:24.449Z [DEBUG] High write ratio: blit=1649, write=7112 (81.2% writes), screen=220x97
+2026-02-09T20:30:25.380Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:27.363Z [DEBUG] [useDeferredValue] Messages deferred by 1 (578→579)
+2026-02-09T20:30:27.397Z [DEBUG] High write ratio: blit=0, write=7706 (100.0% writes), screen=220x97
+2026-02-09T20:30:30.957Z [DEBUG] [useDeferredValue] Messages deferred by 1 (579→580)
+2026-02-09T20:30:30.963Z [DEBUG] [useDeferredValue] Messages deferred by 1 (579→580)
+2026-02-09T20:30:30.993Z [DEBUG] High write ratio: blit=0, write=8288 (100.0% writes), screen=238x97
+2026-02-09T20:30:32.034Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:30:32.035Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:30:32.035Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:32.035Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:32.048Z [DEBUG] [useDeferredValue] Messages deferred by 1 (580→581)
+2026-02-09T20:30:32.060Z [DEBUG] High write ratio: blit=0, write=8288 (100.0% writes), screen=238x97
+2026-02-09T20:30:32.162Z [DEBUG] High write ratio: blit=0, write=8330 (100.0% writes), screen=240x97
+2026-02-09T20:30:32.615Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:32.615Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.838; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:32.615Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:32.615Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:32.616Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:32.616Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:30:32.616Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:30:32.616Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:32.616Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:32.616Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:32.663Z [DEBUG] [useDeferredValue] Messages deferred by 1 (581→582)
+2026-02-09T20:30:32.676Z [DEBUG] [useDeferredValue] Messages deferred by 1 (581→582)
+2026-02-09T20:30:32.711Z [DEBUG] High write ratio: blit=0, write=8330 (100.0% writes), screen=240x97
+2026-02-09T20:30:33.125Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:30:33.126Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:30:33.126Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:33.126Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:33.129Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:33.129Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:33.130Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.5be; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:33.130Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:33.130Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:33.130Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.5be; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:33.130Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:33.130Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:33.130Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:33.130Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:33.130Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:33.130Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:33.130Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:33.130Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:33.131Z [DEBUG] [useDeferredValue] Messages deferred by 1 (582→583)
+2026-02-09T20:30:33.140Z [DEBUG] High write ratio: blit=0, write=8332 (100.0% writes), screen=240x97
+2026-02-09T20:30:33.145Z [DEBUG] [useDeferredValue] Messages deferred by 1 (582→583)
+2026-02-09T20:30:33.168Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:33.175Z [DEBUG] High write ratio: blit=0, write=8333 (100.0% writes), screen=240x97
+2026-02-09T20:30:33.749Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:34.643Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:34.721Z [DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Bash",
+        "ruleContent": "find:*"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "localSettings"
+  }
+]
+2026-02-09T20:30:34.721Z [DEBUG] executePermissionRequestHooks called for tool: Bash
+2026-02-09T20:30:34.722Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Bash
+2026-02-09T20:30:34.722Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:34.722Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:34.743Z [DEBUG] High write ratio: blit=0, write=8480 (100.0% writes), screen=246x97
+2026-02-09T20:30:34.745Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-02-09T20:30:40.753Z [DEBUG] Getting matching hook commands for Notification with query: permission_prompt
+2026-02-09T20:30:40.753Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:30:40.754Z [DEBUG] Matched 0 unique hooks for query "permission_prompt" (0 before deduplication)
+2026-02-09T20:30:55.414Z [DEBUG] High write ratio: blit=1649, write=7886 (82.7% writes), screen=246x97
+2026-02-09T20:30:55.901Z [DEBUG] BigQuery metrics exported successfully
+2026-02-09T20:30:55.901Z [DEBUG] BigQuery API Response: {
+  "accepted_count": 12,
+  "rejected_count": 0
+}
+2026-02-09T20:30:57.617Z [DEBUG] Persisting permission update: addRules to source 'localSettings'
+2026-02-09T20:30:57.617Z [DEBUG] Persisting 1 allow rule(s) to localSettings
+2026-02-09T20:30:57.621Z [DEBUG] Writing to temp file: /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json.tmp.39986.1770669057621
+2026-02-09T20:30:57.621Z [DEBUG] Preserving file permissions: 100644
+2026-02-09T20:30:57.624Z [DEBUG] Temp file written successfully, size: 3258 bytes
+2026-02-09T20:30:57.624Z [DEBUG] Applied original permissions to temp file
+2026-02-09T20:30:57.624Z [DEBUG] Renaming /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json.tmp.39986.1770669057621 to /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json
+2026-02-09T20:30:57.625Z [DEBUG] File /Users/bianders/Brian_Code/sandbox/scraping/.claude/settings.local.json written atomically
+2026-02-09T20:30:57.638Z [DEBUG] Applying permission update: Adding 1 allow rule(s) to destination 'localSettings': ["Bash(find:*)"]
+2026-02-09T20:30:57.659Z [DEBUG] High write ratio: blit=0, write=8331 (100.0% writes), screen=240x97
+2026-02-09T20:30:57.662Z [DEBUG] Started caffeinate to prevent sleep
+2026-02-09T20:30:57.663Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-09T20:30:57.773Z [DEBUG] Checking for native installer update to version 2.1.37
+2026-02-09T20:30:57.774Z [DEBUG] Found 2.1.37 at /Users/bianders/.local/bin/claude, skipping install
+2026-02-09T20:30:57.927Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:30:57.928Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.5be; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:57.928Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:57.928Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:57.928Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:57.929Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:30:57.929Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:30:57.929Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:30:57.929Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:57.929Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:57.930Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T20:30:57.930Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T20:30:57.930Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T20:30:57.930Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T20:30:57.931Z [DEBUG] autocompact: tokens=48907 threshold=167000 effectiveWindow=180000
+2026-02-09T20:30:57.931Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T20:30:57.932Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.fbe; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:30:57.933Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:30:57.933Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:30:57.933Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:57.933Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:30:57.933Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:30:57.934Z [DEBUG] [useDeferredValue] Messages deferred by 1 (583→584)
+2026-02-09T20:30:57.943Z [DEBUG] High write ratio: blit=0, write=8331 (100.0% writes), screen=240x97
+2026-02-09T20:30:57.972Z [DEBUG] High write ratio: blit=0, write=8331 (100.0% writes), screen=240x97
+2026-02-09T20:30:58.663Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:30:59.277Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:31:01.665Z [DEBUG] [useDeferredValue] Messages deferred by 1 (584→585)
+2026-02-09T20:31:01.687Z [DEBUG] High write ratio: blit=0, write=8339 (100.0% writes), screen=240x97
+2026-02-09T20:31:01.722Z [DEBUG] High write ratio: blit=0, write=8345 (100.0% writes), screen=240x97
+2026-02-09T20:31:02.910Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:31:02.911Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:31:02.911Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:02.911Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:02.917Z [DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Read",
+        "ruleContent": "//Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260209_141215/**"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "session"
+  }
+]
+2026-02-09T20:31:02.917Z [DEBUG] executePermissionRequestHooks called for tool: Bash
+2026-02-09T20:31:02.917Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Bash
+2026-02-09T20:31:02.917Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:02.917Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:02.920Z [DEBUG] [useDeferredValue] Messages deferred by 1 (585→586)
+2026-02-09T20:31:02.934Z [DEBUG] High write ratio: blit=0, write=8489 (100.0% writes), screen=247x97
+2026-02-09T20:31:02.936Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-02-09T20:31:02.936Z [DEBUG] [useDeferredValue] Messages deferred by 1 (585→586)
+2026-02-09T20:31:02.956Z [DEBUG] High write ratio: blit=0, write=8625 (100.0% writes), screen=251x97
+2026-02-09T20:31:06.289Z [DEBUG] Applying permission update: Adding 1 allow rule(s) to destination 'session': ["Read(//Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260209_141215/**)"]
+2026-02-09T20:31:06.300Z [DEBUG] High write ratio: blit=0, write=8487 (100.0% writes), screen=244x97
+2026-02-09T20:31:06.302Z [DEBUG] Started caffeinate to prevent sleep
+2026-02-09T20:31:06.303Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-02-09T20:31:06.440Z [DEBUG] Checking for native installer update to version 2.1.37
+2026-02-09T20:31:06.440Z [DEBUG] Found 2.1.37 at /Users/bianders/.local/bin/claude, skipping install
+2026-02-09T20:31:06.779Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:31:06.779Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.f7b; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:31:06.779Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:31:06.779Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:31:06.779Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:06.779Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:31:06.779Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:31:06.779Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:06.780Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:31:06.780Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:06.780Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T20:31:06.781Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T20:31:06.781Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T20:31:06.781Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T20:31:06.782Z [DEBUG] autocompact: tokens=49233 threshold=167000 effectiveWindow=180000
+2026-02-09T20:31:06.782Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T20:31:06.783Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.fbe; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:31:06.784Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:31:06.784Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:31:06.784Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:06.784Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:31:06.784Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:06.785Z [DEBUG] [useDeferredValue] Messages deferred by 1 (586→587)
+2026-02-09T20:31:06.796Z [DEBUG] High write ratio: blit=0, write=8488 (100.0% writes), screen=244x97
+2026-02-09T20:31:06.830Z [DEBUG] High write ratio: blit=0, write=8544 (100.0% writes), screen=247x97
+2026-02-09T20:31:07.258Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:31:08.333Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:31:08.666Z [DEBUG] High write ratio: blit=1649, write=7961 (82.8% writes), screen=247x97
+2026-02-09T20:31:10.166Z [DEBUG] [useDeferredValue] Messages deferred by 1 (587→588)
+2026-02-09T20:31:10.192Z [DEBUG] [useDeferredValue] Messages deferred by 1 (587→588)
+2026-02-09T20:31:10.202Z [DEBUG] High write ratio: blit=1649, write=7961 (82.8% writes), screen=247x97
+2026-02-09T20:31:10.220Z [DEBUG] High write ratio: blit=0, write=8555 (100.0% writes), screen=247x97
+2026-02-09T20:31:11.051Z [DEBUG] High write ratio: blit=1649, write=7968 (82.9% writes), screen=247x97
+2026-02-09T20:31:11.225Z [DEBUG] [useDeferredValue] Messages deferred by 1 (588→589)
+2026-02-09T20:31:11.252Z [DEBUG] High write ratio: blit=0, write=8562 (100.0% writes), screen=247x97
+2026-02-09T20:31:11.254Z [DEBUG] [useDeferredValue] Messages deferred by 1 (588→589)
+2026-02-09T20:31:11.294Z [DEBUG] High write ratio: blit=0, write=8722 (100.0% writes), screen=250x97
+2026-02-09T20:31:13.020Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:31:13.020Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:31:13.020Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:13.020Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:13.030Z [DEBUG] [useDeferredValue] Messages deferred by 1 (589→590)
+2026-02-09T20:31:13.045Z [DEBUG] High write ratio: blit=0, write=8722 (100.0% writes), screen=250x97
+2026-02-09T20:31:13.080Z [DEBUG] High write ratio: blit=0, write=8757 (100.0% writes), screen=252x97
+2026-02-09T20:31:13.275Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:31:13.275Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.5f8; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:31:13.275Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:31:13.275Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:31:13.275Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:13.275Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:31:13.275Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:31:13.275Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:13.275Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:31:13.275Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:13.276Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T20:31:13.276Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T20:31:13.276Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T20:31:13.276Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T20:31:13.276Z [DEBUG] autocompact: tokens=49522 threshold=167000 effectiveWindow=180000
+2026-02-09T20:31:13.276Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T20:31:13.277Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.fbe; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:31:13.278Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:31:13.278Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:31:13.278Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:13.278Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:31:13.278Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:13.279Z [DEBUG] [useDeferredValue] Messages deferred by 1 (590→591)
+2026-02-09T20:31:13.287Z [DEBUG] High write ratio: blit=0, write=8757 (100.0% writes), screen=252x97
+2026-02-09T20:31:13.316Z [DEBUG] High write ratio: blit=0, write=8757 (100.0% writes), screen=252x97
+2026-02-09T20:31:13.861Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:31:14.939Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:31:16.631Z [DEBUG] [useDeferredValue] Messages deferred by 1 (591→592)
+2026-02-09T20:31:16.667Z [DEBUG] High write ratio: blit=0, write=8747 (100.0% writes), screen=252x97
+2026-02-09T20:31:16.676Z [DEBUG] High write ratio: blit=0, write=8747 (100.0% writes), screen=252x97
+2026-02-09T20:31:17.853Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:31:17.853Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:31:17.853Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:17.853Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:17.862Z [DEBUG] [useDeferredValue] Messages deferred by 1 (592→593)
+2026-02-09T20:31:17.877Z [DEBUG] High write ratio: blit=0, write=8757 (100.0% writes), screen=252x97
+2026-02-09T20:31:17.914Z [DEBUG] High write ratio: blit=0, write=8758 (100.0% writes), screen=252x97
+2026-02-09T20:31:18.145Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-09T20:31:18.145Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.27a; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:31:18.146Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:31:18.146Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:31:18.146Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:18.146Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-09T20:31:18.146Z [DEBUG] Found 5 hook matchers in settings
+2026-02-09T20:31:18.146Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:18.146Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:31:18.146Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:18.147Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-09T20:31:18.147Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-09T20:31:18.147Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-09T20:31:18.147Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-09T20:31:18.148Z [DEBUG] autocompact: tokens=49875 threshold=167000 effectiveWindow=180000
+2026-02-09T20:31:18.148Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-09T20:31:18.150Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.37.fbe; cc_entrypoint=cli; cch=00000;
+2026-02-09T20:31:18.150Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-09T20:31:18.150Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-09T20:31:18.150Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:18.150Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-09T20:31:18.150Z [DEBUG] Fast mode unavailable: Fast mode has been disabled by your organization
+2026-02-09T20:31:18.152Z [DEBUG] [useDeferredValue] Messages deferred by 1 (593→594)
+2026-02-09T20:31:18.161Z [DEBUG] High write ratio: blit=0, write=8758 (100.0% writes), screen=252x97
+2026-02-09T20:31:18.192Z [DEBUG] High write ratio: blit=0, write=8758 (100.0% writes), screen=252x97
+2026-02-09T20:31:18.679Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:31:19.549Z [DEBUG] Stream started - received first chunk
+2026-02-09T20:31:22.053Z [DEBUG] [useDeferredValue] Messages deferred by 1 (594→595)
+2026-02-09T20:31:22.091Z [DEBUG] High write ratio: blit=0, write=8758 (100.0% writes), screen=252x97
+2026-02-09T20:31:22.525Z [DEBUG] [useDeferredValue] Messages deferred by 1 (595→596)
+2026-02-09T20:31:22.527Z [DEBUG] [useDeferredValue] Messages deferred by 1 (595→596)
+2026-02-09T20:31:22.561Z [DEBUG] High write ratio: blit=0, write=8869 (100.0% writes), screen=255x97
+2026-02-09T20:31:23.246Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:31:23.249Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:31:23.249Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:23.249Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:23.260Z [DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Read",
+        "ruleContent": "//Users/bianders/.claude/skills/**"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "session"
+  }
+]
+2026-02-09T20:31:23.260Z [DEBUG] executePermissionRequestHooks called for tool: Bash
+2026-02-09T20:31:23.261Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Bash
+2026-02-09T20:31:23.261Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:23.261Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:23.262Z [DEBUG] [useDeferredValue] Messages deferred by 1 (596→597)
+2026-02-09T20:31:23.280Z [DEBUG] High write ratio: blit=0, write=8896 (100.0% writes), screen=261x97
+2026-02-09T20:31:23.282Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-02-09T20:31:23.282Z [DEBUG] [useDeferredValue] Messages deferred by 1 (596→597)
+2026-02-09T20:31:23.317Z [DEBUG] High write ratio: blit=0, write=8938 (100.0% writes), screen=263x97
+2026-02-09T20:31:24.259Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-09T20:31:24.259Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-09T20:31:24.259Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:24.259Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:24.262Z [DEBUG] Permission suggestions for Bash: [
+  {
+    "type": "addRules",
+    "rules": [
+      {
+        "toolName": "Read",
+        "ruleContent": "//Users/bianders/.claude/skills/catalog-scraper/**"
+      }
+    ],
+    "behavior": "allow",
+    "destination": "session"
+  }
+]
+2026-02-09T20:31:24.262Z [DEBUG] executePermissionRequestHooks called for tool: Bash
+2026-02-09T20:31:24.262Z [DEBUG] Getting matching hook commands for PermissionRequest with query: Bash
+2026-02-09T20:31:24.262Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:24.262Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-09T20:31:24.263Z [DEBUG] [useDeferredValue] Messages deferred by 1 (597→598)
+2026-02-09T20:31:24.273Z [DEBUG] High write ratio: blit=0, write=8940 (100.0% writes), screen=263x97
+2026-02-09T20:31:24.308Z [DEBUG] High write ratio: blit=0, write=8956 (100.0% writes), screen=263x97
+2026-02-09T20:31:29.285Z [DEBUG] Getting matching hook commands for Notification with query: permission_prompt
+2026-02-09T20:31:29.285Z [DEBUG] Found 0 hook matchers in settings
+2026-02-09T20:31:29.285Z [DEBUG] Matched 0 unique hooks for query "permission_prompt" (0 before deduplication)

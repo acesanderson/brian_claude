@@ -66,12 +66,12 @@ Add to `~/.claude/settings.json`:
 
 **Basic usage:**
 ```bash
-/batch-dispatch report-generator '["sales_2024.csv", "sales_2025.csv"]' "Generate quarterly report from {{ item }}"
+/batch-dispatch catalog-scraper '["https://site1.com", "https://site2.com"]' "Scrape the catalog from {{ item }}"
 ```
 
 **With custom timeout:**
 ```bash
-/batch-dispatch report-generator '["Q1_data.csv", "Q2_data.csv"]' "Generate report for {{ item }}" --timeout 300
+/batch-dispatch catalog-scraper '["https://url1.com", "https://url2.com"]' "Scrape {{ item }}" --timeout 300
 ```
 
 **With limited concurrency:**
