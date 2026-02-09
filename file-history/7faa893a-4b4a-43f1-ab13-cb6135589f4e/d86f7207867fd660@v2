@@ -1,0 +1,42 @@
+{
+  "discovery_date": "2026-02-09",
+  "companies_searched": 4,
+  "companies_found": 4,
+  "results": {
+    "CyberArk": {
+      "primary_url": "https://training.cyberark.com/learn",
+      "alternative_urls": [
+        "https://www.cyberark.com/services-support/training/"
+      ],
+      "confidence": "medium",
+      "notes": "Dedicated training portal at training.cyberark.com (requires authentication). Main info page shows variety of learning paths including PAM, Workforce Identity, EPM, and Conjur. Offers self-paced, instructor-led, and private training options."
+    },
+    "SolarWinds": {
+      "primary_url": "https://customerportal.solarwinds.com/VirtualClassrooms",
+      "alternative_urls": [
+        "https://support.solarwinds.com/solarwinds-academy",
+        "https://www.solarwinds.com/resources?st=How+To%3BProduct+Feature%3BProduct+Overview%3BProduct+Training%3BProduct+Walkthrough%3BSolarWinds+Lab+Bits%3BTHWACKcamp%3BCustomer+Testimonials%3BCustomer+Case+Study&page=1"
+      ],
+      "confidence": "medium",
+      "notes": "SolarWinds Academy provides virtual classrooms and eLearning videos. Requires customer portal access. Offers SolarWinds Certified Professional (SCP) program. Training included with software purchase."
+    },
+    "Fortinet": {
+      "primary_url": "https://training.fortinet.com/",
+      "alternative_urls": [
+        "https://www.fortinet.com/nse-training",
+        "https://www.fortinet.com/training-certification"
+      ],
+      "confidence": "high",
+      "notes": "Comprehensive NSE (Network Security Expert) certification program with 11 certifications across 5 proficiency levels (NSE 1-8). Offers free self-paced training and instructor-led courses. Training Institute has issued over 1.8 million certifications. Main training portal may require authentication."
+    },
+    "Wireshark": {
+      "primary_url": "https://www.wireshark.org/certifications/",
+      "alternative_urls": [
+        "https://www.wireshark.org/learn",
+        "https://www.chappell-university.com"
+      ],
+      "confidence": "medium",
+      "notes": "Wireshark Certified Analyst (WCA) certification available. Official training provided through partners: Packet Pioneer, Network Nerd, SCOS, and SYN-bit (not direct company training portal). WCA-101 exam costs $349. No centralized course catalog - training distributed across partners."
+    }
+  }
+}

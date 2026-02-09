@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__conduit-websearch__web_search",
+      "mcp__conduit-websearch__fetch_url",
+      "Bash(uv run:*)",
+      "Bash(done)"
+    ]
+  }
+}
