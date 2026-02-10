@@ -82,6 +82,9 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
         env = os.environ.copy()
         env["UV_CACHE_DIR"] = worker_cache
 
+        # FIX: Remove API key so Claude falls back to stored credentials (work account)
+        env.pop("ANTHROPIC_API_KEY", None)
+
         cmd = ["claude", "-p", full_prompt, "--dangerously-skip-permissions"]
 
         print(f"[{index}] Starting task for: {item} (🔒 Sandboxed to {task_dir})...")

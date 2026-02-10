@@ -1,7 +1,7 @@
 ---
-name: linkedin-context
+name: professional-certificate-context
 type: context
-description: Provides context about the user's job at LinkedIn, their career, and their full time project (Professional Certificates within LinkedIn Learning).
+description: Provides context about LinkedIn Learning's Professional Certificates initiative.
 ---
 
 ## Executive Summary

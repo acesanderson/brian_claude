@@ -1,0 +1,44 @@
+[
+  {
+    "status": "error",
+    "item": "https://www.paloaltonetworks.com/services/education",
+    "error": "Credit balance is too low\n",
+    "task_dir": "/Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260210_120553/task_0"
+  },
+  {
+    "status": "error",
+    "item": "https://www.splunk.com/en_us/training/free-courses/overview.html",
+    "error": "Credit balance is too low\n",
+    "task_dir": "/Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260210_120553/task_1"
+  },
+  {
+    "status": "error",
+    "item": "https://www.crowdstrike.com/en-us/crowdstrike-university/",
+    "error": "Credit balance is too low\n",
+    "task_dir": "/Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260210_120553/task_2"
+  },
+  {
+    "status": "error",
+    "item": "https://www.checkpoint.com/services/training/",
+    "error": "Credit balance is too low\n",
+    "task_dir": "/Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260210_120553/task_3"
+  },
+  {
+    "status": "error",
+    "item": "https://www.cyberark.com/services-support/training/",
+    "error": "Credit balance is too low\n",
+    "task_dir": "/Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260210_120553/task_4"
+  },
+  {
+    "status": "error",
+    "item": "https://support.solarwinds.com/solarwinds-academy",
+    "error": "Credit balance is too low\n",
+    "task_dir": "/Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260210_120553/task_5"
+  },
+  {
+    "status": "error",
+    "item": "https://www.fortinet.com/nse-training",
+    "error": "Credit balance is too low\n",
+    "task_dir": "/Users/bianders/.claude/skills/batch-dispatch/batch_runs/20260210_120553/task_6"
+  }
+]

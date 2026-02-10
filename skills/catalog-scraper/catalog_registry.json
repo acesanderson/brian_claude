@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-10T12:06:00",
+  "stats": {
+    "total_providers": 0,
+    "total_courses": 0,
+    "providers_complete": 0,
+    "providers_partial": 0,
+    "providers_auth_required": 0
+  },
+  "providers": {}
+}
