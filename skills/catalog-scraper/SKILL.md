@@ -12,6 +12,142 @@ description: Scrape and analyze course catalogs from training providers (HubSpot
 
 ## Workflow
 
+### Phase 0: Registry Check (REQUIRED FIRST STEP)
+
+**Objective**: Check if provider is already scraped to avoid duplicate work.
+
+1. **Check for catalog_registry.json**
+   ```python
+   import json
+   import os
+   from datetime import datetime
+
+   registry_path = 'catalog_registry.json'
+
+   # Create registry if it doesn't exist
+   if not os.path.exists(registry_path):
+       registry = {
+           "version": "1.0",
+           "last_updated": datetime.now().isoformat(),
+           "stats": {
+               "total_providers": 0,
+               "total_courses": 0,
+               "providers_complete": 0,
+               "providers_partial": 0,
+               "providers_auth_required": 0
+           },
+           "providers": {}
+       }
+       with open(registry_path, 'w') as f:
+           json.dump(registry, f, indent=2)
+       print("✓ Created new catalog_registry.json")
+   ```
+
+2. **Check if provider already exists**
+   ```python
+   with open(registry_path, 'r') as f:
+       registry = json.load(f)
+
+   provider_name = "Provider Name"  # From input
+
+   if provider_name in registry['providers']:
+       provider_info = registry['providers'][provider_name]
+       status = provider_info['status']
+
+       if status == 'complete':
+           print(f"\n{'='*60}")
+           print(f"✓ {provider_name} ALREADY SCRAPED")
+           print(f"{'='*60}")
+           print(f"  Date: {provider_info['date_scraped']}")
+           print(f"  Courses: {provider_info['courses_count']}")
+           print(f"  Files: {provider_info['files']['json']}")
+           print(f"\n  Use existing data or remove from registry to re-scrape.")
+           return  # Skip scraping
+
+       elif status == 'partial':
+           print(f"\n⚠️  {provider_name} previously scraped with partial results")
+           print(f"   Scraped: {provider_info['courses_count']} courses")
+           if 'total_available' in provider_info:
+               print(f"   Available: {provider_info['total_available']} courses")
+           print(f"   Limitation: {provider_info.get('limitation', 'Unknown')}")
+           # Continue with scraping to attempt full collection
+
+       elif status == 'auth_required':
+           print(f"\n⚠️  {provider_name} requires authentication")
+           print(f"   Notes: {provider_info.get('notes', '')}")
+           # Continue to attempt scraping (may have gained access)
+   ```
+
+3. **After successful scraping, update registry**
+   ```python
+   def update_registry(provider_name, provider_data):
+       with open('catalog_registry.json', 'r') as f:
+           registry = json.load(f)
+
+       # Update provider entry
+       registry['providers'][provider_name] = provider_data
+
+       # Update stats
+       stats = registry['stats']
+       stats['total_providers'] = len(registry['providers'])
+       stats['total_courses'] = sum(
+           p.get('courses_count', 0)
+           for p in registry['providers'].values()
+       )
+       stats['providers_complete'] = sum(
+           1 for p in registry['providers'].values()
+           if p.get('status') == 'complete'
+       )
+       stats['providers_partial'] = sum(
+           1 for p in registry['providers'].values()
+           if p.get('status') == 'partial'
+       )
+       stats['providers_auth_required'] = sum(
+           1 for p in registry['providers'].values()
+           if p.get('status') == 'auth_required'
+       )
+
+       registry['last_updated'] = datetime.now().isoformat()
+
+       # Save registry
+       with open('catalog_registry.json', 'w') as f:
+           json.dump(registry, f, indent=2)
+
+       print(f"\n✓ Updated catalog_registry.json")
+
+       # Regenerate master catalog
+       regenerate_master_catalog()
+   ```
+
+4. **Regenerate master catalog files**
+   ```python
+   def regenerate_master_catalog():
+       import pandas as pd
+
+       all_courses = []
+       for provider_name, provider_info in registry['providers'].items():
+           if 'files' in provider_info and 'json' in provider_info['files']:
+               try:
+                   with open(provider_info['files']['json'], 'r') as f:
+                       courses = json.load(f)
+                       all_courses.extend(courses)
+               except:
+                   pass
+
+       # Save master JSON
+       with open('master_catalog.json', 'w') as f:
+           json.dump(all_courses, f, indent=2, ensure_ascii=False)
+
+       # Save master XLSX
+       if all_courses:
+           df = pd.DataFrame(all_courses)
+           df.to_excel('master_catalog.xlsx', index=False, engine='openpyxl')
+
+       print(f"✓ Regenerated master_catalog files ({len(all_courses)} total courses)")
+   ```
+
+**Important**: Always run Phase 0 before starting Discovery & Reconnaissance. This prevents duplicate work and maintains the central registry.
+
 ### Phase 1: Discovery & Reconnaissance (5-10 minutes)
 
 **Objective**: Understand the site architecture before attempting extraction.
@@ -298,24 +434,88 @@ Include:
 
 ### Phase 5: Deliver Results
 
-1. **Show Summary with all three artifacts**
+1. **Move files to providers directory**
+   ```python
+   import os
+   import shutil
+
+   # Create provider directory
+   provider_dir = f"providers/{provider_slug}"
+   os.makedirs(provider_dir, exist_ok=True)
+
+   # Move files
+   shutil.move(f"{provider_slug}_catalog.json", f"{provider_dir}/catalog.json")
+   shutil.move(f"{provider_slug}_catalog.xlsx", f"{provider_dir}/catalog.xlsx")
+   shutil.move(f"{provider_slug}_report.md", f"{provider_dir}/report.md")
+
+   print(f"✓ Moved files to {provider_dir}/")
+   ```
+
+2. **Update catalog_registry.json**
+   ```python
+   # Determine status
+   if courses_count == 0:
+       status = "auth_required"  # or "failed"
+   elif has_limitations:
+       status = "partial"
+   else:
+       status = "complete"
+
+   provider_data = {
+       "status": status,
+       "url": catalog_url,
+       "courses_count": courses_count,
+       "date_scraped": datetime.now().strftime("%Y-%m-%d"),
+       "scraper_version": "1.0",
+       "data_quality": {
+           "has_descriptions": desc_completeness > 50,
+           "has_duration": duration_completeness > 50,
+           "has_level": level_completeness > 50,
+           "avg_title_length": int(avg_title_length)
+       },
+       "files": {
+           "json": f"{provider_dir}/catalog.json",
+           "xlsx": f"{provider_dir}/catalog.xlsx",
+           "report": f"{provider_dir}/report.md"
+       },
+       "notes": ""  # Add any important notes
+   }
+
+   # If partial or auth_required, add limitation field
+   if status in ["partial", "auth_required"]:
+       provider_data["limitation"] = "Description of limitation"
+
+   update_registry(provider_name, provider_data)
+   ```
+
+3. **Show Summary with all artifacts**
    ```
    ✓ Scraped {X} courses from {Provider}
 
    ARTIFACTS GENERATED:
-   ✓ JSON:   {provider_slug}_catalog.json
-   ✓ XLSX:   {provider_slug}_catalog.xlsx
-   ✓ Report: {provider_slug}_report.md
+   ✓ JSON:   providers/{provider_slug}/catalog.json
+   ✓ XLSX:   providers/{provider_slug}/catalog.xlsx
+   ✓ Report: providers/{provider_slug}/report.md
+   ✓ Registry: catalog_registry.json (updated)
+   ✓ Master:   master_catalog.xlsx (regenerated)
    ```
 
-2. **Preview Data** - Display first 3-5 courses with key fields
+4. **Preview Data** - Display first 3-5 courses with key fields
 
-3. **Provide Analysis** - Quick insights:
+5. **Provide Analysis** - Quick insights:
    - Course count by level/category
    - Price distribution
    - Format breakdown
    - Content gaps or strengths
    - LinkedIn Learning licensing perspective
+
+6. **Registry Status**
+   ```
+   CATALOG REGISTRY STATUS:
+   - Total providers: {X}
+   - Total courses: {Y}
+   - Status: {status} (complete/partial/auth_required)
+   ```
 
 ## Required Dependencies
 
