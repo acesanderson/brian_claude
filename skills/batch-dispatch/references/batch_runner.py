@@ -8,7 +8,6 @@ import asyncio
 import sys
 import json
 import os
-import shutil
 import argparse
 from pathlib import Path
 from datetime import datetime
@@ -38,7 +37,9 @@ def check_sandbox_enabled():
         return False
 
 
-async def run_worker(sem, run_id, index, item, skill_name, user_template, timeout):
+async def run_worker(
+    sem, run_id, index, item, skill_name, user_template, timeout, sandbox_enabled=False
+):
     """
     Spawns a single isolated Claude Code instance with private cache.
     """
@@ -48,7 +49,6 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
         )
         os.makedirs(task_dir, exist_ok=True)
 
-        # FIX: Isolate UV cache to prevent 'Operation not permitted' on global cache locks
         worker_cache = os.path.join(task_dir, ".uv_cache")
         os.makedirs(worker_cache, exist_ok=True)
 
@@ -57,8 +57,8 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
         system_instructions = (
             f"SYSTEM OVERRIDE: You are a headless worker agent. "
             f"You are restricted to working strictly within this directory: {task_dir}. "
-            f"You MUST invoke the '{skill_name}' skill using the Skill tool to complete this task. "
-            f"Use the syntax: /{skill_name} with the task-specific arguments. "
+            f"You MUST invoke the '{skill_name}' skill using the Skill tool to complete this task."
+            f"Use the syntax: /{skill_name} with the task-specific arguments.  "
             f"Do not ask for confirmation. Do not output conversational filler. "
             f"Perform the task and save the final structured data to: {output_file}."
         )
@@ -82,8 +82,12 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
         env = os.environ.copy()
         env["UV_CACHE_DIR"] = worker_cache
 
-        # FIX: Remove API key so Claude falls back to stored credentials (work account)
+        # FIX 1: Remove API key so Claude falls back to stored work account credentials
         env.pop("ANTHROPIC_API_KEY", None)
+
+        # FIX 2: Explicitly force Sandbox env var if enabled
+        if sandbox_enabled:
+            env["CLAUDE_SANDBOX"] = "1"
 
         cmd = ["claude", "-p", full_prompt, "--dangerously-skip-permissions"]
 
@@ -97,7 +101,7 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
                 cwd=task_dir,
                 env=env,
             )
-
+            # ... rest of run_worker implementation remains the same ...
             stdout, stderr = await asyncio.wait_for(
                 process.communicate(), timeout=timeout
             )
@@ -147,7 +151,9 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
             return {"status": "timeout", "item": item, "task_dir": task_dir}
 
 
-async def validate_skill(item, skill_name, user_template, timeout, run_id):
+async def validate_skill(
+    item, skill_name, user_template, timeout, run_id, sandbox_enabled
+):
     preflight_dir = os.path.abspath(os.path.join(BATCH_DIR_NAME, run_id, "preflight"))
     os.makedirs(preflight_dir, exist_ok=True)
 
@@ -155,7 +161,17 @@ async def validate_skill(item, skill_name, user_template, timeout, run_id):
     print(f"Testing skill on first item: {item}")
 
     sem = asyncio.Semaphore(1)
-    result = await run_worker(sem, run_id, 0, item, skill_name, user_template, timeout)
+    # Pass sandbox_enabled to run_worker
+    result = await run_worker(
+        sem,
+        run_id,
+        0,
+        item,
+        skill_name,
+        user_template,
+        timeout,
+        sandbox_enabled=sandbox_enabled,
+    )
 
     success = result["status"] == "success"
     if success:
@@ -210,6 +226,7 @@ async def main():
     parser = argparse.ArgumentParser(
         description="Batch dispatch: Parallel skill execution"
     )
+    # ... args definition ...
     parser.add_argument("skill")
     parser.add_argument("inputs")
     parser.add_argument("template")
@@ -221,7 +238,10 @@ async def main():
 
     args = parser.parse_args()
 
-    if not args.skip_sandbox_check and not check_sandbox_enabled():
+    # Capture the sandbox state
+    is_sandboxed = check_sandbox_enabled()
+
+    if not args.skip_sandbox_check and not is_sandboxed:
         print("Error: Claude Code Sandboxing Not Enabled. Run /sandbox first.")
         sys.exit(1)
 
@@ -231,7 +251,7 @@ async def main():
 
     if not args.skip_preflight:
         success, _, preview = await validate_skill(
-            inputs[0], args.skill, args.template, args.timeout, run_id
+            inputs[0], args.skill, args.template, args.timeout, run_id, is_sandboxed
         )
         if not success:
             print(f"Pre-flight FAILED: {preview}")
@@ -247,7 +267,14 @@ async def main():
 
     async def worker_wrapper(i, item):
         res = await run_worker(
-            sem, run_id, i, item, args.skill, args.template, args.timeout
+            sem,
+            run_id,
+            i,
+            item,
+            args.skill,
+            args.template,
+            args.timeout,
+            sandbox_enabled=is_sandboxed,
         )
         results_list.append(res)
         return res
