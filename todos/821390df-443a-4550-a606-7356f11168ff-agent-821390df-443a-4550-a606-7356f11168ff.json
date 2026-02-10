@@ -11,12 +11,12 @@
   },
   {
     "content": "Implement scraping script",
-    "status": "in_progress",
+    "status": "completed",
     "activeForm": "Implementing scraping script"
   },
   {
     "content": "Extract and validate course data",
-    "status": "pending",
+    "status": "in_progress",
     "activeForm": "Extracting and validating course data"
   },
   {

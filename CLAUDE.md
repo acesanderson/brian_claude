@@ -16,6 +16,8 @@ Finally: I'm trying to stay a critical and sharp analytical thinker. Whenever yo
 
 **If you are doing a coding task, please respect the following:
 - Please make the MOST MINIMAL versions of what I'm trying to build.
+- use a uv and .venv workflow exclusively, do not use pip install or any other package manager.
+- do NOT install anything to system python, and do NOT use system python for anything.
 - I always use `if TYPE_CHECKING` and `from __future__ import annotations` for type hints, to respect lazy load.
 - Awaitable, Callable, Iterable, etc. should be imported from collection.abc, NOT typing
 - I use later versions of python, so don't import `List`, `Dict`, etc. -- simple `list`, `dist`.

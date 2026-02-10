@@ -434,3 +434,222 @@
 2026-02-10T15:52:50.780Z [DEBUG] Total plugin commands loaded: 0
 2026-02-10T15:52:50.780Z [DEBUG] Loaded 7 unique skills (7 unconditional, 0 conditional, managed: 0, user: 7, project: 0, additional: 0, legacy commands: 0)
 2026-02-10T15:52:50.780Z [DEBUG] getSkills returning: 7 skill dir commands, 0 plugin skills, 2 bundled skills
+2026-02-10T15:52:54.863Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-10T15:52:54.863Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:54.863Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:52:54.863Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:52:54.863Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:54.863Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-10T15:52:54.863Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:52:54.863Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-10T15:52:54.863Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:52:54.863Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:54.864Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:52:54.864Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:52:54.864Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:52:54.864Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:52:54.864Z [DEBUG] Sending 8 skills via attachment (initial, 8 total sent)
+2026-02-10T15:52:54.864Z [DEBUG] autocompact: tokens=50765 threshold=167000 effectiveWindow=180000
+2026-02-10T15:52:54.864Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:52:54.865Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:54.865Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:52:54.865Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:52:54.865Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:54.865Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:52:54.865Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:56.143Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:52:57.368Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:52:59.212Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-10T15:52:59.213Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-10T15:52:59.213Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:52:59.213Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-10T15:52:59.218Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-10T15:52:59.218Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:52:59.218Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-10T15:52:59.232Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:52:59.233Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:52:59.233Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:52:59.233Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:52:59.234Z [DEBUG] autocompact: tokens=51500 threshold=167000 effectiveWindow=180000
+2026-02-10T15:52:59.235Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:52:59.239Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:59.240Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:52:59.240Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:52:59.240Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:52:59.240Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:52:59.240Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:01.056Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:53:09.048Z [DEBUG] executePreToolHooks called for tool: Edit
+2026-02-10T15:53:09.048Z [DEBUG] Getting matching hook commands for PreToolUse with query: Edit
+2026-02-10T15:53:09.048Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:53:09.048Z [DEBUG] Matched 0 unique hooks for query "Edit" (0 before deduplication)
+2026-02-10T15:53:09.055Z [DEBUG] Writing to temp file: /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py.tmp.35785.1770738789055
+2026-02-10T15:53:09.055Z [DEBUG] Preserving file permissions: 100644
+2026-02-10T15:53:09.057Z [DEBUG] Temp file written successfully, size: 7835 bytes
+2026-02-10T15:53:09.057Z [DEBUG] Applied original permissions to temp file
+2026-02-10T15:53:09.057Z [DEBUG] Renaming /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py.tmp.35785.1770738789055 to /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py
+2026-02-10T15:53:09.058Z [DEBUG] File /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py written atomically
+2026-02-10T15:53:09.060Z [DEBUG] Getting matching hook commands for PostToolUse with query: Edit
+2026-02-10T15:53:09.060Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:53:09.060Z [DEBUG] Matched 1 unique hooks for query "Edit" (1 before deduplication)
+2026-02-10T15:53:09.062Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:53:09.062Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:53:09.062Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:53:09.062Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:53:09.062Z [DEBUG] autocompact: tokens=52369 threshold=167000 effectiveWindow=180000
+2026-02-10T15:53:09.062Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:53:09.065Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:09.066Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:53:09.066Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:53:09.066Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:09.066Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:53:09.066Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:10.579Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:53:18.056Z [DEBUG] executePreToolHooks called for tool: Edit
+2026-02-10T15:53:18.056Z [DEBUG] Getting matching hook commands for PreToolUse with query: Edit
+2026-02-10T15:53:18.056Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:53:18.056Z [DEBUG] Matched 0 unique hooks for query "Edit" (0 before deduplication)
+2026-02-10T15:53:18.057Z [DEBUG] Writing to temp file: /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py.tmp.35785.1770738798057
+2026-02-10T15:53:18.057Z [DEBUG] Preserving file permissions: 100644
+2026-02-10T15:53:18.058Z [DEBUG] Temp file written successfully, size: 8532 bytes
+2026-02-10T15:53:18.058Z [DEBUG] Applied original permissions to temp file
+2026-02-10T15:53:18.058Z [DEBUG] Renaming /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py.tmp.35785.1770738798057 to /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py
+2026-02-10T15:53:18.059Z [DEBUG] File /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/scrape_weights_and_biases.py written atomically
+2026-02-10T15:53:18.059Z [DEBUG] Getting matching hook commands for PostToolUse with query: Edit
+2026-02-10T15:53:18.059Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:53:18.059Z [DEBUG] Matched 1 unique hooks for query "Edit" (1 before deduplication)
+2026-02-10T15:53:18.060Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:53:18.060Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:53:18.060Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:53:18.060Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:53:18.061Z [DEBUG] autocompact: tokens=53054 threshold=167000 effectiveWindow=180000
+2026-02-10T15:53:18.061Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:53:18.062Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:18.063Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:53:18.063Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:53:18.063Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:18.063Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:53:18.063Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:19.729Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:53:20.779Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-10T15:53:20.780Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-10T15:53:20.780Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:53:20.780Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-10T15:53:46.481Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-10T15:53:46.481Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:46.481Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:53:46.481Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:53:46.481Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:46.481Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-10T15:53:46.481Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:53:46.481Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-10T15:53:46.481Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:53:46.481Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:46.482Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:53:46.482Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:53:46.482Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:53:46.482Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:53:46.482Z [DEBUG] autocompact: tokens=53635 threshold=167000 effectiveWindow=180000
+2026-02-10T15:53:46.482Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:53:46.484Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:46.484Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:53:46.484Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:53:46.484Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:46.484Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:53:46.484Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:47.982Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:53:48.056Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:53:49.539Z [DEBUG] executePreToolHooks called for tool: Read
+2026-02-10T15:53:49.539Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-02-10T15:53:49.539Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:53:49.539Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-02-10T15:53:49.545Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-02-10T15:53:49.545Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:53:49.545Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-02-10T15:53:49.551Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:53:49.551Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:53:49.551Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:53:49.551Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:53:49.552Z [DEBUG] autocompact: tokens=55784 threshold=167000 effectiveWindow=180000
+2026-02-10T15:53:49.553Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:53:49.556Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:49.557Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:53:49.557Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:53:49.557Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:49.557Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:53:49.557Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:53:52.603Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:54:24.512Z [WARN] Streaming stall detected: 30.9s gap between events (stall #1)
+2026-02-10T15:54:24.831Z [DEBUG] executePreToolHooks called for tool: Write
+2026-02-10T15:54:24.831Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-02-10T15:54:24.831Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:54:24.831Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-02-10T15:54:24.833Z [DEBUG] Writing to temp file: /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/weights_and_biases_report.md.tmp.35785.1770738864833
+2026-02-10T15:54:24.834Z [DEBUG] Temp file written successfully, size: 7001 bytes
+2026-02-10T15:54:24.834Z [DEBUG] Renaming /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/weights_and_biases_report.md.tmp.35785.1770738864833 to /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/weights_and_biases_report.md
+2026-02-10T15:54:24.835Z [DEBUG] File /Users/bianders/Brian_Code/sandbox/scraping/batch_runs/20260210_094627/task_2/weights_and_biases_report.md written atomically
+2026-02-10T15:54:24.836Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-02-10T15:54:24.836Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:54:24.836Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-02-10T15:54:24.846Z [WARN] Streaming completed with 1 stall(s), total stall time: 30.9s
+2026-02-10T15:54:24.847Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:54:24.847Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:54:24.847Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:54:24.847Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:54:24.848Z [DEBUG] autocompact: tokens=58412 threshold=167000 effectiveWindow=180000
+2026-02-10T15:54:24.849Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:54:24.852Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:24.852Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:54:24.852Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:54:24.852Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:24.853Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:54:24.853Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:26.775Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:54:28.724Z [DEBUG] executePreToolHooks called for tool: Bash
+2026-02-10T15:54:28.724Z [DEBUG] Getting matching hook commands for PreToolUse with query: Bash
+2026-02-10T15:54:28.724Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:54:28.724Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-10T15:54:29.066Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-02-10T15:54:29.067Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:29.067Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:54:29.067Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:54:29.067Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:29.067Z [DEBUG] Getting matching hook commands for PostToolUse with query: Bash
+2026-02-10T15:54:29.067Z [DEBUG] Found 5 hook matchers in settings
+2026-02-10T15:54:29.067Z [DEBUG] Matched 0 unique hooks for query "Bash" (0 before deduplication)
+2026-02-10T15:54:29.067Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:54:29.067Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:29.068Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:54:29.068Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:54:29.068Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:54:29.068Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:54:29.068Z [DEBUG] autocompact: tokens=58653 threshold=167000 effectiveWindow=180000
+2026-02-10T15:54:29.068Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:54:29.069Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:29.069Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:54:29.069Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:54:29.069Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:29.069Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:54:29.070Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:29.956Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:54:30.384Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:54:31.491Z [DEBUG] Read tool validation error: This tool cannot read binary files. The file appears to be a binary .xlsx file. Please use appropriate tools for binary file analysis.
+2026-02-10T15:54:31.501Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-02-10T15:54:31.501Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-02-10T15:54:31.501Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-02-10T15:54:31.501Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-02-10T15:54:31.502Z [DEBUG] autocompact: tokens=58910 threshold=167000 effectiveWindow=180000
+2026-02-10T15:54:31.502Z [DEBUG] Tool search disabled: ToolSearchTool is not available (may have been disallowed via disallowedTools).
+2026-02-10T15:54:31.507Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:31.508Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-02-10T15:54:31.508Z [DEBUG] [API:auth] OAuth token check starting
+2026-02-10T15:54:31.508Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:31.509Z [DEBUG] [API:auth] OAuth token check complete
+2026-02-10T15:54:31.509Z [DEBUG] Fast mode unavailable: Fast mode is not available in the Agent SDK
+2026-02-10T15:54:33.422Z [DEBUG] Stream started - received first chunk
+2026-02-10T15:54:39.778Z [DEBUG] Getting matching hook commands for Stop with query: undefined
+2026-02-10T15:54:39.778Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:54:39.778Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-02-10T15:54:39.779Z [DEBUG] Getting matching hook commands for SessionEnd with query: other
+2026-02-10T15:54:39.779Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:54:39.779Z [DEBUG] Matched 0 unique hooks for query "other" (0 before deduplication)
