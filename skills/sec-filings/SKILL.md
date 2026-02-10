@@ -1,3 +1,8 @@
+--
+name: sec-filings
+description: Fetches annual and quarterly reports (10-K, 10-Q, 20-F) from SEC EDGAR using stock tickers.
+---
+
 # SEC Filings Skill
 
 Fetch annual and quarterly reports (10-K, 10-Q, 20-F) from the SEC EDGAR database.
