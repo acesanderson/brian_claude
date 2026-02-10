@@ -1,0 +1,14 @@
+2026-02-10T15:36:45.839Z [DEBUG] [init] configureGlobalMTLS starting
+2026-02-10T15:36:45.839Z [DEBUG] [init] configureGlobalMTLS complete
+2026-02-10T15:36:45.839Z [DEBUG] [init] configureGlobalAgents starting
+2026-02-10T15:36:45.839Z [DEBUG] [init] configureGlobalAgents complete
+2026-02-10T15:36:45.847Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-02-10T15:36:45.847Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-02-10T15:36:45.847Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-02-10T15:36:45.847Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-02-10T15:36:46.073Z [DEBUG] Remote settings: No settings found (404)
+2026-02-10T15:36:46.073Z [DEBUG] Programmatic settings change notification for policySettings
+2026-02-10T15:36:46.133Z [DEBUG] Policy limits: Fetched successfully
+2026-02-10T15:36:50.350Z [DEBUG] Getting matching hook commands for SessionEnd with query: other
+2026-02-10T15:36:50.350Z [DEBUG] Found 0 hook matchers in settings
+2026-02-10T15:36:50.351Z [DEBUG] Matched 0 unique hooks for query "other" (0 before deduplication)

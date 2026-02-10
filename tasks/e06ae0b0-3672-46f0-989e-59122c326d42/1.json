@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "Discover training URLs for 4 companies",
+  "description": "Use web_search and fetch_url MCP tools to find and validate training platform URLs for: Replit, Google Cloud, Weights & Biases, INE (formerly CloudSkills.io). Output structured JSON with confidence ratings.",
+  "activeForm": "Discovering training platform URLs",
+  "status": "in_progress",
+  "blocks": [],
+  "blockedBy": []
+}

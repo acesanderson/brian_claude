@@ -1,0 +1,41 @@
+{
+  "discovery_date": "2026-02-10",
+  "companies_searched": 4,
+  "companies_found": 4,
+  "results": {
+    "Replit": {
+      "primary_url": "https://learn.replit.com/",
+      "alternative_urls": [
+        "https://www.coursera.org/learn/replit-essentials-collaborate-create-and-code-smarter",
+        "https://www.deeplearning.ai/short-courses/vibe-coding-101-with-replit/"
+      ],
+      "confidence": "medium",
+      "notes": "Dedicated learning platform focused on AI and vibe coding. Page uses heavy JavaScript rendering which prevented content fetching, but consistently appears in search results as official learning platform. Alternative courses hosted on Coursera and DeepLearning.AI."
+    },
+    "Google Cloud": {
+      "primary_url": "https://www.cloudskillsboost.google/catalog",
+      "alternative_urls": [
+        "https://cloud.google.com/learn/training"
+      ],
+      "confidence": "high",
+      "notes": "Google Cloud Skills Boost - official training platform with hands-on labs, courses, and certifications. Catalog page confirmed with learning paths and skill badges."
+    },
+    "Weights & Biases": {
+      "primary_url": "https://wandb.ai/site/courses/",
+      "alternative_urls": [
+        "https://www.wandb.courses/collections"
+      ],
+      "confidence": "high",
+      "notes": "W&B AI Academy - comprehensive course catalog covering MLOps, LLM engineering, RAG, AI agents, prompt engineering, and model management. Courses hosted on Thinkific platform. All courses are free. Verified 10+ courses including AI Engineering: Agents, RAG++, LLM Apps: Evaluation, Developer's guide to LLM prompting, and Weights & Biases 101: Weave."
+    },
+    "INE": {
+      "primary_url": "https://learn.ine.com/ine-security",
+      "alternative_urls": [
+        "https://ine.com/security",
+        "https://ine.com/learning/areas/cyber-security"
+      ],
+      "confidence": "high",
+      "notes": "INE Security (formerly CloudSkills.io) - comprehensive cybersecurity training platform. Verified 902 courses, 2300+ hands-on labs, 57 learning paths, and 10 INE certifications. Includes cross-training in networking, cloud, and data science. Full-cycle training approach with Skill Sonar assessments and Skill Dive practice environments."
+    }
+  }
+}

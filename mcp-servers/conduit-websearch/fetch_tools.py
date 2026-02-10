@@ -1,8 +1,14 @@
-"""Standalone fetch tools extracted from Conduit for MCP server use."""
+"""
+Standalone fetch tools extracted from Conduit for MCP server use.
+"""
+
 from __future__ import annotations
 
 import io
 import mimetypes
+import os
+import asyncio
+import random
 from typing import Any
 
 import httpx
@@ -11,10 +17,8 @@ import httpx
 async def web_search(query: str) -> dict[str, str]:
     """
     Performs a web search using the Brave Search API.
-    Requires BRAVE_API_KEY environment variable.
+    Includes retry logic for 429 rate limits.
     """
-    import os
-
     api_key = os.getenv("BRAVE_API_KEY")
     if not api_key:
         return {"error": "Missing BRAVE_API_KEY environment variable"}
@@ -26,34 +30,50 @@ async def web_search(query: str) -> dict[str, str]:
     }
     params = {"q": query, "count": 5}
 
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await client.get(
-                url, headers=headers, params=params, timeout=10.0
-            )
-            response.raise_for_status()
-            data = response.json()
+    max_retries = 3
+    async with httpx.AsyncClient() as client:
+        for attempt in range(max_retries):
+            try:
+                response = await client.get(
+                    url, headers=headers, params=params, timeout=10.0
+                )
 
-        results = []
-        web_results = data.get("web", {}).get("results", [])
+                if response.status_code == 429:
+                    if attempt < max_retries - 1:
+                        # Exponential backoff with jitter: 2s, 4s, 8s + random
+                        wait_time = (2 ** (attempt + 1)) + random.uniform(0, 1)
+                        await asyncio.sleep(wait_time)
+                        continue
 
-        if not web_results:
-            return {"result": "No results found."}
+                response.raise_for_status()
+                data = response.json()
 
-        for i, item in enumerate(web_results, 1):
-            title = item.get("title", "No Title")
-            link = item.get("url", "")
-            description = item.get("description", "")
-            results.append(
-                f"[{i}] Title: {title}\n    URL: {link}\n    Snippet: {description}"
-            )
+                results = []
+                web_results = data.get("web", {}).get("results", [])
 
-        return {
-            "result": "\n---\n".join(results),
-            "next_step_hint": "Use fetch_url to see full page content.",
-        }
-    except Exception as e:
-        return {"error": f"Search failed: {str(e)}"}
+                if not web_results:
+                    return {"result": "No results found."}
+
+                for i, item in enumerate(web_results, 1):
+                    title = item.get("title", "No Title")
+                    link = item.get("url", "")
+                    description = item.get("description", "")
+                    results.append(
+                        f"[{i}] Title: {title}\n    URL: {link}\n    Snippet: {description}"
+                    )
+
+                return {
+                    "result": "\n---\n".join(results),
+                    "next_step_hint": "Use fetch_url to see full page content.",
+                }
+
+            except httpx.HTTPStatusError as e:
+                if e.response.status_code != 429 or attempt == max_retries - 1:
+                    return {"error": f"Search failed: {str(e)}"}
+            except Exception as e:
+                return {"error": f"Search failed: {str(e)}"}
+
+    return {"error": "Search failed after multiple retries due to rate limiting."}
 
 
 def _convert_html_to_md(html_text: str) -> str:
@@ -86,14 +106,12 @@ def _paginate_content(full_content: str, url: str, page: int) -> dict[str, Any]:
     """Paginate content for easier viewing."""
     lines = full_content.splitlines()
 
-    # Generate Table of Contents
     toc = [
         {"text": line, "line": i + 1}
         for i, line in enumerate(lines)
         if line.strip().startswith("#")
     ]
 
-    # Viewport Slicing (~8000 chars per page)
     chars_per_page = 8000
     total_chars = len(full_content)
     total_pages = (total_chars // chars_per_page) + 1
@@ -122,10 +140,7 @@ def _paginate_content(full_content: str, url: str, page: int) -> dict[str, Any]:
 
 
 async def fetch_url(url: str, page: int = 1) -> dict[str, Any]:
-    """
-    Fetch a URL and convert it to clean Markdown.
-    Supports HTML, PDF, Office documents.
-    """
+    """Fetch a URL and convert it to clean Markdown."""
     async with httpx.AsyncClient() as client:
         try:
             response = await client.get(
@@ -140,14 +155,12 @@ async def fetch_url(url: str, page: int = 1) -> dict[str, Any]:
         except httpx.HTTPError as e:
             return {"error": f"Failed to fetch {url}: {str(e)}"}
 
-    # MIME Type Dispatcher
     content_type = response.headers.get("content-type", "").lower().split(";")[0]
     extension = mimetypes.guess_extension(content_type) or ""
 
     try:
         if content_type in ["text/html", "application/xhtml+xml"]:
             full_md = _convert_html_to_md(response.text)
-
         elif content_type in [
             "application/pdf",
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -156,17 +169,13 @@ async def fetch_url(url: str, page: int = 1) -> dict[str, Any]:
             "application/rtf",
         ]:
             full_md = _convert_binary_to_md(response.content, extension)
-
         elif content_type == "application/json":
             full_md = f"```json\n{response.text}\n```"
-
         else:
-            # Sniff for HTML if MIME is missing/generic
             if "<html" in response.text[:100].lower():
                 full_md = _convert_html_to_md(response.text)
             else:
                 full_md = response.text
-
     except Exception as e:
         return {"error": f"Conversion error for {url}: {str(e)}"}
 

@@ -1,0 +1,27 @@
+[
+  {
+    "content": "Discover and analyze site architecture",
+    "status": "completed",
+    "activeForm": "Discovering and analyzing site architecture"
+  },
+  {
+    "content": "Determine extraction strategy",
+    "status": "completed",
+    "activeForm": "Determining extraction strategy"
+  },
+  {
+    "content": "Implement scraping script",
+    "status": "in_progress",
+    "activeForm": "Implementing scraping script"
+  },
+  {
+    "content": "Extract and validate course data",
+    "status": "pending",
+    "activeForm": "Extracting and validating course data"
+  },
+  {
+    "content": "Generate JSON, XLSX, and markdown report",
+    "status": "pending",
+    "activeForm": "Generating JSON, XLSX, and markdown report"
+  }
+]

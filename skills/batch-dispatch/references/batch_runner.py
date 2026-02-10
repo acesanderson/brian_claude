@@ -1,6 +1,6 @@
 # /// script
 # dependencies = [
-#   "jinja2",
+#    "jinja2",
 # ]
 # ///
 
@@ -10,12 +10,10 @@ import json
 import os
 import shutil
 import argparse
-import subprocess
 from pathlib import Path
 from datetime import datetime
 from jinja2 import Template
 
-# --- DEFAULTS ---
 DEFAULT_MAX_WORKERS = 5
 DEFAULT_TIMEOUT = 600
 BATCH_DIR_NAME = "batch_runs"
@@ -23,18 +21,18 @@ BATCH_DIR_NAME = "batch_runs"
 
 def check_sandbox_enabled():
     """
-    Check if Claude Code sandboxing is enabled.
-    Returns True if sandbox mode is active, False otherwise.
+    Check if Claude Code sandboxing is enabled via Env Var or Settings.
     """
+    # First check environment variable (most reliable in subprocesses)
+    if os.getenv("CLAUDE_SANDBOX") == "1":
+        return True
+
     try:
-        # Check for sandbox configuration in settings
         settings_path = Path.home() / ".claude" / "settings.json"
         if settings_path.exists():
             with open(settings_path) as f:
                 settings = json.load(f)
-                # Check if sandbox is configured
-                if "sandbox" in settings:
-                    return True
+                return "sandbox" in settings
         return False
     except Exception:
         return False
@@ -42,21 +40,20 @@ def check_sandbox_enabled():
 
 async def run_worker(sem, run_id, index, item, skill_name, user_template, timeout):
     """
-    Spawns a single isolated Claude Code instance.
+    Spawns a single isolated Claude Code instance with private cache.
     """
     async with sem:
-        # 1. Setup Isolation
-        # We create a folder, but we DO NOT change the CWD of the subprocess.
-        # This ensures Claude still sees .claude/config.toml and project-level skills.
         task_dir = os.path.abspath(
             os.path.join(BATCH_DIR_NAME, run_id, f"task_{index}")
         )
         os.makedirs(task_dir, exist_ok=True)
 
+        # FIX: Isolate UV cache to prevent 'Operation not permitted' on global cache locks
+        worker_cache = os.path.join(task_dir, ".uv_cache")
+        os.makedirs(worker_cache, exist_ok=True)
+
         output_file = os.path.join(task_dir, "result.json")
 
-        # 2. Render Prompt
-        # We inject strict instructions about where to write.
         system_instructions = (
             f"SYSTEM OVERRIDE: You are a headless worker agent. "
             f"You are restricted to working strictly within this directory: {task_dir}. "
@@ -67,7 +64,6 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
         )
 
         try:
-            # Jinja2 rendering for the user's specific task
             t = Template(user_template)
             task_prompt = t.render(item=item, task_id=index, output_file=output_file)
         except Exception as e:
@@ -82,30 +78,28 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
             f"{system_instructions}\n\nTASK INPUT: {item}\nINSTRUCTIONS: {task_prompt}"
         )
 
-        # 3. Construct Command
-        # Use Claude Code directly - native sandboxing will restrict to task_dir
+        # Inherit env and force private UV cache
+        env = os.environ.copy()
+        env["UV_CACHE_DIR"] = worker_cache
+
         cmd = ["claude", "-p", full_prompt, "--dangerously-skip-permissions"]
 
         print(f"[{index}] Starting task for: {item} (🔒 Sandboxed to {task_dir})...")
 
         try:
-            # 4. Execute with task_dir as working directory
-            # Claude's sandbox will restrict filesystem writes to this directory
             process = await asyncio.create_subprocess_exec(
                 *cmd,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,
-                cwd=task_dir,  # Critical: Sets working directory for sandbox
+                cwd=task_dir,
+                env=env,
             )
 
-            # Wait with timeout
             stdout, stderr = await asyncio.wait_for(
                 process.communicate(), timeout=timeout
             )
 
-            # 5. Harvest Results
             if process.returncode == 0:
-                # Check if the output file actually exists
                 if os.path.exists(output_file):
                     try:
                         with open(output_file, "r") as f:
@@ -118,7 +112,6 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
                             "task_dir": task_dir,
                         }
                     except json.JSONDecodeError:
-                        print(f"[{index}] Failed: Output was not valid JSON.")
                         return {
                             "status": "error",
                             "item": item,
@@ -126,7 +119,6 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
                             "task_dir": task_dir,
                         }
                 else:
-                    print(f"[{index}] Failed: No output file found.")
                     return {
                         "status": "error",
                         "item": item,
@@ -139,7 +131,7 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
                 return {
                     "status": "error",
                     "item": item,
-                    "error": stderr.decode(),
+                    "error": stderr.decode() or stdout.decode(),
                     "task_dir": task_dir,
                 }
 
@@ -153,317 +145,118 @@ async def run_worker(sem, run_id, index, item, skill_name, user_template, timeou
 
 
 async def validate_skill(item, skill_name, user_template, timeout, run_id):
-    """
-    Run skill on single item to validate configuration before full batch.
-    Returns (success: bool, result: dict, preview: str).
-    """
     preflight_dir = os.path.abspath(os.path.join(BATCH_DIR_NAME, run_id, "preflight"))
     os.makedirs(preflight_dir, exist_ok=True)
 
     print(f"\n--- Pre-flight Validation ---")
     print(f"Testing skill on first item: {item}")
 
-    # Run single worker with index 0
     sem = asyncio.Semaphore(1)
-    result = await run_worker(
-        sem=sem,
-        run_id=run_id,
-        index=0,
-        item=item,
-        skill_name=skill_name,
-        user_template=user_template,
-        timeout=timeout
-    )
+    result = await run_worker(sem, run_id, 0, item, skill_name, user_template, timeout)
 
-    # Generate preview
     success = result["status"] == "success"
     if success:
         data_str = json.dumps(result.get("data", {}), indent=2)
         preview = data_str[:500] + ("..." if len(data_str) > 500 else "")
     else:
-        error_msg = result.get("error", "Unknown error")
-        preview = str(error_msg)[:500]
-
-    # Cleanup preflight directory
-    try:
-        shutil.rmtree(preflight_dir, ignore_errors=True)
-    except Exception:
-        pass
+        preview = str(result.get("error", "Unknown error"))[:500]
 
     return (success, result, preview)
 
 
 async def monitor_progress(results_list, total_tasks, monitor_interval, stop_event):
-    """
-    Background task reporting progress every N seconds.
-    """
     start_time = datetime.now()
-
     while not stop_event.is_set():
         await asyncio.sleep(monitor_interval)
-        if stop_event.is_set():
-            break
-
-        # Calculate metrics
         completed = len(results_list)
         if completed == 0:
-            runtime = (datetime.now() - start_time).total_seconds()
-            # Warning if no progress after 5 minutes
-            if runtime > 300:
-                print("\n[Progress] 0/{} completed | Runtime: {}m {}s".format(
-                    total_tasks,
-                    int(runtime // 60),
-                    int(runtime % 60)
-                ))
-                print("   WARNING: No tasks completed after 5 minutes")
             continue
 
         success = sum(1 for r in results_list if r["status"] == "success")
-        errors = sum(1 for r in results_list if r["status"] == "error")
-        timeouts = sum(1 for r in results_list if r["status"] == "timeout")
-        success_rate = (success / completed * 100) if completed > 0 else 0
         runtime = (datetime.now() - start_time).total_seconds()
-        runtime_str = "{}m {}s".format(int(runtime // 60), int(runtime % 60))
-
-        # Report
-        print("\n[Progress] {}/{} completed ({}%) | Success: {}/{} ({}%) | Errors: {} | Timeouts: {} | Runtime: {}".format(
-            completed,
-            total_tasks,
-            int(completed / total_tasks * 100),
-            success,
-            completed,
-            int(success_rate),
-            errors,
-            timeouts,
-            runtime_str
-        ))
+        print(
+            f"\n[Progress] {completed}/{total_tasks} completed | Success: {success} | Time: {int(runtime)}s"
+        )
 
 
 def cleanup_and_finalize(run_id, run_dir, results):
-    """
-    Move artifacts to output directory in CWD and clean up temp directories.
-    """
-    cwd = os.getcwd()
-    output_dir = os.path.join(cwd, f"batch_results_{run_id}")
+    output_dir = os.path.join(os.getcwd(), f"batch_results_{run_id}")
     os.makedirs(output_dir, exist_ok=True)
 
-    print(f"\n--- Cleanup & Finalize ---")
-    print(f"Moving artifacts to: {output_dir}")
-
-    moved_count = 0
     for result in results:
         if result["status"] == "success" and "task_dir" in result:
             task_dir = result["task_dir"]
-            # Move all files except result.json and .py scripts
-            if os.path.exists(task_dir):
-                for filename in os.listdir(task_dir):
-                    if filename.endswith((".json", ".xlsx", ".md", ".csv")):
-                        if filename != "result.json":  # Skip the internal result file
-                            src = os.path.join(task_dir, filename)
-                            dst = os.path.join(output_dir, filename)
-                            shutil.copy2(src, dst)
-                            moved_count += 1
+            for filename in os.listdir(task_dir):
+                if (
+                    filename.endswith((".json", ".xlsx", ".md", ".csv"))
+                    and filename != "result.json"
+                ):
+                    shutil.copy2(
+                        os.path.join(task_dir, filename),
+                        os.path.join(output_dir, filename),
+                    )
 
-    # Save summary to output directory
-    summary_path = os.path.join(output_dir, "summary.json")
-    with open(summary_path, "w") as f:
+    with open(os.path.join(output_dir, "summary.json"), "w") as f:
         json.dump(results, f, indent=2)
 
-    print(f"Moved {moved_count} artifact files")
-    print(f"Summary saved to: {summary_path}")
-
-    # Delete temp batch_runs directory
-    try:
-        shutil.rmtree(BATCH_DIR_NAME)
-        print(f"Cleaned up temp directory: {BATCH_DIR_NAME}/")
-    except Exception as e:
-        print(f"Warning: Could not delete temp directory: {e}")
-
+    shutil.rmtree(BATCH_DIR_NAME, ignore_errors=True)
     return output_dir
-
-
-def check_and_warn_sandbox():
-    """
-    Check sandbox configuration immediately and provide clear setup instructions.
-    Returns True if should continue, False if should exit.
-    """
-    sandbox_enabled = check_sandbox_enabled()
-
-    if not sandbox_enabled:
-        print("\n" + "="*70)
-        print("⚠️  SECURITY WARNING: Claude Code Sandboxing Not Enabled")
-        print("="*70)
-        print("\n🔒 Sandboxing protects your filesystem during batch execution.")
-        print("   Without it, workers have full access to all your files.\n")
-        print("📋 To enable sandboxing (one-time setup):\n")
-        print("   1. In Claude Code, run this command:")
-        print("      > /sandbox\n")
-        print("   2. Choose: 'Auto-allow mode'")
-        print("      (This auto-approves sandboxed commands)\n")
-        print("   3. Restart batch-dispatch\n")
-        print("ℹ️  Or run with --skip-sandbox-check to proceed anyway (NOT RECOMMENDED)\n")
-        print("="*70 + "\n")
-        return False
-
-    return True
 
 
 async def main():
     parser = argparse.ArgumentParser(
-        description="Batch dispatch: Run a skill in parallel across multiple inputs",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Examples:
-  # Basic usage (uses Claude Code's native sandboxing)
-  batch_runner.py catalog-scraper '["url1", "url2"]' "Scrape {{ item }}"
-
-  # With custom timeout (10 minutes)
-  batch_runner.py catalog-scraper '["url1", "url2"]' "Scrape {{ item }}" --timeout 600
-
-  # With custom concurrency (limit to 3 parallel workers)
-  batch_runner.py my-skill '["a", "b", "c"]' "Process {{ item }}" --max-workers 3
-
-Note: Requires Claude Code sandboxing to be enabled. Run /sandbox to configure.
-        """,
+        description="Batch dispatch: Parallel skill execution"
     )
-    parser.add_argument("skill", help="Name of the skill to execute")
-    parser.add_argument(
-        "inputs", help='JSON array of inputs (e.g., \'["url1", "url2"]\')'
-    )
-    parser.add_argument("template", help="Jinja2 template for task instructions")
-    parser.add_argument(
-        "--timeout",
-        type=int,
-        default=DEFAULT_TIMEOUT,
-        help=f"Timeout per task in seconds (default: {DEFAULT_TIMEOUT})",
-    )
-    parser.add_argument(
-        "--max-workers",
-        type=int,
-        default=DEFAULT_MAX_WORKERS,
-        help=f"Maximum concurrent workers (default: {DEFAULT_MAX_WORKERS})",
-    )
-    parser.add_argument(
-        "--skip-sandbox-check",
-        action="store_true",
-        help="Skip checking if Claude Code sandboxing is enabled (not recommended)",
-    )
-    parser.add_argument(
-        "--skip-preflight",
-        action="store_true",
-        help="Skip pre-flight validation on first item",
-    )
-    parser.add_argument(
-        "--monitor-interval",
-        type=int,
-        default=120,
-        help="Progress monitoring interval in seconds (default: 120, 0 to disable)",
-    )
+    parser.add_argument("skill")
+    parser.add_argument("inputs")
+    parser.add_argument("template")
+    parser.add_argument("--timeout", type=int, default=DEFAULT_TIMEOUT)
+    parser.add_argument("--max-workers", type=int, default=DEFAULT_MAX_WORKERS)
+    parser.add_argument("--skip-sandbox-check", action="store_true")
+    parser.add_argument("--skip-preflight", action="store_true")
+    parser.add_argument("--monitor-interval", type=int, default=30)
 
     args = parser.parse_args()
 
-    # Check sandboxing IMMEDIATELY (unless explicitly skipped)
-    if not args.skip_sandbox_check:
-        if not check_and_warn_sandbox():
-            sys.exit(1)
-
-    try:
-        inputs = json.loads(args.inputs)
-        if not isinstance(inputs, list):
-            print("Error: Inputs must be a JSON array")
-            sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"Error: Invalid JSON in inputs: {e}")
+    if not args.skip_sandbox_check and not check_sandbox_enabled():
+        print("Error: Claude Code Sandboxing Not Enabled. Run /sandbox first.")
         sys.exit(1)
 
+    inputs = json.loads(args.inputs)
     run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
-    run_dir = os.path.join(BATCH_DIR_NAME, run_id)
-    os.makedirs(run_dir, exist_ok=True)
+    os.makedirs(os.path.join(BATCH_DIR_NAME, run_id), exist_ok=True)
 
-    print(f"--- Batch Dispatch Initiated ---")
-    print(f"Run ID: {run_id}")
-    print(f"Items: {len(inputs)}")
-    print(f"Skill: {args.skill}")
-    print(f"Timeout: {args.timeout}s per task")
-    print(f"Max Workers: {args.max_workers}")
-    print(f"Isolation: 🔒 Claude Code Sandbox")
-
-    # Pre-flight validation
     if not args.skip_preflight:
-        success, result, preview = await validate_skill(
-            item=inputs[0],
-            skill_name=args.skill,
-            user_template=args.template,
-            timeout=args.timeout,
-            run_id=run_id
+        success, _, preview = await validate_skill(
+            inputs[0], args.skill, args.template, args.timeout, run_id
         )
-
         if not success:
-            print(f"\nPre-flight FAILED")
-            print(f"Error: {result.get('error', 'Unknown error')}")
-            if sys.stdin.isatty():
-                response = input("\nContinue anyway? (y/N): ").strip().lower()
-                if response != 'y':
-                    print("Aborting batch execution.")
-                    sys.exit(1)
-            else:
-                print("Non-interactive mode detected. Aborting batch execution.")
-                sys.exit(1)
-        else:
-            print(f"\nPre-flight PASSED")
-            print(f"Sample output:\n{preview}")
-            if sys.stdin.isatty():
-                input("\nPress Enter to proceed with full batch...")
-            print()
+            print(f"Pre-flight FAILED: {preview}")
+            sys.exit(1)
 
     sem = asyncio.Semaphore(args.max_workers)
-
-    tasks = [
-        run_worker(sem, run_id, i, item, args.skill, args.template, args.timeout)
-        for i, item in enumerate(inputs)
-    ]
-
-    # Shared state for progress monitoring
     results_list = []
     stop_monitor = asyncio.Event()
 
-    # Launch monitor if enabled
-    monitor_task = None
-    if args.monitor_interval > 0:
-        monitor_task = asyncio.create_task(
-            monitor_progress(results_list, len(inputs), args.monitor_interval, stop_monitor)
+    monitor_task = asyncio.create_task(
+        monitor_progress(results_list, len(inputs), args.monitor_interval, stop_monitor)
+    )
+
+    async def worker_wrapper(i, item):
+        res = await run_worker(
+            sem, run_id, i, item, args.skill, args.template, args.timeout
         )
+        results_list.append(res)
+        return res
 
-    # Wrapper to collect results
-    async def worker_with_collection(worker_coro):
-        result = await worker_coro
-        results_list.append(result)
-        return result
+    results = await asyncio.gather(
+        *(worker_wrapper(i, item) for i, item in enumerate(inputs))
+    )
 
-    # Execute workers
-    worker_tasks = [worker_with_collection(task) for task in tasks]
-    results = await asyncio.gather(*worker_tasks)
-
-    # Stop monitoring
     stop_monitor.set()
-    if monitor_task:
-        await monitor_task
+    await monitor_task
 
-    # Count successes/failures
-    success_count = sum(1 for r in results if r["status"] == "success")
-    error_count = sum(1 for r in results if r["status"] == "error")
-    timeout_count = sum(1 for r in results if r["status"] == "timeout")
-
-    print(f"\n--- Batch Job Complete ---")
-    print(f"Success: {success_count}/{len(inputs)}")
-    if error_count > 0:
-        print(f"Errors: {error_count}")
-    if timeout_count > 0:
-        print(f"Timeouts: {timeout_count}")
-
-    # Cleanup and finalize
-    output_dir = cleanup_and_finalize(run_id, run_dir, results)
-
+    output_dir = cleanup_and_finalize(run_id, None, results)
     print(f"\nFinal output directory: {output_dir}")
 
 
