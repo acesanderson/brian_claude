@@ -1,0 +1,353 @@
+from __future__ import annotations
+
+import json
+import re
+import time
+from datetime import datetime
+
+import pandas as pd
+from bs4 import BeautifulSoup
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from unidecode import unidecode
+from webdriver_manager.chrome import ChromeDriverManager
+
+
+def clean_to_ascii(text: str | None) -> str:
+    """Convert Unicode text to clean ASCII."""
+    if not text:
+        return ""
+    return unidecode(str(text))
+
+
+def scrape_catalog(catalog_url: str) -> list[dict]:
+    """
+    Scrape Google Cloud Skills Boost catalog using Selenium.
+
+    The catalog page is JavaScript-rendered, so we need a browser to execute it.
+    """
+    print(f"Launching browser to fetch: {catalog_url}")
+
+    # Setup Chrome options
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--window-size=1920,1080")
+
+    # Initialize driver
+    service = Service(ChromeDriverManager().install())
+    driver = webdriver.Chrome(service=service, options=chrome_options)
+
+    try:
+        driver.get(catalog_url)
+        print("Page loaded, waiting for content to render...")
+
+        # Wait longer for JavaScript execution and API calls
+        wait = WebDriverWait(driver, 30)
+
+        # Try to wait for common catalog elements to appear
+        try:
+            print("Waiting for catalog content to load...")
+            # Wait for any links to appear (courses should have links)
+            wait.until(lambda d: len(d.find_elements(By.TAG_NAME, "a")) > 20)
+            print(f"  Found {len(driver.find_elements(By.TAG_NAME, 'a'))} links")
+        except Exception as e:
+            print(f"  Timeout waiting for content: {e}")
+
+        time.sleep(10)  # Additional wait for dynamic content
+
+        # Scroll to load all courses (in case of lazy loading)
+        print("Scrolling to load all courses...")
+        last_height = driver.execute_script("return document.body.scrollHeight")
+        scroll_attempts = 0
+        max_scrolls = 10
+
+        while scroll_attempts < max_scrolls:
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(3)
+
+            new_height = driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            last_height = new_height
+            scroll_attempts += 1
+            print(f"  Scroll {scroll_attempts}/{max_scrolls}...")
+
+        # Get the rendered HTML
+        html = driver.page_source
+
+        # Save for inspection
+        with open("catalog_page_rendered.html", "w", encoding="utf-8") as f:
+            f.write(html)
+
+        soup = BeautifulSoup(html, "html.parser")
+
+        # Parse course cards (adjust selectors based on actual HTML structure)
+        courses = extract_courses_from_rendered_html(soup, catalog_url)
+
+        return courses
+
+    finally:
+        driver.quit()
+
+
+def extract_courses_from_rendered_html(soup: BeautifulSoup, base_url: str) -> list[dict]:
+    """Extract courses from rendered HTML."""
+    print("\nExtracting courses from rendered HTML...")
+    courses = []
+
+    # Try multiple selectors to find course cards
+    potential_selectors = [
+        ("a[href*='/course']", "course links"),
+        ("a[href*='/focuses']", "lab links"),
+        ("a[href*='/course_templates']", "course template links"),
+        (".catalog-item", "catalog items"),
+        ("[data-cy='catalog-item']", "catalog items by data attribute"),
+    ]
+
+    for selector, description in potential_selectors:
+        elements = soup.select(selector)
+        if elements:
+            print(f"Found {len(elements)} {description}")
+
+            for elem in elements:
+                try:
+                    # Extract title
+                    title_elem = elem.find(["h2", "h3", "h4", "span"], class_=re.compile(r"title", re.I))
+                    if not title_elem:
+                        title_elem = elem
+
+                    title = title_elem.get_text(strip=True) if title_elem else ""
+
+                    # Extract URL
+                    url = elem.get("href", "")
+                    if url and not url.startswith("http"):
+                        url = f"https://www.cloudskillsboost.google{url}"
+
+                    # Extract description
+                    desc_elem = elem.find(["p", "div"], class_=re.compile(r"description|summary", re.I))
+                    description_text = desc_elem.get_text(strip=True) if desc_elem else ""
+
+                    # Extract level
+                    level_elem = elem.find(text=re.compile(r"Introductory|Intermediate|Advanced", re.I))
+                    level = level_elem.strip() if level_elem else ""
+
+                    # Extract duration
+                    duration_elem = elem.find(text=re.compile(r"\d+\s*(minute|hour|min|hr)", re.I))
+                    duration = duration_elem.strip() if duration_elem else ""
+
+                    if title and url:
+                        course = {
+                            "title": title,
+                            "url": url,
+                            "description": description_text,
+                            "level": level,
+                            "duration": duration,
+                        }
+                        courses.append(course)
+
+                except Exception as e:
+                    print(f"Error extracting course: {e}")
+                    continue
+
+            # If we found courses, stop trying other selectors
+            if courses:
+                break
+
+    # Remove duplicates based on URL
+    seen_urls = set()
+    unique_courses = []
+    for course in courses:
+        if course["url"] not in seen_urls:
+            seen_urls.add(course["url"])
+            unique_courses.append(course)
+
+    print(f"\n✓ Extracted {len(unique_courses)} unique courses")
+    return unique_courses
+
+
+def transform_course_data(raw_courses: list[dict], provider: str, catalog_url: str) -> list[dict]:
+    """Transform scraped data to standard format."""
+    courses_data = []
+
+    for course in raw_courses:
+        transformed = {
+            "provider": provider,
+            "title": course.get("title", ""),
+            "url": course.get("url", catalog_url),
+            "description": course.get("description", ""),
+            "duration": course.get("duration", ""),
+            "level": course.get("level", ""),
+            "format": course.get("format", "Self-Paced"),
+            "price": course.get("price", "Free"),
+            "category": course.get("category", ""),
+            "credential_type": course.get("credential_type"),
+            "date_scraped": datetime.now().strftime("%Y-%m-%d")
+        }
+        courses_data.append(transformed)
+
+    return courses_data
+
+
+def export_catalog_data(courses_data: list[dict], provider_slug: str) -> dict[str, str]:
+    """Export to JSON and XLSX with validation."""
+    df = pd.DataFrame(courses_data)
+
+    # Column order
+    column_order = [
+        "provider", "title", "url", "description", "duration",
+        "level", "format", "price", "category", "credential_type",
+        "date_scraped"
+    ]
+    existing_cols = [col for col in column_order if col in df.columns]
+    df = df[existing_cols]
+
+    # VALIDATE TITLE QUALITY
+    if "title" in df.columns and len(df) > 0:
+        df["title_length"] = df["title"].str.len()
+        avg_title_length = df["title_length"].mean()
+        long_titles = df[df["title_length"] > 150]
+
+        print(f"\n⚠️  TITLE QUALITY CHECK:")
+        print(f"  Average title length: {avg_title_length:.0f} characters")
+
+        if len(long_titles) > 0:
+            print(f"  ❌ WARNING: {len(long_titles)} titles are >150 characters")
+            print(f"     Long titles suggest description text is bleeding into title field.")
+
+        df = df.drop(columns=["title_length"])
+
+    # VALIDATE DESCRIPTION QUALITY
+    if "description" in df.columns and len(df) > 0:
+        total_descs = len(df)
+        unique_descs = df["description"].nunique()
+        uniqueness_pct = (unique_descs / total_descs * 100) if total_descs > 0 else 0
+
+        print(f"\n⚠️  DESCRIPTION QUALITY CHECK:")
+        print(f"  Total courses: {total_descs}")
+        print(f"  Unique descriptions: {unique_descs}")
+        print(f"  Uniqueness: {uniqueness_pct:.1f}%")
+
+        if uniqueness_pct < 90:
+            print(f"  ❌ WARNING: Low description uniqueness ({uniqueness_pct:.1f}%)")
+
+    # 1. JSON
+    json_filename = f"{provider_slug}_catalog.json"
+    with open(json_filename, "w", encoding="utf-8") as f:
+        json.dump(courses_data, f, indent=2, ensure_ascii=False)
+
+    # 2. XLSX
+    xlsx_filename = f"{provider_slug}_catalog.xlsx"
+    text_columns = df.select_dtypes(include=["object"]).columns
+    for col in text_columns:
+        df[col] = df[col].apply(clean_to_ascii)
+    df.to_excel(xlsx_filename, index=False, engine="openpyxl")
+
+    print(f"\n✓ Generated JSON: {json_filename}")
+    print(f"✓ Generated XLSX: {xlsx_filename}")
+
+    return {"json": json_filename, "xlsx": xlsx_filename}
+
+
+def generate_report(courses_data: list[dict], provider: str, provider_slug: str, catalog_url: str) -> str:
+    """Generate markdown report."""
+    report_filename = f"{provider_slug}_report.md"
+
+    report = f"""# {provider} Catalog Scraping Report
+
+**Date**: {datetime.now().strftime("%Y-%m-%d")}
+**URL**: {catalog_url}
+**Total Courses**: {len(courses_data)}
+
+## Architecture
+- Type: JavaScript-heavy catalog (requires further investigation)
+- Data Source: API endpoint or embedded JSON (needs discovery)
+- Obstacles: Dynamic content loading
+
+## Extraction Method
+Initial reconnaissance phase. Full extraction requires:
+1. Network tab inspection to find API endpoints
+2. Or browser automation (Selenium/Playwright) for JavaScript execution
+3. Session/authentication handling if needed
+
+## Data Quality
+- Courses found: {len(courses_data)}
+
+## Limitations
+- Initial HTML provides minimal data
+- Requires JavaScript execution or API endpoint discovery
+- May need authentication for full catalog access
+
+## Recommendations
+1. Inspect browser Network tab while loading catalog
+2. Look for API calls to `/api/catalog` or similar
+3. Consider using Selenium if API not accessible
+4. Check if authentication provides more data
+
+## Next Steps
+This is a reconnaissance phase. To proceed:
+- Use browser developer tools to find data source
+- Implement appropriate extraction strategy
+- Re-run scraper with discovered method
+"""
+
+    with open(report_filename, "w", encoding="utf-8") as f:
+        f.write(report)
+
+    print(f"✓ Generated report: {report_filename}")
+    return report_filename
+
+
+def main():
+    """Main execution function."""
+    provider = "Google Cloud"
+    provider_slug = "google_cloud"
+    catalog_url = "https://www.cloudskillsboost.google/catalog"
+
+    print(f"\n{'='*60}")
+    print(f"Google Cloud Skills Boost Catalog Scraper")
+    print(f"{'='*60}\n")
+
+    # Scrape catalog
+    raw_courses = scrape_catalog(catalog_url)
+
+    if not raw_courses:
+        print("\n⚠️  No courses found in initial scrape.")
+        print("This requires deeper investigation of the site's data loading mechanism.")
+
+        # Create minimal report documenting the issue
+        generate_report([], provider, provider_slug, catalog_url)
+        return
+
+    # Transform to standard format
+    print("\nTransforming data to standard format...")
+    courses_data = transform_course_data(raw_courses, provider, catalog_url)
+    print(f"✓ Transformed {len(courses_data)} courses")
+
+    # Export data
+    print("\nExporting data...")
+    files = export_catalog_data(courses_data, provider_slug)
+
+    # Generate report
+    print("\nGenerating report...")
+    report_file = generate_report(courses_data, provider, provider_slug, catalog_url)
+
+    # Summary
+    print(f"\n{'='*60}")
+    print("SCRAPING COMPLETE")
+    print(f"{'='*60}")
+    print(f"\n✓ Scraped {len(courses_data):,} courses from {provider}")
+    print(f"\nARTIFACTS GENERATED:")
+    print(f"  ✓ JSON:   {files['json']}")
+    print(f"  ✓ XLSX:   {files['xlsx']}")
+    print(f"  ✓ Report: {report_file}")
+    print()
+
+
+if __name__ == "__main__":
+    main()

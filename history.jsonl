@@ -290,3 +290,5 @@
 {"display":"let","pastedContents":{},"timestamp":1770739526460,"project":"/Users/bianders/Brian_Code/sandbox/scraping","sessionId":"a620f8ae-084a-45fc-82f4-abb8b4c7f4b8"}
 {"display":"s ","pastedContents":{},"timestamp":1770739527411,"project":"/Users/bianders/Brian_Code/sandbox/scraping","sessionId":"a620f8ae-084a-45fc-82f4-abb8b4c7f4b8"}
 {"display":"2","pastedContents":{},"timestamp":1770739564333,"project":"/Users/bianders/Brian_Code/sandbox/scraping","sessionId":"a620f8ae-084a-45fc-82f4-abb8b4c7f4b8"}
+{"display":"before we go further -- I want to make sure we use a uv-based workflow exclusively, no pip install, and NO messing with system python. Please make a note of that. Now let's install selenium","pastedContents":{},"timestamp":1770740001937,"project":"/Users/bianders/Brian_Code/sandbox/scraping","sessionId":"a620f8ae-084a-45fc-82f4-abb8b4c7f4b8"}
+{"display":"1","pastedContents":{},"timestamp":1770740249414,"project":"/Users/bianders/Brian_Code/sandbox/scraping","sessionId":"a620f8ae-084a-45fc-82f4-abb8b4c7f4b8"}
