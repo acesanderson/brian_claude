@@ -7,9 +7,9 @@ description: Discover training portal URLs for companies. Use when the user need
 
 Discover training portal URLs for companies using web search and reconnaissance.
 
-**Required MCP Tools:** This skill uses `web_search` and `fetch_url` from the `conduit-websearch` MCP server. These tools provide:
-- `web_search` - Brave Search API with reliable results
-- `fetch_url` - Advanced URL fetching with HTML→Markdown conversion, PDF/Office doc support
+**Required CLI:** This skill uses the `recon` skill CLI. Commands:
+- Search: `uv run --directory ~/.claude/skills/recon python conduit.py search "query"`
+- Fetch: `uv run --directory ~/.claude/skills/recon python conduit.py fetch "url"`
 
 ## Input
 
@@ -42,7 +42,7 @@ For each company:
 
 ### 1. Web Search for Training Platforms
 
-**Use the `web_search` MCP tool** to search for variations:
+Search for variations using the recon skill CLI:
 - `"{company name}" training courses`
 - `"{company name}" learning platform`
 - `"{company name}" academy`
@@ -65,12 +65,10 @@ Common patterns:
 
 ### 3. Validate URL Quality
 
-**Use the `fetch_url` MCP tool** to verify each candidate URL:
+Verify each candidate URL using the recon skill CLI:
 - Does it contain a course catalog or listing?
 - Is it publicly accessible (not behind authentication)?
 - Does it have structured course data?
-
-The `fetch_url` tool converts HTML/PDF/Office docs to clean Markdown and handles anti-bot protection better than standard fetching.
 
 **Confidence levels:**
 - `high` - Dedicated learning platform with clear course catalog
@@ -114,12 +112,11 @@ Save results to `training_urls.json`:
 4. **Prioritize official platforms** - Prefer company-owned domains over third-party hosted content
 5. **Be concise** - Keep notes brief but informative
 
-## Tool Usage Tips
+## CLI Tips
 
-- **`web_search`** returns top 5 results - scan all of them for learning platform domains
-- **`fetch_url`** handles HTML, PDF, and Office docs - perfect for checking different page types
-- **Paginated content** - If `fetch_url` shows truncated content, use `page=2` to continue reading
-- **Anti-bot protection** - `fetch_url` uses proper User-Agent headers and handles redirects
+- `search` returns top 5 results - scan all of them for learning platform domains
+- `fetch` handles HTML, PDF, and Office docs - perfect for checking different page types
+- If `is_truncated` is true in the fetch response, use `--page 2` to continue reading
 
 ## Example Usage
 
@@ -127,18 +124,18 @@ Save results to `training_urls.json`:
 
 **Process:**
 1. **Search for Zapier:**
-   - Use `web_search("Zapier training courses")` → Find `learn.zapier.com` in results
-   - Use `fetch_url("https://learn.zapier.com")` → Verify course catalog structure
+   - Run `conduit.py search "Zapier training courses"` → Find `learn.zapier.com` in results
+   - Run `conduit.py fetch "https://learn.zapier.com"` → Verify course catalog structure
    - Record: `primary_url: "https://learn.zapier.com"`, `confidence: "high"`
 
 2. **Search for KodeKloud:**
-   - Use `web_search("KodeKloud courses")` → Find `kodekloud.com/courses`
-   - Use `fetch_url("https://kodekloud.com/courses/")` → Confirm 180+ courses visible
+   - Run `conduit.py search "KodeKloud courses"` → Find `kodekloud.com/courses`
+   - Run `conduit.py fetch "https://kodekloud.com/courses/"` → Confirm 180+ courses visible
    - Record: `primary_url: "https://kodekloud.com/courses/"`, `confidence: "high"`
 
 3. **Search for DeepLearning.AI:**
-   - Use `web_search("DeepLearning.AI catalog")` → Find `www.deeplearning.ai/courses`
-   - Use `fetch_url("https://www.deeplearning.ai/courses/")` → Confirm course listings
+   - Run `conduit.py search "DeepLearning.AI catalog"` → Find `www.deeplearning.ai/courses`
+   - Run `conduit.py fetch "https://www.deeplearning.ai/courses/"` → Confirm course listings
    - Record: `primary_url: "https://www.deeplearning.ai/courses/"`, `confidence: "high"`
 
 4. **Save results to `training_urls.json`** with discovered URLs and confidence ratings

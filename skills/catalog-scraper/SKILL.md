@@ -154,7 +154,7 @@ description: Scrape and analyze course catalogs from training providers (HubSpot
 
 1. **Initial Page Analysis**
    - Fetch the URL and examine the HTML structure
-   - Use WebFetch to understand page organization and content type
+   - Use `uv run --directory ~/.claude/skills/recon python conduit.py fetch "url"` to understand page organization
    - Document findings: "This is a [single page / paginated / navigation-based] catalog"
 
 2. **Data Source Detection** - Check for (in order of preference):
