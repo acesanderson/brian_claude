@@ -1,5 +1,5 @@
 ---
-name: sec-filings
+name: sec_edgar_api
 description: Fetches annual and quarterly reports (10-K, 10-Q, 20-F) from SEC EDGAR using stock tickers.
 ---
 
@@ -36,7 +36,13 @@ Returns paginated filing content as markdown.
 
 **Always default to the latest filing unless the user explicitly requests a specific period.**
 
-LLM knowledge cutoffs make it easy to hallucinate outdated financials. The filing date is authoritative:
+**Before fetching any filing, read today's date from the `currentDate` value injected into the system context.** This tells you what filing periods are realistically available. For example:
+- If today is February 2026, a company's FY2025 10-K may not yet be filed (typically filed Feb–April), so the latest available is likely FY2024.
+- If today is August 2026, FY2025 10-K filings are almost certainly available.
+
+Never guess or assume the current year from training data — use the injected `currentDate`.
+
+LLM knowledge cutoffs make it easy to hallucinate outdated financials. The filing date returned by the API is always authoritative — use it, not memory:
 
 ```python
 filing = get_latest_filing("AAPL", FilingType.ANNUAL)
@@ -109,6 +115,9 @@ except NoFilingsError:
 User asks: "What were Duolingo's risk factors in their latest annual report?"
 
 ```python
+# 0. Note today's date from the system context (currentDate) to reason about
+#    which fiscal year is likely the most recent available before fetching.
+
 # 1. Get the latest 10-K
 filing = get_latest_filing("DUOL", FilingType.ANNUAL)
 print(f"Using {filing.form} filed {filing.date}")

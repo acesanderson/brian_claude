@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(uv run:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "WebFetch(domain:developers.google.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.bls.gov)",
+      "WebFetch(domain:docs.openalex.org)",
+      "WebFetch(domain:services.onetcenter.org)",
+      "WebFetch(domain:api.crossref.org)",
+      "WebFetch(domain:developers.openalex.org)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(python:*)",
+      "Bash(pip show:*)",
+      "WebFetch(domain:www.onetcenter.org)",
+      "Bash(head:*)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:stackoverflow.com)",
+      "Bash(pip install:*)",
+      "WebFetch(domain:info.arxiv.org)",
+      "Bash(unzip:*)"
+    ]
+  }
+}
