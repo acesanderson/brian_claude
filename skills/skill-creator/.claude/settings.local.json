@@ -1,7 +1,15 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "mcp__captain___pb_ask_captain",
+      "mcp__captain__unified_context_search",
+      "Bash(wc:*)",
+      "WebFetch(domain:www.google.com)",
+      "Bash(python:*)",
+      "Bash(git:*)",
+      "WebFetch(domain:search.brave.com)",
+      "Bash(mkdir:*)"
     ]
   }
 }

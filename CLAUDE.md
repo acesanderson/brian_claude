@@ -32,3 +32,18 @@ Finally: I'm trying to stay a critical and sharp analytical thinker. Whenever yo
 
 **If you are creating prompts for me, respect the following:
 - I use jinja2 syntax for prompts. For prompt inputs, wrap a jinja2 variable in xml tags, like this: <email_from_boss>{{ email_from_boss }} </email_from_boss>
+
+## Claude Code skill Python rules
+Skills must be portable across machines and must never pollute the system Python. A skill that works only on one machine because of pre-installed packages is broken by definition.
+
+- Never use bare `python script.py` to invoke a skill script. Always use `uv run`.
+- Never write `pip install` instructions in a SKILL.md. That directs the user to pollute their environment.
+- For 1–3 dependencies: `uv run --with dep1 --with dep2 python scripts/foo.py` (ephemeral, no venv persisted)
+- For 4+ dependencies or where versions matter: use a `pyproject.toml` + `uv.lock` in the skill dir and invoke with `uv run --directory ~/.claude/skills/<skill-name> python scripts/foo.py`
+- Never hardcode absolute paths in scripts. Anchor all paths to `Path(__file__)` or an env var.
+- Document every required and optional env var in SKILL.md. See skill-creator for the full portability spec.
+
+## Batch scraping rules
+When asked to scrape multiple URLs, ALWAYS spawn a separate catalog-scraper-worker subagent for each URL.
+Never process multiple URLs sequentially in the main thread.
+Each subagent gets exactly one URL.

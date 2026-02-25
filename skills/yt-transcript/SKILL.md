@@ -4,37 +4,42 @@ description: >
   Fetch and work with YouTube video transcripts without auth or API keys.
   Use when the user wants to: get the transcript of a YouTube video (by URL or
   video ID); summarize, analyze, or quote from a video's spoken content; list
-  available caption languages for a video; or retrieve timestamps for specific
-  moments. Accepts all common YouTube URL formats (youtube.com/watch?v=,
-  youtu.be/, youtube.com/embed/) as well as bare video IDs.
-  No API key required. Install: pip install youtube-transcript-api
+  available caption languages for a video; retrieve timestamps for specific
+  moments; or get video metadata (title, channel, duration, description, tags).
+  Accepts all common YouTube URL formats (youtube.com/watch?v=, youtu.be/,
+  youtube.com/embed/) as well as bare video IDs. Transcripts and metadata are
+  cached locally in SQLite. Optionally uses Webshare proxies if
+  WEBSHARE_USERNAME and WEBSHARE_PASS env vars are set.
+  Install: pip install youtube-transcript-api yt-dlp
 ---
 
 # YouTube Transcript Skill
 
-Wraps `youtube-transcript-api` to fetch video transcripts without auth.
+Wraps `youtube-transcript-api` with SQLite caching, optional Webshare proxy
+fallback, and `yt-dlp`-backed metadata retrieval.
 
 ## Setup
 
 ```python
 import sys
 sys.path.insert(0, "/Users/bianders/.claude/skills/yt-transcript/scripts")
-from yt_transcript import extract_video_id, list_transcripts, get_transcript
+from yt_transcript import extract_video_id, list_transcripts, get_transcript, get_metadata
 ```
 
-No API key needed. Requires `youtube-transcript-api>=1.2.4` (v1.0.x has a
-known bug where transcript URLs return empty bodies).
+No API key needed. Cache lives at `~/.cache/yt-transcript/`.
 
 ## Core Functions
 
 ### `get_transcript(url_or_id, languages=None, prefer_manual=True) -> Transcript`
 
-Fetch a transcript. Prefers manually created captions over auto-generated
-when `prefer_manual=True` (default), falling back to auto-generated if none exists.
+Fetch a transcript. Checks SQLite cache first (for default-language fetches).
+Prefers manually created captions over auto-generated when `prefer_manual=True`,
+falling back to auto-generated if none exists.
 
 ```python
 t = get_transcript("https://www.youtube.com/watch?v=aircAruvnKk")
 # t.language      -> 'English'
+# t.language_code -> 'en'
 # t.is_generated  -> False (manually created)
 # t.snippets      -> list of Snippet(text, start, duration)
 # t.text          -> full plain text (space-joined)
@@ -48,12 +53,29 @@ for s in t.snippets[:5]:
 
 **Plain text** (for summarization/analysis):
 ```python
-print(t.text)  # 18k chars of space-joined speech
+print(t.text)
 ```
 
-**Specific language:**
+**Specific language** (bypasses cache):
 ```python
 t = get_transcript("aircAruvnKk", languages=["fr", "en"])
+```
+
+### `get_metadata(url_or_id) -> VideoMetadata`
+
+Fetch video metadata via yt-dlp. Checks SQLite cache first.
+Requires `pip install yt-dlp`.
+
+```python
+m = get_metadata("https://www.youtube.com/watch?v=aircAruvnKk")
+# m.video_id       -> '37f0ALZg-XI'
+# m.title          -> 'But what is a neural network?'
+# m.channel        -> '3Blue1Brown'
+# m.duration       -> 1021  (seconds)
+# m.published_date -> '20171005'
+# m.description    -> '...'
+# m.tags           -> ['neural network', 'deep learning', ...]
+# m.url            -> 'https://www.youtube.com/watch?v=aircAruvnKk'
 ```
 
 ### `list_transcripts(url_or_id) -> list[TranscriptMeta]`
@@ -74,10 +96,25 @@ Each `TranscriptMeta` has: `language`, `language_code`, `is_generated`, `is_tran
 Parse a video ID from any URL format, or pass through a bare 11-char ID.
 
 ```python
-extract_video_id("https://youtu.be/aircAruvnKk")   # -> "aircAruvnKk"
-extract_video_id("https://youtube.com/watch?v=aircAruvnKk&t=42s")  # -> "aircAruvnKk"
-extract_video_id("aircAruvnKk")  # -> "aircAruvnKk"
+extract_video_id("https://youtu.be/aircAruvnKk")                       # -> "aircAruvnKk"
+extract_video_id("https://youtube.com/watch?v=aircAruvnKk&t=42s")      # -> "aircAruvnKk"
+extract_video_id("aircAruvnKk")                                         # -> "aircAruvnKk"
 ```
+
+## Caching
+
+Transcripts and metadata are cached in SQLite at `~/.cache/yt-transcript/`:
+- `transcripts.db` — full snippet data (text + timestamps) keyed by video ID
+- `metadata.db` — yt-dlp metadata keyed by video ID
+
+Cache is used automatically for default-language transcript fetches. Passing
+an explicit `languages` list bypasses the transcript cache.
+
+## Proxy Support
+
+If `WEBSHARE_USERNAME` and `WEBSHARE_PASS` env vars are set, requests are
+routed through Webshare proxies to avoid rate limiting. Falls back to a direct
+connection if proxy setup fails.
 
 ## Error Handling
 
@@ -92,17 +129,16 @@ try:
     t = get_transcript(url)
 except TranscriptsDisabled:
     # video owner disabled transcripts
+    pass
 except NoTranscriptFound:
     # try a different language: list_transcripts(url) to see what's available
+    pass
 except VideoUnavailable:
     # video doesn't exist or is private
+    pass
 ```
-
-## Version Note
-
-`youtube-transcript-api` v1.0.x contains a bug where `transcript.fetch()`
-silently returns an empty XML response. Use `>=1.2.4`.
 
 ## Dependencies
 
 - `youtube-transcript-api>=1.2.4`
+- `yt-dlp` (only required for `get_metadata`)

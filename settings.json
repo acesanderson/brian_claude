@@ -1,4 +1,32 @@
 {
+  "enabledPlugins": {
+    "library-specs@linkedin-plugins": true,
+    "linkedin-cli-tools@linkedin-plugins": true,
+    "linkedin-dev-workflow@linkedin-plugins": true,
+    "linkedin-framework@linkedin-plugins": true,
+    "linkedin-plugin-creator@linkedin-plugins": true,
+    "mae-core@linkedin-plugins": true,
+    "observe-agent@linkedin-plugins": true
+  },
+  "skipDangerousModePermissionPrompt": true,
   "mcpServers": {},
-  "skipDangerousModePermissionPrompt": true
+  "permissions": {
+    "allow": [
+      "mcp__captain__*",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(diff:*)",
+      "Bash(stat:*)",
+      "Bash(file:*)",
+      "Bash(which:*)",
+      "Bash(echo:*)",
+      "Bash(pwd:*)"
+    ]
+  }
 }

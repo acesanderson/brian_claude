@@ -7,9 +7,9 @@ description: Discover training portal URLs for companies. Use when the user need
 
 Discover training portal URLs for companies using web search and reconnaissance.
 
-**Required CLI:** This skill uses the `recon` skill CLI. Commands:
-- Search: `uv run --directory ~/.claude/skills/recon python conduit.py search "query"`
-- Fetch: `uv run --directory ~/.claude/skills/recon python conduit.py fetch "url"`
+**Required CLI:** This skill uses the `brave-web-search` skill CLI. Commands:
+- Search: `uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "query"`
+- Fetch: `uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "url"`
 
 ## Input
 
@@ -42,7 +42,7 @@ For each company:
 
 ### 1. Web Search for Training Platforms
 
-Search for variations using the recon skill CLI:
+Search for variations using the brave-web-search skill CLI:
 - `"{company name}" training courses`
 - `"{company name}" learning platform`
 - `"{company name}" academy`
@@ -65,7 +65,7 @@ Common patterns:
 
 ### 3. Validate URL Quality
 
-Verify each candidate URL using the recon skill CLI:
+Verify each candidate URL using the brave-web-search skill CLI:
 - Does it contain a course catalog or listing?
 - Is it publicly accessible (not behind authentication)?
 - Does it have structured course data?

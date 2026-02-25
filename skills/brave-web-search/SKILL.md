@@ -1,9 +1,9 @@
 ---
-name: recon
+name: brave-web-search
 description: Search the web and fetch URLs as clean Markdown. Use when the user wants to search for information online, look up a topic, find URLs, or read web page contents. Also used by other skills (find-catalogues, catalog-scraper) for web reconnaissance. Trigger phrases include "search for", "look up", "find information about", "fetch this URL", "what does this page say", "research".
 ---
 
-# recon
+# brave-web-search
 
 Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown).
 
@@ -14,7 +14,7 @@ Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown).
 ### Search
 
 ```bash
-uv run --directory ~/.claude/skills/recon python conduit.py search "your query"
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "your query"
 ```
 
 **stdout (JSON):**
@@ -30,8 +30,8 @@ Returns top 5 results.
 ### Fetch URL
 
 ```bash
-uv run --directory ~/.claude/skills/recon python conduit.py fetch "https://example.com"
-uv run --directory ~/.claude/skills/recon python conduit.py fetch "https://example.com" --page 2
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com"
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com" --page 2
 ```
 
 **stdout (JSON):**
