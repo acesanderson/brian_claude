@@ -33,6 +33,21 @@
       "Bash(pwd:*)"
     ]
   },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --directory ~/vibe/claude-history-project python -m claude_history.hook",
+            "timeout": 60,
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
   "preferences": {
     "vimMode": true
   }

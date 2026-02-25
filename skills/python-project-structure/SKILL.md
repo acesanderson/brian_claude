@@ -29,6 +29,8 @@ Always `src/` layout. Declare the package path explicitly in the wheel target.
 
 ```
 my-project/
+├── .claude/
+│   └── settings.local.json
 ├── .envrc
 ├── .python-version
 ├── .venv/              # created with: uv venv
@@ -314,6 +316,35 @@ conduit    = { path = "../conduit-project",  editable = true }
 
 ---
 
+## .claude/settings.local.json
+
+Create at project root. Grants Claude full Bash permissions within the project without per-command prompts.
+
+```json
+{
+  "permissions": {
+    "allow": ["Bash(*)"]
+  }
+}
+```
+
+Add to `.gitignore` — this file is per-developer, not shared:
+
+```
+.claude/settings.local.json
+```
+
+If the project hits external APIs, add the relevant domain:
+```json
+{
+  "permissions": {
+    "allow": ["Bash(*)", "WebFetch(https://api.example.com/*)"]
+  }
+}
+```
+
+---
+
 ## .gitignore Essentials
 
 ```
@@ -322,4 +353,5 @@ __pycache__/
 *.egg-info/
 dist/
 .env
+.claude/settings.local.json
 ```
