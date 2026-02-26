@@ -1,19 +1,4 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline-command.sh"
-  },
-  "enabledPlugins": {
-    "library-specs@linkedin-plugins": true,
-    "linkedin-cli-tools@linkedin-plugins": true,
-    "linkedin-dev-workflow@linkedin-plugins": true,
-    "linkedin-framework@linkedin-plugins": true,
-    "linkedin-plugin-creator@linkedin-plugins": true,
-    "mae-core@linkedin-plugins": true,
-    "observe-agent@linkedin-plugins": true
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "mcpServers": {},
   "permissions": {
     "allow": [
       "mcp__captain__*",
@@ -48,6 +33,24 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "library-specs@linkedin-plugins": true,
+    "linkedin-cli-tools@linkedin-plugins": true,
+    "linkedin-dev-workflow@linkedin-plugins": true,
+    "linkedin-framework@linkedin-plugins": true,
+    "linkedin-plugin-creator@linkedin-plugins": true,
+    "mae-core@linkedin-plugins": true,
+    "observe-agent@linkedin-plugins": true,
+    "context7@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "huggingface-skills@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "mcpServers": {},
   "preferences": {
     "vimMode": true
   }
