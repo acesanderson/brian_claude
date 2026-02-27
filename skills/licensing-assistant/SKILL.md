@@ -11,19 +11,22 @@ description: >
 # Licensing Assistant
 
 Persistent coordination layer for LinkedIn Learning content licensing BD work. Domain
-knowledge lives in the `licensing-context` skill — load it when you need heuristics,
-commercial models, partner taxonomy, or sourcing methodology. This skill is the state layer.
+knowledge lives in `~/licensing/context/licensing_context.md` — read it when you need
+heuristics, commercial models, partner taxonomy, or sourcing methodology. This skill is
+the state layer.
 
 ## Working Directory
 
 ```
 ~/licensing/
-  pipeline.md      # Primary artifact — active partner pipeline
-  manifest.md      # Append-only action log
-  scratchpad.md    # Strategy context, content rubric state, open questions
-  notes.md         # Backlog, parked thoughts, future tooling work
-  partners/        # One freeform file per active/prospective partner
-  context/         # Read-only reference docs (licensing_context.md, google_docs.json, team_tracker_snapshot.md)
+  pipeline.md          # Primary artifact — active partner pipeline
+  manifest.md          # Append-only action log
+  scratchpad.md        # Strategy context, content rubric state, open questions
+  notes.md             # Backlog, parked thoughts, future tooling work
+  catalog_registry.json  # Registry of all scraped partner catalogs
+  training_urls.json   # Output of find-catalogues; training portal URLs per company
+  partners/            # One directory per active/prospective partner (notes.md + catalog files)
+  context/             # Read-only reference docs (licensing_context.md, google_docs.json, team_tracker_snapshot.md)
 ```
 
 Ensure this structure exists on first run:
@@ -198,6 +201,14 @@ When a partner is mentioned with no existing file and no pipeline entry: create
 and add a row to `pipeline.md` in the same action. Never leave a partner floating in
 conversation without landing in both places.
 
+**On Google Doc accessed**
+Whenever a Google Doc, Sheet, or Drive file is read or accessed in a session:
+1. Check if it is already listed in `context/google_docs.json`
+2. If not, add it immediately under `"read_only_docs"` with `"permissions": "read-only"` — this is the default for all docs
+3. Include: name, id, url, brief description, and owner if known
+4. Append to `manifest.md`
+Never skip this step. The docs manifest must stay current.
+
 **On Google Doc write attempt**
 Before writing to any Google Doc: read `context/google_docs.json` and confirm the doc
 is listed as `"permissions": "read-write"`. Do not write to docs listed as `"read-only"`
@@ -219,6 +230,13 @@ Brian may occasionally ask to refresh the Team Tracker snapshot. When he does:
 4. Append to `manifest.md`
 Never pull or refresh the snapshot proactively — only on explicit request.
 The snapshot is a local reference artifact; the source Google Sheet is always read-only.
+
+**On "resolve"**
+When the user says "resolve": review the current conversation for meaningful improvements
+to this skill. Update only if there are substantive changes to workflow, conventions,
+hooks, or tooling. Do NOT update for minor, session-specific, or speculative details.
+A "resolve" that produces no changes is fine — use judgment. Scope is limited to this
+skill only; do not update other skills.
 
 **On context depth warning**
 If a single partner has dominated 20+ turns or comms have been iterated multiple times:
@@ -277,25 +295,21 @@ inputs = [
 ```
 Instruction template: `"Scrape the course catalog for {{ item.provider }} from {{ item.url }}"`
 
-**Step 3 — Run batch-dispatch(catalog-scraper)**:
-```
-/batch-dispatch catalog-scraper '<inputs_json>' \
-  "Scrape the course catalog for {{ item.provider }} from {{ item.url }}" \
-  --timeout 1200
-```
-
-**Step 4 — Consolidate results** (REQUIRED):
-batch-dispatch workers are sandboxed and cannot write to `~/licensing/` directly.
-Artifacts land in `batch_results_<timestamp>/task_N/`. After the batch completes,
-move the three files (catalog.json, catalog.xlsx, report.md) from each task directory
-into the appropriate `~/licensing/partners/{slug}/` directory. Then update manifest.md.
+**Step 3 — Spawn one catalog-scraper-worker subagent per URL**:
+Per CLAUDE.md rules, spawn a separate `catalog-scraper-worker` subagent for each URL.
+Never run multiple scrapes sequentially in the main thread. Run all workers with
+`run_in_background=true`. Each worker writes its output (catalog.json, catalog.xlsx,
+report.md) directly to `~/licensing/partners/{slug}/` and updates `catalog_registry.json`.
+No consolidation step needed — workers have direct filesystem access.
 
 ---
 
 ## Domain Knowledge
 
-**`licensing-context` skill** — load for heuristics, commercial models, partner taxonomy,
-sourcing methodology, tangibility gates (Addressable / Aligned / Acceptable).
+**`~/licensing/context/licensing_context.md`** — primary reference for heuristics,
+commercial models, partner taxonomy, sourcing methodology, and the tangibility gates
+(Addressable / Aligned / Acceptable). Read this file when reasoning about partner
+fit, deal structure, or content evaluation.
 
 **`~/licensing/context/`** — read-only reference docs specific to this role. Check this
 directory for any relevant docs before doing research Claude can't do alone (e.g., internal

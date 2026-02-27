@@ -43,6 +43,8 @@ Skills must be portable across machines and must never pollute the system Python
 - For 4+ dependencies or where versions matter: use a `pyproject.toml` + `uv.lock` in the skill dir and invoke with `uv run --directory ~/.claude/skills/<skill-name> python scripts/foo.py`
 - Never hardcode absolute paths in scripts. Anchor all paths to `Path(__file__)` or an env var.
 - Document every required and optional env var in SKILL.md. See skill-creator for the full portability spec.
+- **Scripts that generate output scripts** (i.e., the skill writes a `.py` file to the user's CWD): the generated script must embed uv inline script metadata (`# /// script` block with `dependencies`) so it is self-contained. It cannot rely on the skill's own `pyproject.toml` since it lives outside the skill dir.
+- These rules apply at **skill creation time**. skill-creator does not enforce them — you must apply them yourself when writing or reviewing any skill with Python scripts.
 
 ## Batch scraping rules
 When asked to scrape multiple URLs, ALWAYS spawn a separate catalog-scraper-worker subagent for each URL.
