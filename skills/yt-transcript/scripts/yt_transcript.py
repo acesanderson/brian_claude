@@ -334,7 +334,7 @@ def get_metadata(url_or_id: str) -> VideoMetadata:
     Fetch video metadata (title, channel, duration, description, tags) via yt-dlp.
     Checks SQLite cache first.
 
-    Requires: pip install yt-dlp
+    Requires yt-dlp — invoke via: uv run --with yt-dlp python your_script.py
     """
     import yt_dlp
 

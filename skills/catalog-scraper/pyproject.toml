@@ -1,0 +1,11 @@
+[project]
+name = "catalog-scraper"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "beautifulsoup4",
+    "openpyxl",
+    "pandas",
+    "requests",
+    "unidecode",
+]

@@ -36,6 +36,7 @@ Finally: I'm trying to stay a critical and sharp analytical thinker. Whenever yo
 ## Claude Code skill Python rules
 Skills must be portable across machines and must never pollute the system Python. A skill that works only on one machine because of pre-installed packages is broken by definition.
 
+- `uv` is the single required system prerequisite for all skill scripts. Every SKILL.md must include a Prerequisites section stating this and linking to `https://docs.astral.sh/uv/getting-started/installation/`.
 - Never use bare `python script.py` to invoke a skill script. Always use `uv run`.
 - Never write `pip install` instructions in a SKILL.md. That directs the user to pollute their environment.
 - For 1–3 dependencies: `uv run --with dep1 --with dep2 python scripts/foo.py` (ephemeral, no venv persisted)

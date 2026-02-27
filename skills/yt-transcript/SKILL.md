@@ -10,7 +10,6 @@ description: >
   youtube.com/embed/) as well as bare video IDs. Transcripts and metadata are
   cached locally in SQLite. Optionally uses Webshare proxies if
   WEBSHARE_USERNAME and WEBSHARE_PASS env vars are set.
-  Install: pip install youtube-transcript-api yt-dlp
 ---
 
 # YouTube Transcript Skill
@@ -18,15 +17,31 @@ description: >
 Wraps `youtube-transcript-api` with SQLite caching, optional Webshare proxy
 fallback, and `yt-dlp`-backed metadata retrieval.
 
+## Prerequisites
+
+`uv` must be installed: https://docs.astral.sh/uv/getting-started/installation/
+
+No API key needed.
+
 ## Setup
+
+Write a script and run it with `uv`:
+
+```bash
+uv run --with youtube-transcript-api --with yt-dlp python your_script.py
+```
+
+In the script, import from the skill directory:
 
 ```python
 import sys
-sys.path.insert(0, "/Users/bianders/.claude/skills/yt-transcript/scripts")
+from pathlib import Path
+
+sys.path.insert(0, str(Path.home() / ".claude/skills/yt-transcript/scripts"))
 from yt_transcript import extract_video_id, list_transcripts, get_transcript, get_metadata
 ```
 
-No API key needed. Cache lives at `~/.cache/yt-transcript/`.
+Cache lives at `~/.cache/yt-transcript/`.
 
 ## Core Functions
 
@@ -139,6 +154,12 @@ except VideoUnavailable:
 ```
 
 ## Dependencies
+
+Invoked via `uv run` — no manual installation required:
+
+```bash
+uv run --with youtube-transcript-api --with yt-dlp python your_script.py
+```
 
 - `youtube-transcript-api>=1.2.4`
 - `yt-dlp` (only required for `get_metadata`)
