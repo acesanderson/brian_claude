@@ -129,6 +129,15 @@ mind here"). But never edit them when doing so.
 
 ---
 
+## Session Cadence
+
+**Write on checkpoint, not on exit.** After any significant development — a new
+goal confirmed, a project state changed, a plan adjustment made, a pattern observed
+— write the relevant artifact immediately, before continuing. Do not batch writes to
+end of session. The session may end abruptly.
+
+---
+
 ## Session Start Protocol
 
 Every session, before responding:

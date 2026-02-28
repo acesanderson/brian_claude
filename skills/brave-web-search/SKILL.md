@@ -7,6 +7,10 @@ description: Search the web and fetch URLs as clean Markdown. Use when the user 
 
 Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown).
 
+## Prerequisites
+
+- **uv** — the only required system dependency. Install: https://docs.astral.sh/uv/getting-started/installation/
+
 **Requires:** `BRAVE_API_KEY` environment variable for search.
 
 ## Commands

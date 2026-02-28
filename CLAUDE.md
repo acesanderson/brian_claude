@@ -46,6 +46,15 @@ Skills must be portable across machines and must never pollute the system Python
 - **Scripts that generate output scripts** (i.e., the skill writes a `.py` file to the user's CWD): the generated script must embed uv inline script metadata (`# /// script` block with `dependencies`) so it is self-contained. It cannot rely on the skill's own `pyproject.toml` since it lives outside the skill dir.
 - These rules apply at **skill creation time**. skill-creator does not enforce them — you must apply them yourself when writing or reviewing any skill with Python scripts.
 
+## Obsidian vault
+My Obsidian vault is at `$MORPHY` (`/Users/bianders/morphy`). Use this path when accessing or writing to vault notes.
+
+## Web fetch fallback
+When `WebFetch` is blocked or returns an error (rate limit, CloudFront, bot protection, etc.), fall back to the `brave-web-search` skill:
+- To fetch a URL: `uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "<url>"`
+- To search: `uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "<query>"`
+Requires `BRAVE_API_KEY` env var. Use `--page N` if content is truncated (`is_truncated: true`).
+
 ## Batch scraping rules
 When asked to scrape multiple URLs, ALWAYS spawn a separate catalog-scraper-worker subagent for each URL.
 Never process multiple URLs sequentially in the main thread.

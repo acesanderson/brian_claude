@@ -14,6 +14,12 @@ Trigger phrases:
 - "what sessions do I have for [project]"
 - "show me what was said in session [id]"
 
+## Prerequisites
+
+- **uv** — Install: https://docs.astral.sh/uv/getting-started/installation/
+- `~/vibe/claude-history-project` must exist with a `pyproject.toml` containing the DB dependencies (this is Brian's personal project — not portable without it)
+- PostgreSQL database accessible via WireGuard VPN
+
 ## How to invoke
 
 Run the runner script via `uv run`:

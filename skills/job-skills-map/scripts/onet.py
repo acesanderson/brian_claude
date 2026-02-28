@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "requests",
+# ]
+# ///
 """O*NET Web Services CLI — search occupations and analyze competencies.
 
 Commands:

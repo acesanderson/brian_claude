@@ -15,6 +15,10 @@ description: >
 
 Wraps the O*NET Web Services API via `scripts/onet.py`.
 
+## Prerequisites
+
+- **uv** — the only required system dependency. Install: https://docs.astral.sh/uv/getting-started/installation/
+
 ## Auth
 
 | Env var | API version |
@@ -31,7 +35,7 @@ If neither is set, the script exits with an error message.
 ### 1. Search occupations
 
 ```bash
-python3 scripts/onet.py search "data engineer"
+uv run ~/.claude/skills/job-skills-map/scripts/onet.py search "data engineer"
 ```
 
 Output: `{ "keyword", "total", "results": [{"code", "title", "tags"}] }`
@@ -41,7 +45,7 @@ Pick the SOC code (e.g. `15-1243.01`) that best matches the user's intent.
 ### 2. Get full breakdown
 
 ```bash
-python3 scripts/onet.py breakdown 15-1243.01
+uv run ~/.claude/skills/job-skills-map/scripts/onet.py breakdown 15-1243.01
 ```
 
 Output: `{ "code", "breakdown": { "knowledge", "skills", "abilities", "technology_skills" } }`
@@ -52,7 +56,7 @@ Technology items: `{ "name", "category", "hot_technology", "in_demand" }`.
 ### 3. Course gap analysis
 
 ```bash
-python3 scripts/onet.py gap-analysis 15-1243.01
+uv run ~/.claude/skills/job-skills-map/scripts/onet.py gap-analysis 15-1243.01
 ```
 
 Output:
@@ -84,9 +88,7 @@ Suggest course title mappings. Example: "Computers and Electronics (knowledge, 9
 
 ## Dependency
 
-```
-pip install requests
-```
+`requests` is the only dependency. `uv` installs it automatically when running the script — no manual installation needed.
 
 ## API reference
 

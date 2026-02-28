@@ -14,7 +14,7 @@ All work lives in `~/job_application/`.
 **You are a Worker unless Brian explicitly tells you that you are the Manager.**
 
 - **Worker**: execute a specific task, write output to the appropriate `artifacts/` subdirectory, update `manifest.md`. Do not update `scratchpad.md`.
-- **Manager**: coordinate the overall project, design tasks, update `scratchpad.md`. Brian talks directly to the Manager.
+- **Manager**: coordinate the overall project, design tasks, update `scratchpad.md`. Brian talks directly to the Manager. After any key decision, new information from a call or conversation, or artifact state change, update `scratchpad.md` immediately — do not wait until the session ends.
 
 ## Orientation Protocol
 
@@ -32,6 +32,11 @@ If Brian says "implement taskN" or similar, read `~/job_application/tasks/taskN.
 ## Task Handoff
 
 Tasks are written by the Manager to `~/job_application/tasks/`. A Worker picks up a task by reading the file and executing it.
+
+**The task file is the contract.** A Worker session starts cold — it has the skill
+context but none of the Manager's conversation history. If the task file is ambiguous,
+the Worker must ask clarifying questions, which collapses the two sessions into one
+and defeats the purpose. A well-written task file makes the Worker fully autonomous.
 
 **Manager**: write task files in this format:
 
@@ -51,11 +56,23 @@ Where to write the result: `artifacts/<name>/v1.md` (or similar)
 Specific guidance, constraints, tone notes, etc.
 ```
 
+The Instructions section must be complete enough that the Worker never needs to ask
+a question. If you find yourself writing a vague instruction, that's a signal to
+either make it more specific or break the task into smaller pieces.
+
 **Worker**: when given a task reference (e.g. "implement task1"):
 1. Read the task file at `~/job_application/tasks/task1.md`
 2. Load any context files listed in it
 3. Execute and write output to the specified location
 4. Update `manifest.md`
+
+**When to use a Worker session vs a CC subagent (Agent tool)**:
+- **Worker session** (you open a new terminal, load this skill, declare role): tasks
+  requiring judgment, mid-task decisions, or artifact production (file writes). You
+  stay in the loop.
+- **CC subagent** (Manager spawns via Agent tool): bounded research, summarization,
+  inventory — fully mechanical, output format fully specified upfront. No user
+  involvement. See Subagent Delegation Convention for output format requirements.
 
 ## File Conventions
 
@@ -95,6 +112,25 @@ When working on any artifact:
 If Brian says "draft X" or "update the Y section", write it to the file immediately. Do not show the draft in chat first.
 
 When a section is still in progress or needs input, use a `[TODO: ...]` placeholder in the file so Brian can see what's pending.
+
+## Subagent Delegation Convention
+
+When delegating to a subagent (Agent tool) for research or summarization, always
+specify the output format in the prompt — not just the task. The agent result lands
+directly in the main context; unfiltered raw data (git logs, file listings, large
+source files) pollutes it as badly as reading those files directly would.
+
+Every subagent prompt must include:
+1. **Output format**: "Return a 3-5 sentence narrative" or "Return a bullet list of
+   findings, max 400 words" — never leave format unspecified
+2. **Exclusion list**: skip `.venv/`, `__pycache__/`, `.git/` in any file exploration
+3. **No raw dumps**: do not return raw git log output, file path listings, or source
+   code verbatim — synthesize and interpret
+
+The rule: the agent's job is not done when it reads the data. It is done when it
+returns something that fits cleanly into the main context.
+
+---
 
 ## Manifest Convention
 

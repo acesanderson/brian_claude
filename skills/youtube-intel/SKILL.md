@@ -12,15 +12,28 @@ description: >
 
 Wraps the YouTube Data API v3 to analyze channels.
 
+## Prerequisites
+
+- **uv** — the only required system dependency. Install: https://docs.astral.sh/uv/getting-started/installation/
+- `YOUTUBE_API_KEY` must be set in the environment.
+
 ## Setup
+
+Write a script and run it with `uv`:
+
+```bash
+uv run --with httpx python your_script.py
+```
+
+In `your_script.py`:
 
 ```python
 import sys
-sys.path.insert(0, "/Users/bianders/.claude/skills/youtube-intel/scripts")
+from pathlib import Path
+
+sys.path.insert(0, str(Path.home() / ".claude/skills/youtube-intel/scripts"))
 from youtube_intel import get_channel, get_top_videos, get_content_breakdown, compare_channels
 ```
-
-`YOUTUBE_API_KEY` must be set in the environment.
 
 ## Core Functions
 

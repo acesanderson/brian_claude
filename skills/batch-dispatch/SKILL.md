@@ -9,6 +9,10 @@ description: Orchestrates parallel, isolated execution of a skill across a list 
 
 ## Prerequisites
 
+### 0. Install uv
+
+**Required system dependency:** `uv` — https://docs.astral.sh/uv/getting-started/installation/
+
 ### 1. Enable Claude Code Sandboxing
 
 **First-time setup (one-time):**

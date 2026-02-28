@@ -7,9 +7,25 @@ description: Fetches annual and quarterly reports (10-K, 10-Q, 20-F) from SEC ED
 
 Fetch annual and quarterly reports (10-K, 10-Q, 20-F) from the SEC EDGAR database.
 
+## Prerequisites
+
+- **uv** — the only required system dependency. Install: https://docs.astral.sh/uv/getting-started/installation/
+
 ## Usage
 
+Write a script that imports from the skill's `scripts/` directory, then run it with `uv`:
+
+```bash
+uv run --with httpx --with markdownify python your_script.py
+```
+
+In `your_script.py`:
+
 ```python
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path.home() / ".claude/skills/sec-filings/scripts"))
 from sec_filings import get_filings, get_latest_filing, FilingType
 ```
 
@@ -109,6 +125,8 @@ except NoFilingsError:
 
 - `httpx`
 - `markdownify`
+
+Both are installed automatically by `uv` when you run your script with `--with httpx --with markdownify`. No manual installation needed.
 
 ## Example Workflow
 
