@@ -1,5 +1,5 @@
 # /// script
-# dependencies = ["jinja2"]
+# dependencies = ["conduit"]
 # ///
 from __future__ import annotations
 from conduit.async_ import ConduitAsync, GenerationParams, ConduitOptions, Verbosity
@@ -20,8 +20,9 @@ async def judge(draft: str, model: str) -> str:
     params = GenerationParams(model=model)
     options = ConduitOptions(
         project_name="deslop",
-        verbosity=Verbosity.SILENT,
+        verbosity=Verbosity.PROGRESS,
         cache=settings.default_cache("deslop"),
+        debug_payload=True,
     )
     conduit = ConduitAsync(prompt)
     input_variables = {"draft": draft}
@@ -36,8 +37,9 @@ async def revise(draft: str, critique: str, model: str) -> str:
     params = GenerationParams(model=model)
     options = ConduitOptions(
         project_name="deslop",
-        verbosity=Verbosity.SILENT,
+        verbosity=Verbosity.PROGRESS,
         cache=settings.default_cache("deslop"),
+        debug_payload=True,
     )
     conduit = ConduitAsync(prompt)
     input_variables = {"draft": draft, "critique": critique}
@@ -56,6 +58,8 @@ async def deslop(
 
 
 def main() -> None:
+    import asyncio
+
     parser = argparse.ArgumentParser(
         description="Strip AI-isms from a blog post draft.",
         usage="deslop [--judge MODEL] [--reviser MODEL] [file]  or  cat post.md | deslop",
@@ -69,15 +73,17 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    if not sys.stdin.isatty():
-        draft = sys.stdin.read().strip()
-    elif args.file:
+    if args.file:
         draft = Path(args.file).read_text().strip()
+    elif not sys.stdin.isatty():
+        draft = sys.stdin.read().strip()
     else:
         parser.print_usage(sys.stderr)
         sys.exit(1)
 
-    print(deslop(draft, judge_model=args.judge, reviser_model=args.reviser))
+    print(
+        asyncio.run(deslop(draft, judge_model=args.judge, reviser_model=args.reviser))
+    )
 
 
 if __name__ == "__main__":
