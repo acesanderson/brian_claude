@@ -139,3 +139,45 @@ Append one line per file created or meaningfully edited:
 ```
 - YYYY-MM-DD | created|updated | <path> | <description>
 ```
+
+---
+
+## Person Research Procedure
+
+Use when Brian provides a name and asks for a mini-bio, or when the Manager identifies a key person worth profiling (panelist, stakeholder, skip-level, etc.).
+
+**Goal:** Produce a structured entry suitable for adding to `people.json`, plus a strategic read of what the profile means for Brian's application.
+
+**Note:** This procedure may eventually be extracted into a standalone "LinkedIn Context" skill as a reusable knowledge-base tool. For now it lives here.
+
+### Steps
+
+1. **Brave search** — run two searches in parallel via the `brave-web-search` skill:
+   - `"{name}" LinkedIn`
+   - `"{name}" site:{personal-site-if-known}` or `"{name}" {employer}` for triangulation
+
+2. **Fetch** — from search results, fetch in priority order:
+   - Their personal website (richest self-authored source)
+   - Their Muck Rack or similar journalist profile if they have media background
+   - Any other public bio page (author page, speaker bio, etc.)
+   - Skip LinkedIn.com directly — it blocks fetching
+
+3. **Compile the bio** — synthesize into a `people.json` entry with these fields:
+   - `name`, `title`, `team`, `role_in_application`
+   - `background`: career arc, education, notable work, publications, public credentials
+   - `notes`: strategic read — what this profile means for Brian specifically (framing, likely panel behavior, remote stance, technical vs. editorial evaluator, etc.)
+
+4. **Update `people.json`** — write the entry directly. If the person already exists, update in place.
+
+5. **Update `panel_prep/v1.md`** if the person is a likely panelist — add a "For [name]" section under Questions to Ask, and note their evaluator profile (what dimension they'll assess Brian on).
+
+6. **Report to Brian in chat** — present the bio narrative + strategic implications. Keep it concise; the full detail lives in the file.
+
+### What makes a good strategic read
+
+Go beyond summarizing the resume. Answer:
+- What will this person evaluate Brian on? (editorial judgment? technical rigor? annotation methodology? remote reliability?)
+- Are they a natural ally or a friction point on any known concern (builder identity, linguist gap, remote, level)?
+- Do they share Brian's arc (content→AI transition)? Does that make them a mirror or a differentiator?
+- What framing resonates with their background? (Don't use technical framing with a pure editorial person; don't over-index on journalism with a data scientist.)
+- Any prior relationship or shared context with Brian worth noting?

@@ -5,43 +5,47 @@ description: "Comprehensive Obsidian vault skill. Use for any vault operation: c
 
 # Obsidian Vault
 
-## Prerequisites
+## The Vault Is Just a Directory
 
-- **uv** — required for Python scripts. Install: https://docs.astral.sh/uv/getting-started/installation/
-- **OBSIDIAN_VAULT** env var — path to vault (or pass `--vault` per call). Vault is at `$MORPHY`.
-- **OBSIDIAN_DAILY_NOTES_FOLDER** — optional subfolder for daily notes (default: vault root)
-- **obsidian CLI** — required for live-app operations only. Verify: `obsidian --version`
+The Obsidian vault is at `$MORPHY` (`/Users/bianders/morphy`). It is a folder of plain `.md` files.
+
+**For saving, reading, or copying notes — just use file tools directly.** No scripts, no `uv run`, no CLI needed.
+
+```
+Save a note   → Write the .md file to /Users/bianders/morphy/Note Title.md
+Read a note   → Read /Users/bianders/morphy/Note Title.md
+Search notes  → Grep across /Users/bianders/morphy/
+Copy content  → Read source, Write destination
+```
+
+That's it. Reach for `vault.py` or the obsidian CLI only when you need features those tools actually provide (daily note append with date logic, live app operations, backlinks, etc.).
 
 ---
 
-## File-System Ops (`vault.py`)
+## `vault.py` — When Plain File Ops Aren't Enough
 
-No Obsidian app required. Works on vault files directly.
+For operations that benefit from structured logic (daily notes with auto-date, tag frontmatter injection, fuzzy note search):
 
 ```bash
 SCRIPT=~/.claude/skills/obsidian/scripts/vault.py
 
-# Create a note
-uv run $SCRIPT create "Note Title" --tags tag1 tag2 --body "Initial content"
+# Create a note with frontmatter tags
+uv run $SCRIPT --vault /Users/bianders/morphy create "Note Title" --tags tag1 tag2 --body "content"
 
 # Append to a note (creates if absent)
-uv run $SCRIPT append "Note Title" "Content to add"
+uv run $SCRIPT --vault /Users/bianders/morphy append "Note Title" "Content to add"
 
-# Append to today's daily note
-uv run $SCRIPT daily "Content to log"
+# Append to today's daily note (auto-dates)
+uv run $SCRIPT --vault /Users/bianders/morphy daily "Content to log"
 
 # Search across all notes
-uv run $SCRIPT search "query"
-uv run $SCRIPT search "query" --excerpt   # shows matching line + file:line ref
+uv run $SCRIPT --vault /Users/bianders/morphy search "query" --excerpt
 
-# Open a note in the Obsidian app (macOS, obsidian:// URI)
-uv run $SCRIPT open "Note Title"
-
-# List all notes
-uv run $SCRIPT ls
+# Open a note in the Obsidian app (macOS)
+uv run $SCRIPT --vault /Users/bianders/morphy open "Note Title"
 ```
 
-Vault path resolution: `--vault` arg → `OBSIDIAN_VAULT` env var → error.
+Note: `OBSIDIAN_VAULT` env var may not be set — pass `--vault /Users/bianders/morphy` explicitly.
 
 ---
 

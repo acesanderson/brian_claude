@@ -27,12 +27,39 @@ the state layer.
   training_urls.json   # Output of find-catalogues; training portal URLs per company
   partners/            # One directory per active/prospective partner (notes.md + catalog files)
   context/             # Read-only reference docs (licensing_context.md, google_docs.json, team_tracker_snapshot.md)
+  business_context/                    # Business intelligence — hierarchical, domain-organized
+    summary.md                         # Omnibus: one paragraph per domain, overall strategic read
+    financial_health/
+      summary.md                       # Domain synthesis (auto-generated from docs below)
+      [dated docs]                     # LinkedIn financials, LLS health, Microsoft earnings
+    flagship_feed/
+      summary.md
+      [dated docs]                     # Feed roadmap, DAU strategy, Knowledge Marketplace
+    premium/
+      summary.md
+      [dated docs]                     # Premium business, consumer thesis, subscriber trends
+    talent_solutions/
+      summary.md
+      [dated docs]                     # Talent Solutions, enterprise L&D, Recruiter/Jobs
+    ai_strategy/
+      summary.md
+      [dated docs]                     # AI features, Copilot intersection, LinkedIn AI Coach
+    org_context/
+      summary.md
+      [dated docs]                     # Leadership, restructures, internal champions/friction
+    competitive_landscape/
+      summary.md
+      [dated docs]                     # Coursera, Udemy, Pluralsight, Indeed/Glassdoor
+    member_metrics/
+      summary.md
+      [dated docs]                     # DAU/MAU, engagement, feed-to-learning conversion
 ```
 
 Ensure this structure exists on first run:
 
 ```bash
-mkdir -p ~/licensing/partners ~/licensing/context
+mkdir -p ~/licensing/partners ~/licensing/context \
+  ~/licensing/business_context/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}
 ```
 
 ---
@@ -41,11 +68,12 @@ mkdir -p ~/licensing/partners ~/licensing/context
 
 Run this every session, in order:
 
-1. `mkdir -p ~/licensing/partners ~/licensing/context` — ensure structure exists
+1. `mkdir -p ~/licensing/partners ~/licensing/context ~/licensing/business_context/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}` — ensure structure exists
 2. Read `~/licensing/pipeline.md` — primary orientation; surface what's active, stale, or needs action
 3. Read `~/licensing/scratchpad.md` — strategy context and rubric state
 4. Read the **last 15 lines** of `~/licensing/manifest.md` — what changed recently
-5. If this is a partner-focused session: read `~/licensing/partners/<name>.md`
+5. If `~/licensing/business_context/summary.md` exists: read it — strategic environment context
+6. If this is a partner-focused session: read `~/licensing/partners/<name>.md`
 
 Then open with a grounded brief — not "what do you want to do?" but a synthesis:
 
@@ -231,12 +259,56 @@ Brian may occasionally ask to refresh the Team Tracker snapshot. When he does:
 Never pull or refresh the snapshot proactively — only on explicit request.
 The snapshot is a local reference artifact; the source Google Sheet is always read-only.
 
+**On "summarize [domain]"**
+When the user says "summarize [domain]" or "refresh [domain] summary" (where domain is
+one of: financial_health, flagship_feed, premium, talent_solutions, ai_strategy,
+org_context, competitive_landscape, member_metrics):
+1. List all files in `business_context/[domain]/` excluding `summary.md`
+2. Read each one
+3. Write a synthesis to `business_context/[domain]/summary.md` — key facts, trends,
+   strategic reads, sources with dates, and a staleness note (oldest source date)
+4. Append to `manifest.md`
+Do not summarize if the domain directory has no docs yet — flag it as unpopulated instead.
+
+IMPORTANT: Execute this in the MAIN session, not as a subagent. Summarization is
+read-then-write on local files — subagents cannot write files without explicit Write
+permission grants, which defeats the purpose of delegation. Subagents are for research
+(external I/O); summarization is for the main thread.
+
+**On "summarize business"** (also: "refresh business summary", "update business context")
+When the user triggers a full business summary refresh:
+1. Read every `business_context/[domain]/summary.md` that exists
+2. Write `business_context/summary.md` using this schema:
+   - Header with last-updated date and staleness table (one row per domain)
+   - One 2-3 sentence paragraph per domain
+   - "Overall Strategic Read" section: 4-6 sentences on what this means for LinkedIn's
+     actual situation right now — opinionated, not corporate
+   - "Implications for Licensing BD" section: 4-6 bullets of cross-domain insights that
+     only emerge from reading all domains together
+3. Append to `manifest.md`
+Only summarize domains that have a populated summary.md — skip and note empty ones.
+This is the top-level orientation artifact read during every session start.
+
+IMPORTANT: Execute in the MAIN session (same reason as above).
+
+**On new business context doc added**
+When any file is written to a `business_context/[domain]/` directory (excluding summary.md):
+- Append to `manifest.md` as usual
+- Add a note: "[domain]/summary.md is now stale — run 'summarize [domain]' to refresh"
+Do NOT auto-summarize. Summarization is always explicit.
+
 **On "resolve"**
 When the user says "resolve": review the current conversation for meaningful improvements
 to this skill. Update only if there are substantive changes to workflow, conventions,
 hooks, or tooling. Do NOT update for minor, session-specific, or speculative details.
 A "resolve" that produces no changes is fine — use judgment. Scope is limited to this
 skill only; do not update other skills.
+
+**On contact research request**
+When asked to find outreach contacts for one or more partners: read
+`find-partner-contacts.md` (in this skill's directory) before starting. Follow its
+role hierarchy and source hierarchy exactly. Record confirmed leads in
+`partners/<slug>/notes.md` under an "Outreach Targets" section. Append to `manifest.md`.
 
 **On context depth warning**
 If a single partner has dominated 20+ turns or comms have been iterated multiple times:
@@ -249,6 +321,10 @@ loaded to summarize.
 ## Tooling
 
 Skills available for licensing research and catalog collection:
+
+**`find-partner-contacts`** — technique for finding cold outreach targets at external
+partner companies. Role hierarchy, source hierarchy (ZoomInfo/RocketReach snippet searches),
+query patterns, and what to discard. Reference: `find-partner-contacts.md` in this skill dir.
 
 **`find-catalogues`** — discovers training portal URLs for a given company. Use before
 scraping to locate the right catalog URL. Output: `training_urls.json` with
@@ -314,3 +390,44 @@ fit, deal structure, or content evaluation.
 **`~/licensing/context/`** — read-only reference docs specific to this role. Check this
 directory for any relevant docs before doing research Claude can't do alone (e.g., internal
 rubric docs, partner-specific notes from colleagues, role context).
+
+---
+
+## Aquifer: Long-Term Token Optimization Layer
+
+**What it is:** `~/Brian_Code/aquifer-project/` is a Python toolkit Brian built for
+automated data collection and multi-model research. It is the eventual production layer
+for the business_context/ knowledge base — a cheaper, schedulable replacement for the
+Claude Code agent research workflows used to initially populate the knowledge base.
+
+**The paradigm shift it enables:**
+- **Phase 1 (now):** Use Claude Code agents + Captain MCP tools to establish research
+  patterns — expensive but high-capability. Pave the cowpath.
+- **Phase 2 (once patterns harden):** Translate validated patterns into aquifer scripts
+  that run against local models (Ollama, etc.) on a schedule. Same output, fraction of
+  the token cost.
+- **Phase 3:** Aquifer becomes the background refresh layer (RSS monitoring, competitor
+  earnings, Slack digests). Claude Code handles edge cases, novel research, and anything
+  requiring Confluence/internal-source access.
+
+**Aquifer's current capabilities:**
+- `collect/rss` — RSS/Atom feed parsing for continuous monitoring
+- `collect/youtube` — YouTube channel metadata into PostgreSQL
+- `collect/podcasts` — Bulk podcast collection
+- `research/brave` — Brave search + URL fetch
+- `research/exa` — Exa semantic search
+- `research/perplexity`, `research/openai`, `research/google_deep_research` — multi-model research
+- `research/10k` — SEC EDGAR 10-K filing retrieval
+- `research/snapshot.py` — fan-out orchestrator: takes structured question list, runs
+  parallel async LLM calls via `conduit.batch`, aggregates to markdown
+- `research/strategy/main.py` — multi-model: same query through Perplexity + Exa + OpenAI
+
+**What aquifer currently lacks that this system provides:**
+- Internal source access (Confluence, Slack, Google Docs) — only Claude Code + Captain MCP
+- Hierarchical `business_context/` storage with domain summaries and staleness tracking
+- The summarization hooks that roll up to the top-level omnibus summary
+
+**When to reference aquifer:** When Brian asks to operationalize or schedule a research
+workflow that has been validated through Claude Code agents. The signal is: "we've done
+this 3+ times the expensive way and the output format is stable." That's when a pattern
+is ready to be distilled into aquifer.
