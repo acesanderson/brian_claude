@@ -1,0 +1,9 @@
+[project]
+name = "deslop"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = ["conduit"]
+
+[tool.uv.sources]
+conduit = { path = "/Users/bianders/Brian_Code/conduit-project", editable = true }
+

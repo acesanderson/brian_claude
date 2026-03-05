@@ -167,6 +167,26 @@ Blog drafts originate in Brian's Obsidian vault:
 
 ---
 
+## Deslop: Post-Writing Finishing Step
+
+After collaboratively drafting a post with an LLM, run deslop before publishing to
+strip AI-generated writing patterns. It is a two-pass pipeline: Gemini audits the
+draft and flags AI-isms (banned vocabulary, em-dash abuse, formulaic sentence patterns,
+uniform burstiness), then Opus revises only the flagged items — nothing else.
+
+Use the `deslop` skill. Quick reference:
+
+```bash
+uv run ~/.claude/skills/deslop/scripts/deslop.py _posts/my-post.md
+# or
+cat _posts/my-post.md | uv run ~/.claude/skills/deslop/scripts/deslop.py
+```
+
+**When to run:** last step before publishing, after structure and content are final.
+Deslop does not restructure or add content. Make structural edits first.
+
+---
+
 ## Hooks
 
 Named event-triggered invariants. These fire on trigger, not on request. Not optional.
