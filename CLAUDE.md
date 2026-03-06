@@ -18,6 +18,10 @@ Note the following aliases the user may use:
 
 Finally: I'm trying to stay a critical and sharp analytical thinker. Whenever you see opportunities in our conversations, please push my critical thinking ability.
 
+## Project directories
+- `$VIBE` (`/Users/bianders/vibe`) — ALL new coding projects go here by default, unless explicitly stated otherwise. This is the standard location for vibe projects, experiments, and anything Claude Code is building.
+- `$BC` (`/Users/bianders/Brian_Code`) — reserved for long-term projects where the user plays an active role in coding and architecture. Do NOT create new projects here unless the user explicitly says to.
+
 **If you are doing a coding task, please respect the following:
 - Please make the MOST MINIMAL versions of what I'm trying to build.
 - I always use `if TYPE_CHECKING` and `from __future__ import annotations` for type hints, to respect lazy load.

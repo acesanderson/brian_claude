@@ -137,6 +137,32 @@ cat research.txt | ask --model claude "write a summary paragraph"
 
 ---
 
+## Large self-contained queries (headless cowpath)
+
+**Problem:** Pipe patterns (`cat ... | ask`) rely on `stdin.isatty()` for stdin detection. In Claude Code's headless Bash tool context, this detection is unreliable and the command may hang.
+
+**Also broken:** `cat <<'EOF' | ask "$(cat)"` — `$(cat)` is evaluated before the pipe is established, so it reads from the terminal and blocks.
+
+**Reliable pattern for large prompts:**
+
+```bash
+# Step 1: write the query to a temp file (use the Write tool)
+# Step 2: pass as a CLI argument via file substitution
+ask --raw --model <model> "$(cat /tmp/query.txt)"
+```
+
+`$(cat /tmp/file)` reads from a file, not stdin — no `isatty()` ambiguity, works headlessly. The full prompt becomes a CLI argument.
+
+**When to use which pattern:**
+
+| Use case | Pattern |
+|----------|---------|
+| Content + short instruction | `cat file.txt \| ask "summarize this"` |
+| Large self-contained prompt | Write to file → `ask "$(cat /tmp/query.txt)"` |
+| Chain outputs | `ask --raw "..." \| next-command` |
+
+---
+
 ## When to use which model
 
 - **Perplexity** — web-grounded research, current events, citations
