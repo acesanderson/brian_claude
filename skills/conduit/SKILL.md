@@ -125,14 +125,14 @@ conduit_cache -p <project> -w        # wipe all entries for project (with confir
 
 ```bash
 # Research → image generation
-ask --raw --model perplexity "describe a coral reef at 30m depth" \
+ask --raw --model sonar-pro "describe a coral reef at 30m depth" \
   | imagegen generate --model banana
 
 # Summarize a large file before including in context
 cat large_doc.md | ask --raw --model <local-model> "summarize in 5 bullets"
 
 # Multi-step: research → draft
-ask --raw --model perplexity "latest on X" > research.txt
+ask --raw --model sonar-pro "latest on X" > research.txt
 cat research.txt | ask --model claude "write a summary paragraph"
 ```
 
@@ -166,6 +166,6 @@ ask --raw --model <model> "$(cat /tmp/query.txt)"
 
 ## When to use which model
 
-- **Perplexity** — web-grounded research, current events, citations (`--citations` to print sources)
+- **Perplexity** (`--model sonar` or `--model sonar-pro`) — web-grounded research, current events, citations (`--citations` to print sources). Use `sonar` for fast/cheap, `sonar-pro` for deeper research.
 - **Ollama (`--local`)** — sensitive data, offline, cheap subtasks, cost reduction
 - **Gemini / Imagen** — image generation, multimodal, long context

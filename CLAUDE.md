@@ -59,6 +59,24 @@ When `WebFetch` is blocked or returns an error (rate limit, CloudFront, bot prot
 - To search: `uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "<query>"`
 Requires `BRAVE_API_KEY` env var. Use `--page N` if content is truncated (`is_truncated: true`).
 
+## GitHub CLI in Bash tool
+
+The `gh` alias is a shell function (not a binary) and is **not available** in multi-line Bash tool calls. Always use the full binary path and inject the token explicitly:
+
+```sh
+GH_TOKEN="$GITHUB_PERSONAL_TOKEN" /opt/homebrew/bin/gh <command>
+```
+
+`GITHUB_PERSONAL_TOKEN` is available in Claude Code's environment. Do not rely on the shell function or assume `gh` resolves correctly in scripts.
+
+To download content from a GitHub repo, prefer the clone-to-tmp pattern over per-file API calls:
+
+```sh
+GH_TOKEN="$GITHUB_PERSONAL_TOKEN" /opt/homebrew/bin/gh repo clone owner/repo /tmp/repo
+cp -r /tmp/repo/path/to/target ~/.claude/skills/
+rm -rf /tmp/repo
+```
+
 ## Batch scraping rules
 When asked to scrape multiple URLs, ALWAYS spawn a separate catalog-scraper-worker subagent for each URL.
 Never process multiple URLs sequentially in the main thread.
