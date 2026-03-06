@@ -28,6 +28,7 @@ ask --raw --model <model> "query"   # plain stdout, safe to pipe
 | `--temperature <float>` | Set temperature |
 | `--chat` | Include conversation history |
 | `--append <text>` | Append extra text to query |
+| `--citations` / `-C` | Print source citations (Perplexity models only) |
 
 ---
 
@@ -165,6 +166,6 @@ ask --raw --model <model> "$(cat /tmp/query.txt)"
 
 ## When to use which model
 
-- **Perplexity** — web-grounded research, current events, citations
+- **Perplexity** — web-grounded research, current events, citations (`--citations` to print sources)
 - **Ollama (`--local`)** — sensitive data, offline, cheap subtasks, cost reduction
 - **Gemini / Imagen** — image generation, multimodal, long context

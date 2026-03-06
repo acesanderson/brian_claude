@@ -29,18 +29,22 @@ register and keeping changes minimal.
 
 ## Usage
 
+**Do NOT use `uv run script.py` directly** — the inline `# /// script` block pulls the
+wrong `conduit` from PyPI and crashes. Use the skill's `.venv` directly:
+
 ```bash
 # Pass a file
-uv run ~/.claude/skills/deslop/scripts/deslop.py _posts/my-post.md
-
-# Pipe stdin
-cat _posts/my-post.md | uv run ~/.claude/skills/deslop/scripts/deslop.py
+~/.claude/skills/deslop/.venv/bin/python ~/.claude/skills/deslop/scripts/deslop.py _posts/my-post.md
 
 # Capture output
-uv run ~/.claude/skills/deslop/scripts/deslop.py _posts/my-post.md > cleaned.md
+~/.claude/skills/deslop/.venv/bin/python ~/.claude/skills/deslop/scripts/deslop.py _posts/my-post.md > cleaned.md
 ```
 
 The script prints the revised post to stdout. Redirect or diff as needed.
+
+Debug output (API payloads) goes to stdout from the conduit library — suppress with
+`2>/dev/null` if needed, though in practice it only affects readability, not the
+final output which appears after the last Rich panel.
 
 ---
 
