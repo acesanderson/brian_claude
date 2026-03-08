@@ -1,6 +1,15 @@
 ---
 name: sec_edgar_api
-description: Fetches annual and quarterly reports (10-K, 10-Q, 20-F) from SEC EDGAR using stock tickers.
+description: >
+  The direct pipeline to SEC EDGAR for reading what companies officially disclosed in
+  regulatory filings. Invoke when any research task requires the actual text of a
+  company's own annual or quarterly report — 10-K (US annual), 20-F (foreign annual),
+  10-Q (quarterly). Use for competitive teardowns, investment research, and risk analysis
+  that must cite primary source disclosures: risk factors, MD&A, capex commitments,
+  export control language, segment descriptions, regulatory exposure. When a user wants
+  to know what a company said in its filing — not what news reported, not what analysts
+  summarized — this is the skill. Works via ticker for any public company. Does not cover
+  earnings call transcripts, investor day presentations, or private companies.
 ---
 
 # SEC Filings Skill
