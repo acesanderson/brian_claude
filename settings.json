@@ -2,6 +2,11 @@
   "permissions": {
     "allow": [
       "mcp__captain__*",
+      "Read(/Users/bianders/.claude/skills/cc-planner/**)",
+      "Read(/Users/bianders/.local/share/cc-planner/**)",
+      "Write(/Users/bianders/.local/share/cc-planner/**)",
+      "Edit(/Users/bianders/.local/share/cc-planner/**)",
+      "Bash(mkdir -p /Users/bianders/.local/share/cc-planner)",
       "Bash(cat:*)",
       "Bash(head:*)",
       "Bash(tail:*)",

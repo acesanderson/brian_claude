@@ -50,6 +50,17 @@ Skills must be portable across machines and must never pollute the system Python
 - **Scripts that generate output scripts** (i.e., the skill writes a `.py` file to the user's CWD): the generated script must embed uv inline script metadata (`# /// script` block with `dependencies`) so it is self-contained. It cannot rely on the skill's own `pyproject.toml` since it lives outside the skill dir.
 - These rules apply at **skill creation time**. skill-creator does not enforce them — you must apply them yourself when writing or reviewing any skill with Python scripts.
 
+## Claude Code skill context window best practices
+
+When designing or writing skills, minimize how much flows back into Claude's context window:
+
+1. **Output discipline**: Scripts should filter and format before returning. Return structured JSON with only the relevant fields — not verbose logs. If a tool call returns 200 lines and Claude needs 5, that's 195 wasted tokens per call.
+2. **Lazy reference loading**: Don't load any reference file until the specific branch of execution needs it. Use domain organization (e.g., read `aws.md` or `gcp.md`, not both).
+3. **Subagent isolation for heavy work**: Heavy research, large file processing, multi-step scraping — spawn a subagent. The parent context only sees the summary. Most powerful lever and most underused.
+4. **Avoid round-tripping on data you already have**: Don't read a file, write it back, then read it again to verify. Carry state forward rather than re-fetching.
+5. **SKILL.md length discipline**: The skill-creator says <500 lines, but treat that as a ceiling, not a target. Every line in SKILL.md is always in context when the skill is active.
+6. **Short-circuit conditions early**: Put validation logic first so you can bail before loading large reference files or running expensive scripts.
+
 ## Obsidian vault
 My Obsidian vault is at `$MORPHY` (`/Users/bianders/morphy`). Use this path when accessing or writing to vault notes.
 

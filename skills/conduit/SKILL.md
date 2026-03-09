@@ -169,3 +169,34 @@ ask --raw --model <model> "$(cat /tmp/query.txt)"
 - **Perplexity** (`--model sonar` or `--model sonar-pro`) — web-grounded research, current events, citations (`--citations` to print sources). Use `sonar` for fast/cheap, `sonar-pro` for deeper research.
 - **Ollama (`--local`)** — sensitive data, offline, cheap subtasks, cost reduction
 - **Gemini / Imagen** — image generation, multimodal, long context
+
+---
+
+## Model aliases
+
+Pass any alias via `--model <alias>`. Aliases are defined in `$BC/conduit-project/src/conduit/core/model/models/aliases.json`.
+
+| Alias | Resolves to |
+|-------|-------------|
+| `banana` / `google-imagen` | `gemini-2.5-flash-image` |
+| `claude` / `sonnet` | `claude-sonnet-4-6` |
+| `deepseek` | `deepseek-chat` |
+| `flash` | `gemini-3-flash-preview` |
+| `gemini` | `gemini-2.5-flash` |
+| `gemini3` | `gemini-3.1-pro-preview` |
+| `gpt` / `gpt-mini` / `nano` | `gpt-5-mini` |
+| `gpt3` | `gpt-3.5-turbo-0125` |
+| `gpt5` | `gpt-5.1-2025-11-13` |
+| `gpt-oss` | `gpt-oss:latest` |
+| `groq` | `mixtral-8x7b-32768` |
+| `haiku` | `claude-haiku-4-5-20251001` |
+| `imagegen` | `dall-e-3` |
+| `llama` | `llama3.1:latest` |
+| `mistral` / `mistral-large` | `mistral-large-latest` |
+| `mistral-medium` | `mistral-medium-2508` |
+| `mistral-small` | `mistral-small-latest` |
+| `ollama` | `mistral:latest` |
+| `opus` | `claude-opus-4-6` |
+| `qwen` | `qwen3:14b` |
+| `tts` | `gemini-2.5-flash-preview-tts` |
+| `quant` | `hf.co/unsloth/gpt-oss-20b-GGUF:Q8_0` |
