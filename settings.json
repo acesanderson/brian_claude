@@ -23,17 +23,11 @@
       "Bash(pwd:*)",
       "Bash(/Users/bianders/.claude/sdd-state.sh:*)",
       "Bash(~/.claude/sdd-state.sh:*)",
-      "Read(/Users/bianders/Brian_Code/**)",
-      "Edit(/Users/bianders/Brian_Code/**)",
-      "Write(/Users/bianders/Brian_Code/**)",
-      "Bash(*)"
+      "Bash(uv:*)",
+      "Bash(psql:*)"
     ],
     "deny": []
   },
-  "defaultMode": "acceptEdits",
-  "trustedDirectories": [
-    "/Users/bianders/Brian_Code"
-  ],
   "hooks": {
     "SessionEnd": [
       {
