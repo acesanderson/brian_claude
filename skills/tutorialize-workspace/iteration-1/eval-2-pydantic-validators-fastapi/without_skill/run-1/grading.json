@@ -1,0 +1,43 @@
+{
+  "eval_id": 2,
+  "eval_name": "pydantic-validators-fastapi",
+  "run_type": "without_skill",
+  "summary": {
+    "pass_rate": 0.6667,
+    "passed": 4,
+    "failed": 2,
+    "total": 6
+  },
+  "expectations": [
+    {
+      "text": "vault_file_created",
+      "passed": false,
+      "evidence": "No vault file created — response written inline to response.md, not to /Users/bianders/morphy/"
+    },
+    {
+      "text": "filename_title_case",
+      "passed": false,
+      "evidence": "No vault file created, so no filename to evaluate"
+    },
+    {
+      "text": "has_term_heading",
+      "passed": true,
+      "evidence": "Agent produced a response document about Pydantic validators with headings"
+    },
+    {
+      "text": "multiple_sections",
+      "passed": true,
+      "evidence": "Agent summary lists v1/v2 distinction, mode parameter, cross-field validation, FastAPI 422 errors, reference table, common mistakes"
+    },
+    {
+      "text": "context_anchored",
+      "passed": true,
+      "evidence": "Agent explicitly covered FastAPI 422 error surfacing and @validator vs @field_validator distinction"
+    },
+    {
+      "text": "substantial_length",
+      "passed": true,
+      "evidence": "Agent summary describes 6 topic areas with a reference table — likely >400 words"
+    }
+  ]
+}

@@ -391,6 +391,19 @@ fit, deal structure, or content evaluation.
 directory for any relevant docs before doing research Claude can't do alone (e.g., internal
 rubric docs, partner-specific notes from colleagues, role context).
 
+**`~/licensing/context/funnel-framework.md`** — the 10-gate licensing funnel: gate definitions,
+classifier signals, pass rate estimates, bottlenecks, and market expansion levers. Also contains
+funnel math (TLM → BHAG), deal archetype model (boutique vs. anchor), format tractability tiers
+(A/B/C), portfolio tier model (Tier 1/2/3), and World Catalog concept. Read for sourcing strategy,
+BD process design, or BHAG planning sessions.
+
+**`~/licensing/context/library-composition-analysis.md`** — empirical analysis of the existing
+licensed library (data as of 2026-02-01). Key findings: engagement concentration (top 1% of courses
+= 98.9% of all engagement; 19.7% of courses = zero engagement), partner roster profile (116 licensors,
+historically small studios not institutional vendors), Madecraft structural outlier (424 courses/deal),
+ratings uniformity (no discriminating power). Read when evaluating existing library, benchmarking
+new partner content, or making the internal case for licensing investments.
+
 ---
 
 ## Aquifer: Long-Term Token Optimization Layer

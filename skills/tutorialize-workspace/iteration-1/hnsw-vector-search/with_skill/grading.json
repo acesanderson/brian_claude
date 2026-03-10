@@ -1,0 +1,37 @@
+{
+  "eval_id": 0,
+  "eval_name": "hnsw-vector-search",
+  "run_type": "with_skill",
+  "assertions": [
+    {
+      "text": "vault_file_created",
+      "passed": true,
+      "evidence": "File saved to /Users/bianders/morphy/HNSW.md and copied to outputs directory"
+    },
+    {
+      "text": "filename_title_case",
+      "passed": true,
+      "evidence": "Filename is 'HNSW.md' — correct all-caps acronym, no hyphens"
+    },
+    {
+      "text": "has_term_heading",
+      "passed": true,
+      "evidence": "First heading: '# Demystifying HNSW: The Architecture of High-Recall Vector Search' — contains 'HNSW'"
+    },
+    {
+      "text": "multiple_sections",
+      "passed": true,
+      "evidence": "5 ## sections: How HNSW Works, The Hyperparameters, HNSW in FAISS, Gotchas and Common Misconceptions, Related Concepts"
+    },
+    {
+      "text": "context_anchored",
+      "passed": true,
+      "evidence": "FAISS referenced extensively — IndexHNSWFlat, IndexIVFFlat, IndexFlatL2 comparisons, faiss.IndexHNSWFlat code example"
+    },
+    {
+      "text": "substantial_length",
+      "passed": true,
+      "evidence": "~850 words — well over 400 word threshold"
+    }
+  ]
+}

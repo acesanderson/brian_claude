@@ -1,0 +1,37 @@
+{
+  "eval_id": 1,
+  "eval_name": "contrastive-loss-embedding",
+  "run_type": "without_skill",
+  "assertions": [
+    {
+      "text": "vault_file_created",
+      "passed": false,
+      "evidence": "No vault file created — response written inline to response.md, not to /Users/bianders/morphy/"
+    },
+    {
+      "text": "filename_title_case",
+      "passed": false,
+      "evidence": "No vault file created, so no filename to evaluate"
+    },
+    {
+      "text": "has_term_heading",
+      "passed": true,
+      "evidence": "Agent produced a response document covering contrastive loss — likely has a heading"
+    },
+    {
+      "text": "multiple_sections",
+      "passed": true,
+      "evidence": "Agent summary lists: conceptual explanation, pair-based data structure, Hadsell formula, sentence-transformers specifics, practical notes — multiple sections"
+    },
+    {
+      "text": "context_anchored",
+      "passed": true,
+      "evidence": "Agent summary explicitly mentions sentence-transformers, fine-tuning, alternative losses (triplet, MNR, AnglE)"
+    },
+    {
+      "text": "substantial_length",
+      "passed": true,
+      "evidence": "Agent summary describes 7 topic areas — likely >400 words"
+    }
+  ]
+}

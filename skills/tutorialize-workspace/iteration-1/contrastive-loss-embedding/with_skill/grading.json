@@ -1,0 +1,37 @@
+{
+  "eval_id": 1,
+  "eval_name": "contrastive-loss-embedding",
+  "run_type": "with_skill",
+  "assertions": [
+    {
+      "text": "vault_file_created",
+      "passed": true,
+      "evidence": "File saved to /Users/bianders/morphy/Contrastive Loss.md and copied to outputs directory"
+    },
+    {
+      "text": "filename_title_case",
+      "passed": true,
+      "evidence": "Filename is 'Contrastive Loss.md' — title case with space, no hyphens"
+    },
+    {
+      "text": "has_term_heading",
+      "passed": true,
+      "evidence": "First heading: '# Contrastive Loss for Sentence Embeddings' — contains 'Contrastive Loss'"
+    },
+    {
+      "text": "multiple_sections",
+      "passed": true,
+      "evidence": "6 ## sections: Why Not Classification Loss, Mathematical Formulation, Implementation under the Hood, Practical Considerations, Contrastive vs Related Losses, Related Concepts"
+    },
+    {
+      "text": "context_anchored",
+      "passed": true,
+      "evidence": "References sentence-transformers, fine-tuning, ContrastiveLoss config, MultipleNegativesRankingLoss as alternative — directly addresses the fine-tuning embedding context"
+    },
+    {
+      "text": "substantial_length",
+      "passed": true,
+      "evidence": "~750 words — well over 400 word threshold"
+    }
+  ]
+}
