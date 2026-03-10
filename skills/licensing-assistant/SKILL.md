@@ -355,8 +355,8 @@ scraping to locate the right catalog URL. Output: `training_urls.json` with
 structured JSON, XLSX, and markdown reports. Use for evaluating a partner's content depth
 and quality. Output goes to `~/licensing/partners/{slug}/` when the licensing dir exists.
 
-**`batch-dispatch`** — runs a skill in parallel across a list of inputs. Use when catalog
-collection is needed across multiple partners at once.
+When catalog collection is needed across multiple partners at once, use Claude Code's native
+subagent dispatch — spawn one `catalog-scraper-worker` subagent per partner URL.
 
 Only invoke these on explicit request. Do not proactively trigger scraping.
 
@@ -380,17 +380,15 @@ Run find-catalogues on the list of partner names. It produces `training_urls.jso
 Only pass partners where `confidence` is `high` or `medium` to the next step.
 Skip partners where confidence is `low` or `none` — flag those for manual review.
 
-**Step 2 — Build batch-dispatch input**:
-Transform find-catalogues output into a JSON array for batch-dispatch:
+**Step 2 — Build dispatch list**:
+Filter find-catalogues output to high/medium confidence partners:
 ```python
-# Bridge: find-catalogues results → batch-dispatch input list
 inputs = [
     {"provider": company, "url": data["primary_url"]}
     for company, data in results.items()
     if data["confidence"] in ("high", "medium")
 ]
 ```
-Instruction template: `"Scrape the course catalog for {{ item.provider }} from {{ item.url }}"`
 
 **Step 3 — Spawn one catalog-scraper-worker subagent per URL**:
 Per CLAUDE.md rules, spawn a separate `catalog-scraper-worker` subagent for each URL.
