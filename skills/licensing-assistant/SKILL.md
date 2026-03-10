@@ -297,6 +297,27 @@ When any file is written to a `business_context/[domain]/` directory (excluding 
 - Add a note: "[domain]/summary.md is now stale — run 'summarize [domain]' to refresh"
 Do NOT auto-summarize. Summarization is always explicit.
 
+**On context update request**
+When the user asks to save, update, or persist context from the current session:
+
+1. Draft the proposed updates as text — do NOT write files yet.
+2. Read `context-review-prompt.md` from this skill's directory.
+3. Substitute into the template:
+   - `{{ target_files }}`: list of file paths the review subagent should read
+     (one per line — the files being updated, not the proposed content)
+   - `{{ proposed_updates }}`: the full draft updates, clearly labeled by target file
+4. Spawn a review subagent via the Agent tool with the substituted prompt.
+   Use `run_in_background=False` — the review must complete before any writes.
+5. Present the subagent's verdict to the user. Apply APPROVE items directly.
+   For MODIFY items, show the suggested change and apply unless the user objects.
+   For REJECT items, surface the reason and ask the user how to proceed.
+6. Execute file writes only after the review is complete.
+7. Append to `manifest.md` as usual.
+
+This hook fires for any request to update scratchpad.md, context/ files, or SKILL.md.
+It does NOT fire for manifest.md (append-only log, no review needed) or partner files
+(operational notes, not shared context artifacts).
+
 **On "resolve"**
 When the user says "resolve": review the current conversation for meaningful improvements
 to this skill. Update only if there are substantive changes to workflow, conventions,

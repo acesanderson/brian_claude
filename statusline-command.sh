@@ -65,11 +65,28 @@ else
     cost_str="${dim}\$--.--${reset}"
 fi
 
+# SDD state
+sdd_str=""
+state_file="$HOME/.claude/sdd_state.json"
+if [[ -f "$state_file" ]]; then
+  sdd_state=$(jq -r '.state // ""' "$state_file")
+  sdd_cwd=$(jq -r '.cwd // ""' "$state_file")
+  if [[ "$sdd_cwd" == "$cwd" && "$sdd_state" == sdd-* ]]; then
+    sdd_str="${dim}${sdd_state}${reset}"
+  fi
+fi
+
 sep="${dim} | ${reset}"
 
-if [[ -n "$git_branch" ]]; then
+if [[ -n "$git_branch" && -n "$sdd_str" ]]; then
+    printf "${cyan}%s${reset}${sep}${dim}%s${reset}${sep}${dim}%s${reset}${sep}%s${sep}${dim}%s${reset}${sep}%s${sep}%s" \
+        "$display_dir" "$git_branch" "$model" "$ctx_str" "$duration_fmt" "$cost_str" "$sdd_str"
+elif [[ -n "$git_branch" ]]; then
     printf "${cyan}%s${reset}${sep}${dim}%s${reset}${sep}${dim}%s${reset}${sep}%s${sep}${dim}%s${reset}${sep}%s" \
         "$display_dir" "$git_branch" "$model" "$ctx_str" "$duration_fmt" "$cost_str"
+elif [[ -n "$sdd_str" ]]; then
+    printf "${cyan}%s${reset}${sep}${dim}%s${reset}${sep}%s${sep}${dim}%s${reset}${sep}%s${sep}%s" \
+        "$display_dir" "$model" "$ctx_str" "$duration_fmt" "$cost_str" "$sdd_str"
 else
     printf "${cyan}%s${reset}${sep}${dim}%s${reset}${sep}%s${sep}${dim}%s${reset}${sep}%s" \
         "$display_dir" "$model" "$ctx_str" "$duration_fmt" "$cost_str"

@@ -2,8 +2,9 @@
 !/skills
 !/mcp-servers
 !/.gitignore
+!/commands
 !CLAUDE.md
 !settings.json
 !settings.local.json
-!statusline-command.sh
+!*.sh
 
