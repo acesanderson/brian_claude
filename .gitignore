@@ -4,5 +4,6 @@
 !/.gitignore
 !CLAUDE.md
 !settings.json
-/skills/licensing_context
-/skills/professional_certificate_context
+!settings.local.json
+!statusline-command.sh
+

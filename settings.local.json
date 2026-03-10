@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(uv run python:*)",
+      "Bash(curl:*)",
+      "Bash(pip install:*)",
+      "Bash(uv run:*)",
+      "Bash(ask:*)",
+      "Bash(models:*)",
+      "Bash(chmod +x:*)",
+      "Bash(echo:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(wait:*)",
+      "Bash(bash:*)",
+      "Bash(notebooklm status:*)",
+      "Bash(notebooklm list:*)",
+      "Bash(notebooklm create:*)",
+      "Bash(notebooklm source:*)",
+      "Bash(notebooklm generate:*)",
+      "Bash(notebooklm artifact:*)",
+      "Bash(notebooklm download:*)",
+      "Bash(xxd:*)",
+      "Bash(notebooklm:*)",
+      "Bash(du:*)",
+      "Bash(TaskOutput b307t07mc:*)",
+      "WebFetch(domain:metricsparrow.com)",
+      "Bash(brew cleanup:*)",
+      "Bash(uv cache:*)",
+      "Bash(BRAVE_API_KEY=$BRAVE_API_KEY uv run:*)",
+      "Bash(BRAVE_API_KEY=$BRAVE_API_KEY python3:*)",
+      "Bash(clear:*)",
+      "Bash(~/.claude/skills/deslop/.venv/bin/python:*)",
+      "Bash(do:*)",
+      "Bash(git:*)",
+      "Bash(GH_TOKEN=\"$GITHUB_PERSONAL_TOKEN\" /opt/homebrew/bin/gh repo:*)"
+    ]
+  }
+}
