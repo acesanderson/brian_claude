@@ -142,6 +142,31 @@ Append one line per file created or meaningfully edited:
 
 ---
 
+## Google Docs / Sheets Registry Convention
+
+Any time a Google Doc or Sheet URL is encountered — shared by Brian, created by a tool, or referenced in any artifact — add it to `~/job_application/google_docs_registry.json` immediately.
+
+**Entry format:**
+```json
+{
+  "type": "doc" | "sheet",
+  "title": "Human-readable name",
+  "url": "https://docs.google.com/...",
+  "id": "<document or spreadsheet ID>",
+  "added": "YYYY-MM-DD",
+  "description": "What this doc is and why it matters to the project",
+  "tabs": [
+    { "name": "Tab name", "gid": "gid string", "description": "What's in this tab" }
+  ]
+}
+```
+
+The `tabs` field is only required for sheets with multiple relevant tabs. Omit for single-tab sheets and all Docs.
+
+Do this as a reflex — not as a separate task at session end. The registry is the canonical place to find any Google Doc that has been touched in this project.
+
+---
+
 ## Person Research Procedure
 
 Use when Brian provides a name and asks for a mini-bio, or when the Manager identifies a key person worth profiling (panelist, stakeholder, skip-level, etc.).

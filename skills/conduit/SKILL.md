@@ -119,6 +119,66 @@ conduit_cache -p <project> -w        # wipe all entries for project (with confir
 
 ---
 
+## `conduit batch` — parallel queries
+
+Run multiple prompts against a model simultaneously. All requests fire in parallel; results are returned in input order.
+
+```bash
+# Inline prompts — primary use case for agentic multi-angle research
+conduit batch -m sonar-pro \
+  "What are the philosophical implications of X?" \
+  "What does the economic data say about X?" \
+  "What are the technical constraints on X?" \
+  "What do critics of X argue?" \
+  "What are historical precedents for X?"
+
+# From a file (one prompt per line)
+conduit batch -m gpt-4o -f prompts.txt
+
+# From stdin
+cat prompts.txt | conduit batch -m sonar-pro
+
+# File + inline merged
+conduit batch -f base_prompts.txt "one more angle" -m claude
+```
+
+| Flag | Effect |
+|------|--------|
+| `-m, --model` | Model for all prompts |
+| `-t, --temperature` | Temperature (0.0–1.0) |
+| `-f, --file PATH` | Read prompts from file (one per line) |
+| `-n, --max-concurrent INT` | Cap parallel requests |
+| `-a, --append TEXT` | Suffix appended to every prompt |
+| `-r, --raw` | Plain text output, separated by `---` |
+| `--json` | Output as JSON array `[{index, prompt, response}]` |
+
+**Output modes:**
+
+```bash
+# Default: numbered headers + markdown bodies (pretty)
+conduit batch -m sonar-pro "Q1" "Q2"
+
+# Raw: pipe-friendly, responses separated by ---
+conduit batch -m sonar-pro --raw "Q1" "Q2"
+
+# JSON: jq-friendly structured output
+conduit batch -m sonar-pro --json "Q1" "Q2" | jq '.[].response'
+```
+
+**Agentic pattern — multi-angle research:**
+
+When an agentic task calls for exploring a problem from multiple dimensions, write the prompts and call batch rather than making sequential `ask` calls:
+
+```bash
+# Write prompts to a temp file, then batch
+conduit batch --json -m sonar-pro \
+  "$(cat /tmp/prompt1.txt)" \
+  "$(cat /tmp/prompt2.txt)" \
+  "$(cat /tmp/prompt3.txt)" | jq -r '.[].response' | paste -sd '\n---\n'
+```
+
+---
+
 ## POSIX pipe patterns
 
 `--raw` makes `ask` output plain text to stdout. This is the key to chaining conduit into pipelines.

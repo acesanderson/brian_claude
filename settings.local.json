@@ -44,7 +44,9 @@
       "Bash(email-query list:*)",
       "Bash(PGPASSWORD=\"$POSTGRES_PASSWORD\" psql -h localhost -U postgres -d outlook_email -c \"SELECT message_id FROM emails WHERE subject LIKE '%Potential Licensing Partnership%' LIMIT 1;\" 2>&1)",
       "Bash(PGPASSWORD=\"$POSTGRES_PASSWORD\" psql -h caruana.local -U postgres -d outlook_email -c \"SELECT message_id FROM emails WHERE subject LIKE '%Potential Licensing Partnership%' LIMIT 1;\" 2>&1)",
-      "Bash(PGPASSWORD=\"$POSTGRES_PASSWORD\" psql -h caruana.local -U postgres -d outlook_email -c \"SELECT message_id FROM emails WHERE subject LIKE '%Potential Licensing Partnership%' AND folder = 'sent' LIMIT 1;\" 2>&1)"
+      "Bash(PGPASSWORD=\"$POSTGRES_PASSWORD\" psql -h caruana.local -U postgres -d outlook_email -c \"SELECT message_id FROM emails WHERE subject LIKE '%Potential Licensing Partnership%' AND folder = 'sent' LIMIT 1;\" 2>&1)",
+      "Bash(grep -io '.{200}docs\\\\.google\\\\.com/spreadsheets/d/1qA6wStKbC4yJuHs5jiLNvBFhb-ojPcjGtQOQxak2I2U[^\"<>]*.{0,100}' \"/Users/bianders/.claude/projects/-Users-bianders/18c2b342-31b9-49c4-a3f0-9358c38496b0/tool-results/mcp-captain-get_confluence_page-1773193789687.txt\" | head -5)",
+      "Bash(grep -io '.{200}docs\\\\.google\\\\.com/document/d/1OsOGBGkgFiM8i70cXqPLv6WnhNCO_2kA5iE8iaSRcUM[^\"<>]*.{0,100}' \"/Users/bianders/.claude/projects/-Users-bianders/18c2b342-31b9-49c4-a3f0-9358c38496b0/tool-results/mcp-captain-get_confluence_page-1773193789687.txt\" | head -5)"
     ]
   }
 }
