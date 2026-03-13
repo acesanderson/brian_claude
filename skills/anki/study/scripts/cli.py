@@ -30,6 +30,7 @@ def _card_dict(card) -> dict:
         "due": str(card.due), "interval": card.interval,
         "ease_factor": card.ease_factor, "reps": card.reps,
         "lapses": card.lapses, "suspended": card.suspended,
+        "reference": card.reference,
     }
 
 
@@ -49,9 +50,12 @@ def cmd_deck_delete(args, conn):
 
 
 def cmd_card_add(args, conn):
+    from src.display import REFERENCE_MAX_CHARS
     tags = [t.strip() for t in args.tags.split(",")] if args.tags else []
+    reference = args.reference[:REFERENCE_MAX_CHARS] if args.reference else None
     card = service.add_card(conn, deck_name=args.deck,
-                             front=args.front, back=args.back, tags=tags)
+                             front=args.front, back=args.back,
+                             tags=tags, reference=reference)
     _out(_card_dict(card))
 
 
@@ -138,6 +142,7 @@ def build_parser() -> argparse.ArgumentParser:
     ca.add_argument("--front", required=True)
     ca.add_argument("--back", required=True)
     ca.add_argument("--tags", default="")
+    ca.add_argument("--reference", default=None, help="Optional citation or source text")
     ce = csub.add_parser("edit")
     ce.add_argument("id", type=int)
     ce.add_argument("--front"); ce.add_argument("--back"); ce.add_argument("--tags")
