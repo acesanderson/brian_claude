@@ -202,6 +202,69 @@ def transcribe_whisper(url_or_id: str, model: str = "small") -> "Transcript":
             logger.error("temp audio file not found for cleanup: %s", audio_path)
 
 
+def get_metadata(url_or_id: str) -> "VideoMetadata":
+    import yt_dlp
+    from _models import VideoMetadata
+    from _util import extract_video_id
+    from _cache import get_metadata_cache, set_metadata_cache
+
+    video_id = extract_video_id(url_or_id)
+    cached = get_metadata_cache(video_id)
+    if cached:
+        logger.debug("metadata cache hit for %s", video_id)
+        return VideoMetadata(**cached)
+    logger.debug("metadata cache miss for %s", video_id)
+
+    url = f"https://www.youtube.com/watch?v={video_id}"
+    ydl_opts = {"quiet": True, "skip_download": True, "no_warnings": True}
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    raw_date = (info or {}).get("upload_date", "")
+    published_date = (
+        f"{raw_date[:4]}-{raw_date[4:6]}-{raw_date[6:]}"
+        if len(raw_date) == 8 else ""
+    )
+
+    data = {
+        "video_id": video_id,
+        "title": (info or {}).get("title", ""),
+        "channel": (info or {}).get("uploader", ""),
+        "duration": int((info or {}).get("duration", 0)),
+        "published_date": published_date,
+        "description": (info or {}).get("description", ""),
+        "tags": (info or {}).get("tags", []),
+        "url": url,
+    }
+    set_metadata_cache(video_id, data)
+    return VideoMetadata(**data)
+
+
+def list_transcripts(url_or_id: str) -> list:
+    from youtube_transcript_api import YouTubeTranscriptApi
+    from _models import TranscriptMeta
+    from _util import extract_video_id
+
+    video_id = extract_video_id(url_or_id)
+    api = YouTubeTranscriptApi()
+    transcript_list = api.list(video_id)
+
+    manual = []
+    generated = []
+    for t in transcript_list:
+        meta = TranscriptMeta(
+            language=t.language,
+            language_code=t.language_code,
+            is_generated=t.is_generated,
+            is_translatable=t.is_translatable,
+        )
+        if t.is_generated:
+            generated.append(meta)
+        else:
+            manual.append(meta)
+    return manual + generated
+
+
 def search_transcript(url_or_id: str, query: str) -> list:
     from _models import TranscriptHit
     if not query:
