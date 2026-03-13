@@ -372,11 +372,87 @@ Detailed markdown report with analysis and recommendations
 - `description` - Course description/summary
 - `duration` - Hours, modules, or time commitment
 - `level` - Beginner/Intermediate/Advanced/All Levels
-- `format` - On-Demand/Live/Blended/Self-Paced
+- `format` - **MUST use canonical enum** (see Format Normalization below)
 - `price` - Free/Paid/$XX (as displayed)
 - `category` - Topic/subject area
 - `instructor` - If available
 - `date_scraped` - ISO format date (YYYY-MM-DD)
+
+### Format Normalization (REQUIRED)
+
+The `format` field must use a canonical enum. Free-text format values break the
+downstream classifier. Every scraper MUST call `normalize_format()` before writing
+the format field. Never write a raw scraped string directly into `format`.
+
+**Canonical enum values:**
+
+| Value | Meaning |
+|---|---|
+| `self-paced` | Asynchronous on-demand video or text content |
+| `instructor-led` | Synchronous live instruction (in-person or virtual) |
+| `hands-on-lab` | Interactive lab requiring a platform environment (not ingestible) |
+| `learning-path` | Ordered collection of courses — a container, not a course |
+| `assessment` | Standalone exam, quiz, or proctored evaluation |
+| `bundle` | Package of multiple courses sold or delivered together |
+| `blended` | Mix of self-paced and live/in-person components |
+| `unknown` | Format cannot be determined from available metadata |
+
+**Copy this function into every generated scraper:**
+
+```python
+def normalize_format(raw: str) -> str:
+    """Map raw scraped format strings to canonical enum values."""
+    if not raw:
+        return "unknown"
+    v = raw.lower().strip()
+
+    # Instructor-led / live / synchronous
+    if any(x in v for x in [
+        "instructor", "ilt", "vilt", "live", "webinar", "bootcamp",
+        "cohort", "on-campus", "on campus", "in-person", "blended",
+        "custom sow", "consulting",
+    ]):
+        # Blended is a distinct category
+        if "blended" in v:
+            return "blended"
+        return "instructor-led"
+
+    # Labs / interactive platform-dependent
+    if any(x in v for x in ["lab", "sandbox", "interactive", "hands-on"]):
+        return "hands-on-lab"
+
+    # Containers (learning paths, bundles, certificate programs)
+    if any(x in v for x in ["learning path", "bundle", "certificate program", "badge"]):
+        return "learning-path" if "path" in v else "bundle"
+
+    # Assessments / exams
+    if any(x in v for x in [
+        "assessment", "exam", "certification exam", "skillcred",
+        "self-study + online exam", "self-paced exam",
+    ]):
+        return "assessment"
+
+    # Self-paced / on-demand (most common — check last)
+    if any(x in v for x in [
+        "on-demand", "on demand", "self-paced", "self paced",
+        "online", "tutorial", "e-learning", "elearning",
+        "module", "crash course", "learning byte", "prep course",
+        "recording", "video",
+    ]):
+        return "self-paced"
+
+    return "unknown"
+```
+
+**Usage in scraper:**
+```python
+course = {
+    "format": normalize_format(raw_format_string),
+    # ... other fields
+}
+```
+
+If the site provides no format signal, set `"format": "unknown"` — do not guess.
 
 **Optional columns** (include if available):
 - `prerequisites`
