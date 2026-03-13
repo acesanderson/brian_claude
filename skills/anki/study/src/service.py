@@ -45,9 +45,11 @@ def add_card(
     front: str,
     back: str,
     tags: list[str] | None = None,
+    reference: str | None = None,
 ) -> Card:
     deck = get_deck(conn, deck_name)
-    card = repo.add_card(conn, deck_id=deck.id, front=front, back=back, tags=tags or [])
+    card = repo.add_card(conn, deck_id=deck.id, front=front, back=back,
+                         tags=tags or [], reference=reference)
     logger.debug("Added card id=%d to deck '%s'", card.id, deck_name)
     return card
 

@@ -77,3 +77,37 @@ def test_get_stats_global(conn):
     assert stats["deck"] is None
     assert "daily_counts" in stats
     assert "new" not in stats
+
+
+def test_add_card_with_reference(conn):
+    """service.add_card passes reference through to repo."""
+    service.create_deck(conn, "svc_ref")
+    card = service.add_card(conn, deck_name="svc_ref", front="Q", back="A",
+                             reference="a source")
+    assert card.reference == "a source"
+
+
+def test_add_card_reference_defaults_none(conn):
+    """service.add_card without reference produces reference=None."""
+    service.create_deck(conn, "svc_ref_none")
+    card = service.add_card(conn, deck_name="svc_ref_none", front="Q", back="A")
+    assert card.reference is None
+
+
+def test_snapshot_card_excludes_reference(conn):
+    """snapshot_card must not include 'reference' — it is not a scheduling field."""
+    service.create_deck(conn, "svc_snap")
+    card = service.add_card(conn, deck_name="svc_snap", front="Q", back="A",
+                             reference="do not snapshot me")
+    snap = service.snapshot_card(card)
+    assert "reference" not in snap
+
+
+def test_reference_over_limit_stored_truncated_to_500(conn):
+    """AC: reference of 600 chars stored as exactly 500 chars (simulates CLI truncation)."""
+    from src.display import REFERENCE_MAX_CHARS
+    service.create_deck(conn, "svc_trunc")
+    truncated = "x" * REFERENCE_MAX_CHARS
+    card = service.add_card(conn, deck_name="svc_trunc", front="Q", back="A",
+                             reference=truncated)
+    assert len(card.reference) == 500
