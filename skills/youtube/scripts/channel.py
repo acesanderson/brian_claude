@@ -1,0 +1,175 @@
+from __future__ import annotations
+
+import logging
+import os
+import re
+from typing import TYPE_CHECKING
+
+import httpx
+
+if TYPE_CHECKING:
+    from _models import (
+        ChannelProfile,
+        Video,
+        ContentBreakdown,
+        ChannelComparison,
+        PlaylistPage,
+        CommentPage,
+    )
+
+logger = logging.getLogger("youtube")
+
+_BASE = "https://www.googleapis.com/youtube/v3"
+
+
+class MissingAPIKeyError(Exception):
+    pass
+
+
+class ChannelNotFoundError(Exception):
+    pass
+
+
+class PlaylistNotFoundError(Exception):
+    pass
+
+
+class CommentsDisabled(Exception):
+    pass
+
+
+class InvalidPageTokenError(Exception):
+    pass
+
+
+def _api_key() -> str:
+    key = os.getenv("YOUTUBE_API_KEY", "")
+    if not key:
+        raise MissingAPIKeyError(
+            "YOUTUBE_API_KEY environment variable is not set or is empty"
+        )
+    return key
+
+
+def _get(path: str, **params) -> dict:
+    params["key"] = _api_key()
+    resp = httpx.get(f"{_BASE}/{path}", params=params)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def _parse_duration(iso: str) -> int:
+    m = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", iso)
+    if not m:
+        return 0
+    h, mins, s = m.group(1), m.group(2), m.group(3)
+    return int(h or 0) * 3600 + int(mins or 0) * 60 + int(s or 0)
+
+
+def get_channel(handle_or_id: str) -> "ChannelProfile":
+    _api_key()  # raises MissingAPIKeyError if not set
+    raise NotImplementedError("get_channel is implemented in Task 10")
+
+
+def get_top_videos(
+    channel_id: str,
+    n: int = 10,
+    exclude_shorts: bool = True,
+) -> list:
+    from _models import Video
+    from _util import is_short
+
+    if n > 50:
+        raise ValueError(f"n must be <= 50, got {n}")
+
+    logger.warning("search.list called (100 quota units) for channel %s", channel_id)
+    data = _get(
+        "search",
+        part="id",
+        channelId=channel_id,
+        order="viewCount",
+        type="video",
+        maxResults=n,
+    )
+
+    video_ids = [item["id"]["videoId"] for item in data.get("items", [])]
+    if not video_ids:
+        return []
+
+    details = _get(
+        "videos",
+        part="snippet,statistics,contentDetails",
+        id=",".join(video_ids),
+    )
+
+    videos = []
+    for item in details.get("items", []):
+        duration_seconds = _parse_duration(
+            item["contentDetails"].get("duration", "PT0S")
+        )
+        short = is_short(duration_seconds)
+        if exclude_shorts and short:
+            continue
+        videos.append(Video(
+            id=item["id"],
+            title=item["snippet"]["title"],
+            view_count=int(item["statistics"].get("viewCount", 0)),
+            like_count=int(item["statistics"]["likeCount"])
+            if "likeCount" in item["statistics"] else None,
+            duration_seconds=duration_seconds,
+            is_short=short,
+            published_at=item["snippet"]["publishedAt"],
+            category=None,
+            topics=[],
+        ))
+    return videos
+
+
+def get_comments(
+    video_id: str,
+    max_items: int = 20,
+    page_token: str | None = None,
+) -> "CommentPage":
+    from _models import Comment, CommentPage
+
+    if max_items > 100:
+        raise ValueError(f"max_items must be <= 100, got {max_items}")
+
+    params: dict = dict(
+        part="snippet",
+        videoId=video_id,
+        order="relevance",
+        maxResults=min(max_items, 100),
+        textFormat="plainText",
+    )
+    if page_token:
+        params["pageToken"] = page_token
+
+    try:
+        data = _get("commentThreads", **params)
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code == 403:
+            try:
+                reason = exc.response.json()["error"]["errors"][0]["reason"]
+            except Exception:
+                reason = ""
+            if reason == "commentsDisabled":
+                raise CommentsDisabled(f"Comments are disabled for video {video_id}") from exc
+        raise
+
+    comments = []
+    for item in data.get("items", []):
+        top = item["snippet"]["topLevelComment"]["snippet"]
+        comments.append(Comment(
+            id=item["id"],
+            text=top["textDisplay"],
+            author=top["authorDisplayName"],
+            like_count=top.get("likeCount", 0),
+            published_at=top["publishedAt"],
+            reply_count=item["snippet"].get("totalReplyCount", 0),
+        ))
+
+    return CommentPage(
+        items=comments,
+        next_page_token=data.get("nextPageToken"),
+    )
