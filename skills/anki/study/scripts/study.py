@@ -16,6 +16,12 @@ from rich.rule import Rule
 from src.db import get_conn, init_schema
 from src import service
 from src.models import Card, SessionStats
+from src.display import (
+    REFERENCE_MAX_CHARS,
+    DISPLAY_MAX_LINES,
+    truncate_for_display,
+    reference_key_markup,
+)
 
 console = Console()
 
@@ -38,6 +44,20 @@ def print_header(deck_name: str, total: int, position: int) -> None:
     console.print(Rule(f"[bold]{deck_name}[/bold]  Card {position + 1}/{total}"))
 
 
+def print_action_bar(card: Card) -> None:
+    console.print(
+        "  [bold cyan][1][/bold cyan] Again  "
+        "[bold yellow][2][/bold yellow] Hard  "
+        "[bold green][3][/bold green] Good  "
+        "[bold blue][4][/bold blue] Easy"
+    )
+    ref_markup = reference_key_markup(bool(card.reference))
+    console.print(
+        f"  [dim][a][/dim] add  [dim][u][/dim] undo  "
+        f"{ref_markup}  [bold green][k][/bold green] ask  [dim][q][/dim] quit"
+    )
+
+
 def prompt_add_card(conn, current_deck: str) -> None:
     console.print("\n[dim]Add card[/dim]")
     deck_input = input(f"  Deck (default: {current_deck}): ").strip()
@@ -50,10 +70,16 @@ def prompt_add_card(conn, current_deck: str) -> None:
     if not back:
         console.print("[yellow]Cancelled.[/yellow]")
         return
+    reference_raw = input("  Reference (optional, enter to skip): ").strip()
+    if reference_raw and len(reference_raw) > REFERENCE_MAX_CHARS:
+        console.print(f"[yellow]Reference truncated to {REFERENCE_MAX_CHARS} chars.[/yellow]")
+        reference_raw = reference_raw[:REFERENCE_MAX_CHARS]
+    reference = reference_raw or None
     tags_raw = input("  Tags (comma-separated, optional): ").strip()
     tags = [t.strip() for t in tags_raw.split(",")] if tags_raw else []
     try:
-        card = service.add_card(conn, deck_name=deck_name, front=front, back=back, tags=tags)
+        card = service.add_card(conn, deck_name=deck_name, front=front, back=back,
+                                tags=tags, reference=reference)
         console.print(f"[green]Added card {card.id} to '{deck_name}'.[/green]")
         console.print("[dim](Card not added to current session queue.)[/dim]")
     except ValueError as e:
@@ -103,13 +129,7 @@ def run_session(conn, deck_name: str, cram: bool) -> None:
         console.print(Rule())
         render_card_side(card.back)
         console.print()
-        console.print(
-            "  [bold cyan][1][/bold cyan] Again  "
-            "[bold yellow][2][/bold yellow] Hard  "
-            "[bold green][3][/bold green] Good  "
-            "[bold blue][4][/bold blue] Easy  "
-            "[dim][a][/dim] Add  [dim][u][/dim] Undo  [dim][q][/dim] Quit"
-        )
+        print_action_bar(card)
 
         while True:
             key = read_key().lower()
@@ -132,13 +152,30 @@ def run_session(conn, deck_name: str, cram: bool) -> None:
                 break
             elif key == "a":
                 prompt_add_card(conn, current_deck=deck_name)
-                console.print(
-                    "  [bold cyan][1][/bold cyan] Again  "
-                    "[bold yellow][2][/bold yellow] Hard  "
-                    "[bold green][3][/bold green] Good  "
-                    "[bold blue][4][/bold blue] Easy  "
-                    "[dim][a][/dim] Add  [dim][u][/dim] Undo  [dim][q][/dim] Quit"
-                )
+                print_action_bar(card)
+            elif key == "r":
+                if card.reference:
+                    console.print(Rule("Reference"))
+                    truncated = truncate_for_display(card.reference, width=console.width)
+                    console.print(Markdown(truncated))
+                    console.print()
+                else:
+                    console.print("[dim]No reference.[/dim]")
+                print_action_bar(card)
+            elif key == "k":
+                console.print("[dim]Ask a question about this card:[/dim]")
+                query = ""
+                while not query.strip():
+                    query = input("  Ask: ").strip()
+                    if not query:
+                        console.print("[yellow]Query cannot be empty.[/yellow]")
+                from src.llm import ask_card as llm_ask
+                response = llm_ask(deck_name, card, query)
+                console.print(Rule("Answer"))
+                truncated = truncate_for_display(response, width=console.width)
+                console.print(Markdown(truncated))
+                console.print()
+                print_action_bar(card)
             elif key == "u":
                 if undo_stack:
                     prev_id, prev_snap, prev_rating = undo_stack.pop()
@@ -146,9 +183,10 @@ def run_session(conn, deck_name: str, cram: bool) -> None:
                     stats.unrecord(prev_rating)
                     i = max(0, i - 1)
                     console.print("[dim]Undone.[/dim]")
+                    break  # go back to prior card's front
                 else:
                     console.print("[dim]Nothing to undo.[/dim]")
-                break
+                    print_action_bar(card)  # stay on current card's back
             elif key == "q":
                 print_session_summary(stats)
                 return
