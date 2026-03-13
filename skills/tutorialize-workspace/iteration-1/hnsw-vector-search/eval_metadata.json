@@ -1,6 +1,0 @@
-{
-  "eval_id": 0,
-  "eval_name": "hnsw-vector-search",
-  "prompt": "We've been building a vector similarity search feature using FAISS. I keep seeing references to HNSW as the index type but I don't fully understand what it is or why it's preferred. tutorialize HNSW",
-  "assertions": []
-}
