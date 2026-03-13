@@ -59,6 +59,7 @@ def get_conn(dbname: str = "anki") -> Generator[psycopg2.extensions.connection, 
 def init_schema(conn: psycopg2.extensions.connection) -> None:
     with conn.cursor() as cur:
         cur.execute(SCHEMA_SQL)
+        cur.execute("ALTER TABLE cards ADD COLUMN IF NOT EXISTS reference TEXT")
     conn.commit()
 
 

@@ -48,3 +48,19 @@ def test_interval_as_timedelta_new():
     card = _make_card("new", 0)
     td = interval_as_timedelta(card)
     assert td == timedelta(days=0)
+
+
+def test_init_schema_reference_column_idempotent():
+    """init_schema must not fail when reference column already exists."""
+    with get_conn() as conn:
+        init_schema(conn)
+        init_schema(conn)
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT column_name FROM information_schema.columns
+                WHERE table_name = 'cards' AND column_name = 'reference'
+                """
+            )
+            row = cur.fetchone()
+    assert row is not None, "reference column should exist after init_schema"
