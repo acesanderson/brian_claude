@@ -1,6 +1,6 @@
 ---
 name: catalog-scraper
-description: Scrape and analyze course catalogs from training providers (HubSpot Academy, Salesforce Trailhead, Anaconda Learning, DataCamp, etc.) to evaluate content for potential LinkedIn Learning licensing. Generates standardized JSON, XLSX (Excel), and markdown reports. Use when user requests to scrape, analyze, or generate course catalogs from any training platform, including requests like "scrape [provider] course catalog", "generate course list from [URL]", "analyze [provider]'s training offerings", or "create catalog for [provider]". Handles various architectures (single page, paginated, navigation-based) and obstacles (email gates, CloudFront protection, lazy loading).
+description: Scrape and analyze course catalogs from training providers to evaluate content for potential LinkedIn Learning licensing. Handles the full pipeline — URL discovery, scraping, analysis, and publishing. Use when user says things like "scrape [provider]", "catalog [company]", "analyze [provider]'s training offerings", "find training URLs for [company]", "discover course catalogs for [company]", or "create catalog for [provider]". Accepts company name alone (discovers portal URLs first) or company name + URL (skips discovery). Handles various architectures (single page, paginated, navigation-based) and obstacles (email gates, CloudFront protection, lazy loading). Generates standardized JSON, XLSX, markdown report, and Google Spreadsheet.
 ---
 
 # Course Catalog Scraper
@@ -170,6 +170,54 @@ uv run scrape_{provider_slug}.py
 scraping, cross-check against the filesystem — if `~/licensing/partners/{slug}/catalog.json`
 already exists, treat it as scraped regardless of registry state. Do not re-scrape unless
 explicitly asked to refresh.
+
+### Phase 0.5: URL Discovery (run only when no URL is provided)
+
+If the user gives a company name without a URL, discover the training portal(s) before scraping.
+
+Use the brave-web-search skill CLI:
+```bash
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "QUERY"
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "URL"
+```
+
+**Search queries to run** (for each company):
+- `"{company}" academy courses`
+- `"{company}" training certification`
+- `"{company}" learning platform`
+
+**Candidate URL patterns** (ranked by confidence):
+- `high` — dedicated subdomain: `learn.company.com`, `academy.company.com`, `university.company.com`
+- `medium` — main site section: `company.com/courses`, `company.com/training`, `company.com/learn`
+- `medium` — third-party hosted (Skilljar, Thinkific, Teachable — note the platform)
+- `low` — limited info or auth wall visible
+
+**For each candidate**, fetch the URL to confirm it's a real course catalog (not a marketing page or login wall). Discard candidates with no visible course listings.
+
+**Output**: a list of `(portal_label, url)` pairs. For example, Crowdstrike might yield:
+- `("CrowdStrike University", "https://university.crowdstrike.com")`
+- `("Falcon Training", "https://www.crowdstrike.com/falcon-training")`
+
+If only one portal found → proceed linearly through Phases 1–6.
+If multiple portals found → see **Multi-Portal Dispatch** below before starting Phase 1.
+
+### Multi-Portal Dispatch
+
+When Phase 0.5 finds **2+ distinct training portals** for a company, spawn one subagent per portal (per CLAUDE.md batch scraping rules). Do NOT process them sequentially in the main thread.
+
+**Each subagent receives:**
+- The company name and portal label
+- The specific catalog URL
+- Instructions to run Phases 1–3 (discovery, extraction, script) and return:
+  - The extracted course list as a JSON array (printed to stdout)
+  - A brief summary of: architecture type, obstacles, data quality, limitations
+
+**Subagents do NOT write files.** All file I/O happens in the main session after consolidation.
+
+**Main session after subagents complete:**
+1. Merge all course arrays into one combined list (tag each course with its `portal` source if distinct)
+2. Run Phase 4 (standardized output) on the combined data
+3. Run Phase 5 (deliver results) and Phase 6 (Google Sheet) once, treating the combined data as the single provider artifact
 
 ### Phase 1: Discovery & Reconnaissance (5-10 minutes)
 
@@ -475,7 +523,18 @@ Include:
    print(f"Moved files to {provider_dir}/")
    ```
 
-2. **Update catalog_registry.json**
+2. **Ingest into catalog database**
+
+   After moving files, run:
+   ```bash
+   uv run --directory ~/vibe/licensing-project/catalog python -m catalog ingest \
+     {provider_dir}/catalog.json
+   ```
+
+   This upserts the provider and all courses into the `catalog` database on Caruana.
+   Idempotent — safe to re-run. Skip this step only if `licensing-project/catalog` is unavailable.
+
+3. **Update catalog_registry.json**
    ```python
    # Determine status
    if courses_count == 0:
@@ -512,7 +571,7 @@ Include:
    update_registry(provider_name, provider_data)
    ```
 
-3. **Show Summary with all artifacts**
+4. **Show Summary with all artifacts**
    ```
    ✓ Scraped {X} courses from {Provider}
    Base dir: {base_dir}  ($HOME/licensing or cwd fallback)
@@ -524,24 +583,131 @@ Include:
    ✓ Registry: {base_dir}/catalog_registry.json (updated)
    ✓ Master:   {base_dir}/master_catalog.xlsx (regenerated)
    ✓ Script:   ./scrape_{provider_slug}.py (cwd)
+   ✓ Sheet:    {google_sheets_url} (published)
+   ✓ Index:    Catalog Index updated (row added for {Provider})
+   ✓ DB:       catalog database on Caruana ({N} courses ingested)
    ```
 
-4. **Preview Data** - Display first 3-5 courses with key fields
+5. **Preview Data** - Display first 3-5 courses with key fields
 
-5. **Provide Analysis** - Quick insights:
+6. **Provide Analysis** - Quick insights:
    - Course count by level/category
    - Price distribution
    - Format breakdown
    - Content gaps or strengths
    - LinkedIn Learning licensing perspective
 
-6. **Registry Status**
+7. **Registry Status**
    ```
    CATALOG REGISTRY STATUS:
    - Total providers: {X}
    - Total courses: {Y}
    - Status: {status} (complete/partial/auth_required)
    ```
+
+### Phase 6: Publish Google Spreadsheet
+
+**Always run this phase after Phase 5.** Every scrape produces a Google Sheet.
+
+#### Sheet structure (single tab)
+
+The sheet has two sections separated by a blank row:
+
+**Section 1 — Text Summary** (licensing opportunity analysis):
+Write as two-column rows: `[Label, Value]`. Include:
+- Header block: Provider, Date, Academy URL, Total Courses, Coverage status
+- Blank row
+- "CATALOG BREAKDOWN" header row, then sub-sections:
+  - By Level (row per level with count)
+  - By Format (row per format with count)
+  - By Category (row per category with count)
+- Pricing summary (one row per pricing tier/note)
+- Key Observations (one row per observation)
+- Limitations (one row per limitation)
+- Recommendations (one row per recommendation)
+
+**Omit any file path references** (no mention of catalog.json, catalog.xlsx, report.md, etc.).
+
+**Section 2 — Course Data Table**:
+- One blank row separator after the summary
+- Header row: all catalog columns (provider, title, url, description, duration, level, format, price, category, instructor, date_scraped, plus any optional columns that have data)
+- One row per course
+
+#### How to write the sheet
+
+Use the `mcp__captain__create_google_sheets_spreadsheet` MCP tool to create the sheet:
+- Title: `{Provider Name} — Course Catalog ({Month} {Year})`
+
+Then use `mcp__captain__write_google_sheets_by_id` to write all rows in a single call starting at `A1`. Pass the full 2D array (summary rows + blank row + header row + data rows).
+
+#### Register in google_docs.json
+
+After publishing, add an entry to `~/licensing/context/google_docs.json` under `read_write_docs`:
+```json
+{
+  "name": "{Provider Name} — Course Catalog ({Month} {Year})",
+  "id": "{sheet_id}",
+  "url": "{sheet_url}",
+  "description": "{Provider} catalog: summary analysis + {N}-course structured data table. Generated {YYYY-MM-DD}.",
+  "permissions": "read-write",
+  "type": "spreadsheet"
+}
+```
+
+### Phase 6.5: Update Catalog Index
+
+**Always run this phase after Phase 6.** Every scrape adds one row to the master Catalog Index.
+
+The Catalog Index is a single Google Sheet that tracks all scraped partners in one place.
+It is registered in `~/licensing/context/google_docs.json` under `"catalog_index"` with
+spreadsheet ID `12FAeMyt--aaakxOWp21f5_xpcQIN1cpBlE_CHlaIzGw`.
+
+#### Step 1 — Read the partner's pipeline context
+
+Before writing the row, check `~/licensing/partners/{slug}/notes.md` for:
+- Current BD stage and POC
+- One-sentence description of what the company does / why it's interesting
+
+If no notes file exists, use what you know from the scrape.
+
+#### Step 2 — Build the row
+
+| Column | What to write |
+|---|---|
+| Partner | Display name (e.g. "CrowdStrike") |
+| Catalog Sheet URL | The Google Sheet URL created in Phase 6 |
+| Context | BD stage + POC + one-sentence company/content description |
+| Courses | Total course count; add viability note if applicable (e.g. "82 (70 viable)") |
+| Status | `complete`, `partial`, or `pending` — matches registry status |
+| Date Scraped | ISO date (YYYY-MM-DD) |
+| Notes | Key licensing observations: format, access limitations, standout content, risks |
+
+**Context field format**: `{Stage} — {POC} BD. {One-sentence description of company/content.}`
+Example: `Outreach — Brian BD; email to Amy Hughey 2026-03-09. CrowdStrike University; Falcon endpoint security platform.`
+
+#### Step 3 — Append the row
+
+```python
+# Read Catalog Index sheet ID from google_docs.json
+catalog_index_id = "12FAeMyt--aaakxOWp21f5_xpcQIN1cpBlE_CHlaIzGw"
+
+# Use mcp__captain__write_google_sheets_by_id with mode="append"
+# values: one row — [Partner, Catalog Sheet URL, Context, Courses, Status, Date Scraped, Notes]
+```
+
+Use `mcp__captain__write_google_sheets_by_id` with `mode="append"`.
+
+#### Step 4 — Log to manifest.md
+
+```
+- YYYY-MM-DD | updated | Content Licensing — Catalog Index | Added {Partner} row ({N} courses, {status}, {date})
+```
+
+#### Check for existing row first
+
+Before appending, check whether the partner already has a row in the index
+(use `mcp__captain__read_google_sheets_by_id` and scan the Partner column).
+If a row exists, note it in the summary — do not create a duplicate.
 
 ## Required Dependencies
 

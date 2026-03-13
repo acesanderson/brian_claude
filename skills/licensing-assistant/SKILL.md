@@ -26,7 +26,13 @@ the state layer.
   catalog_registry.json  # Registry of all scraped partner catalogs
   training_urls.json   # Output of find-catalogues; training portal URLs per company
   partners/            # One directory per active/prospective partner (notes.md + catalog files)
-  context/             # Read-only reference docs (licensing_context.md, google_docs.json, team_tracker_snapshot.md)
+  skills/              # One directory per skill TLM (roadmap.md + catalog XLSX + report)
+  context/             # Read-only reference docs (licensing_context.md, google_docs.json, bd-process.md, funnel-framework.md, library-composition-analysis.md)
+  projects/            # Parallel workstreams (each has its own subdir + notes.md); also loose docs licensable-definition.md, licensing-classifier.md
+  gate_log.json        # Course-level gate decision log — SOT for funnel metrics and CYA (see projects/pipeline-ops/notes.md)
+  scripts/             # Python utilities: lil_stats.py, lil_semantic.py, lil_overlap.py; log_gate.py, funnel_report.py
+  database/            # ChromaDB instance used by scripts/lil_semantic.py for vector search over LiL course catalog — do not delete
+  boilerplate/         # Reusable templates (outreach.md: Template A InMail, Template B cold email)
   business_context/                    # Business intelligence — hierarchical, domain-organized
     summary.md                         # Omnibus: one paragraph per domain, overall strategic read
     financial_health/
@@ -71,9 +77,11 @@ Run this every session, in order:
 1. `mkdir -p ~/licensing/partners ~/licensing/context ~/licensing/business_context/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}` — ensure structure exists
 2. Read `~/licensing/pipeline.md` — primary orientation; surface what's active, stale, or needs action
 3. Read `~/licensing/scratchpad.md` — strategy context and rubric state
-4. Read the **last 15 lines** of `~/licensing/manifest.md` — what changed recently
-5. If `~/licensing/business_context/summary.md` exists: read it — strategic environment context
-6. If this is a partner-focused session: read `~/licensing/partners/<name>.md`
+4. If `~/licensing/business_context/summary.md` exists: read it — strategic environment context
+5. If this is a partner-focused session: read `~/licensing/partners/<name>/notes.md`
+6. If a project workstream is the focus: check `~/licensing/projects/` for a relevant subdir and read its `notes.md`
+
+Note: `manifest.md` is an append-only audit trail — consult it on demand (e.g., "when did we last contact X?" or "what changed with Y?"), not at session start.
 
 Then open with a grounded brief — not "what do you want to do?" but a synthesis:
 
@@ -93,7 +101,7 @@ coordinates across partners, handles strategy questions.
 
 **Partner branch session** — focused on one partner. Same full context as a pipeline
 session. Reads the partner's file. Can draft comms, update status, reason about deal
-strategy, chase tangents without polluting the pipeline context. Updates `partners/<name>.md`
+strategy, chase tangents without polluting the pipeline context. Updates `partners/<name>/notes.md`
 and `manifest.md` freely.
 
 Both session types read the same files. Both update shared state.
@@ -108,7 +116,7 @@ spinning a branch session to keep the pipeline context clean."
 
 **`pipeline.md`** — update whenever a partner's stage, last action, or next action changes.
 
-**`partners/<name>.md`** — freeform. Add notes, email drafts, deal context, contact log,
+**`partners/<name>/notes.md`** — freeform. Add notes, email drafts, deal context, contact log,
 whatever is useful. No required structure — let it evolve from real use.
 
 **`manifest.md`** — append one line per meaningful action (file created/updated, comms
@@ -212,7 +220,7 @@ optional — treat them as invariants of the workflow.
 
 **On partner mention**
 When a partner name appears that you haven't already read a file for this session:
-check if `partners/<name>.md` exists and read it before responding. Never advise on
+check if `partners/<name>/notes.md` exists and read it before responding. Never advise on
 a partner without first loading their file.
 
 **On status change**
@@ -220,7 +228,7 @@ When a deal stage, last action, or next action changes: update `pipeline.md` imm
 not at session end. Status is the highest-decay artifact.
 
 **On comms drafted or sent**
-When an email or message is drafted or marked as sent: write it to `partners/<name>.md`
+When an email or message is drafted or marked as sent: write it to `partners/<name>/notes.md`
 AND append to `manifest.md`. Do both, always.
 
 **On new partner introduced**
@@ -243,7 +251,7 @@ is listed as `"permissions": "read-write"`. Do not write to docs listed as `"rea
 or absent from the manifest.
 
 **On branch session open**
-In a partner-focused session: read `partners/<name>.md` fully before saying anything.
+In a partner-focused session: read `partners/<name>/notes.md` fully before saying anything.
 No brief, no analysis, no advice until that read is complete.
 
 **On strategic context shift**
@@ -297,26 +305,79 @@ When any file is written to a `business_context/[domain]/` directory (excluding 
 - Add a note: "[domain]/summary.md is now stale — run 'summarize [domain]' to refresh"
 Do NOT auto-summarize. Summarization is always explicit.
 
-**On context update request**
-When the user asks to save, update, or persist context from the current session:
+**On "save context"**
+Canonical invocation phrase: Brian says **"save context"**. Also fires when Claude is
+about to make any substantive write to `scratchpad.md`, `context/` files, or `SKILL.md`
+on its own initiative — defined as more than a single factual correction or pointer update.
 
-1. Draft the proposed updates as text — do NOT write files yet.
+Scope:
+- FIRES: scratchpad.md, context/[any].md, SKILL.md
+- DOES NOT FIRE: manifest.md (append-only, no review needed), partners/[any]/notes.md
+  (operational notes, not shared context artifacts)
+
+Process:
+1. Draft all proposed updates as text — do NOT write files yet.
 2. Read `context-review-prompt.md` from this skill's directory.
 3. Substitute into the template:
-   - `{{ target_files }}`: list of file paths the review subagent should read
-     (one per line — the files being updated, not the proposed content)
-   - `{{ proposed_updates }}`: the full draft updates, clearly labeled by target file
+   - `{{ target_files }}`: files being updated (one path per line)
+   - `{{ proposed_updates }}`: full draft content, labeled by target file
 4. Spawn a review subagent via the Agent tool with the substituted prompt.
-   Use `run_in_background=False` — the review must complete before any writes.
-5. Present the subagent's verdict to the user. Apply APPROVE items directly.
-   For MODIFY items, show the suggested change and apply unless the user objects.
-   For REJECT items, surface the reason and ask the user how to proceed.
-6. Execute file writes only after the review is complete.
-7. Append to `manifest.md` as usual.
+   `run_in_background=False` — review must complete before any writes.
+5. Present the verdict to Brian:
+   - APPROVE → apply directly
+   - MODIFY → show the suggested change, apply unless Brian objects
+   - REJECT → surface the reason, ask how to proceed
+6. Write files only after review is complete.
+7. Append to `manifest.md`.
 
-This hook fires for any request to update scratchpad.md, context/ files, or SKILL.md.
-It does NOT fire for manifest.md (append-only log, no review needed) or partner files
-(operational notes, not shared context artifacts).
+**On gate decision**
+When a course passing or failing a gate is mentioned in conversation — e.g., "CS rejected the
+Fortinet FortiGate course, SCORM format" or "Anaconda Docker Engineering passed topic review":
+
+1. Extract all available fields: partner_slug, course_title, gate number, decision, reason_code,
+   reason_detail, decided_by, submitted_date, decided_date. Ask for any missing required fields
+   (partner, course, gate, decision) before writing. Infer reason_code from the taxonomy in
+   `projects/pipeline-ops/notes.md` if not explicitly stated — confirm with Brian if ambiguous.
+2. Read `gate_log.json`. Compute next sequential ID (gl-NNN). Compute velocity_days if both
+   dates are available. Append the new entry. Write `gate_log.json`.
+3. Append a one-line note to `partners/<slug>/notes.md` under a "## Gate Log" section
+   (create the section if absent): `- YYYY-MM-DD | Gate N | decision | reason_code | course_title`
+4. Append to `manifest.md`:
+   `- YYYY-MM-DD | gate-decision | gate_log.json | <id>: <partner> / "<course>" / Gate N / <decision>`
+
+Use `log_gate.py` only for programmatic/batch logging. In-session logging always goes through
+this hook directly (read → mutate → write gate_log.json).
+
+**On "gate report" / "funnel summary"**
+When asked for a gate report, funnel summary, conversion rates, or rejection breakdown:
+
+1. Read `gate_log.json`.
+2. Compute and display inline — no script needed:
+   - Per gate: total decisions, pass/reject/pending/withdrawn counts and rates, avg velocity,
+     rejection reason breakdown (count + %)
+   - Partner summary table: submitted, pass, reject, pending, pass rate
+3. Apply any filters mentioned (--partner, --gate, --since).
+
+If the log is empty, say so and remind Brian the hook fires automatically when gate decisions
+are mentioned in session.
+
+**On "sync gate log"**
+When Brian says "sync gate log" (or "sync gate log to sheet"):
+
+1. Read `gate_log.json`.
+2. Read `context/google_docs.json` to find the gate log sheet ID under `"gate_log_sheet"`.
+   - If the sheet is not yet registered: create a new Google Sheet named
+     "Licensing — Gate Log" via `create_google_sheets_spreadsheet`, register it in
+     `context/google_docs.json` under `"gate_log_sheet"` with `"permissions": "read-write"`,
+     and append to `manifest.md`.
+3. Build the sheet payload: header row + one data row per entry, columns matching the
+   gate_log.json schema (id, partner_slug, partner_display, course_title, course_url,
+   gate, gate_name, submitted_date, decided_date, velocity_days, decision, reason_code,
+   reason_detail, decided_by, logged_date, notes).
+4. Write to the sheet via `write_google_sheets_by_id` — full overwrite of tab "Gate Log"
+   (create tab if absent). gate_log.json remains the SOT; the sheet is always derived.
+5. Append to `manifest.md`:
+   `- YYYY-MM-DD | synced | gate_log.json → Google Sheet | <N> entries`
 
 **On "resolve"**
 When the user says "resolve": review the current conversation for meaningful improvements
@@ -331,6 +392,19 @@ When asked to find outreach contacts for one or more partners: read
 role hierarchy and source hierarchy exactly. Record confirmed leads in
 `partners/<slug>/notes.md` under an "Outreach Targets" section. Append to `manifest.md`.
 
+**On internal Confluence research**
+When researching an internal LinkedIn topic without a known page ID (e.g., a BD process,
+team wiki, product area, or policy): run `mcp__glean_default__search` with `app="confluence"`
+before reaching for Captain MCP. Glean is the discovery layer; Captain is for fetching known
+pages. If Glean returns relevant results, use the URL with `mcp__glean_default__read_document`
+for full content, or extract the page ID from the URL and use Captain `get_confluence_page`.
+
+**On scrape script cleanup**
+After any catalog scrape completes, check for `scrape_*.py` files at `~/licensing/` root.
+These are one-time artifacts generated by catalog-scraper subagents and should be deleted
+once the catalog files are confirmed in `partners/<slug>/`. Delete them immediately —
+do not leave them to accumulate at root.
+
 **On context depth warning**
 If a single partner has dominated 20+ turns or comms have been iterated multiple times:
 flag it proactively — "This is getting deep on [Partner] — worth spinning a branch
@@ -341,7 +415,36 @@ loaded to summarize.
 
 ## Tooling
 
-Skills available for licensing research and catalog collection:
+### Glean MCP — Internal Knowledge Discovery
+
+Glean indexes LinkedIn's internal Confluence, Google Docs, Slack, and code repositories.
+Use it when researching an internal topic where you don't already have a Confluence page ID.
+
+**Tool routing:**
+
+| Need | Tool |
+|---|---|
+| Find Confluence pages by keyword | `mcp__glean_default__search` with `app="confluence"` |
+| Fetch a known page (have the ID) | Captain `get_confluence_page` |
+| Fetch full page content by URL | `mcp__glean_default__read_document` |
+| Synthesize across multiple sources | `mcp__glean_default__chat` (use sparingly — see below) |
+| People / org lookups | Do not use Glean (`employee_search` unreliable) |
+
+**Behavioral rules:**
+- Always set `app="confluence"` for licensing BD research unless cross-source synthesis is needed.
+- `chat` output can exceed 100K chars — invoke only for specific, targeted questions. Not for broad exploratory queries.
+- `read_document` is a reliable fallback when Captain's `get_confluence_page` fails or you have a URL but no page ID.
+- `code_search` is irrelevant to licensing BD — do not use.
+
+**High-value Confluence areas confirmed accessible via Glean:**
+- BD Legal Resources (go/ltsbd-legal): NDA process, Conga deal-tracking, purchase request flow
+- Content Partner Integration docs (GSO space): pre-call checklist, cert call process, SFTP setup
+- Royalties infohub (go/royalty): royalties calculation mechanics, Content Ops contacts
+- go/lls team wiki: LLS product areas, team structure, focus areas
+
+---
+
+### Skills available for licensing research and catalog collection:
 
 **`find-partner-contacts`** — technique for finding cold outreach targets at external
 partner companies. Role hierarchy, source hierarchy (ZoomInfo/RocketReach snippet searches),
@@ -359,6 +462,35 @@ When catalog collection is needed across multiple partners at once, use Claude C
 subagent dispatch — spawn one `catalog-scraper-worker` subagent per partner URL.
 
 Only invoke these on explicit request. Do not proactively trigger scraping.
+
+**`skill-catalog`** — full TLM workflow: topic classification → provider discovery →
+scrape new providers → query DB → produce XLSX + markdown report. Invoke when asked to
+"catalog [topic]" or "run a TLM on [topic]".
+
+### Catalog DB
+
+The postgres `catalog` database on Caruana holds all sourcing data across three lakes:
+
+- **Lake 1** — direct catalog scrapes (`providers`, `courses` tables)
+- **Lake 2** — Udemy instructor / Coursera institutional partner data (`platform_courses`, `platform_creators`)
+- **Lake 3** — Professional Certificate interest form submissions (`interest_form_submissions`) — inbound BD signal
+
+Project: `~/vibe/licensing-project/catalog/`
+CLI: `uv run --project ~/vibe/licensing-project/catalog catalog <command>`
+
+Key commands for licensing sessions (without running a full TLM):
+```bash
+catalog interest-form-search --partnership-only   # 33 inbound partnership leads
+catalog interest-form-search --topic "AI"         # demand signal by topic
+catalog platform-search "kubernetes"              # top Udemy instructors by topic
+catalog search "topic"                            # Lake 1 course search
+catalog stats                                     # DB overview
+```
+
+Refresh Lake 3 (interest form) monthly: run the Trino query at
+`~/.claude/skills/skill-catalog/queries/interest_form.sql` via `execute_trino_query` MCP,
+write result to `~/licensing/interest_form_YYYY-MM-DD.json`, then run
+`uv run --project ~/vibe/licensing-project/catalog python /Users/bianders/vibe/licensing-project/catalog/scripts/load_interest_form.py ~/licensing/interest_form_YYYY-MM-DD.json`.
 
 ### Checking which partners lack catalogs
 
@@ -422,6 +554,13 @@ licensed library (data as of 2026-02-01). Key findings: engagement concentration
 historically small studios not institutional vendors), Madecraft structural outlier (424 courses/deal),
 ratings uniformity (no discriminating power). Read when evaluating existing library, benchmarking
 new partner content, or making the internal case for licensing investments.
+
+**`~/licensing/context/bd-process.md`** — operational and political model for how licensing BD
+works day-to-day. Covers: two BD motions (CM-initiated Motion A vs BD-initiated Motion B), pipeline
+stage taxonomy (Sourcing → Gate A → Outreach → In Conversation → Gate B → Contracting → Onboarding →
+Production → Partnership Management), Gate A as the binding throughput constraint, and the political
+layer (Brian/Mary peer relationship, dogsbody risk, how to manage Gate A submissions). Read when
+reasoning about deal stage, BD motion strategy, or internal process questions.
 
 ---
 

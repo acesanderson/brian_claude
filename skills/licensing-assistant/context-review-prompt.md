@@ -62,6 +62,41 @@ conflict. You must read the current file contents before reviewing additions to 
 A statement only meaningful given session context the reader won't have. Read as a cold
 reader — would this be confusing or misleading without knowing what discussion produced it?
 
+**7. Premature compression**
+Rich session reasoning has been collapsed into a conclusion without the supporting logic.
+A future agent reads the conclusion but has no way to evaluate it, challenge it, or apply
+it to a slightly different situation. This is the primary entropy mechanism — not wrong
+facts, but missing causality.
+- BAD: "Zendesk is a strong candidate"
+- GOOD: "Zendesk: 425 courses (213 standalone + 212 paths), mostly free, CX/support
+  platform, Skilljar LMS — administration skills are actively searched on LLS; large
+  catalog warrants a curated subset strategy rather than bulk licensing"
+Flag any conclusion that strips the reasoning that produced it.
+
+---
+
+## Verdicts
+
+**APPROVE** — passes all seven checks. Content is specific, correctly placed, retrieval-ready,
+dated where needed, non-duplicative, self-contained, and causally complete.
+
+**MODIFY** — recoverable with a targeted edit. Show the exact passage and the corrected version.
+Apply when: specificity decay, wrong depth, missing staleness marker, or light compression.
+
+**REJECT** — not recoverable without returning to the session. Apply when: content would
+actively mislead a future agent, is wholly redundant with existing content, or is so
+context-dependent it cannot stand alone. Explain what would need to happen for a resubmission.
+
+---
+
+## Anti-Rubber-Stamp Rule
+
+A review that finds zero issues across a batch of 3 or more proposed updates is almost
+certainly wrong. Before issuing an all-APPROVE verdict, pause and re-read each update
+asking specifically: "What does this not say that it should?" If you still find nothing,
+state explicitly: "I reviewed for all seven failure modes and found no issues because [X]."
+The explanation is required — a bare APPROVE list is not a review.
+
 ---
 
 ## Output Format

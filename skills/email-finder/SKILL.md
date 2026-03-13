@@ -35,6 +35,20 @@ uv run --with httpx ~/.claude/skills/email-finder/scripts/find_email.py \
   --verify
 ```
 
+## Fallback: official training program email
+
+If the target contact has a complex name (hyphenated, non-Latin, unusual length) that makes permutation-based guessing unreliable, or if no individual contact can be identified, also search for the company's official training program email address. Many vendors publish a generic training/education contact in blog posts, partnership announcements, or training portal pages.
+
+Search pattern:
+```bash
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py search \
+  "COMPANY training contact email site:COMPANY_DOMAIN"
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py search \
+  "COMPANY training partnerships email contact"
+```
+
+Present the official address alongside (or instead of) permutation candidates, clearly labeled as "official training program inbox" vs. "personal address candidate." An official inbox (e.g. `training@company.com`) found in a public press release or partnership page is often more reliable than a guessed personal format.
+
 ## Batch mode
 
 Loop the script for each person sequentially. Aggregate and present all results together.
