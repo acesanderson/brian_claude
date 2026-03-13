@@ -21,7 +21,10 @@
       "Bash(pip install:*)",
       "WebFetch(domain:info.arxiv.org)",
       "Bash(unzip:*)",
-      "WebFetch(domain:university.platformengineering.org)"
+      "WebFetch(domain:university.platformengineering.org)",
+      "Bash(cp -r /Users/bianders/.claude/skills/deslop/scripts /Users/bianders/.claude/skills/blog/scripts && cp -r /Users/bianders/.claude/skills/deslop/prompts /Users/bianders/.claude/skills/blog/prompts && cp /Users/bianders/.claude/skills/deslop/pyproject.toml /Users/bianders/.claude/skills/blog/pyproject.toml)",
+      "Bash(~/.claude/skills/blog/.venv/bin/python ~/.claude/skills/blog/scripts/deslop.py /tmp/wolverine-slop.md 2>/dev/null)",
+      "Bash(clear)"
     ]
   }
 }

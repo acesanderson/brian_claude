@@ -13,32 +13,32 @@ Schema knowledge lives in the `catalog` Postgres database on Caruana (`trino_tab
 | `status` | Counts by status — quick orientation |
 | `search <keyword>` | Keyword search on schema/table name and description |
 | `search <keyword> --status accessible` | Filter to only accessible tables |
+| `search-queries <keyword>` | Search saved queries by question text or SQL |
 | `check hive <schema> <table>` | Full entry for a specific table |
 | `upsert-table` | Add or update a table entry |
-| `import-json` | One-time migration from `~/.local/state/trino/*.json` |
+| `delete-table hive <schema> <table>` | Remove an entry from the manifest |
 
 **Sync script** (discover new tables from Trino → Postgres):
 ```bash
-TRINO_HOST=<host> uv run --directory ~/vibe/licensing-project/trino \
-  python scripts/sync.py [--dry-run] [--catalog hive] [--schema <name>] [--describe]
+# Shallow crawl — seed ALL schema/table names as unconfirmed (no DESCRIBE, no access test)
+uv run --directory ~/vibe/licensing-project/trino \
+  python scripts/sync.py --crawl [--schema-like '%lil%'] [--dry-run]
+
+# Deep sync — DESCRIBE and confirm access for known schemas
+uv run --directory ~/vibe/licensing-project/trino \
+  python scripts/sync.py [--schema <name>] [--describe] [--dry-run]
 ```
+
+Run `--crawl` first to eliminate the discovery moat. Then `--describe` on schemas of interest to pull column lists and confirm access. These are separate passes by design — crawl is cheap (names only), describe is expensive (auth + round-trips).
 
 ## Protocol
 
 ### Decision cascade — follow in order, stop at first match
 
-**Step 0 — Blacklist check**
-Before anything else:
-```bash
-uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest \
-  check hive <schema> <table>
-```
-If result is `broken` or `restricted`, stop. Surface reason and DataHub URL to user. Do not query Trino.
-
 **Step 1 — Prior queries**
 ```bash
 uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest \
-  search "<plain-language intent keyword>" --status accessible
+  search-queries "<plain-language intent keyword>"
 ```
 If a saved query matches the intent, adapt and re-run it. This is the highest-confidence path.
 
@@ -47,17 +47,23 @@ If a saved query matches the intent, adapt and re-run it. This is the highest-co
 uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest \
   search "<keyword>" --status accessible
 ```
-If a known table clearly fits, query it directly using the stored column list.
+If a known table clearly fits, query it directly using the stored column list. (Blacklisted tables are excluded by the status filter — no separate check needed.)
 
 **Step 3 — Manifest exploration (unconfirmed)**
 ```bash
 uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest \
   search "<keyword>"
 ```
-If a relevant schema is in the manifest (any status), do targeted exploration within it via MCP: `SHOW TABLES LIKE '...'` → `DESCRIBE` → query. Update manifest after.
+If a relevant schema is in the manifest, check its status. If `broken` or `restricted`, stop and surface the reason to the user. Otherwise do targeted exploration via MCP: `SHOW TABLES LIKE '...'` → `DESCRIBE` → query. Update manifest after.
 
-**Step 4 — Fresh search**
-Triggered when no manifest entry matches, or user explicitly requests fresh search. Explore Trino broadly via MCP. Update manifest with findings before reporting results.
+**Step 4 — Fresh search (live Trino via MCP)**
+Triggered when no manifest entry matches, or user explicitly requests a fresh search.
+Before issuing any MCP call against a specific schema or table, check the manifest:
+```bash
+uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest \
+  check hive <schema> <table_or_*>
+```
+If `broken` or `restricted`, stop. Otherwise explore broadly. Update manifest with findings before reporting results.
 
 ### Fresh search exploration pattern
 
@@ -150,6 +156,7 @@ uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upser
 
 **Accessible:**
 - `hive.foundation_tables_fact_lil_video_session_mp.fact_lil_video_session` — raw video sessions, course + user + enterprise grain. No contract_type. Filter on `datepartition`.
+- `hive.foundation_tables_fact_lil_video_session_mp.fact_lil_video_session_private` — identical schema (32 cols), likely same table with ACL-based PII stripping.
 
 **Need access (pending DataHub request):**
 - `hive.u_lildata.aps_lil_video` — likely pre-aggregated APS engagement by course

@@ -88,7 +88,7 @@ cp -r /tmp/repo/path/to/target ~/.claude/skills/
 rm -rf /tmp/repo
 ```
 
-## Batch scraping rules
-When asked to scrape multiple URLs, ALWAYS spawn a separate catalog-scraper-worker subagent for each URL.
-Never process multiple URLs sequentially in the main thread.
-Each subagent gets exactly one URL.
+## Git worktrees
+Worktree directory: `~/.config/superpowers/worktrees/<project-name>/`
+Always use this global location. Never create project-local `.worktrees/` directories.
+

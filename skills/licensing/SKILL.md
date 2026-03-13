@@ -1,14 +1,15 @@
 ---
-name: licensing-assistant
+name: licensing
 description: >
-  Persistent assistant for LinkedIn Learning content licensing BD work. Maintains a live
-  pipeline of partner deals, per-partner context, and cross-session continuity. Use when
-  working in ~/licensing/, managing partner relationships, evaluating content opportunities,
-  drafting partner comms, or doing any licensing BD task. Triggers on "load licensing
-  assistant", "open licensing", or any licensing pipeline / partner management work.
+  Persistent assistant for LinkedIn Learning content licensing BD work. Maintains pipeline,
+  partner context, and cross-session continuity. Also handles TLM workflows — provider
+  discovery, catalog scraping, and DB-backed reports. Use when working in ~/licensing/,
+  managing partner relationships, evaluating content opportunities, drafting partner comms,
+  running TLMs, or doing any licensing BD task. Triggers on "load licensing", "open licensing",
+  "catalog [topic]", "map the [topic] market", "generate a TLM", or any licensing pipeline work.
 ---
 
-# Licensing Assistant
+# Licensing
 
 Persistent coordination layer for LinkedIn Learning content licensing BD work. Domain
 knowledge lives in `~/licensing/context/licensing_context.md` — read it when you need
@@ -454,18 +455,16 @@ query patterns, and what to discard. Reference: `find-partner-contacts.md` in th
 scraping to locate the right catalog URL. Output: `training_urls.json` with
 `results.{CompanyName}.primary_url` and `confidence` per company.
 
-**`catalog-scraper`** — scrapes a single training provider's course catalog and produces
-structured JSON, XLSX, and markdown reports. Use for evaluating a partner's content depth
-and quality. Output goes to `~/licensing/partners/{slug}/` when the licensing dir exists.
+**`licensing:catalog-scraper`** — scrapes a single training provider's course catalog and
+produces structured JSON, XLSX, and markdown reports. Use for evaluating a partner's content
+depth and quality. Output goes to `~/licensing/partners/{slug}/` when the licensing dir exists.
 
-When catalog collection is needed across multiple partners at once, use Claude Code's native
-subagent dispatch — spawn one `catalog-scraper-worker` subagent per partner URL.
+Spawn one `licensing:catalog-scraper-worker` subagent per URL. Never process multiple
+providers sequentially in the main thread.
 
-Only invoke these on explicit request. Do not proactively trigger scraping.
+Only invoke on explicit request. Do not proactively trigger scraping.
 
-**`skill-catalog`** — full TLM workflow: topic classification → provider discovery →
-scrape new providers → query DB → produce XLSX + markdown report. Invoke when asked to
-"catalog [topic]" or "run a TLM on [topic]".
+For TLM workflows (topic market maps), see the **TLM Workflow** section below.
 
 ### Catalog DB
 
@@ -488,7 +487,7 @@ catalog stats                                     # DB overview
 ```
 
 Refresh Lake 3 (interest form) monthly: run the Trino query at
-`~/.claude/skills/skill-catalog/queries/interest_form.sql` via `execute_trino_query` MCP,
+`~/.claude/skills/licensing/queries/interest_form.sql` via `execute_trino_query` MCP,
 write result to `~/licensing/interest_form_YYYY-MM-DD.json`, then run
 `uv run --project ~/vibe/licensing-project/catalog python /Users/bianders/vibe/licensing-project/catalog/scripts/load_interest_form.py ~/licensing/interest_form_YYYY-MM-DD.json`.
 
@@ -522,12 +521,129 @@ inputs = [
 ]
 ```
 
-**Step 3 — Spawn one catalog-scraper-worker subagent per URL**:
-Per CLAUDE.md rules, spawn a separate `catalog-scraper-worker` subagent for each URL.
+**Step 3 — Spawn one licensing:catalog-scraper-worker subagent per URL**:
+Spawn a separate `licensing:catalog-scraper-worker` subagent for each URL.
 Never run multiple scrapes sequentially in the main thread. Run all workers with
 `run_in_background=true`. Each worker writes its output (catalog.json, catalog.xlsx,
 report.md) directly to `~/licensing/partners/{slug}/` and updates `catalog_registry.json`.
 No consolidation step needed — workers have direct filesystem access.
+
+### TLM Workflow
+
+Builds a market map of training content for a topic across all known and discovered providers.
+Distinct from the batch partner catalog workflow above — that starts with a known partner list;
+this starts with a topic and discovers who the providers are.
+
+Invoke when asked to "catalog [topic]", "map the [topic] market", or "run a TLM on [topic]".
+
+#### Phase 1: Classify SKILL or TOOL
+
+**TOOL** — specific technology, framework, or product (Kubernetes, Terraform, Salesforce).
+Course titles typically include the name verbatim. Use a single search term.
+
+**SKILL** — professional domain or competency (DevOps, Data Science, Cybersecurity).
+Broad scope; requires sub-topic breakdown before searching. Propose sub-topics and confirm:
+
+```
+Topic: DevOps  |  Type: SKILL
+
+Proposed sub-topics:
+  - Docker / containers
+  - Kubernetes / container orchestration
+  - CI/CD (Jenkins, GitHub Actions, GitLab CI)
+  - Infrastructure as Code (Terraform, Ansible)
+  - Monitoring / observability (Prometheus, Grafana)
+
+Confirm, edit, or add sub-topics?
+```
+
+Wait for confirmation. Skip this step for TOOLs — proceed directly to Phase 2.
+
+#### Phase 2: Provider Discovery
+
+**Step 1 — Check what's already in the DB:**
+```bash
+uv run --directory ~/vibe/licensing-project/catalog python -m catalog providers
+```
+Note existing providers plausibly relevant to the topic.
+
+**Step 2 — Search for new providers** (use brave-web-search skill):
+```bash
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "QUERY"
+```
+Queries to run:
+- `"[topic]" training courses certification provider`
+- `"[topic]" online training platform NOT coursera NOT udemy NOT pluralsight`
+- `best "[topic]" training vendors enterprise`
+
+For SKILLs, also run 2-3 queries on the most distinctive sub-topics.
+
+Look for: direct content producers (the company whose name is on the courses).
+Discard: learning platforms (Coursera, Udemy, Pluralsight, LinkedIn Learning — distribution, not producers).
+
+**Step 3 — Present the candidate list and wait for confirmation:**
+```
+PROVIDERS ALREADY IN DB:
+  - CloudThat (402 courses)
+  - Cisco (154 courses)
+
+NEW CANDIDATES — confirm to scrape:
+  [ ] Linux Foundation — training.linuxfoundation.org
+  [ ] HashiCorp — developer.hashicorp.com/tutorials
+
+Skip any? Add any?
+```
+
+Do NOT begin scraping until approved.
+
+#### Phase 3: Scrape New Providers
+
+For each confirmed new provider, dispatch one `licensing:catalog-scraper-worker` subagent
+per URL. All run with `run_in_background=true`. Never process multiple providers sequentially.
+
+While scraping runs, proceed to Phase 4 using the DB as it stands. Re-run the export
+step after all subagents finish.
+
+#### Phase 4: DB Query
+
+**TOOL** (single term):
+```bash
+uv run --directory ~/vibe/licensing-project/catalog python -m catalog search "kubernetes" --limit 10000
+```
+
+**SKILL** (one query per sub-topic, deduplicate on `(provider_slug, title)`):
+```bash
+uv run --directory ~/vibe/licensing-project/catalog python -m catalog search "docker" --limit 10000
+uv run --directory ~/vibe/licensing-project/catalog python -m catalog search "kubernetes" --limit 10000
+```
+
+Export to XLSX:
+```bash
+uv run --directory ~/vibe/licensing-project/catalog python -m catalog export "[topic]" \
+  --output ~/licensing/catalogs/[topic-slug]_catalog_[YYYY-MM-DD].xlsx
+```
+
+For SKILLs with multiple terms, merge results from each sub-topic search and deduplicate
+with pandas before writing the combined XLSX.
+
+#### Phase 5: Output
+
+**XLSX**: `~/licensing/catalogs/[topic-slug]_catalog_[YYYY-MM-DD].xlsx`
+Columns: provider, title, url, description, duration, level, format, price, category,
+instructor, date_scraped. For SKILLs, add a `matched_subtopic` column.
+
+**Markdown report**: `~/licensing/catalogs/[topic-slug]_report_[YYYY-MM-DD].md`
+Sections: Coverage Summary table, Sub-topic Coverage (SKILL only), Methodology,
+Dark Matter (auth-walled providers with estimated catalog size), Excluded Providers,
+Self-Optimization Notes.
+
+**Manifest entry**:
+```
+- YYYY-MM-DD | created | ~/licensing/catalogs/[slug]_catalog_YYYY-MM-DD.xlsx | [N] courses, [M] providers, SKILL|TOOL
+```
+
+**Conventions**: topic slug = lowercase hyphenated (`Site Reliability Engineering` →
+`site-reliability-engineering`). Output directory: `~/licensing/catalogs/` (create if needed).
 
 ---
 
@@ -564,41 +680,7 @@ reasoning about deal stage, BD motion strategy, or internal process questions.
 
 ---
 
-## Aquifer: Long-Term Token Optimization Layer
+## Aquifer
 
-**What it is:** `~/Brian_Code/aquifer-project/` is a Python toolkit Brian built for
-automated data collection and multi-model research. It is the eventual production layer
-for the business_context/ knowledge base — a cheaper, schedulable replacement for the
-Claude Code agent research workflows used to initially populate the knowledge base.
-
-**The paradigm shift it enables:**
-- **Phase 1 (now):** Use Claude Code agents + Captain MCP tools to establish research
-  patterns — expensive but high-capability. Pave the cowpath.
-- **Phase 2 (once patterns harden):** Translate validated patterns into aquifer scripts
-  that run against local models (Ollama, etc.) on a schedule. Same output, fraction of
-  the token cost.
-- **Phase 3:** Aquifer becomes the background refresh layer (RSS monitoring, competitor
-  earnings, Slack digests). Claude Code handles edge cases, novel research, and anything
-  requiring Confluence/internal-source access.
-
-**Aquifer's current capabilities:**
-- `collect/rss` — RSS/Atom feed parsing for continuous monitoring
-- `collect/youtube` — YouTube channel metadata into PostgreSQL
-- `collect/podcasts` — Bulk podcast collection
-- `research/brave` — Brave search + URL fetch
-- `research/exa` — Exa semantic search
-- `research/perplexity`, `research/openai`, `research/google_deep_research` — multi-model research
-- `research/10k` — SEC EDGAR 10-K filing retrieval
-- `research/snapshot.py` — fan-out orchestrator: takes structured question list, runs
-  parallel async LLM calls via `conduit.batch`, aggregates to markdown
-- `research/strategy/main.py` — multi-model: same query through Perplexity + Exa + OpenAI
-
-**What aquifer currently lacks that this system provides:**
-- Internal source access (Confluence, Slack, Google Docs) — only Claude Code + Captain MCP
-- Hierarchical `business_context/` storage with domain summaries and staleness tracking
-- The summarization hooks that roll up to the top-level omnibus summary
-
-**When to reference aquifer:** When Brian asks to operationalize or schedule a research
-workflow that has been validated through Claude Code agents. The signal is: "we've done
-this 3+ times the expensive way and the output format is stable." That's when a pattern
-is ready to be distilled into aquifer.
+See `~/.claude/skills/licensing/aquifer.md` for details on the long-term token optimization
+layer — when and how to operationalize validated research workflows into scheduled scripts.

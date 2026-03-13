@@ -1,6 +1,6 @@
 ---
-name: catalog-scraper
-description: Scrape and analyze course catalogs from training providers to evaluate content for potential LinkedIn Learning licensing. Handles the full pipeline — URL discovery, scraping, analysis, and publishing. Use when user says things like "scrape [provider]", "catalog [company]", "analyze [provider]'s training offerings", "find training URLs for [company]", "discover course catalogs for [company]", or "create catalog for [provider]". Accepts company name alone (discovers portal URLs first) or company name + URL (skips discovery). Handles various architectures (single page, paginated, navigation-based) and obstacles (email gates, CloudFront protection, lazy loading). Generates standardized JSON, XLSX, markdown report, and Google Spreadsheet.
+name: licensing:catalog-scraper
+description: Scrape a single training provider's course catalog for LinkedIn Learning licensing evaluation. Part of the licensing toolkit — typically invoked as a subagent by the licensing skill. Use when asked to "scrape [provider]", "catalog [company]", "analyze [provider]'s training offerings", or when dispatched as a licensing:catalog-scraper-worker subagent. Accepts company name alone (discovers portal URLs first) or company name + URL (skips discovery). Handles single page, paginated, navigation-based catalogs and obstacles (email gates, CloudFront, lazy loading). Generates standardized JSON, XLSX, markdown report, and Google Spreadsheet.
 ---
 
 # Course Catalog Scraper
@@ -11,7 +11,7 @@ description: Scrape and analyze course catalogs from training providers to evalu
 
 Bundled scraper scripts (e.g. `scrape_ibm_training.py`) run via:
 ```bash
-uv run --directory ~/.claude/skills/catalog-scraper python scrape_ibm_training.py
+uv run --directory ~/.claude/skills/licensing/catalog-scraper python scrape_ibm_training.py
 ```
 
 Generated scraper scripts (created in your working directory) must include uv inline script
@@ -744,8 +744,8 @@ self-contained and runnable on any machine with only `uv` installed:
 
 Run with: `uv run scrape_{provider_slug}.py`
 
-Bundled scripts in `~/.claude/skills/catalog-scraper/` use the skill's own `pyproject.toml`
-and run with: `uv run --directory ~/.claude/skills/catalog-scraper python scrape_{provider_slug}.py`
+Bundled scripts in `~/.claude/skills/licensing/catalog-scraper/` use the skill's own `pyproject.toml`
+and run with: `uv run --directory ~/.claude/skills/licensing/catalog-scraper python scrape_{provider_slug}.py`
 
 ## Best Practices
 

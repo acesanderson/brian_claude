@@ -4,7 +4,8 @@ description: >
   Persistent assistant for Brian's Jekyll/GitHub Pages blog. Maintains project state,
   post pipeline, and cross-session continuity. Use when working in ~/blog/, planning
   content, drafting posts, managing the pipeline, or doing any blog-related task.
-  Triggers on "load blog assistant", "open blog", or any blog project work.
+  Triggers on "load blog assistant", "open blog", any blog project work, "deslop this
+  post", "clean up the AI-isms", or "run deslop".
 ---
 
 # Blog Assistant
@@ -170,17 +171,35 @@ Blog drafts originate in Brian's Obsidian vault:
 ## Deslop: Post-Writing Finishing Step
 
 After collaboratively drafting a post with an LLM, run deslop before publishing to
-strip AI-generated writing patterns. It is a two-pass pipeline: Gemini audits the
-draft and flags AI-isms (banned vocabulary, em-dash abuse, formulaic sentence patterns,
-uniform burstiness), then Opus revises only the flagged items — nothing else.
+strip AI-generated writing patterns.
 
-Use the `deslop` skill. Quick reference:
+**How it works:**
+
+1. **Judge** (Gemini): reads the draft, outputs a numbered list of flagged AI-isms
+   with exact quoted text, category, and a one-sentence explanation.
+2. **Reviser** (Opus): receives the draft + critique, fixes only flagged items,
+   returns the full revised post with no commentary.
+
+The judge looks for: banned vocabulary (delve, leverage, robust, etc.), em-dash abuse,
+formulaic sentence patterns, performative tone, and burstiness (unnaturally uniform
+sentence lengths). The reviser fixes only what was flagged, matching the surrounding
+register and keeping changes minimal.
+
+Prompts live in `~/.claude/skills/blog/prompts/`.
+
+**Usage** — use `.venv/bin/python` directly, not `uv run` (which pulls the wrong
+`conduit` from PyPI and crashes):
 
 ```bash
-uv run ~/.claude/skills/deslop/scripts/deslop.py _posts/my-post.md
-# or
-cat _posts/my-post.md | uv run ~/.claude/skills/deslop/scripts/deslop.py
+# Pass a file
+~/.claude/skills/blog/.venv/bin/python ~/.claude/skills/blog/scripts/deslop.py _posts/my-post.md
+
+# Capture output
+~/.claude/skills/blog/.venv/bin/python ~/.claude/skills/blog/scripts/deslop.py _posts/my-post.md > cleaned.md
 ```
+
+The script prints the revised post to stdout. Debug output from the conduit library
+also goes to stdout — suppress with `2>/dev/null` if needed.
 
 **When to run:** last step before publishing, after structure and content are final.
 Deslop does not restructure or add content. Make structural edits first.
