@@ -1,6 +1,0 @@
-{
-  "eval_id": 2,
-  "eval_name": "pydantic-validators-fastapi",
-  "prompt": "I'm building a FastAPI endpoint and using Pydantic for request validation. I've seen @validator and @field_validator decorators in example code but don't understand when to use them or how they work. tutorialize Pydantic validators",
-  "assertions": []
-}

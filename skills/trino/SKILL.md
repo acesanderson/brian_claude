@@ -171,6 +171,8 @@ uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upser
 **Accessible:**
 - `hive.foundation_tables_fact_lil_video_session_mp.fact_lil_video_session` — raw video sessions, course + user + enterprise grain. No contract_type. Filter on `datepartition`.
 - `hive.foundation_tables_fact_lil_video_session_mp.fact_lil_video_session_private` — identical schema (32 cols), likely same table with ACL-based PII stripping.
+- `hive.u_llsdsgroup.course_inventory` — full LiL course dimension: course_id (bigint), title, instructor names/IDs, status (ACTIVE/RETIRED), library, subject, URL, slug. Use for course lookups by name, instructor, or ID. Has duplicates — use DISTINCT.
+- `hive.u_llsdsgroup.temp_video_inventory` — video inventory: video_id/course_id as varchar, sort_order, is_welcome_video ('Yes'/'No'), is_active. Has duplicates per locale — use DISTINCT. Join to course_inventory on CAST(course_id AS bigint). Used by `catalog cymbii`.
 
 **Need access (pending DataHub request):**
 - `hive.u_lildata.aps_lil_video` — likely pre-aggregated APS engagement by course

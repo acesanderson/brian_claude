@@ -1,6 +1,0 @@
-{
-  "eval_id": 1,
-  "eval_name": "contrastive-loss-embedding",
-  "prompt": "I'm fine-tuning a sentence embedding model and the loss function in the training config is set to 'contrastive'. I don't know what contrastive loss is — tutorialize it",
-  "assertions": []
-}
