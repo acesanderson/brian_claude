@@ -7,7 +7,14 @@ dependencies = [
     "psycopg2-binary>=2.9",
     "pytest>=8.0",
     "dbclients",
+    "jinja2>=3.0",
+    "headwater_client",
+    "headwater_api",
+    "conduit",
 ]
 
 [tool.uv.sources]
-dbclients = { path = "/Users/bianders/Brian_Code/dbclients-project" }
+dbclients = { path = "/Users/bianders/Brian_Code/dbclients-project", editable = true }
+headwater_client = { path = "/Users/bianders/Brian_Code/headwater/headwater-client", editable = true }
+headwater_api = { path = "/Users/bianders/Brian_Code/headwater/headwater-api", editable = true }
+conduit = { path = "/Users/bianders/Brian_Code/conduit-project", editable = true }
