@@ -163,7 +163,7 @@ def get_top_videos(
         maxResults=n,
     )
 
-    video_ids = [item["id"]["videoId"] for item in data.get("items", [])]
+    video_ids = [item["id"]["videoId"] for item in data.get("items", [])][:n]
     if not video_ids:
         return []
 
@@ -243,4 +243,131 @@ def get_comments(
     return CommentPage(
         items=comments,
         next_page_token=data.get("nextPageToken"),
+    )
+
+
+def get_playlist(
+    playlist_id: str,
+    max_items: int = 50,
+    page_token: str | None = None,
+    exclude_shorts: bool = True,
+) -> "PlaylistPage":
+    from _models import PlaylistItem, PlaylistPage
+    from _util import is_short
+
+    params: dict = dict(
+        part="snippet,contentDetails",
+        playlistId=playlist_id,
+        maxResults=min(max_items, 50),
+    )
+    if page_token:
+        params["pageToken"] = page_token
+
+    try:
+        data = _get("playlistItems", **params)
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code == 404:
+            raise PlaylistNotFoundError(f"Playlist not found: {playlist_id}") from exc
+        raise
+
+    if not data.get("items"):
+        return PlaylistPage(items=[], next_page_token=None, total_results=0)
+
+    video_ids = [item["contentDetails"]["videoId"] for item in data["items"]]
+    duration_map = _fetch_durations(video_ids)
+
+    items = []
+    for item in data["items"]:
+        vid_id = item["contentDetails"]["videoId"]
+        duration = duration_map.get(vid_id, 0)
+        short = is_short(duration)
+        if exclude_shorts and short:
+            continue
+        items.append(PlaylistItem(
+            id=vid_id,
+            title=item["snippet"]["title"],
+            position=item["snippet"]["position"],
+            duration_seconds=duration,
+            is_short=short,
+            published_at=item["contentDetails"].get("videoPublishedAt", ""),
+        ))
+
+    return PlaylistPage(
+        items=items,
+        next_page_token=data.get("nextPageToken"),
+        total_results=data.get("pageInfo", {}).get("totalResults", 0),
+    )
+
+
+def _fetch_durations(video_ids: list[str]) -> dict[str, int]:
+    if not video_ids:
+        return {}
+    data = _get("videos", part="contentDetails", id=",".join(video_ids))
+    return {
+        item["id"]: _parse_duration(item["contentDetails"].get("duration", "PT0S"))
+        for item in data.get("items", [])
+    }
+
+
+def get_content_breakdown(
+    channel_id: str,
+    sample_size: int = 50,
+    exclude_shorts: bool = True,
+) -> "ContentBreakdown":
+    from _models import ContentBreakdown
+    from _util import is_short
+
+    logger.warning("search.list called (100 quota units) for channel %s", channel_id)
+    data = _get(
+        "search",
+        part="id",
+        channelId=channel_id,
+        type="video",
+        maxResults=min(sample_size, 50),
+    )
+    video_ids = [item["id"]["videoId"] for item in data.get("items", [])]
+    if not video_ids:
+        return ContentBreakdown(by_category={}, by_topic={}, sample_size=0)
+
+    details = _get(
+        "videos",
+        part="snippet,contentDetails,topicDetails",
+        id=",".join(video_ids),
+    )
+
+    by_category: dict[str, int] = {}
+    by_topic: dict[str, int] = {}
+    analyzed = 0
+
+    for item in details.get("items", []):
+        duration = _parse_duration(item["contentDetails"].get("duration", "PT0S"))
+        if exclude_shorts and is_short(duration):
+            continue
+        analyzed += 1
+
+        category_id = item["snippet"].get("categoryId")
+        if category_id:
+            by_category[category_id] = by_category.get(category_id, 0) + 1
+
+        topics = item.get("topicDetails", {}).get("topicCategories", [])
+        for topic_url in topics:
+            topic = topic_url.rstrip("/").split("/")[-1].replace("_", " ")
+            by_topic[topic] = by_topic.get(topic, 0) + 1
+
+    return ContentBreakdown(by_category=by_category, by_topic=by_topic, sample_size=analyzed)
+
+
+def compare_channels(
+    handle_or_id_a: str,
+    handle_or_id_b: str,
+) -> "ChannelComparison":
+    from _models import ChannelComparison
+
+    ch_a = get_channel(handle_or_id_a)
+    ch_b = get_channel(handle_or_id_b)
+    return ChannelComparison(
+        channel_a=ch_a,
+        channel_b=ch_b,
+        top_videos_a=get_top_videos(ch_a.id, n=10, exclude_shorts=True),
+        top_videos_b=get_top_videos(ch_b.id, n=10, exclude_shorts=True),
     )
