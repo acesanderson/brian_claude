@@ -67,8 +67,79 @@ def _parse_duration(iso: str) -> int:
 
 
 def get_channel(handle_or_id: str) -> "ChannelProfile":
-    _api_key()  # raises MissingAPIKeyError if not set
-    raise NotImplementedError("get_channel is implemented in Task 10")
+    from _models import ChannelProfile
+
+    if handle_or_id.startswith("UC") and not handle_or_id.startswith("@"):
+        channel_id = handle_or_id
+    else:
+        handle = handle_or_id.lstrip("@")
+        data = _get("channels", part="id", forHandle=handle)
+        items = data.get("items", [])
+        if not items:
+            raise ChannelNotFoundError(f"No channel found for handle: {handle_or_id!r}")
+        channel_id = items[0]["id"]
+
+    data = _get(
+        "channels",
+        part="snippet,statistics,contentDetails",
+        id=channel_id,
+    )
+    items = data.get("items", [])
+    if not items:
+        raise ChannelNotFoundError(f"No channel found for ID: {channel_id!r}")
+
+    item = items[0]
+    stats = item.get("statistics", {})
+    snippet = item["snippet"]
+
+    uploads_playlist_id = (
+        item.get("contentDetails", {})
+        .get("relatedPlaylists", {})
+        .get("uploads")
+    )
+    upload_frequency = None
+    if uploads_playlist_id:
+        upload_frequency = _compute_upload_frequency(uploads_playlist_id)
+
+    raw_handle = snippet.get("customUrl", "").lstrip("@") or None
+
+    return ChannelProfile(
+        id=channel_id,
+        title=snippet["title"],
+        handle=raw_handle,
+        subscriber_count=int(stats["subscriberCount"])
+        if not stats.get("hiddenSubscriberCount") else None,
+        total_view_count=int(stats.get("viewCount", 0)),
+        video_count=int(stats.get("videoCount", 0)),
+        upload_frequency_days=upload_frequency,
+        created_at=snippet["publishedAt"],
+    )
+
+
+def _compute_upload_frequency(uploads_playlist_id: str) -> float | None:
+    from datetime import datetime
+
+    data = _get(
+        "playlistItems",
+        part="contentDetails",
+        playlistId=uploads_playlist_id,
+        maxResults=10,
+    )
+    items = data.get("items", [])
+    if len(items) < 2:
+        return None
+    dates = [
+        datetime.fromisoformat(
+            item["contentDetails"]["videoPublishedAt"].replace("Z", "+00:00")
+        )
+        for item in items
+        if item["contentDetails"].get("videoPublishedAt")
+    ]
+    if len(dates) < 2:
+        return None
+    dates.sort(reverse=True)
+    gaps = [(dates[i] - dates[i + 1]).days for i in range(len(dates) - 1)]
+    return sum(gaps) / len(gaps)
 
 
 def get_top_videos(

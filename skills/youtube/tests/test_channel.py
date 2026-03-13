@@ -26,3 +26,12 @@ def test_channel_functions_raise_without_api_key(monkeypatch):
     from channel import get_channel, MissingAPIKeyError
     with pytest.raises(MissingAPIKeyError):
         get_channel("@3blue1brown")
+
+
+@pytest.mark.integration
+def test_get_channel_3blue1brown():
+    from channel import get_channel
+    ch = get_channel("@3blue1brown")
+    assert ch.title == "3Blue1Brown"
+    assert ch.id.startswith("UC")
+    assert ch.video_count > 0
