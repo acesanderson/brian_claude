@@ -53,3 +53,41 @@ def test_search_transcript_no_match_returns_empty(mocker):
 
     hits = search_transcript("dQw4w9WgXcQ", "eigenvalue")
     assert hits == []
+
+
+def test_get_transcript_languages_and_fallback_whisper_raises():
+    from video import get_transcript
+    with pytest.raises(ValueError, match="mutually exclusive"):
+        get_transcript("dQw4w9WgXcQ", languages=["fr"], fallback_whisper=True)
+
+
+def test_get_transcript_uses_cache_on_second_call(mocker, tmp_path, monkeypatch):
+    import _cache
+    monkeypatch.setattr(_cache, "CACHE_DIR", tmp_path)
+
+    from youtube_transcript_api._transcripts import FetchedTranscriptSnippet, FetchedTranscript
+
+    snippet = FetchedTranscriptSnippet(text="hello", start=0.0, duration=1.0)
+    fetched = FetchedTranscript(
+        snippets=[snippet],
+        video_id="dQw4w9WgXcQ",
+        language="English",
+        language_code="en",
+        is_generated=False,
+    )
+    mock_t = mocker.MagicMock()
+    mock_t.fetch.return_value = fetched
+
+    mock_list = mocker.MagicMock()
+    mock_list.find_manually_created_transcript.return_value = mock_t
+
+    mock_api_instance = mocker.MagicMock()
+    mock_api_instance.list.return_value = mock_list
+
+    mocker.patch("youtube_transcript_api.YouTubeTranscriptApi", return_value=mock_api_instance)
+
+    from video import get_transcript
+    get_transcript("dQw4w9WgXcQ")
+    get_transcript("dQw4w9WgXcQ")
+
+    assert mock_api_instance.list.call_count == 1  # network called only once
