@@ -1,12 +1,18 @@
 from __future__ import annotations
 
 import logging
+import re as _re
+from pathlib import Path as _Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from _models import Transcript
 
 logger = logging.getLogger("youtube")
+
+
+class WhisperTranscriptionError(Exception):
+    pass
 
 
 def extract_video_id(url_or_id: str) -> str:
@@ -105,8 +111,95 @@ def get_transcript(
         raise
 
 
-def transcribe_whisper(url_or_id: str) -> "Transcript":
-    raise NotImplementedError("transcribe_whisper is implemented in Task 8")
+def get_chapters(url_or_id: str) -> list:
+    import yt_dlp
+    from _models import Chapter
+    from _util import extract_video_id
+
+    video_id = extract_video_id(url_or_id)
+    url = f"https://www.youtube.com/watch?v={video_id}"
+
+    ydl_opts = {"quiet": True, "skip_download": True, "no_warnings": True}
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=False)
+
+    description = (info or {}).get("description", "") or ""
+
+    pattern = _re.compile(r"^(\d+:\d{2}(?::\d{2})?)\s+(.+)$", _re.MULTILINE)
+
+    chapters = []
+    for m in pattern.finditer(description):
+        timestamp, title = m.group(1), m.group(2).strip()
+        parts = timestamp.split(":")
+        if len(parts) == 2:
+            start = int(parts[0]) * 60 + int(parts[1])
+        else:
+            start = int(parts[0]) * 3600 + int(parts[1]) * 60 + int(parts[2])
+        chapters.append(Chapter(title=title, start=float(start)))
+
+    return chapters
+
+
+def _download_audio(video_id: str) -> _Path:
+    import yt_dlp
+    tmp_dir = _Path.home() / ".cache" / "youtube" / "tmp"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+    out_template = str(tmp_dir / f"{video_id}.%(ext)s")
+    url = f"https://www.youtube.com/watch?v={video_id}"
+
+    ydl_opts = {
+        "format": "bestaudio/best",
+        "outtmpl": out_template,
+        "quiet": True,
+        "no_warnings": True,
+        "postprocessors": [],
+    }
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=True)
+        ext = info.get("ext", "m4a")
+
+    result = tmp_dir / f"{video_id}.{ext}"
+    logger.debug("temp audio file created: %s", result)
+    return result
+
+
+def transcribe_whisper(url_or_id: str, model: str = "small") -> "Transcript":
+    import faster_whisper
+    from _models import Transcript, Snippet
+    from _util import extract_video_id
+
+    video_id = extract_video_id(url_or_id)
+    logger.warning(
+        "starting Whisper transcription for %s (model=%s); this may be slow",
+        video_id, model,
+    )
+
+    audio_path = _download_audio(video_id)
+    try:
+        whisper_model = faster_whisper.WhisperModel(model)
+        segments, info = whisper_model.transcribe(str(audio_path))
+        snippets = [
+            Snippet(text=seg.text.strip(), start=seg.start, duration=seg.end - seg.start)
+            for seg in segments
+        ]
+        return Transcript(
+            language=info.language,
+            language_code=info.language,
+            is_generated=False,
+            source="whisper",
+            snippets=snippets,
+            text=" ".join(s.text for s in snippets),
+        )
+    except Exception as exc:
+        raise WhisperTranscriptionError(
+            f"Whisper transcription failed for {video_id}: {exc}"
+        ) from exc
+    finally:
+        if audio_path.exists():
+            audio_path.unlink()
+            logger.debug("temp audio file deleted: %s", audio_path)
+        else:
+            logger.error("temp audio file not found for cleanup: %s", audio_path)
 
 
 def search_transcript(url_or_id: str, query: str) -> list:
