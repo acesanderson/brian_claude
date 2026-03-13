@@ -98,3 +98,32 @@ def test_get_card_history(conn):
     history = repo.get_card_history(conn, card.id)
     assert len(history) == 1
     assert history[0].rating == 3
+
+
+def test_add_card_reference_none(conn):
+    """Card added without reference has reference=None."""
+    deck = repo.create_deck(conn, "test_ref_none")
+    card = repo.add_card(conn, deck_id=deck.id, front="Q", back="A")
+    assert card.reference is None
+
+
+def test_add_card_with_reference(conn):
+    """Card added with reference stores and returns it."""
+    deck = repo.create_deck(conn, "test_ref_stored")
+    card = repo.add_card(conn, deck_id=deck.id, front="Q", back="A",
+                         reference="See page 42.")
+    assert card.reference == "See page 42."
+
+
+def test_row_to_card_none_reference():
+    """_row_to_card with row[14]=None produces card.reference=None (unit test, no DB)."""
+    from datetime import datetime, timezone
+    from src.repo import _row_to_card
+    now = datetime.now(tz=timezone.utc)
+    row = (
+        1, 1, "front", "back", [], now,
+        "new", now, 0, 2500, 0, 0, 0, False,
+        None,
+    )
+    card = _row_to_card(row)
+    assert card.reference is None

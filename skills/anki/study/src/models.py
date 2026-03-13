@@ -26,6 +26,7 @@ class Card:
     lapses: int
     step_index: int
     suspended: bool
+    reference: str | None = None  # human-supplied citation; None for legacy cards
 
 
 @dataclass(frozen=True)

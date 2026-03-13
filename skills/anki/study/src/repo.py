@@ -51,17 +51,18 @@ def add_card(
     front: str,
     back: str,
     tags: list[str] | None = None,
+    reference: str | None = None,
 ) -> Card:
     with conn.cursor() as cur:
         cur.execute(
             """
-            INSERT INTO cards (deck_id, front, back, tags)
-            VALUES (%s, %s, %s, %s)
+            INSERT INTO cards (deck_id, front, back, tags, reference)
+            VALUES (%s, %s, %s, %s, %s)
             RETURNING id, deck_id, front, back, tags, created_at,
                       state, due, interval, ease_factor, reps, lapses,
-                      step_index, suspended
+                      step_index, suspended, reference
             """,
-            (deck_id, front, back, tags or []),
+            (deck_id, front, back, tags or [], reference),
         )
         row = cur.fetchone()
     conn.commit()
@@ -74,7 +75,7 @@ def get_card(conn: psycopg2.extensions.connection, card_id: int) -> Card | None:
             """
             SELECT id, deck_id, front, back, tags, created_at,
                    state, due, interval, ease_factor, reps, lapses,
-                   step_index, suspended
+                   step_index, suspended, reference
             FROM cards WHERE id = %s
             """,
             (card_id,),
@@ -104,7 +105,7 @@ def update_card(
         cur.execute(
             f"UPDATE cards SET {', '.join(updates)} WHERE id = %s "
             "RETURNING id, deck_id, front, back, tags, created_at, "
-            "state, due, interval, ease_factor, reps, lapses, step_index, suspended",
+            "state, due, interval, ease_factor, reps, lapses, step_index, suspended, reference",
             values,
         )
         row = cur.fetchone()
@@ -155,7 +156,7 @@ def list_cards(conn: psycopg2.extensions.connection, deck_id: int) -> list[Card]
             """
             SELECT id, deck_id, front, back, tags, created_at,
                    state, due, interval, ease_factor, reps, lapses,
-                   step_index, suspended
+                   step_index, suspended, reference
             FROM cards WHERE deck_id = %s ORDER BY id
             """,
             (deck_id,),
@@ -177,7 +178,7 @@ def get_due_cards(
                 """
                 SELECT id, deck_id, front, back, tags, created_at,
                        state, due, interval, ease_factor, reps, lapses,
-                       step_index, suspended
+                       step_index, suspended, reference
                 FROM cards
                 WHERE deck_id = %s AND due <= NOW() AND suspended = FALSE
                 ORDER BY due ASC
@@ -190,7 +191,7 @@ def get_due_cards(
                 """
                 SELECT id, deck_id, front, back, tags, created_at,
                        state, due, interval, ease_factor, reps, lapses,
-                       step_index, suspended
+                       step_index, suspended, reference
                 FROM cards
                 WHERE deck_id = %s AND due <= %s AND suspended = FALSE
                 ORDER BY due ASC
@@ -362,4 +363,5 @@ def _row_to_card(row: tuple) -> Card:
         created_at=row[5], state=row[6], due=row[7],
         interval=row[8], ease_factor=row[9], reps=row[10],
         lapses=row[11], step_index=row[12], suspended=row[13],
+        reference=row[14],
     )
