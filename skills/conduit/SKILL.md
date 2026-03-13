@@ -1,13 +1,27 @@
 ---
 name: conduit
-description: Use when a task involves a non-Anthropic model — Perplexity for research, Gemini, local Ollama, image generation, or any multi-model workflow. Conduit is the LLM runtime to reach for whenever the right tool is not a Claude model.
+description: Use when a task involves a non-Anthropic model — Perplexity for research, Gemini, local/open-weight models via Headwater, image generation, or any multi-model workflow. Conduit is the LLM runtime to reach for whenever the right tool is not a Claude model.
 ---
 
 # conduit
 
-Conduit is the local LLM runtime. When a task calls for a non-Anthropic model — a search-grounded query via Perplexity, a cheap local subtask via Ollama, image generation, or multi-model chaining — conduit is how you invoke it.
+Conduit is the LLM runtime. When a task calls for a non-Anthropic model — a search-grounded query via Perplexity, an open-weight model via Headwater, image generation, or multi-model chaining — conduit is how you invoke it.
 
 **Rule:** Any time Claude Code delegates to a non-Claude model, it does so through conduit.
+
+---
+
+## Local model inference — AlphaBlue / Headwater ONLY
+
+**Do NOT invoke Ollama on the local MacBook.** It saturates memory and disrupts other work.
+
+All open-weight / Ollama-backed models (`gpt-oss:latest`, `llama`, `qwen`, `quant`, etc.) must run on the **AlphaBlue** host via **HeadwaterServer / HeadwaterClient**.
+
+- **MacBook**: Headwater remote client only. Never use `--local` or invoke `ollama` directly.
+- **AlphaBlue**: Ollama runs locally; direct use is fine.
+- The `gpt-oss` alias is the preferred local model. Conduit routes it through Headwater automatically when the remote backend is configured.
+
+If you need a cheap/fast local model and are not on AlphaBlue, use a cloud API (e.g., `haiku`, `gpt-mini`) instead.
 
 ---
 
@@ -227,8 +241,9 @@ ask --raw --model <model> "$(cat /tmp/query.txt)"
 ## When to use which model
 
 - **Perplexity** (`--model sonar` or `--model sonar-pro`) — web-grounded research, current events, citations (`--citations` to print sources). Use `sonar` for fast/cheap, `sonar-pro` for deeper research.
-- **Ollama (`--local`)** — sensitive data, offline, cheap subtasks, cost reduction
+- **gpt-oss / open-weight models** — preferred for bulk/batch inference (cost, privacy). Routes through Headwater on AlphaBlue. **Never run via local Ollama on MacBook.**
 - **Gemini / Imagen** — image generation, multimodal, long context
+- **haiku / gpt-mini** — cheap cloud fallback when AlphaBlue is unavailable and cost matters
 
 ---
 

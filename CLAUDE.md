@@ -92,3 +92,13 @@ rm -rf /tmp/repo
 Worktree directory: `~/.config/superpowers/worktrees/<project-name>/`
 Always use this global location. Never create project-local `.worktrees/` directories.
 
+## Local model inference — AlphaBlue / Headwater only
+
+**NEVER invoke Ollama on the local MacBook.** Running Ollama locally saturates memory and disrupts other work.
+
+All local/open-weight model inference runs exclusively on the **AlphaBlue** host via the **HeadwaterServer / HeadwaterClient**. This applies to all Ollama-backed models (`gpt-oss:latest`, `llama`, `qwen`, `quant`, etc.).
+
+- On the MacBook: route local models through HeadwaterClient (conduit handles this automatically when Headwater is configured as the remote backend — do NOT use `--local` or invoke `ollama` directly).
+- On AlphaBlue itself: Ollama runs locally and is fine to use directly.
+- When in doubt about which host you're on: check `hostname`. AlphaBlue = use Ollama. MacBook = use Headwater.
+

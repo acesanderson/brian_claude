@@ -29,9 +29,18 @@ the state layer.
   partners/            # One directory per active/prospective partner (notes.md + catalog files)
   skills/              # One directory per skill TLM (roadmap.md + catalog XLSX + report)
   context/             # Read-only reference docs (licensing_context.md, google_docs.json, bd-process.md, funnel-framework.md, library-composition-analysis.md)
+                       # Classifier config (living docs — update as rubric shifts):
+                       #   classifier-blockers.yaml       — hard eliminators (format, product_type, title, description)
+                       #   classifier-quality-signals.yaml — LLM signal prompts (brand_authority, tone, depth, audience_fit, availability, brand_topic_fit)
+                       #   topic-priority.yaml            — green/yellow/red topic rubric (most volatile; update when Mary's rubric shifts)
   projects/            # Parallel workstreams (each has its own subdir + notes.md); also loose docs licensable-definition.md, licensing-classifier.md
   gate_log.json        # Course-level gate decision log — SOT for funnel metrics and CYA (see projects/pipeline-ops/notes.md)
   scripts/             # Python utilities: lil_stats.py, lil_semantic.py, lil_overlap.py; log_gate.py, funnel_report.py
+                       # Classifier:
+                       #   classify.py           — two-pass classifier (pass 1: blockers, pass 2: LLM via ConduitBatch)
+                       #   classifier_models.py  — Pydantic models for structured LLM output (ClassifierResult)
+                       #   classifier_prompt.j2  — Jinja2 prompt template; signals injected from YAML
+                       #   normalize_formats.py  — one-time migration (already run 2026-03-13; keep for re-runs)
   database/            # ChromaDB instance used by scripts/lil_semantic.py for vector search over LiL course catalog — do not delete
   boilerplate/         # Reusable templates (outreach.md: Template A InMail, Template B cold email)
   business_context/                    # Business intelligence — hierarchical, domain-organized
@@ -490,6 +499,34 @@ Refresh Lake 3 (interest form) monthly: run the Trino query at
 `~/.claude/skills/licensing/queries/interest_form.sql` via `execute_trino_query` MCP,
 write result to `~/licensing/interest_form_YYYY-MM-DD.json`, then run
 `uv run --project ~/vibe/licensing-project/catalog python /Users/bianders/vibe/licensing-project/catalog/scripts/load_interest_form.py ~/licensing/interest_form_YYYY-MM-DD.json`.
+
+### Classifier
+
+Two-pass course-level classifier that determines whether a scraped course is a licensing candidate.
+
+**Pass 1 — deterministic pre-filter** (no LLM): reads `context/classifier-blockers.yaml`. Blocks on format, product_type, title, and description patterns. Fast, free.
+
+**Pass 2 — LLM-as-judge**: renders `scripts/classifier_prompt.j2` per course, runs via `ConduitBatchAsync` with `gpt-oss:latest`. Returns a `ClassifierResult` Pydantic model with per-signal verdicts and a `proceed / flag / reject` recommendation.
+
+```bash
+# Batch — classify all unclassified courses in a partner catalog
+/Users/bianders/Brian_Code/conduit-project/.venv/bin/python scripts/classify.py partners/<slug>/catalog.json
+
+# Single course spot-check (no file write)
+/Users/bianders/Brian_Code/conduit-project/.venv/bin/python scripts/classify.py --single 3 partners/<slug>/catalog.json
+
+# Re-classify already-classified courses
+/Users/bianders/Brian_Code/conduit-project/.venv/bin/python scripts/classify.py --overwrite partners/<slug>/catalog.json
+```
+
+Results written back into `catalog.json` per course under a `classifier` key.
+
+**Living config files** (update these to change classifier behavior — no code changes needed):
+- `context/classifier-blockers.yaml` — hard eliminators; add/remove patterns freely
+- `context/classifier-quality-signals.yaml` — LLM signal prompts; edit `prompt:` field to change how the LLM evaluates each signal
+- `context/topic-priority.yaml` — green/yellow/red topic rubric; update whenever Mary's priorities shift
+
+**Local model constraint**: `gpt-oss:latest` runs via HeadwaterClient on AlphaBlue. Do NOT run on MacBook (Ollama will saturate memory). On MacBook, use `--model haiku` or `--model gpt-mini` as a cloud fallback.
 
 ### Checking which partners lack catalogs
 
