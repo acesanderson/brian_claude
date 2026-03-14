@@ -105,7 +105,7 @@ SELECT * FROM hive.<schema>.<table> LIMIT 5
 **Default server:** `holdem`
 
 **Catalog routing:**
-- `hive` — analytics/metrics materialized views, personal schemas (`u_*`), production DB change captures
+- `hive` — analytics/metrics materialized views, personal schemas (`u_*`), production DB change captures. Note: `u_llsdsgroup` is NOT a personal schema — it is the LLS Data Science Group's shared schema and the primary home for Learning analytics tables.
 - `openhouse` — live production tables, often stricter ACLs
 - `iceberg` — avoid broad exploration
 
@@ -150,9 +150,21 @@ uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upser
 
 ## Manifest updates
 
-Update immediately on discovery or failure — never defer.
+**Update immediately on discovery or failure — never defer. This is mandatory, not optional.**
 
-After a successful query worth saving, add it to the manifest:
+### When to save a table
+
+Save any table that is:
+- **Queried successfully** — even if the result was empty or not what you hoped
+- **Described** — column list obtained via DESCRIBE or MCP
+- **Identified as relevant** — schema/name clearly fits the user's domain, even before querying
+- **Confirmed broken or restricted** — save the error so future sessions don't retry
+
+Do NOT wait to be asked. Every table touched in a session should have an updated manifest entry by the end.
+
+### How to save
+
+After a successful query or DESCRIBE:
 ```bash
 uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upsert-table \
   hive <schema> <table> --status accessible \
@@ -160,7 +172,7 @@ uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upser
   --description "<grain, key columns, what it measures>"
 ```
 
-After confirming a table is accessible, mark it:
+After confirming accessible without column list yet:
 ```bash
 uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upsert-table \
   hive <schema> <table> --status accessible --description "..." --notes "..."
@@ -168,11 +180,47 @@ uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upser
 
 ## Known LiL data landscape
 
-**Accessible:**
+### `hive.u_llsdsgroup` — primary LiL analytics schema
+
+**`u_llsdsgroup` is not a personal schema.** It is the LLS Data Science Group's shared schema (~724 tables) and the first place to look for any Learning analytics data. When searching for LiL tables, always check `u_llsdsgroup` before exploring other schemas.
+
+**Confirmed accessible in `u_llsdsgroup`:**
+- `course_inventory` — full LiL course dimension: course_id (bigint), title, instructor names/IDs, status (ACTIVE/RETIRED), library, subject, URL, slug. Use for course lookups by name, instructor, or ID. Has duplicates — use DISTINCT.
+- `temp_video_inventory` — video inventory: video_id/course_id as varchar, sort_order, is_welcome_video ('Yes'/'No'), is_active. Has duplicates per locale — use DISTINCT. Join to course_inventory on CAST(course_id AS bigint).
+- `lp_lsv_el_engagement_weekly` — weekly LP engagement: learningpath_id, lp_title, learner_cohort, week_end_date (YYYY-MM-DD Saturday), unique_lp_starts, unique_lp_completes. Primary table for LP starts/completes analysis, cert vs non-cert comparisons.
+- `test_report_status_learningpath` — monthly LP stats with full demographics: learningpath_title, learner_cohort, unique_learner_started, unique_learner_completed, year_month (DATE), parent_industry_name, seniority_name, function_name, parent_occupation_name.
+- `learningpath_inventory` — LP dimension table: learningpath_id, learningpath_title, slug, url, content (array of course URNs). Title↔ID lookup. Has duplicates — use DISTINCT.
+- `feedback_response` — course verbatim feedback: course_id (varchar), course_comments. Filter course_comments IS NOT NULL.
+
+### `hive.prod_learning` — production learning events (OPAL/Kafka-backed)
+
+- `earnedcertificate` — one row per cert issuance. key: learnerurn, contenturn, certifierurn. value: earnedat (epoch ms), enterpriseprofile (null = consumer), metric.name (partner/provider), certificatesharevisibility (PUBLIC/MEMBERS_ONLY/NONE). Filter deleted_ts IS NULL. Primary source for cert counts, enterprise vs consumer splits, provider breakdowns.
+- `learningpathstatusv2` — LP start events per learner. key: learningpathurn, learnerurn. value.changetimestamps.created = start epoch ms. Use for monthly starts by cert LP.
+- `careerintent` — AI-generated career goals and learning plans per learner. key: learnerurn. value: careergoal, enterpriseprofileurn, learningplanv3 (title, milestones, recommended course URNs).
+
+### `hive.prod_learningenterprisedb`
+
+- `learningcontentassignment` — enterprise LP assignment events. value: assignedcontenturn (LP/course URN), enterpriseaccounturn. timestamp epoch ms.
+
+### `hive.u_metrics` — engagement aggregations
+
+- `learning_enterprise_lms_engagement_aggregation_union` — enterprise learner sessions by day + integration type. Fields: enterprise_profile_id, datepartition (YYYY-MM-DD-00), integration (LMS/NON-LMS), integration_standard (LTI/SCORM/xAPI/etc), integration_partner. Only source for LMS integration analysis.
+- `learning_skill_credits_union` — WSL (Weekly Skill Learner) data. Fields: member_id, skill_credits_uu, learner_type, datepartition (YYYY-MM-DD-00).
+- `lil_ent_accounts_union` — enterprise accounts; LMS flag via dAppId/leis parameter.
+
+### `hive.lyndasqlserversnapshots` — legacy Lynda SQL Server snapshot (264 tables, all accessible)
+
+Historical Lynda.com data. Notable tables for licensing/content work:
+- `salesforce_contract`, `salesforce_opportunity` — CRM contract and opportunity data
+- `royaltyactivities`, `royaltyrates`, `royaltyperiods` — royalty tracking
+- `vwb2b_lmsintegration_detailed`, `vwb2blicensecountall` — B2B LMS integration and license counts
+- `subscription`, `edw_subscriptiondimension` — subscription history
+- `product_courses`, `coursedimension`, `coursecatalog` — legacy course catalog
+
+### Other accessible
+
 - `hive.foundation_tables_fact_lil_video_session_mp.fact_lil_video_session` — raw video sessions, course + user + enterprise grain. No contract_type. Filter on `datepartition`.
 - `hive.foundation_tables_fact_lil_video_session_mp.fact_lil_video_session_private` — identical schema (32 cols), likely same table with ACL-based PII stripping.
-- `hive.u_llsdsgroup.course_inventory` — full LiL course dimension: course_id (bigint), title, instructor names/IDs, status (ACTIVE/RETIRED), library, subject, URL, slug. Use for course lookups by name, instructor, or ID. Has duplicates — use DISTINCT.
-- `hive.u_llsdsgroup.temp_video_inventory` — video inventory: video_id/course_id as varchar, sort_order, is_welcome_video ('Yes'/'No'), is_active. Has duplicates per locale — use DISTINCT. Join to course_inventory on CAST(course_id AS bigint). Used by `catalog cymbii`.
 
 **Need access (pending DataHub request):**
 - `hive.u_lildata.aps_lil_video` — likely pre-aggregated APS engagement by course

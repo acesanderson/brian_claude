@@ -55,6 +55,6 @@
   "skipDangerousModePermissionPrompt": true,
   "mcpServers": {},
   "preferences": {
-    "vimMode": true
+    "editorMode": "vim"
   }
 }

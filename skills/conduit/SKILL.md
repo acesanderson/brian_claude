@@ -11,17 +11,58 @@ Conduit is the LLM runtime. When a task calls for a non-Anthropic model — a se
 
 ---
 
-## Local model inference — AlphaBlue / Headwater ONLY
+## Local model inference — HeadwaterClient ONLY
 
 **Do NOT invoke Ollama on the local MacBook.** It saturates memory and disrupts other work.
 
-All open-weight / Ollama-backed models (`gpt-oss:latest`, `llama`, `qwen`, `quant`, etc.) must run on the **AlphaBlue** host via **HeadwaterServer / HeadwaterClient**.
+All open-weight / Ollama-backed models (`gpt-oss:latest`, `llama`, `qwen`, `quant`, etc.) must go through **HeadwaterClient exclusively**. Never use `--local`, never call `ollama` directly from the MacBook.
 
-- **MacBook**: Headwater remote client only. Never use `--local` or invoke `ollama` directly.
-- **AlphaBlue**: Ollama runs locally; direct use is fine.
-- The `gpt-oss` alias is the preferred local model. Conduit routes it through Headwater automatically when the remote backend is configured.
+### Headwater instances
 
-If you need a cheap/fast local model and are not on AlphaBlue, use a cloud API (e.g., `haiku`, `gpt-mini`) instead.
+| Instance | Host | GPU | VRAM | `host_alias` | Default? |
+|----------|------|-----|------|--------------|----------|
+| **Headwater** (AlphaBlue) | AlphaBlue | RTX 5090 | 32 GB + 128 GB RAM | `"headwater"` | **Yes** |
+| **Bywater** (Caruana) | Caruana | RTX 4090 | 15 GB | `"bywater"` | No |
+
+Both handle `gpt-oss:latest` and embeddings work. Use Headwater (AlphaBlue) by default. Switch to Bywater if AlphaBlue is under load or offline.
+
+### Python — instantiating the client
+
+```python
+from headwater_client.client.headwater_client_async import HeadwaterAsyncClient
+
+# Default — Headwater on AlphaBlue
+async with HeadwaterAsyncClient() as client:
+    ...
+
+# Bywater on Caruana (explicit opt-in)
+async with HeadwaterAsyncClient(host_alias="bywater") as client:
+    ...
+```
+
+The client resolves the correct IP automatically via network context detection (VPN → LAN → WAN fallback). No hardcoded IPs needed.
+
+### Batch inference via headwater_client
+
+The `/conduit/batch` endpoint is the right path for multi-prompt structured inference. Use `BatchRequest` from `headwater_api.classes`:
+
+```python
+from headwater_api.classes import BatchRequest
+from conduit.domain.request.generation_params import GenerationParams
+from conduit.domain.config.conduit_options import ConduitOptions
+
+params = GenerationParams(model="gpt-oss:latest", output_type="structured_response", response_model=MyModel, temperature=0.0)
+options = ConduitOptions(project_name="my-project", include_history=False)
+batch_req = BatchRequest(prompt_strings_list=prompts, params=params, options=options)
+
+async with HeadwaterAsyncClient(host_alias="bywater") as client:  # or default
+    resp = await client.conduit.query_batch(batch_req)
+# resp.results is list[Conversation]; extract via conv.last.parsed
+```
+
+**Note:** If `output_type="structured_response"` fails on the server with an instructor-related error (version mismatch), fall back to `output_type="text"`, append a JSON schema instruction to the prompt, and parse the raw text response client-side.
+
+If you need a cheap/fast model and Headwater is unavailable, use a cloud API (`haiku`, `gpt-mini`) instead.
 
 ---
 
@@ -241,7 +282,7 @@ ask --raw --model <model> "$(cat /tmp/query.txt)"
 ## When to use which model
 
 - **Perplexity** (`--model sonar` or `--model sonar-pro`) — web-grounded research, current events, citations (`--citations` to print sources). Use `sonar` for fast/cheap, `sonar-pro` for deeper research.
-- **gpt-oss / open-weight models** — preferred for bulk/batch inference (cost, privacy). Routes through Headwater on AlphaBlue. **Never run via local Ollama on MacBook.**
+- **gpt-oss / open-weight models** — preferred for bulk/batch inference (cost, privacy). Use HeadwaterClient exclusively — default to AlphaBlue (Headwater), opt into Caruana (Bywater) with `host_alias="bywater"`. **Never run via local Ollama on MacBook.**
 - **Gemini / Imagen** — image generation, multimodal, long context
 - **haiku / gpt-mini** — cheap cloud fallback when AlphaBlue is unavailable and cost matters
 

@@ -151,11 +151,12 @@ Last updated: YYYY-MM-DD
 
 | Partner | Tier | Stage | Last Action | Next Action |
 |---|---|---|---|---|
-| Anthropic | Tier 1 | Contract | 2026-02-20 sign expected | Track — no action needed |
+| Anthropic | Tier 1 | Approvals/Contracting | 2026-02-20 sign expected | Track — no action needed |
 | Google | Tier 1 | Outreach | 2026-02-10 intro sent | Follow up if no response by Mar 1 |
 ```
 
-**Stages** (lightweight, not prescriptive): Prospect → Outreach → Evaluation → Negotiation → Contract → Active → Paused → Dead
+**Stages** (aligned to Kim's Team Tracker data validation): `Not Started` → `Researching` → `Outreach` → `In Conversation w/Partner` → `Approvals/Contracting` → `Project Management` → `Blocked` | `Dead`
+(`Dead` is a local extension — Team Tracker uses `Blocked` as catch-all; we distinguish permanent drops)
 
 Add/remove columns as real usage reveals what's actually needed.
 
@@ -206,7 +207,7 @@ Format: YYYY-MM-DD | created|updated|sent | <path or description> | <what change
 **Training Portal:** {catalog/learning URL}
 **BD POC:** {Brian|Manish}
 **Priority:** {P0|P1|P2|TBD} / {Tier 1|Tier 2|Tier 3|TBD}
-**Stage:** {Prospect|Outreach|Evaluation|Negotiation|Contract|Active|Paused|Dead}
+**Stage:** {Not Started|Researching|Outreach|In Conversation w/Partner|Approvals/Contracting|Project Management|Blocked|Dead}
 **New/Existing:** {New|Existing}
 **MOC:** {name or —}
 **Library:** {Tech|Biz|Creative|—}
@@ -408,6 +409,61 @@ team wiki, product area, or policy): run `mcp__glean_default__search` with `app=
 before reaching for Captain MCP. Glean is the discovery layer; Captain is for fetching known
 pages. If Glean returns relevant results, use the URL with `mcp__glean_default__read_document`
 for full content, or extract the page ID from the URL and use Captain `get_confluence_page`.
+
+**On catalog scrape complete**
+After any catalog scrape confirms `partners/<slug>/catalog.json` exists:
+
+1. Read `context/google_docs.json` to get `catalog_index.id`.
+2. Create a catalog sheet for this partner:
+   - If no catalog sheet exists yet: create one via `create_google_sheets_spreadsheet`
+     titled `"[Partner] — Course Catalog ([Month Year])"`. Write a header row
+     (provider, title, url, format, level, duration, category, date_scraped).
+     Register it in `context/google_docs.json` under `"read_write_docs"` with
+     `"permissions": "read-write"` and a description noting course count and date.
+   - If a sheet already exists (check `google_docs.json`): skip creation.
+3. Append one row to the catalog index sheet (`catalog_index.id`) via
+   `write_google_sheets_by_id` (mode: append) with columns:
+   Partner | Catalog Sheet URL | Context | Courses | Status | Date Scraped | Notes
+
+   **Column C (Context) format:** `[Stage] — [POC]. [1-2 sentence description.]`
+   Stage must be one of the official enum values (same as pipeline.md Stage column):
+   `Not Started` | `Researching` | `Outreach` | `In Conversation w/Partner` |
+   `Approvals/Contracting` | `Project Management` | `Blocked` | `Dead`
+
+   **Column E (Status) enum:** `complete | partial | blocked | pending`
+   - `complete` — full catalog captured, no known gaps
+   - `partial` — scrape incomplete due to auth/JS walls; more data potentially recoverable
+   - `blocked` — structural issue (no catalog, wrong format, MIT-licensed, etc.) — don't retry
+   - `pending` — scrape dispatched, not yet complete
+4. Append to `manifest.md`:
+   `- YYYY-MM-DD | synced | catalog_index → Google Sheet | Adobe: 178 courses added at row N`
+
+**Writing catalog rows to the per-partner sheet — batching required:**
+`write_google_sheets_by_id` has an inline parameter size limit. Passing a large `values`
+array in one call causes the tool to store output as a persisted file rather than returning
+it inline — making it inaccessible as a parameter. Fix: generate rows in Python with
+explicit slices and write in batches of ≤40 rows.
+
+```bash
+# Print one batch to stdout — paste the output directly as `values` in the tool call
+python3 -c "
+import json
+with open('partners/<slug>/catalog.json') as f:
+    courses = json.load(f)
+cols = ['provider','title','url','format','level','duration','category','date_scraped']
+rows = [[c.get(col,'') or '' for col in cols] for c in courses]
+print(json.dumps(rows[0:40]))   # change slice per batch: [40:80], [80:120], etc.
+"
+```
+
+Call sequence:
+1. `overwrite` — header row only: `[["provider","title","url","format","level","duration","category","date_scraped"]]`
+2. `append` — batch 1: `rows[0:40]`
+3. `append` — batch 2: `rows[40:80]`
+4. Continue until done. Expected final row count = 1 + len(courses).
+
+The catalog index row (step 3 of this hook) is always written regardless of whether
+full per-partner sheet population is completed.
 
 **On scrape script cleanup**
 After any catalog scrape completes, check for `scrape_*.py` files at `~/licensing/` root.
