@@ -32,7 +32,7 @@ the state layer.
                        # Classifier config (living docs — update as rubric shifts):
                        #   classifier-blockers.yaml       — hard eliminators (format, product_type, title, description)
                        #   classifier-quality-signals.yaml — LLM signal prompts (brand_authority, tone, depth, audience_fit, availability, brand_topic_fit)
-                       #   topic-priority.yaml            — green/yellow/red topic rubric (most volatile; update when Mary's rubric shifts)
+                       #   topic-priority.yaml            — green/yellow/red topic rubric (most volatile; update when Content Strategy's rubric shifts)
   projects/            # Parallel workstreams (each has its own subdir + notes.md); also loose docs licensable-definition.md, licensing-classifier.md
   gate_log.json        # Course-level gate decision log — SOT for funnel metrics and CYA (see projects/pipeline-ops/notes.md)
   scripts/             # Python utilities: lil_stats.py, lil_semantic.py, lil_overlap.py; log_gate.py, funnel_report.py
@@ -218,6 +218,51 @@ Format: YYYY-MM-DD | created|updated|sent | <path or description> | <what change
 [Current state — what's happened, where things stand]
 
 ## Contact Log
+```
+
+**`partners/{slug}/gate-a-submission.md`** (Gate A submission template — generate when a partner is ready to pitch Content Strategy):
+```markdown
+# Gate A Submission: {Partner Name}
+
+**Date:** YYYY-MM-DD
+**BD POC:** {Brian|Manish}
+**Stage Requested:** Researching → Outreach
+**Motion:** {Motion A (CM-initiated) | Motion B (BD-initiated)}
+
+---
+
+## The Opportunity
+[1-2 paragraphs: what the partner does, what content is being scoped, why now]
+
+**Targeted licensing scope:**
+- [Series/course list with count and format]
+
+---
+
+## Subject Fit
+[Subject from the EN Courses deep dive: GREEN/YELLOW/RED, key stats, gap data]
+
+---
+
+## Brand Authority
+[Why this partner's brand matters to LiL's enterprise audience]
+
+---
+
+## LiL Talent / Existing Relationship (if applicable)
+[Existing Prof Cert, co-branded content, or LiL instructor connection — omit if none]
+
+---
+
+## Risk Assessment
+| Risk | Mitigation |
+|---|---|
+| [risk] | [mitigation] |
+
+---
+
+## Ask
+[Specific approval request: e.g., "Approve for Outreach" + proposed scope framing]
 ```
 
 Then ask: what partners are currently active, and what stage is each one?
@@ -410,6 +455,22 @@ before reaching for Captain MCP. Glean is the discovery layer; Captain is for fe
 pages. If Glean returns relevant results, use the URL with `mcp__glean_default__read_document`
 for full content, or extract the page ID from the URL and use Captain `get_confluence_page`.
 
+**On "Content Strategy deep dive" reference**
+When Brian mentions "Content Strategy deep dive", "EN Courses deep dive", "subject-level
+data", "the deep dive", or any similar reference to LiL engagement data by subject:
+read `~/licensing/business_context/talent_solutions/en_courses_data_deep_dive_bd_brief_2026-03-11.md`
+before responding. This is the pre-analyzed BD brief derived from the EN Courses Data
+Deep Dive (February 2026) — 36 subjects, GREEN/YELLOW/RED ratings, format guidance,
+pipeline gap analysis, and cross-cutting strategic findings. The raw source file is at
+`~/licensing/business_context/talent_solutions/EN Courses Data Deep Dive.md` (14K lines)
+— only read this if Brian asks for data not present in the brief.
+
+**On Researching → Outreach stage transition**
+Before updating a partner's stage from `Researching` to `Outreach` in pipeline.md:
+confirm that either (a) the partner was pre-approved by Content Strategy (Motion A),
+or (b) a Gate A submission doc exists at `partners/<slug>/gate-a-submission.md`.
+If neither exists, flag it and offer to generate one before proceeding.
+
 **On catalog scrape complete**
 After any catalog scrape confirms `partners/<slug>/catalog.json` exists:
 
@@ -580,7 +641,7 @@ Results written back into `catalog.json` per course under a `classifier` key.
 **Living config files** (update these to change classifier behavior — no code changes needed):
 - `context/classifier-blockers.yaml` — hard eliminators; add/remove patterns freely
 - `context/classifier-quality-signals.yaml` — LLM signal prompts; edit `prompt:` field to change how the LLM evaluates each signal
-- `context/topic-priority.yaml` — green/yellow/red topic rubric; update whenever Mary's priorities shift
+- `context/topic-priority.yaml` — green/yellow/red topic rubric; update whenever Content Strategy's priorities shift
 
 **Local model constraint**: `gpt-oss:latest` runs via HeadwaterClient on AlphaBlue. Do NOT run on MacBook (Ollama will saturate memory). On MacBook, use `--model haiku` or `--model gpt-mini` as a cloud fallback.
 
@@ -768,7 +829,7 @@ new partner content, or making the internal case for licensing investments.
 works day-to-day. Covers: two BD motions (CM-initiated Motion A vs BD-initiated Motion B), pipeline
 stage taxonomy (Sourcing → Gate A → Outreach → In Conversation → Gate B → Contracting → Onboarding →
 Production → Partnership Management), Gate A as the binding throughput constraint, and the political
-layer (Brian/Mary peer relationship, dogsbody risk, how to manage Gate A submissions). Read when
+layer (BD/Content Strategy peer coordination, dogsbody risk, how to manage Gate A submissions). Read when
 reasoning about deal stage, BD motion strategy, or internal process questions.
 
 ---

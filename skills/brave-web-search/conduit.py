@@ -20,13 +20,14 @@ def main() -> None:
     fetch_p = sub.add_parser("fetch")
     fetch_p.add_argument("url")
     fetch_p.add_argument("--page", type=int, default=1)
+    fetch_p.add_argument("--proxy", action="store_true", default=False, help="Route through Oxylabs residential proxy")
 
     args = parser.parse_args()
 
     if args.command == "search":
         result = asyncio.run(web_search(args.query))
     else:
-        result = asyncio.run(fetch_url(args.url, args.page))
+        result = asyncio.run(fetch_url(args.url, args.page, use_proxy=args.proxy))
 
     if "error" in result:
         print(json.dumps(result), file=sys.stderr)

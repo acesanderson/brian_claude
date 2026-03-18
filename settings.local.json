@@ -46,7 +46,19 @@
       "Bash(PGPASSWORD=\"$POSTGRES_PASSWORD\" psql -h caruana.local -U postgres -d outlook_email -c \"SELECT message_id FROM emails WHERE subject LIKE '%Potential Licensing Partnership%' LIMIT 1;\" 2>&1)",
       "Bash(PGPASSWORD=\"$POSTGRES_PASSWORD\" psql -h caruana.local -U postgres -d outlook_email -c \"SELECT message_id FROM emails WHERE subject LIKE '%Potential Licensing Partnership%' AND folder = 'sent' LIMIT 1;\" 2>&1)",
       "Bash(grep -io '.{200}docs\\\\.google\\\\.com/spreadsheets/d/1qA6wStKbC4yJuHs5jiLNvBFhb-ojPcjGtQOQxak2I2U[^\"<>]*.{0,100}' \"/Users/bianders/.claude/projects/-Users-bianders/18c2b342-31b9-49c4-a3f0-9358c38496b0/tool-results/mcp-captain-get_confluence_page-1773193789687.txt\" | head -5)",
-      "Bash(grep -io '.{200}docs\\\\.google\\\\.com/document/d/1OsOGBGkgFiM8i70cXqPLv6WnhNCO_2kA5iE8iaSRcUM[^\"<>]*.{0,100}' \"/Users/bianders/.claude/projects/-Users-bianders/18c2b342-31b9-49c4-a3f0-9358c38496b0/tool-results/mcp-captain-get_confluence_page-1773193789687.txt\" | head -5)"
+      "Bash(grep -io '.{200}docs\\\\.google\\\\.com/document/d/1OsOGBGkgFiM8i70cXqPLv6WnhNCO_2kA5iE8iaSRcUM[^\"<>]*.{0,100}' \"/Users/bianders/.claude/projects/-Users-bianders/18c2b342-31b9-49c4-a3f0-9358c38496b0/tool-results/mcp-captain-get_confluence_page-1773193789687.txt\" | head -5)",
+      "Bash(cd:*)",
+      "Bash(PYTHONPATH=/Users/bianders/Brian_Code/siphon/siphon-server/src \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/.venv/bin/python \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/dev/fetch_long_transcripts.py \\\\\n  --dry-run --bin 16 2>&1 | head -50)",
+      "Bash(PYTHONPATH=/Users/bianders/Brian_Code/siphon/siphon-server/src \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/.venv/bin/python \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/dev/fetch_long_transcripts.py \\\\\n  --dry-run --bin 16 2>&1 | head -40)",
+      "Bash(PYTHONPATH=/Users/bianders/Brian_Code/siphon/siphon-server/src \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/.venv/bin/python \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/dev/fetch_long_transcripts.py \\\\\n  --dry-run 2>&1)",
+      "Bash(PYTHONPATH=/Users/bianders/Brian_Code/siphon/siphon-server/src \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/.venv/bin/python \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/dev/fetch_long_transcripts.py 2>&1)",
+      "Bash(PYTHONPATH=/Users/bianders/Brian_Code/siphon/siphon-server/src \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/.venv/bin/python \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/dev/fetch_long_transcripts.py \\\\\n  --dry-run \\\\\n  --channel \"https://www.youtube.com/@freecodecamp/videos\" 2>&1 | grep -v \"^WARNING\")",
+      "Bash(PYTHONPATH=/Users/bianders/Brian_Code/siphon/siphon-server/src \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/.venv/bin/python -u \\\\\n  /Users/bianders/Brian_Code/siphon/siphon-server/dev/fetch_long_transcripts.py \\\\\n  --channel \"https://www.youtube.com/@freecodecamp/videos\" \\\\\n  > /tmp/fcc_load.log 2>&1)",
+      "WebFetch(domain:sprites.dev)",
+      "Bash(conduit batch:*)",
+      "WebFetch(domain:www.ebay.com)",
+      "WebFetch(domain:www.amazon.com)",
+      "WebFetch(domain:www.gartner.com)"
     ]
   }
 }

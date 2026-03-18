@@ -13,6 +13,8 @@ Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown).
 
 **Requires:** `BRAVE_API_KEY` environment variable for search.
 
+**Optional (proxy):** `OXY_NAME` and `OXY_PASSWORD` — needed only when using `--proxy`.
+
 ## Commands
 
 ### Search
@@ -36,7 +38,10 @@ Returns top 5 results.
 ```bash
 uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com"
 uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com" --page 2
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com" --proxy
 ```
+
+Use `--proxy` for bot-protected sites (Gartner, etc.) that block direct requests. Requires `OXY_NAME` and `OXY_PASSWORD`.
 
 **stdout (JSON):**
 ```json

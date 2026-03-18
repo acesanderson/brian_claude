@@ -139,9 +139,17 @@ def _paginate_content(full_content: str, url: str, page: int) -> dict[str, Any]:
     }
 
 
-async def fetch_url(url: str, page: int = 1) -> dict[str, Any]:
+async def fetch_url(url: str, page: int = 1, use_proxy: bool = False) -> dict[str, Any]:
     """Fetch a URL and convert it to clean Markdown."""
-    async with httpx.AsyncClient() as client:
+    proxy = None
+    if use_proxy:
+        username = os.getenv("OXY_NAME")
+        password = os.getenv("OXY_PASSWORD")
+        if not username or not password:
+            return {"error": "Missing OXY_NAME or OXY_PASSWORD environment variables"}
+        proxy = f"http://customer-{username}:{password}@pr.oxylabs.io:7777"
+
+    async with httpx.AsyncClient(proxy=proxy) as client:
         try:
             response = await client.get(
                 url,

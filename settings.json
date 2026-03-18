@@ -50,7 +50,8 @@
   "enabledPlugins": {
     "linkedin-framework@linkedin-plugins": true,
     "superpowers@claude-plugins-official": true,
-    "pyright-lsp@claude-plugins-official": true
+    "pyright-lsp@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true
   },
   "skipDangerousModePermissionPrompt": true,
   "mcpServers": {},
