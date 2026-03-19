@@ -34,3 +34,26 @@ def test_search_highlights_mode():
         assert "highlights" in result, f"Missing 'highlights' in result: {result}"
         assert isinstance(result["highlights"], list)
         assert "text" not in result, f"'text' must not appear in highlights mode: {result}"
+
+# ── AC-I2 ─────────────────────────────────────────────────────────────────────
+
+def test_search_text_mode():
+    """AC-I2: --text flag returns text field, no highlights field."""
+    code, data, stderr = run_exa("search", "introduction to transformers", "--text")
+    assert code == 0, f"Expected exit 0, got {code}. stderr: {stderr}"
+    assert stderr is None
+    assert len(data["results"]) > 0
+    for result in data["results"]:
+        assert "text" in result, f"Missing 'text' in result: {result}"
+        assert isinstance(result["text"], str)
+        assert "highlights" not in result, f"'highlights' must not appear in text mode: {result}"
+
+# ── AC-I3 ─────────────────────────────────────────────────────────────────────
+
+def test_search_num_results_respected():
+    """AC-I3: --num-results 3 returns at most 3 results."""
+    code, data, stderr = run_exa("search", "machine learning", "--num-results", "3")
+    assert code == 0, f"Expected exit 0, got {code}. stderr: {stderr}"
+    assert len(data["results"]) <= 3, (
+        f"Expected at most 3 results, got {len(data['results'])}"
+    )
