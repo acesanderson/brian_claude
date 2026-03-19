@@ -4,6 +4,10 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).parent))
+
+from conftest import run_exa
+
 SKILL_DIR = Path(__file__).parent.parent
 
 
@@ -25,3 +29,13 @@ def test_no_fetch_tools_import():
     """AC-U8: exa.py must not import fetch_tools."""
     exa_source = (SKILL_DIR / "exa.py").read_text()
     assert "fetch_tools" not in exa_source
+
+
+# ── AC-U1 ─────────────────────────────────────────────────────────────────────
+
+def test_missing_api_key_search():
+    """AC-U1: EXA_API_KEY unset on any subcommand → exit 1, structured error."""
+    code, stdout, stderr = run_exa("search", "test query", unset_keys=["EXA_API_KEY"])
+    assert code == 1
+    assert stdout is None
+    assert stderr == {"error": "Missing EXA_API_KEY environment variable"}
