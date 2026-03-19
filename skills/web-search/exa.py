@@ -88,6 +88,11 @@ def main() -> None:
         if args.text and args.highlights:
             _fail("--text and --highlights are mutually exclusive")
 
+    # URL validation for similar (must come before other similar validations)
+    if args.command == "similar":
+        if not (args.url.startswith("http://") or args.url.startswith("https://")):
+            _fail("Invalid URL: must start with http:// or https://")
+
     # --num-results range validation for search and similar
     if args.command in {"search", "similar"}:
         if not 1 <= args.num_results <= 100:

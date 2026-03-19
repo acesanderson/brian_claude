@@ -161,3 +161,29 @@ def test_num_results_boundary_valid():
         assert stderr == {"error": "Missing EXA_API_KEY environment variable"}, (
             f"--num-results {n} triggered unexpected error: {stderr}"
         )
+
+
+# ── AC-U7 ─────────────────────────────────────────────────────────────────────
+
+def test_similar_rejects_non_url():
+    """AC-U7: exa similar with a non-URL string → exit 1."""
+    code, stdout, stderr = run_exa("similar", "not-a-url")
+    assert code == 1
+    assert stdout is None
+    assert "Invalid URL" in stderr["error"]
+
+
+def test_similar_accepts_http_url():
+    """AC-U7: valid http:// URL passes validation."""
+    code, _, stderr = run_exa(
+        "similar", "http://example.com", unset_keys=["EXA_API_KEY"]
+    )
+    assert stderr == {"error": "Missing EXA_API_KEY environment variable"}
+
+
+def test_similar_accepts_https_url():
+    """AC-U7: valid https:// URL passes validation."""
+    code, _, stderr = run_exa(
+        "similar", "https://arxiv.org/abs/2307.06435", unset_keys=["EXA_API_KEY"]
+    )
+    assert stderr == {"error": "Missing EXA_API_KEY environment variable"}
