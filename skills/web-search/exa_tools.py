@@ -86,9 +86,36 @@ async def exa_contents(
     use_text: bool = False,
     max_chars: int = 4000,
 ) -> dict[str, Any]:
-    if not os.getenv("EXA_API_KEY"):
+    api_key = os.getenv("EXA_API_KEY")
+    if not api_key:
         return _MISSING_KEY_ERROR
-    return {"results": [], "failed_urls": []}  # stub — replaced in Task 13
+
+    # get_contents takes text/highlights as direct kwargs, not a contents dict
+    contents_kwargs: dict[str, Any]
+    if use_text:
+        contents_kwargs = {"text": {"max_characters": max_chars}}
+    else:
+        contents_kwargs = {"highlights": {"max_characters": max_chars}}
+
+    try:
+        client = AsyncExa(api_key=api_key)
+        response = await client.get_contents(urls, **contents_kwargs)
+    except Exception as e:
+        return _classify_error(e, "/contents")
+
+    results = []
+    failed_urls = []
+
+    returned_ids = {r.url for r in response.results}
+
+    for url in urls:
+        if url in returned_ids:
+            match = next(r for r in response.results if r.url == url)
+            results.append(_shape_result(match, use_text))
+        else:
+            failed_urls.append(url)
+
+    return {"results": results, "failed_urls": failed_urls}
 
 
 async def exa_similar(

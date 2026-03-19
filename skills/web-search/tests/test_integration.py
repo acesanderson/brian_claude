@@ -57,3 +57,18 @@ def test_search_num_results_respected():
     assert len(data["results"]) <= 3, (
         f"Expected at most 3 results, got {len(data['results'])}"
     )
+
+# ── AC-I4 ─────────────────────────────────────────────────────────────────────
+
+def test_contents_returns_url_and_failed_urls():
+    """AC-I4: exa contents returns matching URL result and failed_urls key."""
+    target = "https://arxiv.org/abs/2307.06435"
+    code, data, stderr = run_exa("contents", target)
+    assert code == 0, f"Expected exit 0, got {code}. stderr: {stderr}"
+    assert "failed_urls" in data, "Output must always contain 'failed_urls' key"
+    assert isinstance(data["failed_urls"], list)
+    # At least one result should match the requested URL (or it's in failed_urls)
+    urls_returned = [r["url"] for r in data["results"]]
+    assert target in urls_returned or target in data["failed_urls"], (
+        f"{target} not in results or failed_urls"
+    )
