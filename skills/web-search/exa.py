@@ -100,6 +100,8 @@ def main() -> None:
     if args.command in {"search", "similar"}:
         start = _validate_date(args.start_date) if args.start_date else None
         end = _validate_date(args.end_date) if args.end_date else None
+        if start is not None and end is not None and start > end:
+            _fail("start-date must be before or equal to end-date")
 
     if args.command == "search":
         result = asyncio.run(

@@ -108,3 +108,27 @@ def test_invalid_end_date_format():
     assert code == 1
     assert "Invalid date format" in stderr["error"]
     assert "not-a-date" in stderr["error"]
+
+
+# ── AC-U4 ─────────────────────────────────────────────────────────────────────
+
+def test_start_date_after_end_date():
+    """AC-U4: start-date after end-date → exit 1 before network call."""
+    code, stdout, stderr = run_exa(
+        "search", "test", "--start-date", "2024-06-01", "--end-date", "2024-01-01"
+    )
+    assert code == 1
+    assert stdout is None
+    assert "start-date" in stderr["error"] or "end-date" in stderr["error"]
+
+
+def test_equal_start_end_dates_accepted():
+    """AC-U4: start-date == end-date is valid (boundary case)."""
+    # Fails on API key, not on date ordering
+    code, _, stderr = run_exa(
+        "search", "test",
+        "--start-date", "2024-06-01",
+        "--end-date", "2024-06-01",
+        unset_keys=["EXA_API_KEY"],
+    )
+    assert stderr == {"error": "Missing EXA_API_KEY environment variable"}
