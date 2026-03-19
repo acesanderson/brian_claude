@@ -68,6 +68,11 @@ def main() -> None:
 
     args = parser.parse_args()
 
+    # Mutual exclusion applies to search, contents, similar (not answer)
+    if args.command in {"search", "contents", "similar"}:
+        if args.text and args.highlights:
+            _fail("--text and --highlights are mutually exclusive")
+
     # Validation is added task-by-task in subsequent tasks.
 
     if args.command == "search":

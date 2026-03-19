@@ -39,3 +39,33 @@ def test_missing_api_key_search():
     assert code == 1
     assert stdout is None
     assert stderr == {"error": "Missing EXA_API_KEY environment variable"}
+
+
+# ── AC-U5 ─────────────────────────────────────────────────────────────────────
+
+def test_text_highlights_mutually_exclusive_search():
+    """AC-U5: --text and --highlights together on 'search' → exit 1."""
+    code, stdout, stderr = run_exa("search", "test", "--text", "--highlights")
+    assert code == 1
+    assert stdout is None
+    assert stderr == {"error": "--text and --highlights are mutually exclusive"}
+
+
+def test_text_highlights_mutually_exclusive_contents():
+    """AC-U5: --text and --highlights together on 'contents' → exit 1."""
+    code, stdout, stderr = run_exa(
+        "contents", "https://example.com", "--text", "--highlights",
+        set_keys={"EXA_API_KEY": "dummy_key_for_testing"},
+    )
+    assert code == 1
+    assert stderr == {"error": "--text and --highlights are mutually exclusive"}
+
+
+def test_text_highlights_mutually_exclusive_similar():
+    """AC-U5: --text and --highlights together on 'similar' → exit 1."""
+    code, stdout, stderr = run_exa(
+        "similar", "https://example.com", "--text", "--highlights",
+        set_keys={"EXA_API_KEY": "dummy_key_for_testing"},
+    )
+    assert code == 1
+    assert stderr == {"error": "--text and --highlights are mutually exclusive"}
