@@ -139,8 +139,56 @@ def _paginate_content(full_content: str, url: str, page: int) -> dict[str, Any]:
     }
 
 
-async def fetch_url(url: str, page: int = 1, use_proxy: bool = False) -> dict[str, Any]:
+def _fetch_with_browser(url: str) -> str:
+    """Fetch a JS-rendered page via Playwright + Oxylabs proxy."""
+    from playwright.sync_api import sync_playwright
+    from playwright_stealth import Stealth
+
+    username = os.getenv("OXY_NAME")
+    password = os.getenv("OXY_PASSWORD")
+    if not username or not password:
+        raise ValueError("Missing OXY_NAME or OXY_PASSWORD environment variables")
+
+    proxy = {
+        "server": "http://pr.oxylabs.io:7777",
+        "username": f"customer-{username}",
+        "password": password,
+    }
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(
+            headless=True,
+            proxy=proxy,
+            args=["--disable-blink-features=AutomationControlled"],
+        )
+        ctx = browser.new_context(
+            user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+            viewport={"width": 1280, "height": 800},
+            locale="en-US",
+        )
+        pg = ctx.new_page()
+        Stealth().apply_stealth_sync(pg)
+        pg.goto(url, timeout=60000, wait_until="load")
+        pg.wait_for_timeout(4000)
+        html = pg.content()
+        browser.close()
+
+    return html
+
+
+async def fetch_url(url: str, page: int = 1, use_proxy: bool = False, use_browser: bool = False) -> dict[str, Any]:
     """Fetch a URL and convert it to clean Markdown."""
+    if use_browser:
+        try:
+            loop = asyncio.get_event_loop()
+            html = await loop.run_in_executor(None, _fetch_with_browser, url)
+        except ValueError as e:
+            return {"error": str(e)}
+        except Exception as e:
+            return {"error": f"Browser fetch failed for {url}: {str(e)}"}
+        full_md = _convert_html_to_md(html)
+        return _paginate_content(full_md, url, page)
+
     proxy = None
     if use_proxy:
         username = os.getenv("OXY_NAME")

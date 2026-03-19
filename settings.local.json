@@ -58,7 +58,10 @@
       "Bash(conduit batch:*)",
       "WebFetch(domain:www.ebay.com)",
       "WebFetch(domain:www.amazon.com)",
-      "WebFetch(domain:www.gartner.com)"
+      "WebFetch(domain:www.gartner.com)",
+      "Bash(for f:*)",
+      "Read(//private/tmp/claude-26269/-Users-bianders/cb63a8ad-9726-4c8e-952f-ecad68343ce7/tasks/**)",
+      "Bash(done)"
     ]
   }
 }

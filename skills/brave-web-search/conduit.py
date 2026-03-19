@@ -21,13 +21,14 @@ def main() -> None:
     fetch_p.add_argument("url")
     fetch_p.add_argument("--page", type=int, default=1)
     fetch_p.add_argument("--proxy", action="store_true", default=False, help="Route through Oxylabs residential proxy")
+    fetch_p.add_argument("--browser", action="store_true", default=False, help="Use Playwright + Oxylabs for JS-rendered/bot-protected pages")
 
     args = parser.parse_args()
 
     if args.command == "search":
         result = asyncio.run(web_search(args.query))
     else:
-        result = asyncio.run(fetch_url(args.url, args.page, use_proxy=args.proxy))
+        result = asyncio.run(fetch_url(args.url, args.page, use_proxy=args.proxy, use_browser=args.browser))
 
     if "error" in result:
         print(json.dumps(result), file=sys.stderr)

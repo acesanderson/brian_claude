@@ -39,9 +39,11 @@ Returns top 5 results.
 uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com"
 uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com" --page 2
 uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com" --proxy
+uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "https://example.com" --browser
 ```
 
-Use `--proxy` for bot-protected sites (Gartner, etc.) that block direct requests. Requires `OXY_NAME` and `OXY_PASSWORD`.
+- `--proxy`: routes plain HTTP fetch through Oxylabs residential proxy. Requires `OXY_NAME` and `OXY_PASSWORD`.
+- `--browser`: uses Playwright + Oxylabs + stealth for JS-rendered/heavily bot-protected pages (e.g. Gartner). Requires `OXY_NAME` and `OXY_PASSWORD`. Slower (~15s), use only when needed.
 
 **stdout (JSON):**
 ```json

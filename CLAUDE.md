@@ -67,7 +67,8 @@ My Obsidian vault is at `$MORPHY` (`/Users/bianders/morphy`). Use this path when
 ## Web fetch fallback
 When `WebFetch` is blocked or returns an error (rate limit, CloudFront, bot protection, etc.), fall back to the `brave-web-search` skill:
 - To fetch a URL: `uv run --directory ~/.claude/skills/brave-web-search python conduit.py fetch "<url>"`
-- To fetch a bot-protected URL (Gartner, etc.): add `--proxy` flag (requires `OXY_NAME` + `OXY_PASSWORD`)
+- To fetch a bot-protected URL via proxy only: add `--proxy` flag (requires `OXY_NAME` + `OXY_PASSWORD`)
+- To fetch a JS-rendered/heavily bot-protected URL (e.g. Gartner): add `--browser` flag — uses Playwright + Oxylabs + stealth (requires `OXY_NAME` + `OXY_PASSWORD`)
 - To search: `uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "<query>"`
 Requires `BRAVE_API_KEY` env var. Use `--page N` if content is truncated (`is_truncated: true`).
 
