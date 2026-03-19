@@ -69,3 +69,23 @@ def test_text_highlights_mutually_exclusive_similar():
     )
     assert code == 1
     assert stderr == {"error": "--text and --highlights are mutually exclusive"}
+
+
+# ── AC-U2 ─────────────────────────────────────────────────────────────────────
+
+def test_invalid_category():
+    """AC-U2: invalid --category value → exit 1 before network call."""
+    code, stdout, stderr = run_exa("search", "test", "--category", "blorp")
+    assert code == 1
+    assert stdout is None
+    assert "Invalid category" in stderr["error"]
+    assert "blorp" in stderr["error"]
+
+
+def test_valid_category_accepted():
+    """AC-U2: valid category values are accepted (no validation error)."""
+    # Fails on API key, NOT on category — confirms category passes validation
+    code, _, stderr = run_exa(
+        "search", "test", "--category", "research paper", unset_keys=["EXA_API_KEY"]
+    )
+    assert stderr == {"error": "Missing EXA_API_KEY environment variable"}

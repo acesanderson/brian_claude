@@ -73,7 +73,13 @@ def main() -> None:
         if args.text and args.highlights:
             _fail("--text and --highlights are mutually exclusive")
 
-    # Validation is added task-by-task in subsequent tasks.
+    # Category validation for search only
+    if args.command == "search":
+        if args.category is not None and args.category not in VALID_CATEGORIES:
+            _fail(
+                f"Invalid category: {args.category!r}. "
+                f"Must be one of: {', '.join(sorted(VALID_CATEGORIES))}"
+            )
 
     if args.command == "search":
         result = asyncio.run(
