@@ -15,8 +15,10 @@ SKILL_DIR = Path(__file__).parent.parent
 
 def test_help_exits_zero():
     """AC-U9: uv run ... python exa.py --help exits 0."""
+    venv_python = SKILL_DIR / ".venv" / "bin" / "python3"
+    python = str(venv_python) if venv_python.exists() else sys.executable
     result = subprocess.run(
-        [sys.executable, str(SKILL_DIR / "exa.py"), "--help"],
+        [python, str(SKILL_DIR / "exa.py"), "--help"],
         capture_output=True,
         text=True,
     )

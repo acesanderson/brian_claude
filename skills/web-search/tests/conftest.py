@@ -25,8 +25,10 @@ def run_exa(
         env.pop(key, None)
     env.update(set_keys or {})
 
+    venv_python = SKILL_DIR / ".venv" / "bin" / "python3"
+    python = str(venv_python) if venv_python.exists() else sys.executable
     result = subprocess.run(
-        [sys.executable, str(SKILL_DIR / "exa.py"), *args],
+        [python, str(SKILL_DIR / "exa.py"), *args],
         capture_output=True,
         text=True,
         env=env,

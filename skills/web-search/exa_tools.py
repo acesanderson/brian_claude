@@ -3,7 +3,38 @@ from __future__ import annotations
 import os
 from typing import Any
 
+from exa_py import AsyncExa
+
 _MISSING_KEY_ERROR = {"error": "Missing EXA_API_KEY environment variable"}
+
+
+def _shape_result(r: Any, use_text: bool) -> dict[str, Any]:
+    """Map an SDK result object to the output contract shape.
+
+    Strips: requestId, costDollars, image, favicon, highlightScores, id.
+    Omits published_date and author if absent (not null).
+    """
+    out: dict[str, Any] = {"title": r.title or "", "url": r.url}
+    if getattr(r, "published_date", None):
+        out["published_date"] = r.published_date
+    if getattr(r, "author", None):
+        out["author"] = r.author
+    if use_text:
+        out["text"] = r.text or ""
+    else:
+        out["highlights"] = r.highlights or []
+    return out
+
+
+def _classify_error(e: Exception, endpoint: str) -> dict[str, Any]:
+    msg = str(e).lower()
+    if "401" in msg or "unauthorized" in msg or "authentication" in msg:
+        return {"error": "Exa authentication failed. Check EXA_API_KEY."}
+    if "timeout" in msg:
+        return {"error": f"Request timed out calling Exa {endpoint}"}
+    if "connection" in msg or "network" in msg:
+        return {"error": f"Network error calling Exa {endpoint}: {e}"}
+    return {"error": f"Exa API error: {e}"}
 
 
 async def exa_search(
@@ -17,9 +48,37 @@ async def exa_search(
     use_text: bool = False,
     max_chars: int = 4000,
 ) -> dict[str, Any]:
-    if not os.getenv("EXA_API_KEY"):
+    api_key = os.getenv("EXA_API_KEY")
+    if not api_key:
         return _MISSING_KEY_ERROR
-    return {"results": []}  # stub — replaced in Task 10
+
+    contents: dict[str, Any]
+    if use_text:
+        contents = {"text": {"max_characters": max_chars}}
+    else:
+        contents = {"highlights": {"max_characters": max_chars}}
+
+    kwargs: dict[str, Any] = {
+        "num_results": num_results,
+        "contents": contents,
+    }
+    if category:
+        kwargs["category"] = category
+    if include_domains:
+        kwargs["include_domains"] = include_domains
+    if exclude_domains:
+        kwargs["exclude_domains"] = exclude_domains
+    if start_date:
+        kwargs["start_published_date"] = start_date + "T00:00:00.000Z"
+    if end_date:
+        kwargs["end_published_date"] = end_date + "T23:59:59.999Z"
+
+    try:
+        client = AsyncExa(api_key=api_key)
+        response = await client.search(query, **kwargs)
+        return {"results": [_shape_result(r, use_text) for r in response.results]}
+    except Exception as e:
+        return _classify_error(e, "/search")
 
 
 async def exa_contents(
