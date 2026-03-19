@@ -88,6 +88,11 @@ def main() -> None:
         if args.text and args.highlights:
             _fail("--text and --highlights are mutually exclusive")
 
+    # --num-results range validation for search and similar
+    if args.command in {"search", "similar"}:
+        if not 1 <= args.num_results <= 100:
+            _fail("--num-results must be between 1 and 100")
+
     # Category validation for search only
     if args.command == "search":
         if args.category is not None and args.category not in VALID_CATEGORIES:

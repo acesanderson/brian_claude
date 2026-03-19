@@ -132,3 +132,32 @@ def test_equal_start_end_dates_accepted():
         unset_keys=["EXA_API_KEY"],
     )
     assert stderr == {"error": "Missing EXA_API_KEY environment variable"}
+
+
+# ── AC-U6 ─────────────────────────────────────────────────────────────────────
+
+def test_num_results_zero():
+    """AC-U6: --num-results 0 → exit 1."""
+    code, stdout, stderr = run_exa("search", "test", "--num-results", "0")
+    assert code == 1
+    assert stdout is None
+    assert "--num-results" in stderr["error"]
+
+
+def test_num_results_over_max():
+    """AC-U6: --num-results 101 → exit 1."""
+    code, stdout, stderr = run_exa("search", "test", "--num-results", "101")
+    assert code == 1
+    assert "--num-results" in stderr["error"]
+
+
+def test_num_results_boundary_valid():
+    """AC-U6: --num-results 1 and 100 are valid."""
+    for n in ("1", "100"):
+        code, _, stderr = run_exa(
+            "search", "test", "--num-results", n, unset_keys=["EXA_API_KEY"]
+        )
+        # Should fail on API key, NOT on num-results
+        assert stderr == {"error": "Missing EXA_API_KEY environment variable"}, (
+            f"--num-results {n} triggered unexpected error: {stderr}"
+        )
