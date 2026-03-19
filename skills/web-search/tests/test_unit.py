@@ -89,3 +89,22 @@ def test_valid_category_accepted():
         "search", "test", "--category", "research paper", unset_keys=["EXA_API_KEY"]
     )
     assert stderr == {"error": "Missing EXA_API_KEY environment variable"}
+
+
+# ── AC-U3 ─────────────────────────────────────────────────────────────────────
+
+def test_invalid_start_date_format():
+    """AC-U3: --start-date with bad format → exit 1 before network call."""
+    code, stdout, stderr = run_exa("search", "test", "--start-date", "2024-13-01")
+    assert code == 1
+    assert stdout is None
+    assert "Invalid date format" in stderr["error"]
+    assert "2024-13-01" in stderr["error"]
+
+
+def test_invalid_end_date_format():
+    """AC-U3: --end-date with non-date string → exit 1 before network call."""
+    code, stdout, stderr = run_exa("search", "test", "--end-date", "not-a-date")
+    assert code == 1
+    assert "Invalid date format" in stderr["error"]
+    assert "not-a-date" in stderr["error"]

@@ -3,7 +3,9 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
+import re
 import sys
+from datetime import date as _date
 
 try:
     from exa_tools import exa_answer, exa_contents, exa_search, exa_similar
@@ -30,6 +32,19 @@ VALID_CATEGORIES = {
 def _fail(message: str) -> None:
     print(json.dumps({"error": message}), file=sys.stderr)
     sys.exit(1)
+
+
+_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def _validate_date(value: str) -> _date:
+    """Validate YYYY-MM-DD format and parse. Calls _fail() on bad input."""
+    if not _DATE_RE.match(value):
+        _fail(f"Invalid date format: {value!r}. Expected YYYY-MM-DD")
+    try:
+        return _date.fromisoformat(value)
+    except ValueError:
+        _fail(f"Invalid date format: {value!r}. Expected YYYY-MM-DD")
 
 
 def main() -> None:
@@ -80,6 +95,11 @@ def main() -> None:
                 f"Invalid category: {args.category!r}. "
                 f"Must be one of: {', '.join(sorted(VALID_CATEGORIES))}"
             )
+
+    # Date validation for search and similar
+    if args.command in {"search", "similar"}:
+        start = _validate_date(args.start_date) if args.start_date else None
+        end = _validate_date(args.end_date) if args.end_date else None
 
     if args.command == "search":
         result = asyncio.run(
