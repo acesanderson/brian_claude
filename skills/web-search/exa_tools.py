@@ -154,6 +154,27 @@ async def exa_similar(
 
 
 async def exa_answer(question: str) -> dict[str, Any]:
-    if not os.getenv("EXA_API_KEY"):
+    api_key = os.getenv("EXA_API_KEY")
+    if not api_key:
         return _MISSING_KEY_ERROR
-    return {"answer": "", "citations": []}  # stub — replaced in Task 15
+
+    try:
+        client = AsyncExa(api_key=api_key)
+        response = await client.answer(question)
+    except Exception as e:
+        return _classify_error(e, "/answer")
+
+    citations = []
+    for c in getattr(response, "citations", []) or []:
+        citation: dict[str, Any] = {
+            "url": c.url,
+            "title": c.title or "",
+        }
+        if getattr(c, "published_date", None):
+            citation["published_date"] = c.published_date
+        citations.append(citation)
+
+    return {
+        "answer": response.answer or "",
+        "citations": citations,
+    }

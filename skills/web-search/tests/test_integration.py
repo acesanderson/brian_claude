@@ -86,3 +86,15 @@ def test_similar_returns_bounded_results():
     assert len(data["results"]) <= 5, (
         f"Expected at most 5 results, got {len(data['results'])}"
     )
+
+# ── AC-I6 ─────────────────────────────────────────────────────────────────────
+
+def test_answer_returns_string_and_citations():
+    """AC-I6: exa answer returns answer (str) and citations (list)."""
+    code, data, stderr = run_exa("answer", "What is 2+2?")
+    assert code == 0, f"Expected exit 0, got {code}. stderr: {stderr}"
+    assert "answer" in data
+    assert isinstance(data["answer"], str)
+    assert len(data["answer"]) > 0, "Exa should return a non-empty answer for 'What is 2+2?'"
+    assert "citations" in data
+    assert isinstance(data["citations"], list)
