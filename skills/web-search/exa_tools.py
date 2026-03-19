@@ -126,9 +126,31 @@ async def exa_similar(
     start_date: str | None = None,
     end_date: str | None = None,
 ) -> dict[str, Any]:
-    if not os.getenv("EXA_API_KEY"):
+    api_key = os.getenv("EXA_API_KEY")
+    if not api_key:
         return _MISSING_KEY_ERROR
-    return {"results": []}  # stub — replaced in Task 14
+
+    contents: dict[str, Any]
+    if use_text:
+        contents = {"text": {"max_characters": max_chars}}
+    else:
+        contents = {"highlights": {"max_characters": max_chars}}
+
+    kwargs: dict[str, Any] = {
+        "num_results": num_results,
+        "contents": contents,
+    }
+    if start_date:
+        kwargs["start_published_date"] = start_date + "T00:00:00.000Z"
+    if end_date:
+        kwargs["end_published_date"] = end_date + "T23:59:59.999Z"
+
+    try:
+        client = AsyncExa(api_key=api_key)
+        response = await client.find_similar(url, **kwargs)
+        return {"results": [_shape_result(r, use_text) for r in response.results]}
+    except Exception as e:
+        return _classify_error(e, "/findSimilar")
 
 
 async def exa_answer(question: str) -> dict[str, Any]:

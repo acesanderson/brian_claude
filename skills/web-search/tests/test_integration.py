@@ -72,3 +72,17 @@ def test_contents_returns_url_and_failed_urls():
     assert target in urls_returned or target in data["failed_urls"], (
         f"{target} not in results or failed_urls"
     )
+
+# ── AC-I5 ─────────────────────────────────────────────────────────────────────
+
+def test_similar_returns_bounded_results():
+    """AC-I5: exa similar returns at most --num-results results."""
+    code, data, stderr = run_exa(
+        "similar", "https://arxiv.org/abs/2307.06435", "--num-results", "5"
+    )
+    assert code == 0, f"Expected exit 0, got {code}. stderr: {stderr}"
+    assert "results" in data
+    assert len(data["results"]) > 0, "Expected at least one similar result"
+    assert len(data["results"]) <= 5, (
+        f"Expected at most 5 results, got {len(data['results'])}"
+    )
