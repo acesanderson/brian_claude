@@ -14,10 +14,45 @@ description: >
 
 # Licensing
 
-Persistent coordination layer for LinkedIn Learning content licensing BD work. Domain
-knowledge lives in `~/licensing/context/licensing_context.md` — read it when you need
-heuristics, commercial models, partner taxonomy, or sourcing methodology. This skill is
-the state layer.
+Persistent coordination layer for LinkedIn Learning content licensing BD work. This skill is
+the state layer. Full context: `~/licensing/context/licensing_context.md` (partner taxonomy,
+sourcing methodology, complete tangibility gates). Key heuristics are inlined below.
+
+## Quick Reference
+
+### Format Gate (Addressable — Gate 1)
+
+A course passes if ALL of these are true:
+
+| Criterion | Pass | Fail |
+|---|---|---|
+| Format | Standalone video or sequential multimedia | SCORM, interactive labs, platform-dependent |
+| Length | 30min–2hr, chunkable to 5–15min segments | Outside range or monolithic |
+| Volume | 5+ courses | < 5 (unless exceptional) |
+| Availability | Not freely on YouTube; email-gate OK | Freely on YouTube (unless exceptional) |
+| Tone | Learner-focused, objective | Sales-y, steers to partner tool without candor |
+| Production | Comparable to LiL organic | Webinar recording, AI voice/avatar |
+
+### Alignment Levers (why a partner says yes)
+
+| Lever | Typical Partner | Terms |
+|---|---|---|
+| Exposure | Tier 1 brands (Google, Adobe, SAP) | 0% royalty — distribution/brand reach is the pitch |
+| Revenue | Publishers, niche orgs, influencers | 15% non-exclusive / 20% exclusive |
+| Awareness / Sales Enablement | Platforms with their own subscription business | LiL as top-of-funnel for partner's platform |
+| Commitment Fulfillment | Brands with public upskilling pledges | Adobe 30M/2030, SAP 12M/2030, Cisco 1M |
+
+### Content Strategy Rubric
+
+**STATUS: UNPOPULATED.** `scratchpad.md > ## Content Strategy Rubric` is blank. Mary's
+segment-level go/no-go has not been received. Gate 2 (Topic Relevance) cannot be applied
+consistently until this is filled in. Populate from the next bi-weekly BD/Content Strategy alignment.
+
+Provisional signals (from `funnel-framework.md`):
+- Green: AI/ML, cybersecurity, cloud, software development, leadership with cert association
+- Red: generic soft skills, long-tail creative, commoditized topics with free alternatives
+
+---
 
 ## Working Directory
 
@@ -143,25 +178,6 @@ drafted/sent, partner status changed). Format:
 shift, open questions resolve, or strategic context needs capturing.
 
 ---
-
-## Pipeline.md Format
-
-Keep it scannable. Suggested columns — adapt as the workflow evolves:
-
-```markdown
-# Pipeline
-Last updated: YYYY-MM-DD
-
-| Partner | Tier | Stage | Last Action | Next Action |
-|---|---|---|---|---|
-| Anthropic | Tier 1 | Approvals/Contracting | 2026-02-20 sign expected | Track — no action needed |
-| Google | Tier 1 | Outreach | 2026-02-10 intro sent | Follow up if no response by Mar 1 |
-```
-
-**Stages** (aligned to Kim's Team Tracker data validation): `Not Started` → `Researching` → `Outreach` → `In Conversation w/Partner` → `Approvals/Contracting` → `Project Management` → `Blocked` | `Dead`
-(`Dead` is a local extension — Team Tracker uses `Blocked` as catch-all; we distinguish permanent drops)
-
-Add/remove columns as real usage reveals what's actually needed.
 
 ---
 
@@ -290,6 +306,19 @@ not at session end. Status is the highest-decay artifact.
 When an email or message is drafted or marked as sent: write it to `partners/<name>/notes.md`
 AND append to `manifest.md`. Do both, always.
 
+**On drafting any email or boilerplate**
+Before generating any email draft, outreach message, or boilerplate text: read
+`~/.claude/skills/licensing/writing-style.md` and apply Brian's style exactly.
+Key rules (do not deviate):
+- Salutation: first name + colon (`Jess:`, `Hi Rob:`). Never a comma.
+- Sign-off: `Best,\nBrian` (standard) or `Very best,\nBrian` (cold outreach). Never "Best regards".
+- No hollow openers ("Hope this finds you well", "I hope you're doing well").
+- Short sentences, short paragraphs. Bullet lists for multi-item content.
+- Vocabulary: "Brilliant", "grand", "Ack", "let me know" (not "please don't hesitate").
+- NO em dashes. No passive voice. No hedging.
+- Cold outreach: follow the 5-step formula in writing-style.md exactly.
+- Quick replies: 1-2 sentences max, often no sign-off needed.
+
 **On new partner introduced**
 When a partner is mentioned with no existing file and no pipeline entry: create
 `partners/<name>/notes.md` using the Bootstrap template (including Training Portal field)
@@ -312,6 +341,59 @@ or absent from the manifest.
 **On branch session open**
 In a partner-focused session: read `partners/<name>/notes.md` fully before saying anything.
 No brief, no analysis, no advice until that read is complete.
+
+After reading, check if a `## Correspondence Log` section exists in the notes. If it does,
+surface the most recent entry date and count. If it doesn't, note that no correspondence
+has been pulled yet — offer to run a lookup before drafting any outreach.
+
+**Ad-hoc email search — available flags**
+`email-query search` supports these filters for BD research queries:
+- `--before YYYY-MM-DD` / `--since YYYY-MM-DD` — date bounds
+- `--from-domain domain.com` — only emails from that domain
+- `--exclude-domain domain.com` — exclude a domain (repeatable: `--exclude-domain a.com --exclude-domain b.com`)
+- `--no-noreply` — strip noreply/donotreply senders
+- `--folder inbox|sent` — scope to a folder (default: all)
+
+Example — external partners expressing licensing interest before a date:
+```bash
+email-query search "partner interested in licensing" --before 2025-08-01 \
+  --exclude-domain linkedin.com --exclude-domain microsoft.com --no-noreply --folder inbox
+```
+
+**On partner correspondence lookup**
+Trigger phrases: "email history [partner]", "check correspondence", "pull emails",
+"have we emailed", "what's our email history with", "correspondence with".
+
+1. Read `partners/<slug>/notes.md` to extract the partner domain from the **Website** field
+   (e.g., `anaconda.com` from `https://anaconda.com`).
+2. Run all three queries in parallel:
+   ```bash
+   # Inbound
+   uv run --directory /Users/bianders/vibe/outlook-email-project email-query list --from "*.domain.com" --limit 50
+   # Outbound
+   uv run --directory /Users/bianders/vibe/outlook-email-project email-query list --to "*@domain.com" --limit 50
+   # Broad text search (catches name variants, forwarded threads, etc.)
+   uv run --directory /Users/bianders/vibe/outlook-email-project email-query search "Partner Name" --text --limit 20 --no-noreply --folder inbox
+   ```
+3. Deduplicate across the three result sets (same subject + date = same message).
+   Sort chronologically ascending.
+4. Overwrite the `## Correspondence Log` section in `partners/<slug>/notes.md`:
+   ```markdown
+   ## Correspondence Log
+   _Last pulled: YYYY-MM-DD_
+
+   | Date | Dir | Subject | Contact |
+   |---|---|---|---|
+   | 2026-03-01 | inbound | Re: LinkedIn Learning partnership | jess@anaconda.com |
+   | 2026-03-05 | sent | Re: LinkedIn Learning partnership | jess@anaconda.com |
+   ```
+   - **Dir**: `inbound` (folder=inbox) or `sent` (folder=sent)
+   - **Contact**: the external party's address (from for inbound, to for sent)
+   - If a message is part of a thread worth reading, note the conversation_id in a trailing comment
+5. Append to `manifest.md`:
+   `- YYYY-MM-DD | correspondence-pull | partners/<slug>/notes.md | N emails (X inbound, Y sent)`
+6. Surface a brief summary: total count, date range, most recent exchange, any open threads
+   (sent with no reply, or reply awaiting response).
 
 **On strategic context shift**
 When the content strategy rubric changes, sourcing priority shifts, or a key open
@@ -590,11 +672,9 @@ Call sequence:
 The catalog index row (step 3 of this hook) is always written regardless of whether
 full per-partner sheet population is completed.
 
-**On scrape script cleanup**
-After any catalog scrape completes, check for `scrape_*.py` files at `~/licensing/` root.
-These are one-time artifacts generated by catalog-scraper subagents and should be deleted
-once the catalog files are confirmed in `partners/<slug>/`. Delete them immediately —
-do not leave them to accumulate at root.
+5. Delete `scrape_{slug}.py` at `~/licensing/` root if it exists:
+   `rm -f ~/licensing/scrape_{slug}.py`
+   These are one-time subagent artifacts — delete immediately once catalog files are confirmed.
 
 **On context depth warning**
 If a single partner has dominated 20+ turns or comms have been iterated multiple times:
@@ -605,6 +685,24 @@ loaded to summarize.
 ---
 
 ## Tooling
+
+### Course Performance Data — Trino
+
+Use `mcp__captain__execute_trino_query` for questions about engagement of existing LinkedIn Learning courses (organic, licensed, or staff).
+
+**Primary table:** `u_llsdsgroup.courseperformance_sc_dash`
+- Grain: `week_end_date` (YYYYMMDD int) × `course_id` × `learner_type` × learner demographics
+- **SUM metric columns** — table is at individual learner grain with demographic breakdown; naive row counts will undercount or misread
+- Enterprise AL: `SUM(subs_paid_nonlibrary_skill_credits_uu_l7d_v2)`
+- Total AL: `SUM(skill_credits_uu_l7d_v2)`
+- Filter by content type: `authorcontracttype IN ('LICENSED', 'NON_LICENSED', 'STAFF')`
+- Filter by software/vendor: `course_primary_software`, `course_primary_software_provider`
+- Date range: 2025-01-11 → present; most recent partition: `week_end_date = 20260314` _(stale: updates weekly — run `SELECT MAX(week_end_date) FROM u_llsdsgroup.courseperformance_sc_dash` to confirm)_
+- Access: open (no permission request needed as of 2026-03-18)
+
+**See `context/metrics-definitions.md`** for full column reference, AL metric definition, and standard query patterns.
+
+---
 
 ### Glean MCP — Internal Knowledge Discovery
 
@@ -658,153 +756,13 @@ For TLM workflows (topic market maps), see the **TLM Workflow** section below.
 
 ### kramer CLIs — LiL Course Tools
 
-Three CLIs backed by MongoDB and LLMs. All invoked via:
+Three CLIs for LiL course lookup, cert BD research, and curriculum design. All invoked via:
 ```bash
 uv run --project /Users/bianders/Brian_Code/kramer-project <cli> <subcommand> [args]
 ```
+CLIs: `linkedin-catalog` (course lookup/search), `certs` (cert partner + topic research), `curriculum` (LP and capstone generation).
 
----
-
-#### `linkedin-catalog` — Course Lookup + Search
-
-**Lookup by ID or title** (default mode — no subcommand):
-```bash
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog <course_id> [flags]
-```
-
-| Flag | Purpose |
-|---|---|
-| `--json` / `-j` | Structured JSON output |
-| `--metadata` / `-m` | Full metadata dict (60+ fields) |
-| `--toc` / `-c` | Table of contents |
-| `-v` | Verbose: long description + full TOC + instructor bio |
-| `--description` / `-d` | Short description only |
-| `--instructor` / `-i` | Instructor name only |
-| `--url` / `-u` | LiL URL only |
-| `--transcript` / `-t` | Full transcript |
-| `--stdin` | Read IDs/titles from stdin, one per line (batch mode) |
-
-**Batch usage:**
-```bash
-# Positional
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog 4314028 2818049 --json --metadata
-
-# Stdin — preferred for large lists
-printf '4314028\n2818049\n' | uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog --stdin --json --metadata
-```
-
-**JSON output schema:**
-```
-{
-  "course_admin_id": int,
-  "course_title": str,
-  "url": str,
-  "short_description": str,
-  "metadata": { ...60+ fields... },  # only with --metadata
-  "toc": [ ...section hierarchy... ] # only with --toc
-}
-```
-
-**High-value metadata fields for licensing triage:**
-- `LI Level EN` — Beginner / Intermediate / Advanced
-- `Visible Duration` — runtime string (e.g. "1h 23m")
-- `Visible Video Count` — number of videos
-- `Course Release Date` / `Course Updated Date` — freshness signal
-- `Activation Status` — Active / Retired
-- `Internal Library` / `Internal Subject` — content taxonomy
-- `Instructor Name` / `Author Payment Category`
-- `Has Assessment` — bool
-- `LIL URL` — canonical learner URL
-- `Skills EN` — skill tags
-
-**`search` subcommand** — find courses by query:
-```bash
-# Semantic search (default — uses Headwater vector index)
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search "machine learning" [-k 10] [--json]
-
-# Title substring match
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search --title "Python"
-
-# Transcript substring match
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search --transcript "pandas"
-
-# Transcript with surrounding context
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search --transcript "pandas" --grep
-```
-
-| Flag | Purpose |
-|---|---|
-| `--title` | Substring match on course titles |
-| `--transcript` | Substring match in transcripts |
-| `--grep` | Show surrounding context (use with `--transcript`) |
-| `-k N` | Number of semantic results (default: 5) |
-| `--json` / `-j` | Output as JSON |
-
-**When to use lookup vs. search in licensing sessions:**
-- **Lookup**: spot-check a known course ID, pull TOC for redundancy analysis, batch-fetch metadata for a curated list
-- **`search --title`**: find existing LiL courses on a topic to assess gap before recommending a partner
-- **`search` (semantic)**: broader discovery — "what courses do we already have on X?"
-- **Never use for**: discovery of _new_ (non-LiL) courses — use the catalog DB or classifier
-
----
-
-#### `certs` — Certification Partnership Research
-
-LLM-backed tools for cert BD research. Use when evaluating a new cert partner or topic.
-
-```bash
-uv run --project /Users/bianders/Brian_Code/kramer-project certs <subcommand> [args]
-```
-
-**Subcommands:**
-
-```bash
-# Suggest partner orgs for a cert topic (Claude-backed)
-certs partners "Data Science" [-n 20]
-
-# Suggest cert topics for a partner org (Claude-backed)
-certs topics "IBM" [-n 20]
-
-# Research marketing metrics for an org (Perplexity-backed — revenue, employees, market share)
-certs research "IBM"
-```
-
-**When to use in licensing sessions:**
-- `partners` — brainstorm who might be a good cert partner for a gap topic identified in Content Strategy data
-- `topics` — after landing a partner conversation, explore which cert topics make sense for them
-- `research` — quick marketing snapshot before an outreach or Gate A submission; faster than a manual Perplexity search
-
----
-
-#### `curriculum` — AI Curriculum Design Tools
-
-LLM-backed tools for generating curriculum artifacts from a list of courses. Useful for evaluating a partner's proposed LP structure or generating pitch materials.
-
-```bash
-uv run --project /Users/bianders/Brian_Code/kramer-project curriculum <subcommand> [args]
-```
-
-**Subcommands:**
-
-```bash
-# Generate a full curriculum series using a course as the series opener
-curriculum first "Python Essential Training"
-
-# Generate a capstone project for a set of courses
-curriculum capstone "ML Path" "Intro to ML" "Advanced ML"
-echo "Intro to ML\nAdvanced ML" | curriculum capstone "ML Path" --stdin
-
-# Generate a Learning Path (audience description, LP description, learning objectives)
-curriculum lp "ML Path" "Intro to ML" "Advanced ML"
-curriculum lp "ML Path" "Intro to ML" "Advanced ML" --save        # writes <title>.md
-curriculum lp "ML Path" "Intro to ML" "Advanced ML" --save --gdoc # also pushes to Google Doc
-echo "Advanced ML" | curriculum lp "ML Path" "Intro to ML" --stdin
-```
-
-**When to use in licensing sessions:**
-- `lp` — generate audience/description/objectives copy for a proposed LP during partner pitch prep or Gate B materials; `--save` writes a markdown artifact you can share
-- `capstone` — generate a capstone project concept when pitching a cert program to a partner
-- `first` — explore what a full curriculum series might look like if a partner's course is the opener; useful for framing an upsell or multi-course deal
+Full parameter reference, flag tables, and usage guidance: `~/.claude/skills/licensing/kramer-reference.md` — read it before using these tools.
 
 ---
 
@@ -901,119 +859,11 @@ No consolidation step needed — workers have direct filesystem access.
 ### TLM Workflow
 
 Builds a market map of training content for a topic across all known and discovered providers.
-Distinct from the batch partner catalog workflow above — that starts with a known partner list;
-this starts with a topic and discovers who the providers are.
+Distinct from the batch partner catalog workflow — that starts with a known partner list; this
+starts with a topic and discovers who the providers are.
 
 Invoke when asked to "catalog [topic]", "map the [topic] market", or "run a TLM on [topic]".
-
-#### Phase 1: Classify SKILL or TOOL
-
-**TOOL** — specific technology, framework, or product (Kubernetes, Terraform, Salesforce).
-Course titles typically include the name verbatim. Use a single search term.
-
-**SKILL** — professional domain or competency (DevOps, Data Science, Cybersecurity).
-Broad scope; requires sub-topic breakdown before searching. Propose sub-topics and confirm:
-
-```
-Topic: DevOps  |  Type: SKILL
-
-Proposed sub-topics:
-  - Docker / containers
-  - Kubernetes / container orchestration
-  - CI/CD (Jenkins, GitHub Actions, GitLab CI)
-  - Infrastructure as Code (Terraform, Ansible)
-  - Monitoring / observability (Prometheus, Grafana)
-
-Confirm, edit, or add sub-topics?
-```
-
-Wait for confirmation. Skip this step for TOOLs — proceed directly to Phase 2.
-
-#### Phase 2: Provider Discovery
-
-**Step 1 — Check what's already in the DB:**
-```bash
-uv run --directory ~/vibe/licensing-project/catalog python -m catalog providers
-```
-Note existing providers plausibly relevant to the topic.
-
-**Step 2 — Search for new providers** (use brave-web-search skill):
-```bash
-uv run --directory ~/.claude/skills/brave-web-search python conduit.py search "QUERY"
-```
-Queries to run:
-- `"[topic]" training courses certification provider`
-- `"[topic]" online training platform NOT coursera NOT udemy NOT pluralsight`
-- `best "[topic]" training vendors enterprise`
-
-For SKILLs, also run 2-3 queries on the most distinctive sub-topics.
-
-Look for: direct content producers (the company whose name is on the courses).
-Discard: learning platforms (Coursera, Udemy, Pluralsight, LinkedIn Learning — distribution, not producers).
-
-**Step 3 — Present the candidate list and wait for confirmation:**
-```
-PROVIDERS ALREADY IN DB:
-  - CloudThat (402 courses)
-  - Cisco (154 courses)
-
-NEW CANDIDATES — confirm to scrape:
-  [ ] Linux Foundation — training.linuxfoundation.org
-  [ ] HashiCorp — developer.hashicorp.com/tutorials
-
-Skip any? Add any?
-```
-
-Do NOT begin scraping until approved.
-
-#### Phase 3: Scrape New Providers
-
-For each confirmed new provider, dispatch one `licensing:catalog-scraper-worker` subagent
-per URL. All run with `run_in_background=true`. Never process multiple providers sequentially.
-
-While scraping runs, proceed to Phase 4 using the DB as it stands. Re-run the export
-step after all subagents finish.
-
-#### Phase 4: DB Query
-
-**TOOL** (single term):
-```bash
-uv run --directory ~/vibe/licensing-project/catalog python -m catalog search "kubernetes" --limit 10000
-```
-
-**SKILL** (one query per sub-topic, deduplicate on `(provider_slug, title)`):
-```bash
-uv run --directory ~/vibe/licensing-project/catalog python -m catalog search "docker" --limit 10000
-uv run --directory ~/vibe/licensing-project/catalog python -m catalog search "kubernetes" --limit 10000
-```
-
-Export to XLSX:
-```bash
-uv run --directory ~/vibe/licensing-project/catalog python -m catalog export "[topic]" \
-  --output ~/licensing/catalogs/[topic-slug]_catalog_[YYYY-MM-DD].xlsx
-```
-
-For SKILLs with multiple terms, merge results from each sub-topic search and deduplicate
-with pandas before writing the combined XLSX.
-
-#### Phase 5: Output
-
-**XLSX**: `~/licensing/catalogs/[topic-slug]_catalog_[YYYY-MM-DD].xlsx`
-Columns: provider, title, url, description, duration, level, format, price, category,
-instructor, date_scraped. For SKILLs, add a `matched_subtopic` column.
-
-**Markdown report**: `~/licensing/catalogs/[topic-slug]_report_[YYYY-MM-DD].md`
-Sections: Coverage Summary table, Sub-topic Coverage (SKILL only), Methodology,
-Dark Matter (auth-walled providers with estimated catalog size), Excluded Providers,
-Self-Optimization Notes.
-
-**Manifest entry**:
-```
-- YYYY-MM-DD | created | ~/licensing/catalogs/[slug]_catalog_YYYY-MM-DD.xlsx | [N] courses, [M] providers, SKILL|TOOL
-```
-
-**Conventions**: topic slug = lowercase hyphenated (`Site Reliability Engineering` →
-`site-reliability-engineering`). Output directory: `~/licensing/catalogs/` (create if needed).
+Full 5-phase workflow: `~/.claude/skills/licensing/tlm-workflow.md` — read it before starting.
 
 ---
 

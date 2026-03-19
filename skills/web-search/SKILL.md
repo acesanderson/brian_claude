@@ -11,7 +11,7 @@ Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown). Al
 
 - **uv** — the only required system dependency. Install: https://docs.astral.sh/uv/getting-started/installation/
 
-**Requires:** `BRAVE_API_KEY` environment variable for search.
+**Requires:** `BRAVE_API_KEY` for Brave search. `EXA_API_KEY` for all Exa commands.
 
 **Optional (proxy):** `OXY_NAME` and `OXY_PASSWORD` — needed only when using `--proxy`.
 
@@ -69,6 +69,16 @@ Supports HTML, PDF, DOCX, PPTX, XLSX.
 
 ---
 
+## Choosing between Brave and Exa search
+
+`conduit.py search` uses Brave's keyword/BM25 index — best when you know the exact terms,
+title, or phrasing. `exa.py search` uses a neural embedding index — best when your query
+describes a concept or argument and the relevant documents may not use your exact words.
+Use `exa.py answer` for direct factual questions that need a current, cited answer rather
+than a document list.
+
+---
+
 ## Exa
 
 Semantic search via Exa's neural index. Requires `EXA_API_KEY` env var.
@@ -92,6 +102,10 @@ uv run --directory ~/.claude/skills/web-search python exa.py contents https://ur
 ```bash
 uv run --directory ~/.claude/skills/web-search python exa.py similar https://arxiv.org/abs/2307.06435 --num-results 10
 ```
+
+> Seed URL must point to a page with substantive text content. Homepages of JS-heavy
+> apps and thin landing pages have no usable embedding — use a specific article, paper,
+> or post URL instead.
 
 **Answer** — grounded Q&A with citations:
 ```bash

@@ -61,7 +61,12 @@
       "WebFetch(domain:www.gartner.com)",
       "Bash(for f:*)",
       "Read(//private/tmp/claude-26269/-Users-bianders/cb63a8ad-9726-4c8e-952f-ecad68343ce7/tasks/**)",
-      "Bash(done)"
+      "Bash(done)",
+      "Bash(rm -f scrape_grafana.py scrape_linux_foundation.py scrape_kodekloud.py scrape_atlassian.py scrape_hashicorp.py scrape_gitlab.py interest_form_2026-03-12.json master_catalog.json master_catalog.xlsx partners/crowdstrike/crowdstrike_university_courses.xlsx partners/jetbrains/catalog_sheet.xlsx partners/sans/catalog_raw.json)",
+      "Bash(mv LiL_primary_categories.xlsx context/)",
+      "Bash(mv Udemy_Courses.xlsx context/)",
+      "Bash(mv Coursera_Courses.xlsx context/)",
+      "Bash(/Users/bianders/.claude/skills/web-search/.venv/bin/python3 -c \"from exa_py import AsyncExa; print\\('ok'\\)\" 2>&1)"
     ]
   }
 }
