@@ -45,7 +45,9 @@
       "Bash(git -C /Users/bianders/.claude add skills/youtube/scripts/channel.py skills/youtube/tests/test_channel.py && git -C /Users/bianders/.claude commit -m \"$\\(cat <<'EOF'\nfeat\\(youtube\\): add get_playlist, get_content_breakdown, compare_channels + integration tests \\(AC-I2..I6\\)\n\nAlso fixes get_top_videos to slice search results to n before videos.list\ncall, since YouTube search.list may return more items than maxResults.\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git -C /Users/bianders/.claude add skills/youtube/scripts/video.py && git -C /Users/bianders/.claude commit -m \"$\\(cat <<'EOF'\nfeat\\(youtube\\): add get_metadata and list_transcripts to video.py\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(git -C /Users/bianders/.claude add skills/youtube/SKILL.md && git -C /Users/bianders/.claude commit -m \"$\\(cat <<'EOF'\ndocs\\(youtube\\): add SKILL.md\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git -C /Users/bianders/.claude add -A skills/youtube-intel skills/yt-transcript && git -C /Users/bianders/.claude commit -m \"$\\(cat <<'EOF'\nfeat\\(youtube\\): complete youtube skill; remove youtube-intel and yt-transcript\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\")"
+      "Bash(git -C /Users/bianders/.claude add -A skills/youtube-intel skills/yt-transcript && git -C /Users/bianders/.claude commit -m \"$\\(cat <<'EOF'\nfeat\\(youtube\\): complete youtube skill; remove youtube-intel and yt-transcript\n\nCo-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(conduit batch:*)",
+      "Bash(ask:*)"
     ]
   }
 }

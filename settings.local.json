@@ -66,7 +66,11 @@
       "Bash(mv LiL_primary_categories.xlsx context/)",
       "Bash(mv Udemy_Courses.xlsx context/)",
       "Bash(mv Coursera_Courses.xlsx context/)",
-      "Bash(/Users/bianders/.claude/skills/web-search/.venv/bin/python3 -c \"from exa_py import AsyncExa; print\\('ok'\\)\" 2>&1)"
+      "Bash(/Users/bianders/.claude/skills/web-search/.venv/bin/python3 -c \"from exa_py import AsyncExa; print\\('ok'\\)\" 2>&1)",
+      "WebFetch(domain:www.reddit.com)",
+      "WebFetch(domain:openclaw.io)",
+      "WebFetch(domain:maven.com)",
+      "WebFetch(domain:www.apple.com)"
     ]
   }
 }
