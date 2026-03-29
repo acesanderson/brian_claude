@@ -1,0 +1,106 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-02-24T19:07:00.420696",
+  "stats": {
+    "total_providers": 5,
+    "total_courses": 641,
+    "providers_complete": 4,
+    "providers_partial": 1,
+    "providers_auth_required": 0
+  },
+  "providers": {
+    "Platform Engineering University": {
+      "status": "complete",
+      "url": "https://university.platformengineering.org/",
+      "courses_count": 12,
+      "date_scraped": "2026-02-24",
+      "scraper_version": "1.0",
+      "data_quality": {
+        "has_descriptions": true,
+        "has_duration": false,
+        "has_level": true
+      },
+      "files": {
+        "json": "providers/platform_engineering_university/catalog.json",
+        "xlsx": "providers/platform_engineering_university/catalog.xlsx",
+        "report": "providers/platform_engineering_university/report.md"
+      }
+    },
+    "IBM Developer": {
+      "status": "complete",
+      "url": "https://developer.ibm.com/courses/",
+      "courses_count": 24,
+      "date_scraped": "2026-02-24",
+      "scraper_version": "1.0",
+      "data_quality": {
+        "has_descriptions": true,
+        "has_duration": false,
+        "has_level": false,
+        "avg_title_length": 41
+      },
+      "files": {
+        "json": "/Users/bianders/.claude/skills/catalog-scraper/providers/ibm_developer/catalog.json",
+        "xlsx": "/Users/bianders/.claude/skills/catalog-scraper/providers/ibm_developer/catalog.xlsx",
+        "report": "/Users/bianders/.claude/skills/catalog-scraper/providers/ibm_developer/report.md"
+      },
+      "notes": "Curated catalog linking to Coursera, CognitiveClass.ai, IBM Quantum Learning, IBM Training. 24 courses total."
+    },
+    "IBM SkillsBuild": {
+      "status": "complete",
+      "url": "https://skillsbuild.org/",
+      "courses_count": 148,
+      "date_scraped": "2026-02-24",
+      "scraper_version": "1.0",
+      "data_quality": {
+        "has_descriptions": false,
+        "has_duration": false,
+        "has_level": false,
+        "avg_title_length": 35
+      },
+      "files": {
+        "json": "providers/ibm_skillsbuild/catalog.json",
+        "xlsx": "providers/ibm_skillsbuild/catalog.xlsx",
+        "report": "providers/ibm_skillsbuild/report.md"
+      },
+      "notes": "3 audience segments: College students (68 badges with full metadata), HS students (44 cards), Adult learners (36 resources). Description field only populated for college-student badges."
+    },
+    "IBM Training": {
+      "status": "partial",
+      "url": "https://www.ibm.com/training/",
+      "courses_count": 246,
+      "date_scraped": "2026-02-24",
+      "scraper_version": "1.0",
+      "limitation": "ILT courses only (246); self-paced catalog requires auth; descriptions sparse",
+      "data_quality": {
+        "has_descriptions": false,
+        "has_duration": true,
+        "has_level": false,
+        "avg_title_length": 46
+      },
+      "files": {
+        "json": "/Users/bianders/.claude/skills/catalog-scraper/providers/ibm_training/catalog.json",
+        "xlsx": "/Users/bianders/.claude/skills/catalog-scraper/providers/ibm_training/catalog.xlsx",
+        "report": "/Users/bianders/.claude/skills/catalog-scraper/providers/ibm_training/report.md"
+      }
+    },
+    "IBM Z Education": {
+      "status": "complete",
+      "url": "https://www.ibm.com/products/z/education",
+      "courses_count": 211,
+      "date_scraped": "2026-02-24",
+      "scraper_version": "1.0",
+      "data_quality": {
+        "has_descriptions": true,
+        "has_duration": false,
+        "has_level": true,
+        "avg_title_length": 41
+      },
+      "files": {
+        "json": "providers/ibm_z_education/catalog.json",
+        "xlsx": "providers/ibm_z_education/catalog.xlsx",
+        "report": "providers/ibm_z_education/report.md"
+      },
+      "notes": "API pagination non-functional; 26 IBM Z search terms used for coverage. Duration/price not in API."
+    }
+  }
+}

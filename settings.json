@@ -1,0 +1,61 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__captain__*",
+      "Read(/Users/bianders/.claude/skills/cc-planner/**)",
+      "Read(/Users/bianders/.local/share/cc-planner/**)",
+      "Write(/Users/bianders/.local/share/cc-planner/**)",
+      "Edit(/Users/bianders/.local/share/cc-planner/**)",
+      "Bash(mkdir -p /Users/bianders/.local/share/cc-planner)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(diff:*)",
+      "Bash(stat:*)",
+      "Bash(file:*)",
+      "Bash(which:*)",
+      "Bash(echo:*)",
+      "Bash(pwd:*)",
+      "Bash(/Users/bianders/.claude/sdd-state.sh:*)",
+      "Bash(~/.claude/sdd-state.sh:*)",
+      "Bash(uv:*)",
+      "Bash(psql:*)"
+    ],
+    "deny": []
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --directory ~/vibe/claude-history-project python -m claude_history.hook",
+            "timeout": 60,
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "linkedin-framework@linkedin-plugins": true,
+    "superpowers@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "mcpServers": {},
+  "preferences": {
+    "editorMode": "vim"
+  }
+}

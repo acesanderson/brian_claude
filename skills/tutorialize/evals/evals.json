@@ -1,0 +1,101 @@
+{
+  "skill_name": "tutorialize",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "We've been building a vector similarity search feature using FAISS. I keep seeing references to HNSW as the index type but I don't fully understand what it is or why it's preferred. tutorialize HNSW",
+      "expected_output": "A Markdown tutorial file saved to the Obsidian vault at HNSW.md, covering what HNSW is, why it's used for approximate nearest neighbor search, how it compares to flat indexes, and graph traversal intuition.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "vault_file_created",
+          "description": "A .md file was written to the Obsidian vault at /Users/bianders/morphy/ (with_skill only)"
+        },
+        {
+          "name": "filename_title_case",
+          "description": "Filename is 'HNSW.md' — correct casing, no hyphens or lowercasing"
+        },
+        {
+          "name": "has_term_heading",
+          "description": "First # heading contains 'HNSW'"
+        },
+        {
+          "name": "multiple_sections",
+          "description": "Content has at least 3 ## subheadings"
+        },
+        {
+          "name": "context_anchored",
+          "description": "Content references FAISS or vector similarity search — shows the skill used conversation context, not a generic explanation"
+        },
+        {
+          "name": "substantial_length",
+          "description": "Content is at least 400 words"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "I'm fine-tuning a sentence embedding model and the loss function in the training config is set to 'contrastive'. I don't know what contrastive loss is — tutorialize it",
+      "expected_output": "A Markdown tutorial file saved to the Obsidian vault at Contrastive Loss.md, covering what contrastive loss is, how positive/negative pairs work, why it's used for embedding training, and intuition for the margin parameter.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "vault_file_created",
+          "description": "A .md file was written to the Obsidian vault at /Users/bianders/morphy/ (with_skill only)"
+        },
+        {
+          "name": "filename_title_case",
+          "description": "Filename is 'Contrastive Loss.md' — title case with space, no hyphens"
+        },
+        {
+          "name": "has_term_heading",
+          "description": "First # heading contains 'Contrastive Loss'"
+        },
+        {
+          "name": "multiple_sections",
+          "description": "Content has at least 3 ## subheadings"
+        },
+        {
+          "name": "context_anchored",
+          "description": "Content references sentence embeddings, fine-tuning, or the specific use case — not a generic loss function overview"
+        },
+        {
+          "name": "substantial_length",
+          "description": "Content is at least 400 words"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm building a FastAPI endpoint and using Pydantic for request validation. I've seen @validator and @field_validator decorators in example code but don't understand when to use them or how they work. tutorialize Pydantic validators",
+      "expected_output": "A Markdown tutorial file saved to the Obsidian vault at Pydantic Validators.md, covering what Pydantic validators are, the difference between field_validator and model_validator, pre vs post validation, and practical FastAPI usage examples.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "vault_file_created",
+          "description": "A .md file was written to the Obsidian vault at /Users/bianders/morphy/ (with_skill only)"
+        },
+        {
+          "name": "filename_title_case",
+          "description": "Filename is 'Pydantic Validators.md' — title case with space"
+        },
+        {
+          "name": "has_term_heading",
+          "description": "First # heading contains 'Pydantic'"
+        },
+        {
+          "name": "multiple_sections",
+          "description": "Content has at least 3 ## subheadings"
+        },
+        {
+          "name": "context_anchored",
+          "description": "Content references FastAPI or the @validator vs @field_validator distinction — shows it used the conversation context"
+        },
+        {
+          "name": "substantial_length",
+          "description": "Content is at least 400 words"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+/*
+!/skills
+!/mcp-servers
+!/.gitignore
+!/commands
+!CLAUDE.md
+!settings.json
+!settings.local.json
+!*.sh
+skills/lil-text-content
+statsig/
+tasks/
+todos/
