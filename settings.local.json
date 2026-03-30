@@ -70,7 +70,8 @@
       "WebFetch(domain:www.reddit.com)",
       "WebFetch(domain:openclaw.io)",
       "WebFetch(domain:maven.com)",
-      "WebFetch(domain:www.apple.com)"
+      "WebFetch(domain:www.apple.com)",
+      "Bash(tmux:*)"
     ]
   }
 }

@@ -72,6 +72,9 @@ Provisional signals (from `funnel-framework.md`):
                        #   classifier-quality-signals.yaml — LLM signal prompts (brand_authority, tone, depth, audience_fit, availability, brand_topic_fit)
                        #   topic-priority.yaml            — green/yellow/red topic rubric (most volatile; update when Content Strategy's rubric shifts)
   projects/            # Parallel workstreams (each has its own subdir + notes.md); also loose docs licensable-definition.md, licensing-classifier.md
+  spec/                # Day specs — one YYYY-MM-DD.md file per working day. Each spec defines
+                       # the day's tasks, inputs, constraints, and Claude Code instance assignments.
+                       # Checked at session start — read during Session Start Protocol if today's file exists.
   gate_log.json        # Course-level gate decision log — SOT for funnel metrics and CYA (see projects/pipeline-ops/notes.md)
   scripts/             # Python utilities: lil_stats.py, lil_semantic.py, lil_overlap.py; log_gate.py, funnel_report.py
                        # Classifier:
@@ -125,9 +128,10 @@ Run this every session, in order:
 1. `mkdir -p ~/licensing/partners ~/licensing/context ~/licensing/business_context/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}` — ensure structure exists
 2. Read `~/licensing/pipeline.md` — primary orientation; surface what's active, stale, or needs action
 3. Read `~/licensing/scratchpad.md` — strategy context and rubric state
-4. If `~/licensing/business_context/summary.md` exists: read it — strategic environment context
-5. If this is a partner-focused session: read `~/licensing/partners/<name>/notes.md`
-6. If a project workstream is the focus: check `~/licensing/projects/` for a relevant subdir and read its `notes.md`
+4. Check for a day spec: `~/licensing/spec/YYYY-MM-DD.md` where YYYY-MM-DD is today's date. If it exists, read it. Note any items marked as time-sensitive or incomplete — surface them in the opening brief integrated with pipeline and scratchpad state.
+5. If `~/licensing/business_context/summary.md` exists: read it — strategic environment context
+6. If this is a partner-focused session: read `~/licensing/partners/<name>/notes.md`
+7. If a project workstream is the focus: check `~/licensing/projects/` for a relevant subdir and read its `notes.md`
 
 Note: `manifest.md` is an append-only audit trail — consult it on demand (e.g., "when did we last contact X?" or "what changed with Y?"), not at session start.
 
