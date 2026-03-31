@@ -6,6 +6,8 @@
       "Read(/Users/bianders/.local/share/cc-planner/**)",
       "Write(/Users/bianders/.local/share/cc-planner/**)",
       "Edit(/Users/bianders/.local/share/cc-planner/**)",
+      "Write(/Users/bianders/silt/**)",
+      "Edit(/Users/bianders/silt/**)",
       "Bash(mkdir -p /Users/bianders/.local/share/cc-planner)",
       "Bash(cat:*)",
       "Bash(head:*)",
@@ -24,6 +26,7 @@
       "Bash(/Users/bianders/.claude/sdd-state.sh:*)",
       "Bash(~/.claude/sdd-state.sh:*)",
       "Bash(uv:*)",
+      "Bash(uv run*)",
       "Bash(psql:*)"
     ],
     "deny": []
