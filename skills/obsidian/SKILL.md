@@ -85,9 +85,27 @@ See `references/markdown-syntax.md` for the full syntax reference.
 
 ---
 
-## Siphon Integration (WIP)
+## Siphon Integration
 
-Siphon (`~/Brian_Code/siphon`) will provide embeddings-based retrieval and wikilink graph traversal over vault content once integrated. See `references/siphon.md` for design intent and implementation plan.
+Siphon (`~/Brian_Code/siphon`) is operational. It ingests vault notes and stores them in Postgres with LLM enrichment for search and graph traversal.
+
+Key vault-related commands:
+
+```bash
+# Ingest a single note (active ingestion)
+siphon gulp path/to/note.md
+
+# Bulk sync an entire vault (change-detected, incremental)
+siphon sync --vault ~/morphy --concurrency 10
+
+# Search ingested content
+siphon query "topic"
+
+# Walk wikilink graph from a note
+siphon traverse "Note Title" --depth 2 --backlinks
+```
+
+See `references/siphon.md` for full CLI reference and architecture details.
 
 ---
 

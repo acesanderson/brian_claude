@@ -1,6 +1,6 @@
-# Siphon Integration (WIP)
+# Siphon Integration
 
-> Status: planned. Siphon is not yet wired into this skill. This document records intent and design.
+> Status: operational. The pipeline, CLI, and Obsidian source type are all working.
 
 ## What Siphon Is
 
@@ -8,57 +8,97 @@ Siphon is a personal knowledge ingestion pipeline (`~/Brian_Code/siphon`) that p
 from multiple source types, enriches it via LLM, and stores it in Postgres with embeddings for
 vector retrieval.
 
+## Pipeline Architecture
+
+Four-stage pipeline with early-exit action types:
+
+| Stage | Component | Input | Output |
+|:---|:---|:---|:---|
+| **1. Parse** | `SourceParser` | Raw string/URL | `SourceInfo` (canonical URI) |
+| **2. Extract** | `ContentExtractor` | `SourceInfo` | `ContentData` (raw text + metadata) |
+| **3. Enrich** | `ContentEnricher` | `ContentData` | `EnrichedData` (LLM summary/description) |
+| **4. Persist** | `Repository` | `ProcessedContent` | PostgreSQL record |
+
+Action types (via `--return-type`): `parse`, `extract`, `enrich`, `gulp` (full pipeline).
+
 ## Obsidian Source Type
 
-Siphon has a native `OBSIDIAN` source type (`siphon-server/`) that:
+The `OBSIDIAN` source type in `siphon-server/src/siphon_server/sources/obsidian/`:
 
 - Accepts a `.md` file path inside a vault
-- Detects the vault root by walking up directories until `.obsidian/` is found
+- Detects vault root by walking up directories until `.obsidian/` is found
 - Parses `[[wikilink]]` and `[[wikilink|alias]]` patterns
-- Recursively fetches linked notes (cycle detection via visited paths)
+- Recursively fetches linked notes (cycle detection via visited set)
 - Concatenates as structured markdown: `# title\n\ncontent\n\n---\n\n# linked-title\n\n...`
 - URI scheme: `obsidian:///{sha256-of-path[:16]}`
 - Metadata: `root_note`, `vault_root`, `note_count`
 
-## Planned Capabilities
+## CLI Reference
 
-Once integrated, this skill will support:
-
-### Ingest a single note (with wikilink traversal)
+### Ingestion
 
 ```bash
-# planned interface — not yet implemented
-uv run ~/.claude/skills/obsidian/scripts/siphon_ingest.py "Note Title"
-# or
-uv run ~/.claude/skills/obsidian/scripts/siphon_ingest.py --path path/to/note.md
+# Ingest a single note (full pipeline, persists to DB)
+siphon gulp path/to/note.md
+
+# Bulk vault sync — client-side change detection, only processes new/modified notes
+siphon sync --vault ~/morphy --concurrency 10
 ```
 
-### Vault-wide ingest
+### Retrieval
 
-Batch ingest all notes in the vault (or a subfolder), respecting the Siphon cache so
-re-ingesting unchanged notes is a no-op.
+```bash
+# Full-text + vector search
+siphon query "machine learning" --type obsidian
 
-### Rich query (planned)
+# Walk wikilink graph from a starting note
+siphon traverse "Project Phoenix" --depth 2 --backlinks
 
-Once notes are in Postgres + vector store, Siphon will support:
+# Access query history and retrieve by index
+siphon results --history
+siphon results --get 2 --return-type c
+```
 
-- **Embeddings-based retrieval**: find notes semantically related to a query
-- **Graph traversal**: follow wikilink relationships to surface connected context
-- **Hybrid search**: combine keyword + vector + graph proximity
+## Supported Source Types
 
-These queries will be surfaced through a `siphon query` CLI or API call.
+| Type | Extraction Method |
+|:---|:---|
+| **YouTube** | `yt-dlp` metadata + `youtube-transcript-api` |
+| **Article** | `readabilipy` + `markdownify` |
+| **Doc** | `MarkItDown` (PDF, DOCX, TXT, CSV) |
+| **Audio** | Whisper transcription + Pyannote diarization |
+| **GitHub** | GitHub API tree traversal |
+| **Obsidian** | Wikilink extraction + frontmatter parsing |
+| **Email** | Gmail API (OAuth) |
+| **Image** | Vision-LLM description |
+| **Newsletter** | IMAP against Stalwart on nimzo (in progress) |
 
-## Prerequisites (when implemented)
+## Prerequisites
 
-- Siphon server running (or accessible Postgres instance with siphon schema)
-- `SIPHON_API_URL` or direct DB credentials configured
-- `OBSIDIAN_VAULT` env var set
+- Siphon server installed: `pip install siphon-api siphon-client siphon-server`
+- PostgreSQL with `pgvector` extension running
+- Environment variables:
 
-## Implementation Notes
+| Variable | Description |
+|:---|:---|
+| `POSTGRES_USERNAME` | PostgreSQL user |
+| `POSTGRES_PASSWORD` | PostgreSQL password |
+| `HUGGINGFACEHUB_API_TOKEN` | For audio diarization |
+| `YOUTUBE_API_KEY2` | Optional, advanced YouTube metadata |
 
-- The `rich_to_md` cleaning pass should be run before ingest — messy-rich notes will produce
-  garbled embeddings
-- Siphon uses standard cache behavior: same path hash returns cached result; pass
-  `use_cache=False` to force re-ingest
-- Notes that are purely daily logs may not benefit from vectorization; consider a tag-based
-  filter (e.g. skip notes tagged `#daily`)
+## Configuration
+
+`~/.config/siphon/config.toml`:
+
+```toml
+default_model = "gpt-4o"
+log_level = 2
+cache = true
+vault = "~/morphy"
+```
+
+## Notes
+
+- Siphon uses content-hash caching — re-ingesting an unchanged note is a no-op
+- The `siphon sync` command uses client-side diffing so unchanged notes are skipped without a server round-trip
+- Newsletter source is in progress (IMAP against Stalwart on nimzo VPS)

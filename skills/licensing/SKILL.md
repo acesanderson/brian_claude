@@ -84,6 +84,8 @@ Provisional signals (from `funnel-framework.md`):
                        #   normalize_formats.py  — one-time migration (already run 2026-03-13; keep for re-runs)
   database/            # ChromaDB instance used by scripts/lil_semantic.py for vector search over LiL course catalog — do not delete
   boilerplate/         # Reusable templates (outreach.md: Template A InMail, Template B cold email)
+  partner assets/      # PDF assets for partner outreach: Content License Agreement, Instructor Analytics Dashboard,
+                       # LinkedIn Learning Content Licensing one-pager, Content Delivery Video Format Guidelines
   business_context/                    # Business intelligence — hierarchical, domain-organized
     summary.md                         # Omnibus: one paragraph per domain, overall strategic read
     financial_health/
@@ -146,7 +148,7 @@ If no files exist yet (first run), initialize them (see Bootstrap below) then do
 
 ## Session Types
 
-There is no formal Manager/Worker role distinction. Two natural session types emerge:
+Three session types. The first two are operational — daily driving. The third is architectural.
 
 **Pipeline session** — overview mode. Manages the full pipeline, updates `pipeline.md`,
 coordinates across partners, handles strategy questions.
@@ -156,7 +158,13 @@ session. Reads the partner's file. Can draft comms, update status, reason about 
 strategy, chase tangents without polluting the pipeline context. Updates `partners/<name>/notes.md`
 and `manifest.md` freely.
 
-Both session types read the same files. Both update shared state.
+**Architecture session** — the only session type that may write to `~/licensing/meta/`.
+Declared explicitly at session open: "this is an architecture session." Used for: skill
+redesign, roadmap updates, hook audits, information architecture changes. Do NOT write
+to meta/ in pipeline or partner branch sessions — meta/ is read-only during operational
+work.
+
+Both operational session types read the same files. Both update shared state.
 
 **When to suggest a branch session:** If a single partner has dominated 20+ turns, or
 you've drafted/iterated on comms, flag it: "This is getting deep on [Partner] — worth
@@ -230,7 +238,7 @@ Format: YYYY-MM-DD | created|updated|sent | <path or description> | <what change
 **Training Portal:** {catalog/learning URL}
 **BD POC:** {Brian|Manish}
 **Priority:** {P0|P1|P2|TBD} / {Tier 1|Tier 2|Tier 3|TBD}
-**Stage:** {Not Started|Researching|Outreach|In Conversation w/Partner|Approvals/Contracting|Project Management|Blocked|Dead}
+**Stage:** {Identified|Vetting|Propose for Intake|Researching|Outreach|In Conversation w/Partner|Approvals/Contracting|Project Management|In Production|Live|Blocked|Unable to Partner}
 **New/Existing:** {New|Existing}
 **MOC:** {name or —}
 **Library:** {Tech|Biz|Creative|—}
@@ -638,8 +646,10 @@ After any catalog scrape confirms `partners/<slug>/catalog.json` exists:
 
    **Column C (Context) format:** `[Stage] — [POC]. [1-2 sentence description.]`
    Stage must be one of the official enum values (same as pipeline.md Stage column):
-   `Not Started` | `Researching` | `Outreach` | `In Conversation w/Partner` |
-   `Approvals/Contracting` | `Project Management` | `Blocked` | `Dead`
+   Pre-intake: `Identified` | `Vetting` | `Propose for Intake`
+   Post-intake: `Researching` | `Outreach` | `In Conversation w/Partner` |
+   `Approvals/Contracting` | `Project Management` | `In Production` | `Live`
+   Terminal: `Blocked` | `Unable to Partner`
 
    **Column E (Status) enum:** `complete | partial | blocked | pending`
    - `complete` — full catalog captured, no known gaps
@@ -693,6 +703,19 @@ If a single partner has dominated 20+ turns or comms have been iterated multiple
 flag it proactively — "This is getting deep on [Partner] — worth spinning a branch
 session to keep the pipeline context clean." Do this before the context becomes too
 loaded to summarize.
+
+**On catalog classified as primarily cert prep**
+When a provider's catalog is primarily certification preparation — exam prep, study guides,
+practice tests for professional credentials — do NOT route to standard licensing BD.
+Route to Aishwarya instead.
+
+This applies even when the credential topic is P0 in the sourcing map. The skills being
+certified may be high-priority; the delivery format (cert prep) is out of scope for the
+licensed library. These are not the same question.
+
+- Cert-prep-primary orgs: DASA, DevOps Institute, FinOps Foundation → Aishwarya
+- Mixed-catalog orgs: Linux Foundation, KodeKloud — evaluate practitioner training courses
+  for standard licensing; flag cert-prep tracks separately for Aishwarya routing
 
 ---
 
@@ -798,7 +821,19 @@ catalog platform-search "kubernetes" --ufb only   # UfB-only benchmark: what the
 catalog platform-search "kubernetes" --ufb include  # all results + UfB course count column
 catalog search "topic"                            # Lake 1 course search
 catalog stats                                     # DB overview
+catalog industry-search "Cisco"                  # cross-ref prospect vs LPS/Frontier accounts
+catalog industry-search --tier lps_strategic     # list all 63 LPS strategic accounts
+catalog industry-search                          # tier summary (company counts per tier)
 ```
+
+**`industry_courses` table** — LPS account segmentation ingested 2026-03-31 from sheet `1rPrvwU7XoarZU0dGDXnrt5YrJzBcJpCfigkLks7SrEw`. Five tiers:
+- `lps_strategic` — 63 major enterprise accounts (Adobe, Cisco, Microsoft, SAP, ServiceNow, etc.)
+- `lps_targeted` — 700 additional targeted accounts
+- `frontier` — 13 Frontier Firms (includes `is_strategic_account` flag)
+- `research` — 1,606 companies with training-evidence research (confidence_score, evidence_url, etc.)
+- `skills` — 1,213 skill-cluster phrases (not companies — stored in `company` column; rarely useful for company search)
+
+Re-ingest: `catalog industry-ingest /tmp/industry_courses_all.json` (full refresh, drops + recreates table).
 
 **UfB flag (`platform_courses.ufb`)**: Boolean column marking courses in the Udemy for Business
 catalog (~11,989 courses, 7.3% of 164K). UfB courses carry a contractual exclusivity clause —
