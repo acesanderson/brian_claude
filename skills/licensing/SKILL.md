@@ -337,6 +337,10 @@ When a partner is mentioned with no existing file and no pipeline entry: create
 and add a row to `pipeline.md` in the same action. Never leave a partner floating in
 conversation without landing in both places.
 
+**On Google Doc opened in browser**
+When asked to open a Google Doc, Sheet, or Drive file in the browser: use `Bash` to run
+`open "<url>"` — never use Playwright for this. Playwright hits Google's sign-in wall.
+
 **On Google Doc accessed**
 Whenever a Google Doc, Sheet, or Drive file is read or accessed in a session:
 1. Check if it is already listed in `context/google_docs.json`

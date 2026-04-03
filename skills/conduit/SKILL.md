@@ -66,13 +66,14 @@ If you need a cheap/fast model and Headwater is unavailable, use a cloud API (`h
 
 ---
 
-## `ask` / `conduit query` — query any LLM
+## `conduit query` — query any LLM
+
+**Claude Code always uses `conduit query` directly, never the `ask` alias.** `ask` is for interactive human use and always persists to the message store. `conduit query` does not persist by default.
 
 ```bash
-ask "your query"
-ask --model <model> "your query"
-cat file.txt | ask --model <model> "summarize this"
-ask --raw --model <model> "query"   # plain stdout, safe to pipe
+conduit query "your query"
+conduit query --model <model> "your query"
+conduit query --raw --model <model> "query"   # plain stdout, safe to pipe
 ```
 
 | Flag | Effect |
@@ -84,6 +85,7 @@ ask --raw --model <model> "query"   # plain stdout, safe to pipe
 | `--chat` | Include conversation history |
 | `--append <text>` | Append extra text to query |
 | `--citations` / `-C` | Print source citations (Perplexity models only) |
+| `--persist` | Persist this query to the message store (off by default for `conduit query`) |
 
 ---
 
@@ -222,7 +224,7 @@ conduit batch -m sonar-pro --json "Q1" "Q2" | jq '.[].response'
 
 **Agentic pattern — multi-angle research:**
 
-When an agentic task calls for exploring a problem from multiple dimensions, write the prompts and call batch rather than making sequential `ask` calls:
+When an agentic task calls for exploring a problem from multiple dimensions, write the prompts and call batch rather than making sequential `conduit query` calls:
 
 ```bash
 # Write prompts to a temp file, then batch
@@ -236,35 +238,35 @@ conduit batch --json -m sonar-pro \
 
 ## POSIX pipe patterns
 
-`--raw` makes `ask` output plain text to stdout. This is the key to chaining conduit into pipelines.
+`--raw` outputs plain text to stdout. This is the key to chaining conduit into pipelines.
 
 ```bash
 # Research → image generation
-ask --raw --model sonar-pro "describe a coral reef at 30m depth" \
+conduit query --raw --model sonar-pro "describe a coral reef at 30m depth" \
   | imagegen generate --model banana
 
 # Summarize a large file before including in context
-cat large_doc.md | ask --raw --model <local-model> "summarize in 5 bullets"
+cat large_doc.md | conduit query --raw --model <local-model> "summarize in 5 bullets"
 
 # Multi-step: research → draft
-ask --raw --model sonar-pro "latest on X" > research.txt
-cat research.txt | ask --model claude "write a summary paragraph"
+conduit query --raw --model sonar-pro "latest on X" > research.txt
+cat research.txt | conduit query --model claude "write a summary paragraph"
 ```
 
 ---
 
 ## Large self-contained queries (headless cowpath)
 
-**Problem:** Pipe patterns (`cat ... | ask`) rely on `stdin.isatty()` for stdin detection. In Claude Code's headless Bash tool context, this detection is unreliable and the command may hang.
+**Problem:** Pipe patterns (`cat ... | conduit query`) rely on `stdin.isatty()` for stdin detection. In Claude Code's headless Bash tool context, this detection is unreliable and the command may hang.
 
-**Also broken:** `cat <<'EOF' | ask "$(cat)"` — `$(cat)` is evaluated before the pipe is established, so it reads from the terminal and blocks.
+**Also broken:** `cat <<'EOF' | conduit query "$(cat)"` — `$(cat)` is evaluated before the pipe is established, so it reads from the terminal and blocks.
 
 **Reliable pattern for large prompts:**
 
 ```bash
 # Step 1: write the query to a temp file (use the Write tool)
 # Step 2: pass as a CLI argument via file substitution
-ask --raw --model <model> "$(cat /tmp/query.txt)"
+conduit query --raw --model <model> "$(cat /tmp/query.txt)"
 ```
 
 `$(cat /tmp/file)` reads from a file, not stdin — no `isatty()` ambiguity, works headlessly. The full prompt becomes a CLI argument.
@@ -273,9 +275,9 @@ ask --raw --model <model> "$(cat /tmp/query.txt)"
 
 | Use case | Pattern |
 |----------|---------|
-| Content + short instruction | `cat file.txt \| ask "summarize this"` |
-| Large self-contained prompt | Write to file → `ask "$(cat /tmp/query.txt)"` |
-| Chain outputs | `ask --raw "..." \| next-command` |
+| Content + short instruction | `cat file.txt \| conduit query "summarize this"` |
+| Large self-contained prompt | Write to file → `conduit query "$(cat /tmp/query.txt)"` |
+| Chain outputs | `conduit query --raw "..." \| next-command` |
 
 ---
 

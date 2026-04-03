@@ -60,5 +60,7 @@
   "mcpServers": {},
   "preferences": {
     "editorMode": "vim"
-  }
+  },
+  "includeCoAuthoredBy": false,
+  "gitAttribution": false
 }

@@ -168,41 +168,67 @@ Blog drafts originate in Brian's Obsidian vault:
 
 ---
 
-## Deslop: Post-Writing Finishing Step
+## Deslop CLI
 
-After collaboratively drafting a post with an LLM, run deslop before publishing to
-strip AI-generated writing patterns.
+Unified CLI for detecting and stripping AI-generated writing patterns.
+Entry point: `~/.claude/skills/blog/.venv/bin/deslop`
 
-**How it works:**
+**Subcommands:**
 
-1. **Judge** (Gemini): reads the draft, outputs a numbered list of flagged AI-isms
-   with exact quoted text, category, and a one-sentence explanation.
-2. **Reviser** (Opus): receives the draft + critique, fixes only flagged items,
-   returns the full revised post with no commentary.
-
-The judge looks for: banned vocabulary (delve, leverage, robust, etc.), em-dash abuse,
-formulaic sentence patterns, performative tone, and burstiness (unnaturally uniform
-sentence lengths). The reviser fixes only what was flagged, matching the surrounding
-register and keeping changes minimal.
-
-Prompts live in `~/.claude/skills/blog/prompts/`.
-
-**Usage** — use `.venv/bin/python` directly, not `uv run` (which pulls the wrong
-`conduit` from PyPI and crashes):
+### `deslop score` — classify AI-isms
 
 ```bash
-# Pass a file
-~/.claude/skills/blog/.venv/bin/python ~/.claude/skills/blog/scripts/deslop.py _posts/my-post.md
+# Score a single file (terse: per-dimension scores on one line)
+deslop score drafts/my-draft.md
 
-# Capture output
-~/.claude/skills/blog/.venv/bin/python ~/.claude/skills/blog/scripts/deslop.py _posts/my-post.md > cleaned.md
+# Score with editorial rationale per dimension (verbose)
+deslop score -v drafts/my-draft.md
+
+# Score all published posts sequentially
+deslop score --all
+
+# Score all posts, ranked by overall score descending
+deslop score --all --ranked
+
+# Pipe from stdin
+cat drafts/my-draft.md | deslop score
 ```
 
-The script prints the revised post to stdout. Debug output from the conduit library
-also goes to stdout — suppress with `2>/dev/null` if needed.
+Terse output: `lexical=0.45  structural=0.62  rhetorical=0.78  overall=0.71`
+
+Verbose output (`-v`): per-dimension score + evidence quote + rationale paragraph
+explaining why it reads as AI-generated and how a human writer would handle it.
+
+### `deslop judge` — flag AI-isms without rewriting
+
+```bash
+deslop judge drafts/my-draft.md
+deslop judge --model gemini3 drafts/my-draft.md
+cat drafts/my-draft.md | deslop judge
+```
+
+Outputs a numbered list of flagged AI-isms with quoted text, category, and explanation.
+No rewriting. Use this to review what would be fixed before committing to a full `fix`.
+
+### `deslop fix` — full judge + reviser pipeline
+
+```bash
+deslop fix drafts/my-draft.md
+deslop fix --inplace drafts/my-draft.md   # write result back to file
+deslop fix --judge gemini3 --reviser opus drafts/my-draft.md
+cat drafts/my-draft.md | deslop fix
+```
+
+Runs judge (Gemini) then reviser (Opus). Reviser fixes only flagged items, returns the
+full revised post. Without `--inplace`, prints to stdout.
 
 **When to run:** last step before publishing, after structure and content are final.
-Deslop does not restructure or add content. Make structural edits first.
+`fix` does not restructure or add content — make structural edits first.
+
+**Typical workflow:**
+1. `deslop score draft.md` — quick read on sloppiness
+2. `deslop judge draft.md` — review what would be changed
+3. `deslop fix --inplace draft.md` — apply the revision
 
 ---
 
