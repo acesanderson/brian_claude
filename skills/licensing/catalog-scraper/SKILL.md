@@ -1,6 +1,6 @@
 ---
 name: licensing:catalog-scraper
-description: Scrape a single training provider's course catalog for LinkedIn Learning licensing evaluation. Part of the licensing toolkit — typically invoked as a subagent by the licensing skill. Use when asked to "scrape [provider]", "catalog [company]", "analyze [provider]'s training offerings", or when dispatched as a licensing:catalog-scraper-worker subagent. Accepts company name alone (discovers portal URLs first) or company name + URL (skips discovery). Handles single page, paginated, navigation-based catalogs and obstacles (email gates, CloudFront, lazy loading). Generates standardized JSON, XLSX, markdown report, and Google Spreadsheet.
+description: Scrape a single training provider's course catalog for LinkedIn Learning licensing evaluation. Part of the licensing toolkit — typically invoked as a subagent by the licensing skill. Use when asked to "scrape [provider]", "catalog [company]", "analyze [provider]'s training offerings", or when dispatched as a licensing:catalog-scraper-worker subagent. Accepts company name alone (discovers portal URLs first) or company name + URL (skips discovery). Handles single page, paginated, navigation-based catalogs and obstacles (email gates, CloudFront, lazy loading). Writes courses to DB via temp file + ingest pattern; produces report.md as the only file artifact.
 ---
 
 # Course Catalog Scraper
@@ -27,149 +27,21 @@ uv run scrape_{provider_slug}.py
 
 ## Workflow
 
-### Phase 0: Registry Check (REQUIRED FIRST STEP)
+### Phase 0: Pre-Scrape Check (REQUIRED FIRST STEP)
 
-**Objective**: Check if provider is already scraped to avoid duplicate work.
+**Objective**: Avoid duplicate work by checking if this provider is already in the DB.
 
-1. **Resolve base directory and check for catalog_registry.json**
-   ```python
-   import json
-   import os
-   from datetime import datetime
-   from pathlib import Path
-
-   # Use $HOME/licensing if it exists, otherwise fall back to cwd
-   licensing_dir = Path.home() / "licensing"
-   base_dir = licensing_dir if licensing_dir.exists() else Path.cwd()
-
-   registry_path = base_dir / 'catalog_registry.json'
-
-   # Create registry if it doesn't exist
-   if not registry_path.exists():
-       registry = {
-           "version": "1.0",
-           "last_updated": datetime.now().isoformat(),
-           "stats": {
-               "total_providers": 0,
-               "total_courses": 0,
-               "providers_complete": 0,
-               "providers_partial": 0,
-               "providers_auth_required": 0
-           },
-           "providers": {}
-       }
-       with open(registry_path, 'w') as f:
-           json.dump(registry, f, indent=2)
-       print("✓ Created new catalog_registry.json")
+1. **Check DB for existing provider**
+   ```bash
+   uv run --project ~/vibe/licensing-project/catalog catalog providers
    ```
+   Look for the provider slug in the output. If the provider appears with `Scrape Status = complete`, confirm with the user before re-scraping.
 
-2. **Check if provider already exists**
-   ```python
-   with open(registry_path, 'r') as f:
-       registry = json.load(f)
-
-   provider_name = "Provider Name"  # From input
-
-   if provider_name in registry['providers']:
-       provider_info = registry['providers'][provider_name]
-       status = provider_info['status']
-
-       if status == 'complete':
-           print(f"\n{'='*60}")
-           print(f"✓ {provider_name} ALREADY SCRAPED")
-           print(f"{'='*60}")
-           print(f"  Date: {provider_info['date_scraped']}")
-           print(f"  Courses: {provider_info['courses_count']}")
-           print(f"  Files: {provider_info['files']['json']}")
-           print(f"\n  Use existing data or remove from registry to re-scrape.")
-           return  # Skip scraping
-
-       elif status == 'partial':
-           print(f"\n⚠️  {provider_name} previously scraped with partial results")
-           print(f"   Scraped: {provider_info['courses_count']} courses")
-           if 'total_available' in provider_info:
-               print(f"   Available: {provider_info['total_available']} courses")
-           print(f"   Limitation: {provider_info.get('limitation', 'Unknown')}")
-           # Continue with scraping to attempt full collection
-
-       elif status == 'auth_required':
-           print(f"\n⚠️  {provider_name} requires authentication")
-           print(f"   Notes: {provider_info.get('notes', '')}")
-           # Continue to attempt scraping (may have gained access)
-   ```
-
-3. **After successful scraping, update registry**
-   ```python
-   def update_registry(provider_name, provider_data, base_dir):
-       registry_path = base_dir / 'catalog_registry.json'
-       with open(registry_path, 'r') as f:
-           registry = json.load(f)
-
-       registry['providers'][provider_name] = provider_data
-
-       stats = registry['stats']
-       stats['total_providers'] = len(registry['providers'])
-       stats['total_courses'] = sum(
-           p.get('courses_count', 0)
-           for p in registry['providers'].values()
-       )
-       stats['providers_complete'] = sum(
-           1 for p in registry['providers'].values()
-           if p.get('status') == 'complete'
-       )
-       stats['providers_partial'] = sum(
-           1 for p in registry['providers'].values()
-           if p.get('status') == 'partial'
-       )
-       stats['providers_auth_required'] = sum(
-           1 for p in registry['providers'].values()
-           if p.get('status') == 'auth_required'
-       )
-       registry['last_updated'] = datetime.now().isoformat()
-
-       with open(registry_path, 'w') as f:
-           json.dump(registry, f, indent=2)
-
-       print(f"Updated {registry_path}")
-       regenerate_master_catalog(base_dir)
-   ```
-
-4. **Regenerate master catalog files**
-   ```python
-   def regenerate_master_catalog(base_dir):
-       import pandas as pd
-
-       registry_path = base_dir / 'catalog_registry.json'
-       with open(registry_path, 'r') as f:
-           registry = json.load(f)
-
-       all_courses = []
-       for provider_name, provider_info in registry['providers'].items():
-           if 'files' in provider_info and 'json' in provider_info['files']:
-               try:
-                   with open(provider_info['files']['json'], 'r') as f:
-                       courses = json.load(f)
-                       all_courses.extend(courses)
-               except:
-                   pass
-
-       with open(base_dir / 'master_catalog.json', 'w') as f:
-           json.dump(all_courses, f, indent=2, ensure_ascii=False)
-
-       if all_courses:
-           df = pd.DataFrame(all_courses)
-           df.to_excel(base_dir / 'master_catalog.xlsx', index=False, engine='openpyxl')
-
-       print(f"Regenerated master_catalog files ({len(all_courses)} total courses)")
-   ```
-
-**Important**: Always run Phase 0 before starting Discovery & Reconnaissance. This prevents duplicate work and maintains the central registry.
-
-**Registry staleness warning**: If catalogs were copied manually into `~/licensing/partners/`
-(rather than generated by this skill), the registry will not know about them. Before
-scraping, cross-check against the filesystem — if `~/licensing/partners/{slug}/catalog.json`
-already exists, treat it as scraped regardless of registry state. Do not re-scrape unless
-explicitly asked to refresh.
+2. **Determine the slug**
+   The slug used for the temp file and the DB is computed by `slugify(provider_name)`:
+   lowercase, replace non-alphanumeric runs with `-`, strip leading/trailing `-`.
+   Example: `"Linux Foundation"` → `linux-foundation`.
+   Use this slug consistently throughout the scrape.
 
 ### Phase 0.5: URL Discovery (run only when no URL is provided)
 
@@ -354,29 +226,45 @@ If email gate or auth required:
 
 ### Phase 4: Standardized Output
 
-**Generate THREE artifacts** (all required, saved locally):
+After collecting all courses, write and ingest in this exact order:
 
-#### 1. JSON: `{provider_slug}_catalog.json`
-Raw course data in JSON format for programmatic access
+**Step A — Write temp file** (use `slugify(provider_name)` for the slug):
+```bash
+# Temp file path — never write to partners/<slug>/catalog.json
+/tmp/scrape_<slug>.json
+```
 
-#### 2. XLSX: `{provider_slug}_catalog.xlsx`
-Excel spreadsheet for analysis and comparison (more reliable than CSV for arbitrary text with commas, line breaks, quotes, etc.)
+Write the course list as a JSON array to this path.
 
-#### 3. Report: `{provider_slug}_report.md`
-Detailed markdown report with analysis and recommendations
+**Step B — Ingest to DB**:
+```bash
+uv run --project ~/vibe/licensing-project/catalog \
+  catalog ingest /tmp/scrape_<slug>.json --status complete
+```
+Use `--status partial` if the scrape was incomplete (hit a JS wall, auth gate, pagination limit, etc.).
+Do NOT call `catalog ingest` if 0 courses were collected — skip to Step D instead.
 
-**Required columns** (consistent across all providers):
-- `provider` - Provider name (e.g., "HubSpot Academy")
-- `title` - Course title
-- `url` - Direct link to course page
-- `description` - Course description/summary
-- `duration` - Hours, modules, or time commitment
-- `level` - Beginner/Intermediate/Advanced/All Levels
-- `format` - **MUST use canonical enum** (see Format Normalization below)
-- `price` - Free/Paid/$XX (as displayed)
-- `category` - Topic/subject area
-- `instructor` - If available
-- `date_scraped` - ISO format date (YYYY-MM-DD)
+**Step C — Delete temp file**:
+```bash
+rm -f /tmp/scrape_<slug>.json
+```
+If ingest failed (non-zero exit), leave the temp file for manual retry and note it in `report.md`.
+
+**Step D — Write report.md**:
+Write `partners/<slug>/report.md` with the following fields:
+```
+Provider:      <name>
+Slug:          <slug>
+Date scraped:  YYYY-MM-DD
+Courses found: <N>
+Scrape status: complete | partial | blocked | (failed — not ingested)
+Portal URL:    <url>
+Notes:         <any obstacles, partial scrape reasons, or empty>
+```
+
+**MUST NOT write:**
+- `partners/<slug>/catalog.json` — no longer generated
+- `partners/<slug>/catalog.xlsx` — eliminated; no replacement
 
 ### Format Normalization (REQUIRED)
 
@@ -583,103 +471,29 @@ Include:
 
 ### Phase 5: Deliver Results
 
-1. **Move files to partner directory under base_dir**
+1. **Ensure partner directory exists**
    ```python
-   import shutil
    from pathlib import Path
-
-   # base_dir resolved in Phase 0 ($HOME/licensing if exists, else cwd)
-   provider_dir = base_dir / "partners" / provider_slug
+   provider_dir = Path.home() / "licensing" / "partners" / provider_slug
    provider_dir.mkdir(parents=True, exist_ok=True)
-
-   shutil.move(f"{provider_slug}_catalog.json", provider_dir / "catalog.json")
-   shutil.move(f"{provider_slug}_catalog.xlsx", provider_dir / "catalog.xlsx")
-   shutil.move(f"{provider_slug}_report.md",    provider_dir / "report.md")
-
-   print(f"Moved files to {provider_dir}/")
    ```
 
-2. **Ingest into catalog database**
+2. **Show Summary**
+   ```
+   Scraped {X} courses from {Provider}
 
-   After moving files, run:
-   ```bash
-   uv run --directory ~/vibe/licensing-project/catalog python -m catalog ingest \
-     {provider_dir}/catalog.json
+   ARTIFACTS:
+   report.md:  ~/licensing/partners/{provider_slug}/report.md
+   DB:         catalog database on Caruana ({N} courses ingested)
    ```
 
-   This upserts the provider and all courses into the `catalog` database on Caruana.
-   Idempotent — safe to re-run. Skip this step only if `licensing-project/catalog` is unavailable.
+3. **Preview Data** — Display first 3-5 courses with key fields
 
-3. **Update catalog_registry.json**
-   ```python
-   # Determine status
-   if courses_count == 0:
-       status = "auth_required"  # or "failed"
-   elif has_limitations:
-       status = "partial"
-   else:
-       status = "complete"
-
-   provider_data = {
-       "status": status,
-       "url": catalog_url,
-       "courses_count": courses_count,
-       "date_scraped": datetime.now().strftime("%Y-%m-%d"),
-       "scraper_version": "1.0",
-       "data_quality": {
-           "has_descriptions": desc_completeness > 50,
-           "has_duration": duration_completeness > 50,
-           "has_level": level_completeness > 50,
-           "avg_title_length": int(avg_title_length)
-       },
-       "files": {
-           "json": f"{provider_dir}/catalog.json",
-           "xlsx": f"{provider_dir}/catalog.xlsx",
-           "report": f"{provider_dir}/report.md"
-       },
-       "notes": ""  # Add any important notes
-   }
-
-   # If partial or auth_required, add limitation field
-   if status in ["partial", "auth_required"]:
-       provider_data["limitation"] = "Description of limitation"
-
-   update_registry(provider_name, provider_data)
-   ```
-
-4. **Show Summary with all artifacts**
-   ```
-   ✓ Scraped {X} courses from {Provider}
-   Base dir: {base_dir}  ($HOME/licensing or cwd fallback)
-
-   ARTIFACTS GENERATED:
-   ✓ JSON:     {base_dir}/partners/{provider_slug}/catalog.json
-   ✓ XLSX:     {base_dir}/partners/{provider_slug}/catalog.xlsx
-   ✓ Report:   {base_dir}/partners/{provider_slug}/report.md
-   ✓ Registry: {base_dir}/catalog_registry.json (updated)
-   ✓ Master:   {base_dir}/master_catalog.xlsx (regenerated)
-   ✓ Script:   ./scrape_{provider_slug}.py (cwd)
-   ✓ Sheet:    {google_sheets_url} (published)
-   ✓ Index:    Catalog Index updated (row added for {Provider})
-   ✓ DB:       catalog database on Caruana ({N} courses ingested)
-   ```
-
-5. **Preview Data** - Display first 3-5 courses with key fields
-
-6. **Provide Analysis** - Quick insights:
+4. **Provide Analysis** — Quick insights:
    - Course count by level/category
-   - Price distribution
    - Format breakdown
    - Content gaps or strengths
    - LinkedIn Learning licensing perspective
-
-7. **Registry Status**
-   ```
-   CATALOG REGISTRY STATUS:
-   - Total providers: {X}
-   - Total courses: {Y}
-   - Status: {status} (complete/partial/auth_required)
-   ```
 
 ### Phase 6: Publish Google Spreadsheet
 
@@ -899,40 +713,27 @@ If scraping fails:
 
 **Primary output directory: `$HOME/licensing/`**
 
-If `$HOME/licensing/` exists, all output goes there. If it does not exist (e.g., running
-on a colleague's machine), fall back to the current working directory. This makes the
-skill portable without hardcoding paths.
-
-Resolve at runtime:
-```python
-from pathlib import Path
-
-licensing_dir = Path.home() / "licensing"
-base_dir = licensing_dir if licensing_dir.exists() else Path.cwd()
-```
-
 Files are placed at:
-- `{base_dir}/partners/{provider_slug}/catalog.json`
-- `{base_dir}/partners/{provider_slug}/catalog.xlsx`
-- `{base_dir}/partners/{provider_slug}/report.md`
-- `{base_dir}/catalog_registry.json`
-- `{base_dir}/master_catalog.json` / `master_catalog.xlsx`
-- `scrape_{provider_slug}.py` — always written to **cwd** (it's a script, not an artifact)
+- `partners/<slug>/report.md` — the only persistent file artifact
+- `/tmp/scrape_<slug>.json` — temp file, deleted after successful ingest
+- `scrape_{provider_slug}.py` — always written to **cwd**, deleted after scrape
+
+The `partners/<slug>/catalog.json` and `partners/<slug>/catalog.xlsx` files are NOT
+written by new scrapes. Existing files in those locations are legacy artifacts frozen
+for the classifier — do not delete or overwrite them.
 
 ## Success Criteria
 
 **Minimum viable output** (MUST HAVE):
-- ✓ JSON with at least: provider, title, url
-- ✓ XLSX with at least: provider, title, url
-- ✓ Markdown report documenting approach and limitations
-- ✓ Working script for future updates
+- report.md written with all required fields (Provider, Slug, Date scraped, Courses found, Scrape status, Portal URL, Notes)
+- Courses ingested to DB (`catalog ingest --status complete|partial` exit 0)
+- No `/tmp/scrape_<slug>.json` remaining after successful ingest
 
 **Ideal output**:
-- ✓ Complete metadata for all fields
-- ✓ 100% of courses captured
-- ✓ High data quality (>90% complete fields, >90% unique descriptions, avg title length <100 chars)
-- ✓ Reproducible process
-- ✓ Clean, well-formatted markdown report
+- Complete metadata for all courses (title, url, description, format, level, duration, category)
+- 100% of courses captured
+- High data quality (>90% unique descriptions, avg title length <100 chars)
+- Reproducible scraper script (`scrape_{slug}.py`)
 
 
 
