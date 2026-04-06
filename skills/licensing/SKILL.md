@@ -44,9 +44,8 @@ A course passes if ALL of these are true:
 
 ### Content Strategy Rubric
 
-**STATUS: UNPOPULATED.** `scratchpad.md > ## Content Strategy Rubric` is blank. Mary's
-segment-level go/no-go has not been received. Gate 2 (Topic Relevance) cannot be applied
-consistently until this is filled in. Populate from the next bi-weekly BD/Content Strategy alignment.
+**STATUS: UNPOPULATED.** Mary's segment-level go/no-go has not been received. Gate 2 (Topic Relevance) cannot be applied
+consistently until this is filled in. Populate `context/topic-priority.yaml` from the next bi-weekly BD/Content Strategy alignment.
 
 Provisional signals (from `funnel-framework.md`):
 - Green: AI/ML, cybersecurity, cloud, software development, leadership with cert association
@@ -60,65 +59,25 @@ Provisional signals (from `funnel-framework.md`):
 ~/licensing/
   pipeline.md          # Primary artifact — active partner pipeline
   manifest.md          # Append-only action log
-  scratchpad.md        # Strategy context, content rubric state, open questions
-  notes.md             # Backlog, parked thoughts, future tooling work
-  catalog_registry.json  # Registry of all scraped partner catalogs
-  training_urls.json   # Output of find-catalogues; training portal URLs per company
   partners/            # One directory per active/prospective partner (notes.md + catalog files)
   skills/              # One directory per skill TLM (roadmap.md + catalog XLSX + report)
-  context/             # Read-only reference docs (licensing_context.md, google_docs.json, bd-process.md, funnel-framework.md, library-composition-analysis.md)
-                       # Classifier config (living docs — update as rubric shifts):
-                       #   classifier-blockers.yaml       — hard eliminators (format, product_type, title, description)
-                       #   classifier-quality-signals.yaml — LLM signal prompts (brand_authority, tone, depth, audience_fit, availability, brand_topic_fit)
-                       #   topic-priority.yaml            — green/yellow/red topic rubric (most volatile; update when Content Strategy's rubric shifts)
-  projects/            # Parallel workstreams (each has its own subdir + notes.md); also loose docs licensable-definition.md, licensing-classifier.md
+  context/             # Reference docs — see context/README.md for file-to-trigger map
+  projects/            # Parallel workstreams (each has its own subdir + notes.md)
   spec/                # Day specs — one YYYY-MM-DD.md file per working day. Each spec defines
                        # the day's tasks, inputs, constraints, and Claude Code instance assignments.
                        # Checked at session start — read during Session Start Protocol if today's file exists.
   gate_log.json        # Course-level gate decision log — SOT for funnel metrics and CYA (see projects/pipeline-ops/notes.md)
-  scripts/             # Python utilities: lil_stats.py, lil_semantic.py, lil_overlap.py; log_gate.py, funnel_report.py
-                       # Classifier:
-                       #   classify.py           — two-pass classifier (pass 1: blockers, pass 2: LLM via ConduitBatch)
-                       #   classifier_models.py  — Pydantic models for structured LLM output (ClassifierResult)
-                       #   classifier_prompt.j2  — Jinja2 prompt template; signals injected from YAML
-                       #   normalize_formats.py  — one-time migration (already run 2026-03-13; keep for re-runs)
-  database/            # ChromaDB instance used by scripts/lil_semantic.py for vector search over LiL course catalog — do not delete
+  scripts/             # Python utilities; Classifier: classify.py, classifier_models.py, classifier_prompt.j2
   boilerplate/         # Reusable templates (outreach.md: Template A InMail, Template B cold email)
-  partner assets/      # PDF assets for partner outreach: Content License Agreement, Instructor Analytics Dashboard,
+  partner-assets/      # PDF assets for partner outreach: Content License Agreement, Instructor Analytics Dashboard,
                        # LinkedIn Learning Content Licensing one-pager, Content Delivery Video Format Guidelines
-  business_context/                    # Business intelligence — hierarchical, domain-organized
-    summary.md                         # Omnibus: one paragraph per domain, overall strategic read
-    financial_health/
-      summary.md                       # Domain synthesis (auto-generated from docs below)
-      [dated docs]                     # LinkedIn financials, LLS health, Microsoft earnings
-    flagship_feed/
-      summary.md
-      [dated docs]                     # Feed roadmap, DAU strategy, Knowledge Marketplace
-    premium/
-      summary.md
-      [dated docs]                     # Premium business, consumer thesis, subscriber trends
-    talent_solutions/
-      summary.md
-      [dated docs]                     # Talent Solutions, enterprise L&D, Recruiter/Jobs
-    ai_strategy/
-      summary.md
-      [dated docs]                     # AI features, Copilot intersection, LinkedIn AI Coach
-    org_context/
-      summary.md
-      [dated docs]                     # Leadership, restructures, internal champions/friction
-    competitive_landscape/
-      summary.md
-      [dated docs]                     # Coursera, Udemy, Pluralsight, Indeed/Glassdoor
-    member_metrics/
-      summary.md
-      [dated docs]                     # DAU/MAU, engagement, feed-to-learning conversion
 ```
 
 Ensure this structure exists on first run:
 
 ```bash
 mkdir -p ~/licensing/partners ~/licensing/context \
-  ~/licensing/business_context/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}
+  ~/licensing/context/business/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}
 ```
 
 ---
@@ -127,22 +86,19 @@ mkdir -p ~/licensing/partners ~/licensing/context \
 
 Run this every session, in order:
 
-1. `mkdir -p ~/licensing/partners ~/licensing/context ~/licensing/business_context/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}` — ensure structure exists
-2. Read `~/licensing/pipeline.md` — primary orientation; surface what's active, stale, or needs action
-3. Read `~/licensing/scratchpad.md` — strategy context and rubric state
-4. Check for a day spec: `~/licensing/spec/YYYY-MM-DD.md` where YYYY-MM-DD is today's date. If it exists, read it. Note any items marked as time-sensitive or incomplete — surface them in the opening brief integrated with pipeline and scratchpad state.
-5. If `~/licensing/business_context/summary.md` exists: read it — strategic environment context
-6. If this is a partner-focused session: read `~/licensing/partners/<name>/notes.md`
-7. If a project workstream is the focus: check `~/licensing/projects/` for a relevant subdir and read its `notes.md`
+1. `mkdir -p ~/licensing/partners ~/licensing/context ~/licensing/context/business/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}` — ensure structure exists
+2. Read `~/licensing/state.md` — synthesized dashboard; produces the opening brief directly
+3. Check for a day spec: `~/licensing/spec/YYYY-MM-DD.md` where YYYY-MM-DD is today's date. If it exists, read it and integrate any time-sensitive items into the brief.
+4. If this is a partner-focused session: read `~/licensing/partners/<name>/notes.md`
+5. If a project workstream is the focus: check `~/licensing/projects/` for a relevant subdir and read its `notes.md`
 
-Note: `manifest.md` is an append-only audit trail — consult it on demand (e.g., "when did we last contact X?" or "what changed with Y?"), not at session start.
+Note: `manifest.md` is append-only — consult on demand ("when did we last contact X?"), not at session start. `pipeline.md` and `context/business/summary.md` are available on demand but not read at startup — state.md synthesizes their actionable content.
 
-Then open with a grounded brief — not "what do you want to do?" but a synthesis:
+Then open with a grounded brief derived from state.md — not "what do you want to do?" but a synthesis:
 
-> "[N] active partners. [Partner X] has been idle for [N] days — next action is [Y].
-> [Partner Z] needs [specific thing]. What's your focus today?"
+> "[N] partners need action. [Partner X] is overdue — [next action]. [Time-sensitive item]. What's your focus today?"
 
-If no files exist yet (first run), initialize them (see Bootstrap below) then do goal intake.
+If `state.md` does not exist (first run): read `pipeline.md` and `context/business/summary.md` in order, then write `state.md` using the canonical structure before proceeding. Initialize other files using templates in `~/.claude/skills/licensing/templates/` if needed.
 
 ---
 
@@ -186,117 +142,6 @@ drafted/sent, partner status changed). Format:
 - YYYY-MM-DD | created|updated|sent | <path or description> | <what changed>
 ```
 
-**`scratchpad.md`** — update when: content strategy rubric changes, sourcing priorities
-shift, open questions resolve, or strategic context needs capturing.
-
----
-
----
-
-## Bootstrap (First Run)
-
-If no files exist, create seeds:
-
-**`pipeline.md`**:
-```markdown
-# Pipeline
-Last updated: YYYY-MM-DD
-
-| Partner | Tier | Stage | Last Action | Next Action |
-|---|---|---|---|---|
-```
-
-**`manifest.md`**:
-```markdown
-# Manifest
-Format: YYYY-MM-DD | created|updated|sent | <path or description> | <what changed>
-
----
-```
-
-**`scratchpad.md`**:
-```markdown
-# Scratchpad
-
-## Content Strategy Rubric
-[Populate from bi-weekly BD/Content Strategy alignment — which segments are green/red for licensing]
-
-## Sourcing Priority
-[Current focus: analog-based | gap-based | signal-based | inbound]
-
-## Open Questions
-[Things to resolve, track, or raise at next alignment meeting]
-
-## Notes
-```
-
-**`partners/{name}/notes.md`** (template for new partners):
-```markdown
-# {Partner Name}
-
-**Website:** {official site}
-**Training Portal:** {catalog/learning URL}
-**BD POC:** {Brian|Manish}
-**Priority:** {P0|P1|P2|TBD} / {Tier 1|Tier 2|Tier 3|TBD}
-**Stage:** {Identified|Vetting|Propose for Intake|Researching|Outreach|In Conversation w/Partner|Approvals/Contracting|Project Management|In Production|Live|Blocked|Unable to Partner}
-**New/Existing:** {New|Existing}
-**MOC:** {name or —}
-**Library:** {Tech|Biz|Creative|—}
-**Subject:** {subject area}
-**Content Focus:** {specific topic or tool}
-
-## Status
-[Current state — what's happened, where things stand]
-
-## Contact Log
-```
-
-**`partners/{slug}/gate-a-submission.md`** (Gate A submission template — generate when a partner is ready to pitch Content Strategy):
-```markdown
-# Gate A Submission: {Partner Name}
-
-**Date:** YYYY-MM-DD
-**BD POC:** {Brian|Manish}
-**Stage Requested:** Researching → Outreach
-**Motion:** {Motion A (CM-initiated) | Motion B (BD-initiated)}
-
----
-
-## The Opportunity
-[1-2 paragraphs: what the partner does, what content is being scoped, why now]
-
-**Targeted licensing scope:**
-- [Series/course list with count and format]
-
----
-
-## Subject Fit
-[Subject from the EN Courses deep dive: GREEN/YELLOW/RED, key stats, gap data]
-
----
-
-## Brand Authority
-[Why this partner's brand matters to LiL's enterprise audience]
-
----
-
-## LiL Talent / Existing Relationship (if applicable)
-[Existing Prof Cert, co-branded content, or LiL instructor connection — omit if none]
-
----
-
-## Risk Assessment
-| Risk | Mitigation |
-|---|---|
-| [risk] | [mitigation] |
-
----
-
-## Ask
-[Specific approval request: e.g., "Approve for Outreach" + proposed scope framing]
-```
-
-Then ask: what partners are currently active, and what stage is each one?
 
 ---
 
@@ -320,20 +165,11 @@ AND append to `manifest.md`. Do both, always.
 
 **On drafting any email or boilerplate**
 Before generating any email draft, outreach message, or boilerplate text: read
-`~/.claude/skills/licensing/writing-style.md` and apply Brian's style exactly.
-Key rules (do not deviate):
-- Salutation: first name + colon (`Jess:`, `Hi Rob:`). Never a comma.
-- Sign-off: `Best,\nBrian` (standard) or `Very best,\nBrian` (cold outreach). Never "Best regards".
-- No hollow openers ("Hope this finds you well", "I hope you're doing well").
-- Short sentences, short paragraphs. Bullet lists for multi-item content.
-- Vocabulary: "Brilliant", "grand", "Ack", "let me know" (not "please don't hesitate").
-- NO em dashes. No passive voice. No hedging.
-- Cold outreach: follow the 5-step formula in writing-style.md exactly.
-- Quick replies: 1-2 sentences max, often no sign-off needed.
+`~/.claude/skills/licensing/writing-style.md` and apply exactly. No exceptions.
 
 **On new partner introduced**
 When a partner is mentioned with no existing file and no pipeline entry: create
-`partners/<name>/notes.md` using the Bootstrap template (including Training Portal field)
+`partners/<name>/notes.md` using the template at `~/.claude/skills/licensing/templates/partner-notes.md`
 and add a row to `pipeline.md` in the same action. Never leave a partner floating in
 conversation without landing in both places.
 
@@ -411,26 +247,15 @@ Trigger phrases: "email history [partner]", "check correspondence", "pull emails
 6. Surface a brief summary: total count, date range, most recent exchange, any open threads
    (sent with no reply, or reply awaiting response).
 
-**On strategic context shift**
-When the content strategy rubric changes, sourcing priority shifts, or a key open
-question resolves: update `scratchpad.md` immediately.
-
-**On Team Tracker snapshot request**
-Brian may occasionally ask to refresh the Team Tracker snapshot. When he does:
-1. Read `context/google_docs.json` to confirm the Team Tracker URL and that it is `"permissions": "read-only"`
-2. Pull the sheet using `read_google_sheets_by_id` — never write to it
-3. Overwrite `context/team_tracker_snapshot.md` with the pulled data and a timestamp header
-4. Append to `manifest.md`
-Never pull or refresh the snapshot proactively — only on explicit request.
-The snapshot is a local reference artifact; the source Google Sheet is always read-only.
+**On Team Tracker snapshot request** — explicit only. Pull via `read_google_sheets_by_id`, overwrite `context/team_tracker_snapshot.md`, append to `manifest.md`. Never proactive.
 
 **On "summarize [domain]"**
 When the user says "summarize [domain]" or "refresh [domain] summary" (where domain is
 one of: financial_health, flagship_feed, premium, talent_solutions, ai_strategy,
 org_context, competitive_landscape, member_metrics):
-1. List all files in `business_context/[domain]/` excluding `summary.md`
+1. List all files in `context/business/[domain]/` excluding `summary.md`
 2. Read each one
-3. Write a synthesis to `business_context/[domain]/summary.md` — key facts, trends,
+3. Write a synthesis to `context/business/[domain]/summary.md` — key facts, trends,
    strategic reads, sources with dates, and a staleness note (oldest source date)
 4. Append to `manifest.md`
 Do not summarize if the domain directory has no docs yet — flag it as unpopulated instead.
@@ -442,8 +267,8 @@ permission grants, which defeats the purpose of delegation. Subagents are for re
 
 **On "summarize business"** (also: "refresh business summary", "update business context")
 When the user triggers a full business summary refresh:
-1. Read every `business_context/[domain]/summary.md` that exists
-2. Write `business_context/summary.md` using this schema:
+1. Read every `context/business/[domain]/summary.md` that exists
+2. Write `context/business/summary.md` using this schema:
    - Header with last-updated date and staleness table (one row per domain)
    - One 2-3 sentence paragraph per domain
    - "Overall Strategic Read" section: 4-6 sentences on what this means for LinkedIn's
@@ -456,19 +281,15 @@ This is the top-level orientation artifact read during every session start.
 
 IMPORTANT: Execute in the MAIN session (same reason as above).
 
-**On new business context doc added**
-When any file is written to a `business_context/[domain]/` directory (excluding summary.md):
-- Append to `manifest.md` as usual
-- Add a note: "[domain]/summary.md is now stale — run 'summarize [domain]' to refresh"
-Do NOT auto-summarize. Summarization is always explicit.
+**On new business context doc added** — append to `manifest.md`; note that `[domain]/summary.md` is now stale. Do NOT auto-summarize.
 
 **On "save context"**
 Canonical invocation phrase: Brian says **"save context"**. Also fires when Claude is
-about to make any substantive write to `scratchpad.md`, `context/` files, or `SKILL.md`
+about to make any substantive write to `context/` files or `SKILL.md`
 on its own initiative — defined as more than a single factual correction or pointer update.
 
 Scope:
-- FIRES: scratchpad.md, context/[any].md, SKILL.md
+- FIRES: context/[any].md, SKILL.md
 - DOES NOT FIRE: manifest.md (append-only, no review needed), partners/[any]/notes.md
   (operational notes, not shared context artifacts)
 
@@ -518,30 +339,24 @@ When asked for a gate report, funnel summary, conversion rates, or rejection bre
 If the log is empty, say so and remind Brian the hook fires automatically when gate decisions
 are mentioned in session.
 
-**On "sync gate log"**
-When Brian says "sync gate log" (or "sync gate log to sheet"):
-
-1. Read `gate_log.json`.
-2. Read `context/google_docs.json` to find the gate log sheet ID under `"gate_log_sheet"`.
-   - If the sheet is not yet registered: create a new Google Sheet named
-     "Licensing — Gate Log" via `create_google_sheets_spreadsheet`, register it in
-     `context/google_docs.json` under `"gate_log_sheet"` with `"permissions": "read-write"`,
-     and append to `manifest.md`.
-3. Build the sheet payload: header row + one data row per entry, columns matching the
-   gate_log.json schema (id, partner_slug, partner_display, course_title, course_url,
-   gate, gate_name, submitted_date, decided_date, velocity_days, decision, reason_code,
-   reason_detail, decided_by, logged_date, notes).
-4. Write to the sheet via `write_google_sheets_by_id` — full overwrite of tab "Gate Log"
-   (create tab if absent). gate_log.json remains the SOT; the sheet is always derived.
-5. Append to `manifest.md`:
-   `- YYYY-MM-DD | synced | gate_log.json → Google Sheet | <N> entries`
+**On "sync gate log"** — sync `gate_log.json` to Google Sheet. See `~/.claude/skills/licensing/tooling-reference.md` for full procedure.
 
 **On "resolve"**
-When the user says "resolve": review the current conversation for meaningful improvements
-to this skill. Update only if there are substantive changes to workflow, conventions,
-hooks, or tooling. Do NOT update for minor, session-specific, or speculative details.
-A "resolve" that produces no changes is fine — use judgment. Scope is limited to this
-skill only; do not update other skills.
+When the user says "resolve": first update `state.md`, then review the skill.
+
+**Step 1 — Update `state.md`:**
+1. Read current `state.md`
+2. Update `## Active Pipeline — Needs Attention` for any partners touched this session (stage, last action, next action)
+3. Update `## Active Projects` for any workstreams touched (status line, current state)
+4. Move resolved Time-Sensitive items out; add any new ones with dates
+5. Carry forward unchecked Todos; remove any checked off this session
+6. Update the header `_Last updated_` line with today's date and a one-phrase session description
+7. Write `state.md`
+
+If any partner with Last Action > 60 days and no substantive Next Action is found during the update, add it to `## Stale — Review`.
+
+**Step 2 — Update SKILL.md:**
+Review the current conversation for meaningful improvements to this skill. Update only if there are substantive changes to workflow, conventions, hooks, or tooling. Do NOT update for minor, session-specific, or speculative details. A "resolve" that produces no SKILL.md changes is fine — use judgment. Scope is limited to this skill only; do not update other skills.
 
 **On contact research request**
 When asked to find outreach contacts for one or more partners: read
@@ -620,11 +435,11 @@ for full content, or extract the page ID from the URL and use Captain `get_confl
 **On "Content Strategy deep dive" reference**
 When Brian mentions "Content Strategy deep dive", "EN Courses deep dive", "subject-level
 data", "the deep dive", or any similar reference to LiL engagement data by subject:
-read `~/licensing/business_context/talent_solutions/en_courses_data_deep_dive_bd_brief_2026-03-11.md`
+read `~/licensing/context/business/talent_solutions/en_courses_data_deep_dive_bd_brief_2026-03-11.md`
 before responding. This is the pre-analyzed BD brief derived from the EN Courses Data
 Deep Dive (February 2026) — 36 subjects, GREEN/YELLOW/RED ratings, format guidance,
 pipeline gap analysis, and cross-cutting strategic findings. The raw source file is at
-`~/licensing/business_context/talent_solutions/EN Courses Data Deep Dive.md` (14K lines)
+`~/licensing/context/business/talent_solutions/EN Courses Data Deep Dive.md` (14K lines)
 — only read this if Brian asks for data not present in the brief.
 
 **On Researching → Outreach stage transition**
@@ -634,19 +449,27 @@ or (b) a Gate A submission doc exists at `partners/<slug>/gate-a-submission.md`.
 If neither exists, flag it and offer to generate one before proceeding.
 
 **On catalog scrape complete**
-After any catalog scrape confirms `partners/<slug>/catalog.json` exists:
+After any catalog scrape writes `partners/<slug>/report.md`:
 
 1. Read `context/google_docs.json` to get `catalog_index.id`.
-2. Create a catalog sheet for this partner:
+2. Get the course count from the DB:
+   ```bash
+   uv run --project ~/vibe/licensing-project/catalog catalog providers
+   ```
+   Find the row for this provider slug and read the `Courses` column.
+3. Create a catalog sheet for this partner:
    - If no catalog sheet exists yet: create one via `create_google_sheets_spreadsheet`
      titled `"[Partner] — Course Catalog ([Month Year])"`. Write a header row
      (provider, title, url, format, level, duration, category, date_scraped).
      Register it in `context/google_docs.json` under `"read_write_docs"` with
      `"permissions": "read-write"` and a description noting course count and date.
    - If a sheet already exists (check `google_docs.json`): skip creation.
-3. Append one row to the catalog index sheet (`catalog_index.id`) via
+4. Append one row to the catalog index sheet (`catalog_index.id`) via
    `write_google_sheets_by_id` (mode: append) with columns:
    Partner | Catalog Sheet URL | Context | Courses | Status | Date Scraped | Notes
+
+   Get `Status` from the `report.md` `Scrape status:` line.
+   Get `Courses` from the DB (Step 2 above), not from any file.
 
    **Column C (Context) format:** `[Stage] — [POC]. [1-2 sentence description.]`
    Stage must be one of the official enum values (same as pipeline.md Stage column):
@@ -660,53 +483,19 @@ After any catalog scrape confirms `partners/<slug>/catalog.json` exists:
    - `partial` — scrape incomplete due to auth/JS walls; more data potentially recoverable
    - `blocked` — structural issue (no catalog, wrong format, MIT-licensed, etc.) — don't retry
    - `pending` — scrape dispatched, not yet complete
-4. Append to `manifest.md`:
-   `- YYYY-MM-DD | synced | catalog_index → Google Sheet | Adobe: 178 courses added at row N`
+5. Append to `manifest.md`:
+   `- YYYY-MM-DD | synced | catalog_index → Google Sheet | <Slug>: N courses`
 
-**IMPORTRANGE + QUERY formulas via write_google_sheets_by_id:**
-When writing QUERY(IMPORTRANGE(...)) formulas through the API (input_option: USER_ENTERED):
-- Use `Col4 is not null` NOT `Col4 <> ''` — the empty-string literal gets mangled in transit and causes PARSE_ERROR
-- Avoid `LABEL` clauses in QUERY strings — single quotes inside label names also cause parse errors
-- For custom stage ordering, use separate `COUNTIF(IMPORTRANGE(...), "stage_name")` cells rather than QUERY+ORDER BY — gives exact column control and avoids sort limitations
-- Always create a fresh sheet for IMPORTRANGE dashboards; pre-existing data in cells causes formula conflicts
-- IMPORTRANGE requires one-time manual authorization in the UI (click "Allow access" on first open)
+6. Delete temp file if somehow still present:
+   ```bash
+   rm -f /tmp/scrape_<slug>.json
+   ```
+7. Delete `scrape_{slug}.py` at `~/licensing/` root if it exists:
+   ```bash
+   rm -f ~/licensing/scrape_<slug>.py
+   ```
 
-**Writing catalog rows to the per-partner sheet — batching required:**
-`write_google_sheets_by_id` has an inline parameter size limit. Passing a large `values`
-array in one call causes the tool to store output as a persisted file rather than returning
-it inline — making it inaccessible as a parameter. Fix: generate rows in Python with
-explicit slices and write in batches of ≤40 rows.
-
-```bash
-# Print one batch to stdout — paste the output directly as `values` in the tool call
-python3 -c "
-import json
-with open('partners/<slug>/catalog.json') as f:
-    courses = json.load(f)
-cols = ['provider','title','url','format','level','duration','category','date_scraped']
-rows = [[c.get(col,'') or '' for col in cols] for c in courses]
-print(json.dumps(rows[0:40]))   # change slice per batch: [40:80], [80:120], etc.
-"
-```
-
-Call sequence:
-1. `overwrite` — header row only: `[["provider","title","url","format","level","duration","category","date_scraped"]]`
-2. `append` — batch 1: `rows[0:40]`
-3. `append` — batch 2: `rows[40:80]`
-4. Continue until done. Expected final row count = 1 + len(courses).
-
-The catalog index row (step 3 of this hook) is always written regardless of whether
-full per-partner sheet population is completed.
-
-5. Delete `scrape_{slug}.py` at `~/licensing/` root if it exists:
-   `rm -f ~/licensing/scrape_{slug}.py`
-   These are one-time subagent artifacts — delete immediately once catalog files are confirmed.
-
-**On context depth warning**
-If a single partner has dominated 20+ turns or comms have been iterated multiple times:
-flag it proactively — "This is getting deep on [Partner] — worth spinning a branch
-session to keep the pipeline context clean." Do this before the context becomes too
-loaded to summarize.
+**On context depth warning** — if a partner has dominated 20+ turns, flag: "This is getting deep on [Partner] — worth spinning a branch session."
 
 **On catalog classified as primarily cert prep**
 When a provider's catalog is primarily certification preparation — exam prep, study guides,
@@ -727,19 +516,14 @@ licensed library. These are not the same question.
 
 ### Course Performance Data — Trino
 
-Use `mcp__captain__execute_trino_query` for questions about engagement of existing LinkedIn Learning courses (organic, licensed, or staff).
+Use `mcp__captain__execute_trino_query` for engagement questions. Also invoke the `trino` skill for live table/schema status before querying.
 
 **Primary table:** `u_llsdsgroup.courseperformance_sc_dash`
-- Grain: `week_end_date` (YYYYMMDD int) × `course_id` × `learner_type` × learner demographics
-- **SUM metric columns** — table is at individual learner grain with demographic breakdown; naive row counts will undercount or misread
 - Enterprise AL: `SUM(subs_paid_nonlibrary_skill_credits_uu_l7d_v2)`
 - Total AL: `SUM(skill_credits_uu_l7d_v2)`
 - Filter by content type: `authorcontracttype IN ('LICENSED', 'NON_LICENSED', 'STAFF')`
-- Filter by software/vendor: `course_primary_software`, `course_primary_software_provider`
-- Date range: 2025-01-11 → present; most recent partition: `week_end_date = 20260314` _(stale: updates weekly — run `SELECT MAX(week_end_date) FROM u_llsdsgroup.courseperformance_sc_dash` to confirm)_
-- Access: open (no permission request needed as of 2026-03-18)
 
-**See `context/metrics-definitions.md`** for full column reference, AL metric definition, and standard query patterns.
+Full column reference, grain, date range, and query patterns: `~/licensing/context/metrics-definitions.md`. Detailed table notes: `~/.claude/skills/licensing/tooling-reference.md`.
 
 ---
 
@@ -779,7 +563,7 @@ partner companies. Role hierarchy, source hierarchy (ZoomInfo/RocketReach snippe
 query patterns, and what to discard. Reference: `find-partner-contacts.md` in this skill dir.
 
 **`find-catalogues`** — discovers training portal URLs for a given company. Use before
-scraping to locate the right catalog URL. Output: `training_urls.json` with
+scraping to locate the right catalog URL. Output is a JSON object with
 `results.{CompanyName}.primary_url` and `confidence` per company.
 
 **`licensing:catalog-scraper`** — scrapes a single training provider's course catalog and
@@ -816,7 +600,7 @@ The postgres `catalog` database on Caruana holds all sourcing data across three 
 Project: `~/vibe/licensing-project/catalog/`
 CLI: `uv run --project ~/vibe/licensing-project/catalog catalog <command>`
 
-Key commands for licensing sessions (without running a full TLM):
+Key commands:
 ```bash
 catalog interest-form-search --partnership-only   # 33 inbound partnership leads
 catalog interest-form-search --topic "AI"         # demand signal by topic
@@ -830,38 +614,7 @@ catalog industry-search --tier lps_strategic     # list all 63 LPS strategic acc
 catalog industry-search                          # tier summary (company counts per tier)
 ```
 
-**`industry_courses` table** — LPS account segmentation ingested 2026-03-31 from sheet `1rPrvwU7XoarZU0dGDXnrt5YrJzBcJpCfigkLks7SrEw`. Five tiers:
-- `lps_strategic` — 63 major enterprise accounts (Adobe, Cisco, Microsoft, SAP, ServiceNow, etc.)
-- `lps_targeted` — 700 additional targeted accounts
-- `frontier` — 13 Frontier Firms (includes `is_strategic_account` flag)
-- `research` — 1,606 companies with training-evidence research (confidence_score, evidence_url, etc.)
-- `skills` — 1,213 skill-cluster phrases (not companies — stored in `company` column; rarely useful for company search)
-
-Re-ingest: `catalog industry-ingest /tmp/industry_courses_all.json` (full refresh, drops + recreates table).
-
-**UfB flag (`platform_courses.ufb`)**: Boolean column marking courses in the Udemy for Business
-catalog (~11,989 courses, 7.3% of 164K). UfB courses carry a contractual exclusivity clause —
-Udemy for Business agreement binds the instructor to Udemy for those specific courses. Treat as
-a soft blocker by default. Exception: high-tier instructors (roughly 200K+ reviews) have
-occasionally negotiated carve-outs; worth a direct conversation, but don't count on it.
-
-Two sourcing modes for `platform-search`:
-- **`--ufb exclude`** (default): sourcing mode — shows licensable non-UfB candidates only
-- **`--ufb only`**: benchmark mode — shows what the best content on a topic looks like (mostly blocked)
-
-The review count gap between modes is typically 10–50x. Non-UfB Udemy content skews toward
-lower-volume instructors. Factor this into quality expectations when sourcing Udemy creators.
-
-Refresh UfB flag when Udemy publishes an updated course list (URL stable year to year):
-```bash
-curl -sL "https://info.udemy.com/rs/udemy/images/UdemyforBusinessCourseList.pdf" -o /tmp/ufb.pdf
-uv run --project ~/vibe/licensing-project/catalog python scripts/load_ufb.py /tmp/ufb.pdf
-```
-
-Refresh Lake 3 (interest form) monthly: run the Trino query at
-`~/.claude/skills/licensing/queries/interest_form.sql` via `execute_trino_query` MCP,
-write result to `~/licensing/interest_form_YYYY-MM-DD.json`, then run
-`uv run --project ~/vibe/licensing-project/catalog python /Users/bianders/vibe/licensing-project/catalog/scripts/load_interest_form.py ~/licensing/interest_form_YYYY-MM-DD.json`.
+`industry_courses` table has five tiers (lps_strategic, lps_targeted, frontier, research, skills). UfB flag marks ~11,989 Udemy for Business courses — treat as soft blocker. For tier details, UfB handling, and refresh procedures: see `~/.claude/skills/licensing/tooling-reference.md`.
 
 ### Classifier
 
@@ -893,21 +646,18 @@ Results written back into `catalog.json` per course under a `classifier` key.
 
 ### Checking which partners lack catalogs
 
-To identify partners without catalog data:
 ```bash
 for d in ~/licensing/partners/*/; do
   [[ -f "$d/catalog.json" ]] || echo "$(basename $d)"
 done
 ```
 
-Partners with a `notes.md` but no `catalog.json` are candidates for scraping.
-
 ### Full batch catalog workflow
 
 When asked to scrape multiple partners:
 
 **Step 1 — Find URLs** (find-catalogues):
-Run find-catalogues on the list of partner names. It produces `training_urls.json`.
+Run find-catalogues on the list of partner names.
 Only pass partners where `confidence` is `high` or `medium` to the next step.
 Skip partners where confidence is `low` or `none` — flag those for manual review.
 
@@ -925,7 +675,7 @@ inputs = [
 Spawn a separate `licensing:catalog-scraper-worker` subagent for each URL.
 Never run multiple scrapes sequentially in the main thread. Run all workers with
 `run_in_background=true`. Each worker writes its output (catalog.json, catalog.xlsx,
-report.md) directly to `~/licensing/partners/{slug}/` and updates `catalog_registry.json`.
+report.md) directly to `~/licensing/partners/{slug}/`.
 No consolidation step needed — workers have direct filesystem access.
 
 **Write permission fallback:** Workers frequently hit Write permission walls and cannot
@@ -954,34 +704,25 @@ Full 5-phase workflow: `~/.claude/skills/licensing/tlm-workflow.md` — read it 
 
 ## Domain Knowledge
 
-**`~/licensing/context/licensing_context.md`** — primary reference for heuristics,
-commercial models, partner taxonomy, sourcing methodology, and the tangibility gates
-(Addressable / Aligned / Acceptable). Read this file when reasoning about partner
-fit, deal structure, or content evaluation.
+Before reasoning about partner fit, deal structure, or content evaluation: read `~/licensing/context/licensing_context.md`
 
-**`~/licensing/context/`** — read-only reference docs specific to this role. Check this
-directory for any relevant docs before doing research Claude can't do alone (e.g., internal
-rubric docs, partner-specific notes from colleagues, role context).
+Before sourcing strategy, BD process design, or BHAG planning: read `~/licensing/context/funnel-framework.md`
 
-**`~/licensing/context/funnel-framework.md`** — the 10-gate licensing funnel: gate definitions,
-classifier signals, pass rate estimates, bottlenecks, and market expansion levers. Also contains
-funnel math (TLM → BHAG), deal archetype model (boutique vs. anchor), format tractability tiers
-(A/B/C), portfolio tier model (Tier 1/2/3), and World Catalog concept. Read for sourcing strategy,
-BD process design, or BHAG planning sessions.
+Before evaluating the existing library or benchmarking partner content: read `~/licensing/context/library-composition-analysis.md`
 
-**`~/licensing/context/library-composition-analysis.md`** — empirical analysis of the existing
-licensed library (data as of 2026-02-01). Key findings: engagement concentration (top 1% of courses
-= 98.9% of all engagement; 19.7% of courses = zero engagement), partner roster profile (116 licensors,
-historically small studios not institutional vendors), Madecraft structural outlier (424 courses/deal),
-ratings uniformity (no discriminating power). Read when evaluating existing library, benchmarking
-new partner content, or making the internal case for licensing investments.
+Before reasoning about deal stage, BD motion strategy, or internal process: read `~/licensing/context/bd-process.md`
 
-**`~/licensing/context/bd-process.md`** — operational and political model for how licensing BD
-works day-to-day. Covers: two BD motions (CM-initiated Motion A vs BD-initiated Motion B), pipeline
-stage taxonomy (Sourcing → Gate A → Outreach → In Conversation → Gate B → Contracting → Onboarding →
-Production → Partnership Management), Gate A as the binding throughput constraint, and the political
-layer (BD/Content Strategy peer coordination, dogsbody risk, how to manage Gate A submissions). Read when
-reasoning about deal stage, BD motion strategy, or internal process questions.
+For the full file-to-trigger-condition map, Confluence page IDs, and Google Doc registry: read `~/licensing/context/README.md`.
+
+## Pipeline SOTs
+
+Three canonical sources of truth for pipeline and sourcing data — never use ad-hoc sheets:
+
+| What | SOT | Notes |
+|---|---|---|
+| Active deal state (partner stages, next actions) | `~/licensing/pipeline.md` | Brian's working view; update in-session |
+| Org-wide intake + prioritization | Team Tracker (google_docs.json `id: 1k9vwInz_...`) | Read-only; pull snapshot on explicit request |
+| Catalog / sourcing data | `catalog-cli` + postgres `catalog` DB on Caruana | Query via `catalog` CLI; see Catalog DB section |
 
 ---
 
