@@ -64,6 +64,13 @@ def build_frontmatter(tags: list[str], aliases: list[str]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def open_in_obsidian(vault: Path, path: Path) -> None:
+    vault_name = vault.name
+    note_name = path.stem
+    uri = f"obsidian://open?vault={vault_name}&file={note_name}"
+    subprocess.run(["open", uri], check=False)
+
+
 def cmd_create(vault: Path, args: argparse.Namespace) -> None:
     path = note_path(vault, args.title)
     if path.exists() and not args.force:
@@ -74,6 +81,7 @@ def cmd_create(vault: Path, args: argparse.Namespace) -> None:
     body = (args.body or "").rstrip() + "\n" if args.body else ""
     path.write_text(fm + heading + body)
     print(path)
+    open_in_obsidian(vault, path)
 
 
 def cmd_append(vault: Path, args: argparse.Namespace) -> None:
@@ -125,11 +133,8 @@ def cmd_open(vault: Path, args: argparse.Namespace) -> None:
     path = note_path(vault, args.title)
     if not path.exists():
         sys.exit(f"Note not found: {path}")
-    vault_name = vault.name
-    note_name = path.stem
-    uri = f"obsidian://open?vault={vault_name}&file={note_name}"
-    subprocess.run(["open", uri], check=False)
-    print(uri)
+    open_in_obsidian(vault, path)
+    print(path)
 
 
 def cmd_ls(vault: Path, args: argparse.Namespace) -> None:

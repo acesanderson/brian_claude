@@ -17,6 +17,35 @@ When Brian says "sync gate log" (or "sync gate log to sheet"):
 
 ---
 
+## Authenticated Scraping via Chrome Remote Debugging
+
+For partner portals that require login (e.g. learning.anaconda.com), use Chrome's remote debugging
+port so Playwright inherits an already-authenticated session.
+
+**Setup (Brian runs this once per session):**
+```bash
+/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+  --remote-debugging-port=9222 \
+  --user-data-dir=/tmp/chrome-debug-session
+```
+
+`--user-data-dir` is required — without it Chrome refuses to open a second instance.
+Log in to the partner portal in that window, then tell Claude the port (default: 9222).
+
+**Playwright connection:**
+```python
+async with async_playwright() as p:
+    browser = await p.chromium.connect_over_cdp("http://localhost:9222")
+    context = browser.contexts[0]
+    page = context.pages[0]
+    # now navigate / scrape with full auth
+```
+
+Teardown: just close the debug Chrome window when done. The `/tmp/chrome-debug-session`
+profile is throwaway — no need to clean it up.
+
+---
+
 ## IMPORTRANGE + QUERY Formulas (Google Sheets API)
 
 When writing `QUERY(IMPORTRANGE(...))` formulas via the API (`input_option: USER_ENTERED`):

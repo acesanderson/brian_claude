@@ -42,6 +42,19 @@ async with HeadwaterAsyncClient(host_alias="bywater") as client:
 
 The client resolves the correct IP automatically via network context detection (VPN → LAN → WAN fallback). No hardcoded IPs needed.
 
+### Observability methods
+
+All HeadwaterClient instances (sync and async) expose:
+
+```python
+client.ping()               # bool — liveness check
+client.get_status()         # StatusResponse — uptime, server name, version
+client.get_logs_last(n=50)  # LogsLastResponse — last N records from ring buffer
+client.get_routes()         # dict (router: parsed routes.yaml) or list (subserver: FastAPI routes)
+```
+
+Use these to triage failures: check router logs first (routing/backend errors), then subserver logs (service/model errors). See `CLAUDE.md` in the headwater repo for the full deploy + triage workflow.
+
 ### Batch inference via headwater_client
 
 The `/conduit/batch` endpoint is the right path for multi-prompt structured inference. Use `BatchRequest` from `headwater_api.classes`:
