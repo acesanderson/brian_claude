@@ -1,0 +1,12 @@
+{
+  "eval_id": 3,
+  "eval_name": "eval-flask-generate",
+  "prompt": "I have a Flask REST API at /tmp/eval-flask-api. Write regression tests for all the endpoints. Don't loop, just generate them and tell me what you found.",
+  "assertions": [
+    {"text": "Spec covers all 4 routes: GET /users, GET /users/{id}, POST /users, DELETE /users/{id}"},
+    {"text": "Tests use Flask test client (app.test_client())"},
+    {"text": "Test for POST /users missing required field returns 400"},
+    {"text": "No healer/loop invoked"},
+    {"text": "Final report states what was found and tested"}
+  ]
+}

@@ -1,0 +1,56 @@
+QA Summary — eval-click-cli
+===========================
+
+Project: /tmp/eval-click-cli/cli.py
+Baseline outputs: /tmp/eval-click-cli-baseline/
+Test file: /tmp/eval-click-cli-baseline/test_cli.py
+Iterations: 1 (green on first run)
+
+---
+What was done
+-------------
+1. Read cli.py to understand the app: a simple Click-based task manager with
+   three commands (add, list, done) backed by a JSON file at
+   /tmp/eval-click-cli-db.json.
+
+2. Wrote a pytest suite using Click's built-in CliRunner (no subprocess needed).
+   Each test uses a monkeypatched DB_FILE pointed at a tmp_path so tests are
+   fully isolated and don't pollute or depend on each other.
+
+3. Ran the suite with:
+     uv run --with pytest --with click pytest /tmp/eval-click-cli-baseline/test_cli.py -v
+
+---
+Tests written (16 total)
+------------------------
+
+TestAdd (4 tests)
+  - test_add_single_task        — correct output on first task
+  - test_add_increments_id      — IDs auto-increment correctly
+  - test_add_persists_to_db     — task serialised to JSON with correct fields
+  - test_add_multiple_tasks     — three sequential adds all persist
+
+TestList (4 tests)
+  - test_list_empty             — "No tasks." on empty DB
+  - test_list_shows_undone_task — "[ ]" prefix for pending task
+  - test_list_shows_done_task   — "[x]" prefix after marking done
+  - test_list_multiple_mixed    — both statuses displayed in same output
+
+TestDone (4 tests)
+  - test_done_marks_task        — exit 0, correct message, DB updated
+  - test_done_nonexistent_task  — exit code 1, error message on missing ID
+  - test_done_idempotent        — marking already-done task is safe
+  - test_done_correct_task_in_list — only the targeted task is flipped
+
+TestHelp (4 tests)
+  - test_root_help / test_add_help / test_list_help / test_done_help
+    — --help exits 0 for all commands
+
+---
+Results
+-------
+Platform : darwin, Python 3.13.5, pytest 9.0.2
+Outcome  : 16 passed, 0 failed, 0 errors
+Duration : 0.22s
+
+Status: GREEN (iteration 1 of 3)

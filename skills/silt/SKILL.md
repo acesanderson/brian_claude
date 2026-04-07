@@ -29,7 +29,8 @@ how to navigate them.
 
 ```
 ~/silt/
-  README.md          # What silt is; current focus; how to navigate
+  index.md           # Global knowledge map — entry point for all navigation
+  README.md          # What silt is; current focus
   scratchpad.md      # Active ideation, open questions, roadmap — high decay
   manifest.md        # Append-only log of all changes
   knowledge/         # Settled, synthesized understanding — organized by domain
@@ -51,6 +52,7 @@ how to navigate them.
 | A working script that emerged from a primitive | `tools/` |
 | An active thought, open question, or next step | `scratchpad.md` |
 | A log entry | `manifest.md` |
+| A valuable Q&A synthesis worth keeping | `research/` (staged) → `knowledge/` (promoted) |
 
 **The flow:** `research/` → synthesize → `knowledge/` → implement → `tools/`
 
@@ -61,9 +63,9 @@ how to navigate them.
 Context is expensive. Load the minimum needed, in order:
 
 **Always load at session start (cheap):**
-1. `README.md` — current focus, navigation
-2. Last 10 lines of `manifest.md` — recent changes
-3. `scratchpad.md` — open questions, roadmap
+1. `index.md` — global knowledge map; use this to identify relevant domains and notes
+2. `scratchpad.md` — active focus and open questions
+3. Last 10 lines of `manifest.md` — recent changes
 
 **Load on topic relevance (medium):**
 4. `knowledge/<domain>/summary.md` for relevant domains — never load individual notes before checking if the summary answers the question
@@ -71,11 +73,11 @@ Context is expensive. Load the minimum needed, in order:
 **Load on specific need only (expensive):**
 5. Individual `knowledge/<domain>/<note>.md` — only when the summary is insufficient
 
-**Never load speculatively.** If a domain has a `summary.md`, that is the entry point.
-Individual notes are reference material, not orientation material.
+**Never load speculatively.** `index.md` is the navigation entry point. Domain summaries
+are the second level. Individual notes are reference material, not orientation material.
 
 Open with:
-> "Silt. [Current focus from README]. Last change: [most recent manifest entry]. What are we working on?"
+> "Silt. Last change: [most recent manifest entry]. What are we working on?"
 
 ---
 
@@ -144,10 +146,14 @@ Every `knowledge/` note must have these sections (in order):
 
 ## Eval angle
 [How would we know if this works better than what we have? Be specific.]
+
+## Related
+[Links to other knowledge/ notes that connect to this concept — use relative paths]
 ```
 
-If you can't fill all five sections, the understanding isn't settled. Leave it in
-`research/` or write a stub and mark it `[INCOMPLETE]` at the top.
+If you can't fill the first five sections, the understanding isn't settled. Leave it in
+`research/` or write a stub and mark it `[INCOMPLETE]` at the top. `## Related` can be
+empty on creation and filled in as the KB grows.
 
 ### Rule 5: Stale flagging
 
@@ -173,29 +179,64 @@ Append after every file change. No exceptions.
 
 ## Hooks
 
-**On new research arriving**
-Land in `research/` first. Never write directly to `knowledge/` from raw input.
+### On Ingest (new source arriving)
+Land raw input in `research/` first. Then:
+1. Read the source; identify key concepts and which existing notes it relates to
+2. Check Rule 1 and Rule 2 before writing
+3. Write new `knowledge/` note(s) using Rule 4 template
+4. Update `index.md` — add new entry under correct domain section
+5. Update domain `summary.md` — notes table and key findings
+6. Update `## Related` in any existing notes this new note connects to
+7. Append to `manifest.md`
 
-**On adding a knowledge note**
+A single source should touch **3–10 files** (new note + index + domain summary + related notes).
+If you're only touching 1–2, you're not cross-referencing enough.
+
+### On Query (answering a question against the KB)
+1. Read `index.md` first — identify relevant domains and specific notes
+2. Read domain `summary.md` for relevant domains
+3. Drill into individual notes only as needed
+4. Synthesize answer with citations (reference specific notes by path)
+5. If the synthesis was non-trivial: stage it to `research/` as `YYYY-MM-DD-query-<slug>.md`
+   marked "query output — consider promoting to knowledge/"
+
+Valuable Q&A outputs compound the KB just like ingested sources do. Don't let them
+disappear into chat history.
+
+### On Lint (periodic health check)
+Run on request or when the KB feels stale. Check for:
+- **Orphan pages**: notes with no inbound `## Related` links from other notes
+- **Missing concepts**: terms mentioned in multiple notes that lack their own page
+- **Stale claims**: notes in fast-moving domains not updated in 60+ days (Rule 5 candidates)
+- **Index completeness**: every `knowledge/` note appears in `index.md`
+- **Summary gaps**: domains with 3+ notes lacking `summary.md`
+- **research/ age**: any file older than 30 days without a corresponding `knowledge/` note (Rule 3)
+
+Surface findings in `scratchpad.md` as a dated lint report. Don't fix everything at once —
+prioritize the orphan pages and missing concepts first.
+
+### On adding a knowledge note (existing hook, expanded)
 1. Check Rule 1 (does this concept already have a note?)
 2. Check Rule 2 (does the domain need a summary.md first?)
-3. Write note using Rule 4 template
-4. Update domain `summary.md`
-5. Append to `manifest.md`
+3. Write note using Rule 4 template (including `## Related`)
+4. Update `index.md`
+5. Update domain `summary.md`
+6. Update `## Related` in connected notes
+7. Append to `manifest.md`
 
-**On session start**
+### On session start
 Check Rule 3: scan `research/` for files older than 30 days without a knowledge/ counterpart. Flag in `scratchpad.md`.
 
-**On domain gap detected**
+### On domain gap detected
 Create domain directory + stub `summary.md`. Note in `scratchpad.md` as research target.
 
-**On primitive reaching implementation**
+### On primitive reaching implementation
 Update its README → "Implemented — see `tools/<name>/`". Update `tools/README.md`. Append to manifest.
 
-**On IA change**
-Update `README.md` navigation in the same action.
+### On IA change
+Update `README.md` and `index.md` in the same action.
 
-**On "resolve"**
+### On "resolve"
 Review session for meaningful skill improvements. Update only if substantive.
 
 ---

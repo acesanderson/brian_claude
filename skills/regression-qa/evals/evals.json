@@ -1,0 +1,23 @@
+{
+  "skill_name": "regression-qa",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run regression QA on the project at /tmp/eval-fastapi-app. It's a FastAPI app I inherited and I have no idea what's tested. Single pass only.",
+      "expected_output": "Spec files written to regression-qa/specs/, test files written to regression-qa/tests/, run_tests output showing pass/fail counts. Summary at the end.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "QA this CLI tool at /tmp/eval-click-cli — use ralph loop, run until green or 3 iterations max",
+      "expected_output": "Spec file for CLI commands, tests using CliRunner or subprocess, healer invoked on any failures, final green summary or real-bug annotations.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a Flask REST API at /tmp/eval-flask-api. Write regression tests for all the endpoints. Don't loop, just generate them and tell me what you found.",
+      "expected_output": "Planner produces spec with all routes, Generator writes pytest tests using Flask test client, test results reported. No healer loop.",
+      "files": []
+    }
+  ]
+}
