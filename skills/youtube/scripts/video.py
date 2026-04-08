@@ -25,6 +25,7 @@ def get_transcript(
     languages: list[str] | None = None,
     prefer_manual: bool = True,
     fallback_whisper: bool = False,
+    proxy_config=None,
 ) -> "Transcript":
     from youtube_transcript_api import (
         TranscriptsDisabled,
@@ -62,7 +63,7 @@ def get_transcript(
         logger.debug("transcript cache miss for %s", video_id)
 
     try:
-        api = YouTubeTranscriptApi()
+        api = YouTubeTranscriptApi(proxy_config=proxy_config)
         transcript_list = api.list(video_id)
         if prefer_manual:
             try:

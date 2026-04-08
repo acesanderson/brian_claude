@@ -77,7 +77,8 @@
       "Bash(GIT_DIR=/Users/bianders/vibe/kb-project/.git GIT_WORK_TREE=/Users/bianders/vibe/kb-project git -C /Users/bianders/vibe/kb-project add docs/plans/2026-04-06-kb-bootstrap-design.md)",
       "Bash(kb bootstrap:*)",
       "Bash(open:*)",
-      "Bash(companies:*)"
+      "Bash(companies:*)",
+      "Bash(pip show:*)"
     ]
   }
 }

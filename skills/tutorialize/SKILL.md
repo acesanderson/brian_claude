@@ -51,7 +51,15 @@ uv run --directory /Users/bianders/Brian_Code/conduit-project \
 
    The script prints the full path of the saved file on success.
 
-5. **Report back.** Tell the user the file was saved and where (filename in vault). One sentence.
+5. **Open the note in Obsidian:**
+
+```bash
+open -a Obsidian "/path/to/vault/Term Name.md"
+```
+
+   Use the full path printed by the CLI in step 4. Always use `-a Obsidian` — plain `open` will use whatever the system default is for `.md` files, which is often not Obsidian.
+
+6. **Report back.** Tell the user the file was saved and opened. One sentence.
 
 ---
 
