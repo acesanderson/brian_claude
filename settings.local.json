@@ -78,7 +78,10 @@
       "Bash(kb bootstrap:*)",
       "Bash(open:*)",
       "Bash(companies:*)",
-      "Bash(pip show:*)"
+      "Bash(pip show:*)",
+      "Bash(env)",
+      "Bash(conduit chat:*)",
+      "Bash(conduit:*)"
     ]
   }
 }

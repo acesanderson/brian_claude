@@ -1,4 +1,8 @@
 {
+  "additionalDirectories": [
+    "/Users/bianders/vibe",
+    "/Users/bianders/Brian_Code"
+  ],
   "permissions": {
     "allow": [
       "mcp__captain__*",

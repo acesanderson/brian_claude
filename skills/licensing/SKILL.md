@@ -18,6 +18,17 @@ Persistent coordination layer for LinkedIn Learning content licensing BD work. T
 the state layer. Full context: `~/licensing/context/licensing_context.md` (partner taxonomy,
 sourcing methodology, complete tangibility gates). Key heuristics are inlined below.
 
+## Data Privacy — Non-Negotiable
+
+When the user requests **local model inference** (`gpt-oss`, `llama`, `qwen`, etc.), it is because the content is **proprietary or confidential**. This applies to all meeting recordings, partner materials, pipeline data, and internal documents.
+
+- NEVER substitute a cloud model (haiku, gpt-mini, claude, gpt-5, gemini, etc.) as a fallback
+- NEVER send proprietary content to any external API, even "just this once"
+- If Headwater (AlphaBlue) is unreachable: stop, report the outage, and wait for the user to resolve it
+- `conduit query --model gpt-oss` and `conduit batch --model gpt-oss` now route automatically through Headwater — no `--local` flag needed
+
+---
+
 ## Quick Reference
 
 ### Format Gate (Addressable — Gate 1)
@@ -59,7 +70,7 @@ Provisional signals (from `funnel-framework.md`):
 ~/licensing/
   pipeline.md          # Primary artifact — active partner pipeline
   manifest.md          # Append-only action log
-  partners/            # One directory per active/prospective partner (notes.md + catalog files)
+  partners/            # One directory per active/prospective partner (notes.md, pitch.md, catalog files)
   skills/              # One directory per skill TLM (roadmap.md + catalog XLSX + report)
   context/             # Reference docs — see context/README.md for file-to-trigger map
   projects/            # Parallel workstreams (each has its own subdir + notes.md)
@@ -68,7 +79,7 @@ Provisional signals (from `funnel-framework.md`):
                        # Checked at session start — read during Session Start Protocol if today's file exists.
   gate_log.json        # Course-level gate decision log — SOT for funnel metrics and CYA (see projects/pipeline-ops/notes.md)
   scripts/             # Python utilities; Classifier: classify.py, classifier_models.py, classifier_prompt.j2
-  boilerplate/         # Reusable templates (outreach.md: Template A InMail, Template B cold email)
+  boilerplate/         # Reusable templates (outreach.md: Template A–E outreach + Elevator Pitch Framework)
   partner-assets/      # PDF assets for partner outreach: Content License Agreement, Instructor Analytics Dashboard,
                        # LinkedIn Learning Content Licensing one-pager, Content Delivery Video Format Guidelines
 ```
@@ -461,6 +472,8 @@ After any catalog scrape writes `partners/<slug>/report.md`:
    - If no catalog sheet exists yet: create one via `create_google_sheets_spreadsheet`
      titled `"[Partner] — Course Catalog ([Month Year])"`. Write a header row
      (provider, title, url, format, level, duration, category, date_scraped).
+     `level` must be one of: `Beginner` | `Intermediate` | `Advanced`. Map raw partner values
+     to this enum before writing (e.g., "Introductory" → Beginner, "Professional" → Intermediate).
      Register it in `context/google_docs.json` under `"read_write_docs"` with
      `"permissions": "read-write"` and a description noting course count and date.
    - If a sheet already exists (check `google_docs.json`): skip creation.
@@ -496,6 +509,15 @@ After any catalog scrape writes `partners/<slug>/report.md`:
    ```
 
 **On context depth warning** — if a partner has dominated 20+ turns, flag: "This is getting deep on [Partner] — worth spinning a branch session."
+
+**On pitch requested**
+When asked to draft or generate a partner pitch / elevator pitch:
+1. Check if `partners/<slug>/pitch.md` already exists — if so, read and offer to update rather than overwrite
+2. Read `boilerplate/outreach.md` (Elevator Pitch Framework section) for the 4-part structure
+3. Pull scale anchor, gap hook, and tier counts from `partners/<slug>/notes.md`
+4. Use `conduit batch -m sonar-pro` for any missing authority or market signals
+5. Write to `partners/<slug>/pitch.md`
+6. Append to `manifest.md`
 
 **On catalog classified as primarily cert prep**
 When a provider's catalog is primarily certification preparation — exam prep, study guides,
@@ -616,6 +638,111 @@ catalog industry-search                          # tier summary (company counts 
 
 `industry_courses` table has five tiers (lps_strategic, lps_targeted, frontier, research, skills). UfB flag marks ~11,989 Udemy for Business courses — treat as soft blocker. For tier details, UfB handling, and refresh procedures: see `~/.claude/skills/licensing/tooling-reference.md`.
 
+### Platform Scrapers — Lake 2 Ingest
+
+Two scrapers feed Lake 2 (`platform_courses` / `platform_creators`) with data from competing
+platforms. Each scraper has an export adapter that writes a catalog-ingestible JSON file, then
+calls `catalog platform-ingest` to load it. Use these when you need fresh Coursera or Udemy
+data in the DB — e.g., before running `catalog platform-search`.
+
+**Shared export contract** (JSON array, each record):
+
+| Field | Type | Notes |
+|---|---|---|
+| `platform_id` | str | required |
+| `title` | str | required |
+| `url` | str | required |
+| `platform` | str | required — `'coursera'` or `'udemy'` |
+| `is_free` | bool | required |
+| `avg_rating` | float\|null | |
+| `num_reviews` | int\|null | |
+| `enrollments` | int\|null | |
+| `product_type` | str\|null | |
+| `difficulty` | str\|null | |
+| `skills` | str\|null | comma-separated |
+| `partners` | str\|null | Coursera only |
+| `instructors` | str\|null | Udemy only |
+| `headline` | str\|null | Udemy only |
+| `num_lectures` | int\|null | Udemy only |
+| `duration_hours` | float\|null | Udemy only |
+| `ufb` | bool\|null | Udemy only; always null at ingest — set post-ingest by `load_ufb.py` |
+
+Ingest call (same for both platforms):
+```bash
+uv run --project ~/vibe/licensing-project/catalog catalog platform-ingest <file> <platform>
+```
+
+**Do not touch scraping logic in either project.** The export/sync layer is the only integration point.
+
+---
+
+#### Corsair — Coursera (`$BC/corsair-project`)
+
+Scrapes Coursera's full catalog via GraphQL. Saves raw data to `src/corsair/courses.json`.
+Export adapter maps `CourseraCourseSearchResult` → shared spec and ingests into Lake 2.
+
+**Manual sync:**
+```bash
+uv run --project ~/Brian_Code/corsair-project corsair-sync
+# or with custom output path:
+uv run --project ~/Brian_Code/corsair-project corsair-sync --output /tmp/corsair_export.json
+```
+
+**Auto-sync after scrape** (opt-in):
+```bash
+# In corsair-project/.envrc, set:
+export CORSAIR_AUTO_SYNC=1
+# Then run the scraper normally — sync fires automatically at the end of main()
+uv run --project ~/Brian_Code/corsair-project python -m corsair.search_courses
+```
+`CORSAIR_AUTO_SYNC` defaults to `0`. The hook is at the bottom of `search_courses.py:main()`.
+
+**Key files:**
+- `src/corsair/search_courses.py` — GraphQL scraper; writes `courses.json`
+- `src/corsair/export.py` — `to_catalog_json(output_path)` — maps fields, validates, writes export file
+- `src/corsair/sync_catalog.py` — `sync()` / `main()` — calls export then platform-ingest
+
+**Field mapping:**
+
+| Coursera field | platform_courses field |
+|---|---|
+| url path stripped of leading `/` | `platform_id` |
+| `name` | `title` |
+| `https://www.coursera.org` + url | `url` |
+| `avgProductRating` | `avg_rating` |
+| `numProductRatings` | `num_reviews` |
+| `enrollments` | `enrollments` |
+| `productType` | `product_type` |
+| `productDifficultyLevel` | `difficulty` |
+| `skills` (list → comma-sep) | `skills` |
+| `partners` (list → comma-sep) | `partners` |
+| hardcoded `False` | `is_free` |
+| hardcoded `'coursera'` | `platform` |
+
+---
+
+#### Menuhin — Udemy (`$BC/menuhin-project`)
+
+_Stub — to be filled in by the Menuhin maintainer._
+
+Scrapes Udemy's catalog. Export adapter maps Udemy API fields → shared spec and ingests into Lake 2.
+
+**Manual sync:**
+```bash
+# TODO: fill in once menuhin-sync entry point is implemented
+```
+
+**Auto-sync after scrape** (opt-in):
+```bash
+# TODO: MENUHIN_AUTO_SYNC env var, same pattern as Corsair
+```
+
+**Key files:** _(to be documented)_
+
+**Field mapping:** _(to be documented — see agreed spec in shared contract above)_
+
+---
+
 ### Classifier
 
 Two-pass course-level classifier that determines whether a scraped course is a licensing candidate.
@@ -642,7 +769,7 @@ Results written back into `catalog.json` per course under a `classifier` key.
 - `context/classifier-quality-signals.yaml` — LLM signal prompts; edit `prompt:` field to change how the LLM evaluates each signal
 - `context/topic-priority.yaml` — green/yellow/red topic rubric; update whenever Content Strategy's priorities shift
 
-**Local model constraint**: `gpt-oss:latest` runs via HeadwaterClient on AlphaBlue. Do NOT run on MacBook (Ollama will saturate memory). On MacBook, use `--model haiku` or `--model gpt-mini` as a cloud fallback.
+**Local model constraint**: `gpt-oss:latest` runs via HeadwaterClient on AlphaBlue. Do NOT run Ollama directly on MacBook (saturates memory). On MacBook, `conduit query --model gpt-oss` now routes automatically through Headwater — no special flags needed. If Headwater is unreachable, stop and report; do NOT substitute a cloud model.
 
 ### Checking which partners lack catalogs
 
@@ -702,17 +829,70 @@ everything, let CS decide on overlap. Tier is a signal of expected impact, not a
 | **T1** | Super foundational — highest guaranteed ALs | Intro/overview courses; CS priority domains (risk mgmt, cybersecurity, cloud, leadership); topics with proven LiL demand |
 | **T2** | Complementary — not in library, compelling | Critical coverage gaps; niche-but-relevant topics; courses with no LiL equivalent |
 | **T3** | Licensable long tail | Viable but more specialized; CS decides whether to include |
-| **SKIP** | Clearly not wanted | Exam prep, youth/teen programs, retake exams, product tool training, EN-AU locale duplicates, generic soft skills with no construction/domain anchor |
+| **T4 (SKIP)** | Clearly not wanted | Exam prep, youth/teen programs, retake exams, product tool training, EN-AU locale duplicates, generic soft skills with no construction/domain anchor |
 
 **Workflow:** Assign tiers in `catalog.json` (add a `"tier"` key per course), write a tiered
-Google Sheet sorted T1 → T2 → T3 → SKIP, register in `google_docs.json`, append to catalog
+Google Sheet sorted T1 → T2 → T3 → T4 (SKIP), register in `google_docs.json`, append to catalog
 index. Update partner `notes.md` and `pipeline.md` with sheet URL and tier counts.
 
 **When sending to partners:** Share T1+T2 as the proposed licensing scope. T3 is available but
-not leading with it. SKIP rows stay off partner-facing docs.
+not leading with it. T4 (SKIP) rows stay off partner-facing docs.
 
 **When sending to CS for Gate A:** Share full tiered sheet (T1–T3). Overlap with existing LiL
 library is not a disqualifier — CS makes that call.
+
+---
+
+### CS-Approval Catalog Format
+
+When generating a Google Sheet for CS review, use this exact structure:
+
+**Tab 1 — "Tier Definitions"**
+
+| Tier | What it means | Typical signals |
+|---|---|---|
+| T1 | Review first — highest structural fit | Foundational/overview courses; proven LiL demand topics; priority domains (AI/ML, cybersecurity, cloud, leadership, finance) |
+| T2 | Review second — complementary fit | Clear coverage gaps; niche-but-relevant; no LiL equivalent |
+| T3 | Review if bandwidth — licensable long tail | Viable but specialized; CS decides |
+| T4 (SKIP) | Structurally ineligible — do not review | Exam prep, retake exams, product tool training (platform-locked), locale duplicates, youth/teen programs |
+
+This tier taxonomy is structural only — it signals review order based on observable criteria. It does not predict CS decisions or reflect editorial quality judgments.
+
+**Tab 2 — "Course catalog"**
+
+Columns (in order):
+
+| Column | Header | Notes |
+|---|---|---|
+| A | `tier (descriptions in first tab)` | T1 / T2 / T3 / T4 (SKIP) |
+| B | `title` | Cleaned title — see series handling below |
+| C | `description` | From catalog; for series parts, append "Part N of the [Series Name]." sentence |
+| D | `level` | Strict enum: `Beginner` \| `Intermediate` \| `Advanced` |
+| E | `duration` | Prefix with `~` — all values are estimates (e.g., `~30 min`, `~1 hour`) |
+| F+ | partner-specific | e.g., `price`, `url`, `date_scraped` |
+| last-1 | `license? (x)` | CS marks with x |
+| last | `CS notes` | CS freeform |
+
+Sort order: T1 → T2 → T3 → T4 (SKIP). The "T4 (SKIP)" label sorts correctly after T3 lexicographically.
+
+**Level enum mapping** (normalize raw partner values before writing):
+- "Introductory", "Beginner", "Foundational", "101", "Basic" → `Beginner`
+- "Professional", "Intermediate", "Practitioner", "200-level" → `Intermediate`
+- "Advanced", "Expert", "300-level" → `Advanced`
+
+**Series handling:** When course titles follow the pattern `"Topic -- Series Name (Part N)"`:
+- Strip the ` -- Series Name (Part N)` from the title — keep only the topic name
+- Append `"Part N of the Series Name."` as a sentence at the end of the description
+
+**Deduplication rules:**
+- Online vs. non-online: normalize title by stripping `" - Online"` / `": Online"` suffix (case-insensitive). Keep the online variant when both exist; drop the offline duplicate.
+- Locale variants (`--- EN-AU`, `--- EN-CA`, `--- EN-GB`, `--- ZH-SG`, `--- DE-DE`, etc.): drop all locale variants. If no base English version exists for a locale variant, include it but flag in CS notes.
+- Professional certificate bundles: manually verify that courses listed individually are not also counted as part of a bundle row. Do not double-count content.
+
+**Duration sources (in priority order):**
+1. CPE credits in description field (`CPE Credits: N` → `~N hours`)
+2. Scraped from course page (look for clock icon pattern in HTML)
+3. Median placeholder for the partner's catalog (label clearly, e.g., `~30 min`)
 
 ---
 
@@ -763,3 +943,68 @@ layer — when and how to operationalize validated research workflows into sched
 **`gartner-pi/`** — Scrapes Gartner Peer Insights for segment rankings and vendor profiles. Use when asked to look up Gartner ratings, find top products in a market segment, or pull a vendor's Gartner profile as part of competitive research.
 
 **`generate-tocs.md`** — Full golden path for producing PTOC Cosmo Template Google Sheets for a partner's submitted courses. Use when asked to generate TOCs, create TOC sheets, or populate chapter/video structure for a licensed partner. Covers: Playwright scraper (Thinkific + other LMS patterns), row computation, Apps Script template copy, Captain MCP write + move, and `google_docs.json` registration.
+
+**`professional_certificates.md`** — Context and tooling for the Professional Certificates BD program. **Invoke rarely** — only when the task is specifically about Prof Cert strategy or operations. Contains: business context pointer (Obsidian note), key sheet/Trino coordinates, and the golden path for adding a new LP to the Prof Cert Partner Tracker (automated Trino query + sheet append, plus HITL steps for row positioning, formatting, and course verification).
+
+---
+
+## Meeting Recordings
+
+Workflow for transcribing and summarizing meeting recordings (all-hands, team meetings, 1:1s, etc.).
+
+**Privacy rule:** Recordings contain proprietary content. Always use `gpt-oss:latest` via Headwater. Never use cloud models.
+
+### Golden Path
+
+**Step 1 — Transcribe** (siphon CLI):
+```bash
+siphon extract <recording.mp3>
+```
+Output is a plain-text transcript (speaker-labeled if diarization is available).
+
+**Step 2 — Write summary prompt** (Write tool → `/tmp/<slug>_summary_prompt.txt`):
+```
+You are summarizing a meeting transcript. Extract:
+- Key decisions made
+- Action items (owner, what, by when if stated)
+- Main topics discussed (3–7 bullets per topic)
+- Notable quotes or data points
+
+Transcript:
+<paste transcript>
+```
+
+**Step 3 — Summarize via HeadwaterClient** (Python, using pre-existing headwater-client venv):
+```python
+from __future__ import annotations
+import asyncio
+from pathlib import Path
+from headwater_client.client.headwater_client_async import HeadwaterAsyncClient
+from headwater_api.classes import BatchRequest
+from conduit.domain.request.generation_params import GenerationParams
+from conduit.domain.config.conduit_options import ConduitOptions
+
+async def main() -> None:
+    prompt = Path("/tmp/<slug>_summary_prompt.txt").read_text()
+    params = GenerationParams(model="gpt-oss:latest", temperature=0.3)
+    options = ConduitOptions(project_name="siphon-summary", include_history=False)
+    batch_req = BatchRequest(prompt_strings_list=[prompt], params=params, options=options)
+    async with HeadwaterAsyncClient() as client:
+        response = await client.conduit.query_batch(batch_req)
+    msg = response.results[0].last
+    content = msg.content
+    if isinstance(content, str):
+        print(content)
+    elif isinstance(content, list):
+        print("".join(c if isinstance(c, str) else c.text for c in content))
+    else:
+        print(str(content))
+
+asyncio.run(main())
+```
+Run with: `/Users/bianders/Brian_Code/headwater/headwater-client/.venv/bin/python /tmp/summarize.py`
+
+**Step 4 — Save to Obsidian** (Write tool):
+- Path: `$MORPHY/MEET-YYYY-MM-DD-<slug>.md`
+- Use the summary output directly as the note body
+- Slug: lowercase, hyphen-separated, descriptive (e.g., `company-connect`, `cm-ai-research-tools`)

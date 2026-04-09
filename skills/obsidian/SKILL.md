@@ -20,6 +20,12 @@ Copy content  → Read source, Write destination
 
 That's it. Reach for `vault.py` or the obsidian CLI only when you need features those tools actually provide (daily note append with date logic, live app operations, backlinks, etc.).
 
+**After creating or saving any note, always open it in the Obsidian app:**
+
+```bash
+uv run ~/.claude/skills/obsidian/scripts/vault.py --vault /Users/bianders/morphy open "Note Title"
+```
+
 ---
 
 ## `vault.py` — When Plain File Ops Aren't Enough

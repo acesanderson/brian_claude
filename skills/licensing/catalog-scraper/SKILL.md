@@ -121,6 +121,9 @@ When Phase 0.5 finds **2+ distinct training portals** for a company, spawn one s
    - CAPTCHA
    - JavaScript-heavy (content not in initial HTML)
 
+5. **Enterprise/LMS Channel Check**
+   Check whether the provider operates a separate enterprise or LMS channel distinct from their public retail site. Common signals: a separate subdomain (`learn.`, `ecampus.`, `academy.`, `lms.`), a Skilljar/Cornerstone/Moodle-hosted site, or a "for enterprise" section with different course listings. If found, note it — the enterprise channel may have different content availability than the retail storefront, and the retail page format signal will be unreliable. Surface this to the user before scraping.
+
 5. **Field Mapping** - Identify available metadata:
    - Required: Title, URL
    - Preferred: Description (MUST be course-specific, NOT generic catalog text), Duration, Level, Price, Format
@@ -236,6 +239,14 @@ After collecting all courses, write and ingest in this exact order:
 
 Write the course list as a JSON array to this path.
 
+**Step A.5 — Filter non-self-paced before ingest**:
+Before writing the temp file, split the course list:
+- `format == "self-paced"` → include in the licensable catalog
+- `format == "unknown"` → include but tag with a note; surface count to user for manual confirmation
+- Any other format (`instructor-led`, `hands-on-lab`, `blended`, `assessment`, `bundle`, `learning-path`) → exclude from the temp file; report count in the summary
+
+If more than 30% of courses are `unknown`, flag it to the user before proceeding — the format signal from this site may be unreliable and warrant a direct partner inquiry.
+
 **Step B — Ingest to DB**:
 ```bash
 uv run --project ~/vibe/licensing-project/catalog \
@@ -267,6 +278,8 @@ Notes:         <any obstacles, partial scrape reasons, or empty>
 - `partners/<slug>/catalog.xlsx` — eliminated; no replacement
 
 ### Format Normalization (REQUIRED)
+
+**We only license self-paced, on-demand content.** The format field is a gate, not just metadata. Courses that cannot be confirmed as self-paced do not belong in T1/T2/T3. When in doubt, return `unknown` — never assume self-paced from ambiguous signals like "online."
 
 The `format` field must use a canonical enum. Free-text format values break the
 downstream classifier. Every scraper MUST call `normalize_format()` before writing
@@ -320,12 +333,12 @@ def normalize_format(raw: str) -> str:
     ]):
         return "assessment"
 
-    # Self-paced / on-demand (most common — check last)
+    # Self-paced / on-demand — only explicit signals qualify
+    # DO NOT include "online" (means browser-delivered, not on-demand)
+    # DO NOT include "module" (ambiguous — could be ILT unit)
     if any(x in v for x in [
         "on-demand", "on demand", "self-paced", "self paced",
-        "online", "tutorial", "e-learning", "elearning",
-        "module", "crash course", "learning byte", "prep course",
-        "recording", "video",
+        "e-learning", "elearning", "async",
     ]):
         return "self-paced"
 
@@ -519,6 +532,47 @@ Use `mcp__captain__write_google_sheets_by_id` with `mode="append"`.
 Before appending, check whether the partner already has a row in the index
 (use `mcp__captain__read_google_sheets_by_id` and scan the Partner column).
 If a row exists, note it in the summary — do not create a duplicate.
+
+## Platform Scrapers: Coursera & Udemy
+
+Coursera and Udemy have dedicated scraper projects with installed CLI entry points — use these instead of the ad-hoc scraper workflow above.
+
+| Platform | Project | Command |
+|---|---|---|
+| Coursera | `~/Brian_Code/corsair-project` | `uv run --project ~/Brian_Code/corsair-project corsair-sync` |
+| Udemy | `~/Brian_Code/menuhin-project` | `uv run --project ~/Brian_Code/menuhin-project menuhin-sync` |
+
+Each command: fetches catalog → exports to JSON → calls `catalog platform-ingest <file> <platform>` → deletes temp file.
+
+### "What's New" summary (run after every sync)
+
+After each sync, new rows have a fresh `created_at` timestamp. Query them and ask the LLM for a brief summary.
+
+**Step 1 — Pull new rows via SQL** (use the `postgres` skill against Caruana):
+
+```sql
+-- Coursera
+SELECT title, partners, difficulty, enrollments, product_type
+FROM platform_courses
+WHERE platform = 'coursera'
+  AND created_at > now() - interval '2 hours'
+ORDER BY enrollments DESC NULLS LAST;
+```
+
+Replace `'coursera'` with `'udemy'` for Menuhin runs.
+
+**Step 2 — Summarize in-context:**
+
+Paste the results and ask:
+> "Here are the new [Coursera/Udemy] courses from today's scrape. Summarize: total new courses, which partners are new vs. returning, notable courses by enrollment, any shifts in topic mix."
+
+Key things to surface:
+- Count of new courses added
+- New partners (names not in prior rows)
+- Top courses by enrollment or standout difficulty/topic
+- Any notable gaps or category trends
+
+This summary can be included in the existing `report.md` under a `## What's New` section, or surfaced inline during the session.
 
 ## Required Dependencies
 
