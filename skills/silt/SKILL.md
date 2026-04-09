@@ -118,10 +118,16 @@ The Collector will eventually automate this. Until then, it's manual.
 
 ### Rule 3: Graduate or prune research/
 
-`research/` is a staging area, not storage. At the start of any session, check:
-- Any `research/` file older than 30 days without a corresponding `knowledge/` note
-  gets flagged in `scratchpad.md` as "promote or delete"
-- Do not let `research/` accumulate indefinitely
+`research/` is a staging area, not storage. Files age differently by type — check the
+`type:` frontmatter field:
+
+- **Research output** (`type: research-output`, or no type field): flag as "promote or delete"
+  after **30 days** without a corresponding `knowledge/` note
+- **Research spec** (`type: research-spec`): flag as "execute or prune" after **14 days**.
+  A spec that doesn't get executed quickly usually won't. The spec itself is never promoted
+  to `knowledge/`; only the outputs produced by executing it are. Prune the spec once executed.
+
+Do not let `research/` accumulate indefinitely.
 
 ### Rule 4: Note template
 
@@ -210,7 +216,7 @@ Run on request or when the KB feels stale. Check for:
 - **Stale claims**: notes in fast-moving domains not updated in 60+ days (Rule 5 candidates)
 - **Index completeness**: every `knowledge/` note appears in `index.md`
 - **Summary gaps**: domains with 3+ notes lacking `summary.md`
-- **research/ age**: any file older than 30 days without a corresponding `knowledge/` note (Rule 3)
+- **research/ age**: research outputs older than 30 days without a `knowledge/` note; research specs older than 14 days without execution (Rule 3)
 
 Surface findings in `scratchpad.md` as a dated lint report. Don't fix everything at once —
 prioritize the orphan pages and missing concepts first.
@@ -225,7 +231,9 @@ prioritize the orphan pages and missing concepts first.
 7. Append to `manifest.md`
 
 ### On session start
-Check Rule 3: scan `research/` for files older than 30 days without a knowledge/ counterpart. Flag in `scratchpad.md`.
+Check Rule 3: scan `research/` and flag in `scratchpad.md`:
+- Research outputs older than 30 days without a `knowledge/` counterpart → "promote or delete"
+- Research specs (`type: research-spec`) older than 14 days without execution → "execute or prune"
 
 ### On domain gap detected
 Create domain directory + stub `summary.md`. Note in `scratchpad.md` as research target.
