@@ -71,10 +71,11 @@ Provisional signals (from `funnel-framework.md`):
   pipeline.md          # Primary artifact — active partner pipeline
   manifest.md          # Append-only action log
   partners/            # One directory per active/prospective partner (notes.md, pitch.md, catalog files)
-  skills/              # One directory per skill TLM (roadmap.md + catalog XLSX + report)
+  topics/              # One directory per topic; may contain research artifacts (brief, scope, tmz),
+                       # TLM outputs (catalog XLSX, report), roadmap, or any combination depending on lifecycle stage
   context/             # Reference docs — see context/README.md for file-to-trigger map
   projects/            # Parallel workstreams (each has its own subdir + notes.md)
-  spec/                # Day specs — one YYYY-MM-DD.md file per working day. Each spec defines
+  daily/               # Day specs — one YYYY-MM-DD.md file per working day. Each spec defines
                        # the day's tasks, inputs, constraints, and Claude Code instance assignments.
                        # Checked at session start — read during Session Start Protocol if today's file exists.
   gate_log.json        # Course-level gate decision log — SOT for funnel metrics and CYA (see projects/pipeline-ops/notes.md)
@@ -82,6 +83,8 @@ Provisional signals (from `funnel-framework.md`):
   boilerplate/         # Reusable templates (outreach.md: Template A–E outreach + Elevator Pitch Framework)
   partner-assets/      # PDF assets for partner outreach: Content License Agreement, Instructor Analytics Dashboard,
                        # LinkedIn Learning Content Licensing one-pager, Content Delivery Video Format Guidelines
+  meta/                # Architecture session artifacts only — SDD docs, hook audits, roadmaps. Read-only in operational sessions.
+  USAGE.md             # Human-readable onboarding doc for new collaborators — keep at root, do not move
 ```
 
 Ensure this structure exists on first run:
@@ -99,7 +102,7 @@ Run this every session, in order:
 
 1. `mkdir -p ~/licensing/partners ~/licensing/context ~/licensing/context/business/{financial_health,flagship_feed,premium,talent_solutions,ai_strategy,org_context,competitive_landscape,member_metrics}` — ensure structure exists
 2. Read `~/licensing/state.md` — synthesized dashboard; produces the opening brief directly
-3. Check for a day spec: `~/licensing/spec/YYYY-MM-DD.md` where YYYY-MM-DD is today's date. If it exists, read it and integrate any time-sensitive items into the brief.
+3. Check for a day spec: `~/licensing/daily/YYYY-MM-DD.md` where YYYY-MM-DD is today's date. If it exists, read it and integrate any time-sensitive items into the brief.
 4. If this is a partner-focused session: read `~/licensing/partners/<name>/notes.md`
 5. If a project workstream is the focus: check `~/licensing/projects/` for a relevant subdir and read its `notes.md`
 
@@ -368,6 +371,22 @@ If any partner with Last Action > 60 days and no substantive Next Action is foun
 
 **Step 2 — Update SKILL.md:**
 Review the current conversation for meaningful improvements to this skill. Update only if there are substantive changes to workflow, conventions, hooks, or tooling. Do NOT update for minor, session-specific, or speculative details. A "resolve" that produces no SKILL.md changes is fine — use judgment. Scope is limited to this skill only; do not update other skills.
+
+**Step 3 — Root cleanup audit:**
+Run `ls ~/licensing/` and diff against the canonical allowlist:
+
+- **Files:** `pipeline.md`, `manifest.md`, `state.md`, `gate_log.json`, `CLAUDE.md`, `USAGE.md`
+- **Dirs:** `partners/`, `topics/`, `context/`, `projects/`, `daily/`, `scripts/`, `boilerplate/`, `partner-assets/`, `meta/`, `.claude/`, `.git/`, `.cache/`, `.pytest_cache/`
+
+For each item not on the allowlist, classify and surface a one-line entry:
+
+| Item | Type | Recommended action |
+|---|---|---|
+| `scrape_cisco.py` | temp script | delete |
+| `snapshot_2026-04-02.xlsx` | snapshot | move → `context/library/` |
+| `funnel.excalidraw` | stale diagram | delete |
+
+Do not delete or move anything automatically. Present the table and wait for confirmation. If the root is clean, note it in one line and skip the table.
 
 **On contact research request**
 When asked to find outreach contacts for one or more partners: read
