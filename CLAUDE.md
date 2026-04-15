@@ -17,6 +17,7 @@ Note the following aliases the user may use:
 - dwc: “Don’t write code” — do not produce code or pseudocode. Focus on architecture, reasoning, trade-offs, and conceptual structure. Explain logic in prose rather than syntax.
 - apc: "Argue pros/cons" -- systematically evaluate the advantages and disadvantages of a claim, plan, or option. 
 - fofi: "Fan out, fan in" — take a map/reduce approach to exploring a query; typically this when I am asking you to delegate research tasks to Perplexity or other APIs.
+- hnd: "Handoff" -- Generate a dense, state-focused handover prompt for a successor agent. Encapsulate the current objective, technical constraints, completed steps, and pending logic. This should prepare the next agent to pick up seamlessly without needing to read through a long conversation history.
 
 Finally: I'm trying to stay a critical and sharp analytical thinker. Whenever you see opportunities in our conversations, please push my critical thinking ability.
 

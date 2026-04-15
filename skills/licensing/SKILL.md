@@ -961,6 +961,8 @@ layer — when and how to operationalize validated research workflows into sched
 
 **`gartner-pi/`** — Scrapes Gartner Peer Insights for segment rankings and vendor profiles. Use when asked to look up Gartner ratings, find top products in a market segment, or pull a vendor's Gartner profile as part of competitive research.
 
+**`cymbii-links.md`** — URL format for CYMBII (Courses You May Be Interested In) feed cards. Use when asked for a CYMBII link for a course: `https://www.linkedin.com/feed/update/urn:li:lyndaCourse:{COURSE_ID}/`
+
 **`generate-tocs.md`** — Full golden path for producing PTOC Cosmo Template Google Sheets for a partner's submitted courses. Use when asked to generate TOCs, create TOC sheets, or populate chapter/video structure for a licensed partner. Covers: Playwright scraper (Thinkific + other LMS patterns), row computation, Apps Script template copy, Captain MCP write + move, and `google_docs.json` registration.
 
 **`professional_certificates.md`** — Context and tooling for the Professional Certificates BD program. **Invoke rarely** — only when the task is specifically about Prof Cert strategy or operations. Contains: business context pointer (Obsidian note), key sheet/Trino coordinates, and the golden path for adding a new LP to the Prof Cert Partner Tracker (automated Trino query + sheet append, plus HITL steps for row positioning, formatting, and course verification).
