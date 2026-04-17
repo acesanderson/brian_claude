@@ -59,34 +59,46 @@ printf '4314028\n2818049\n' | uv run --project /Users/bianders/Brian_Code/kramer
 - `LIL URL` — canonical learner URL
 - `Skills EN` — skill tags
 
-**`search` subcommand** — find courses by query:
+**`search` subcommand** — four modes, pick based on what you know:
+
+| Mode | Command | When to use |
+|---|---|---|
+| Semantic | `linkedin-catalog search "machine learning"` | Concept discovery — "what do we have on X?" Results ranked by vector similarity. Requires Headwater. |
+| Title keyword | `linkedin-catalog search --title "Python"` | Known term appears in the title. Fast — queries lightweight `course_mappings` only. |
+| Description keyword | `linkedin-catalog search --description "generative AI"` | Term likely in the description but not the title. Hits `Course Short Description` + `Course Description`. Slower than `--title`. |
+| Transcript keyword | `linkedin-catalog search --transcript "pandas"` | Looking for courses that cover a specific term in depth, even if it's not in the title. Heaviest query. |
+
 ```bash
-# Semantic search (default — uses Headwater vector index)
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search "machine learning" [-k 10] [--json]
+# Semantic (default) — broader discovery, Headwater-backed
+linkedin-catalog search "machine learning" [-k 10] [--json]
 
-# Title substring match
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search --title "Python"
+# Title substring — fastest, good for known brand/tool names
+linkedin-catalog search --title "Python"
 
-# Transcript substring match
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search --transcript "pandas"
+# Description substring — catches courses where the topic is in the abstract
+linkedin-catalog search --description "generative AI"
 
-# Transcript with surrounding context
-uv run --project /Users/bianders/Brian_Code/kramer-project linkedin-catalog search --transcript "pandas" --grep
+# Transcript substring — deepest coverage check
+linkedin-catalog search --transcript "pandas"
+linkedin-catalog search --transcript "pandas" --grep   # show surrounding context
 ```
 
 | Flag | Purpose |
 |---|---|
-| `--title` | Substring match on course titles |
+| `--title` | Substring match on course titles (lightweight) |
+| `--description` | Substring match in short + long description fields |
 | `--transcript` | Substring match in transcripts |
 | `--grep` | Show surrounding context (use with `--transcript`) |
 | `-k N` | Number of semantic results (default: 5) |
 | `--json` / `-j` | Output as JSON |
 
-**When to use lookup vs. search in licensing sessions:**
-- **Lookup**: spot-check a known course ID, pull TOC for redundancy analysis, batch-fetch metadata for a curated list
-- **`search --title`**: find existing LiL courses on a topic to assess gap before recommending a partner
-- **`search` (semantic)**: broader discovery — "what courses do we already have on X?"
+**When to use which mode in licensing sessions:**
+- **Gap analysis before recommending a partner** — start with `--title`, then `--description` if results are thin; semantic if you want conceptual coverage
+- **Checking if we already have a course on an exact topic** — `--title` first (fast), then semantic if nothing comes up
+- **Finding courses that teach a specific tool/library** — `--description` or `--transcript`
+- **Broad "what do we have in this space"** — semantic (default)
 - **Never use for**: discovery of _new_ (non-LiL) courses — use the catalog DB or classifier
+- **Lookup** (not search): known course ID or title → `linkedin-catalog <id>` for TOC, metadata, transcripts
 
 ---
 

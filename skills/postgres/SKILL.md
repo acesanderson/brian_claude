@@ -97,3 +97,104 @@ psql -d {database} --csv -c "SELECT * FROM {table} LIMIT 100;"
 - **Omitting `-d`**: psql will try to connect to a database named `claude_ro`, which does not exist
 - **Attempting writes**: they will fail with `ERROR: permission denied` — do not retry with elevated privileges
 - **Assuming connectivity**: always handle connection errors gracefully and tell the user if Caruana is unreachable
+
+---
+
+## Production / Scripted Usage
+
+For any code that runs in scripts or agents, use the `dbclients` library instead of `psql`. It auto-handles host discovery (Caruana locally → WireGuard VPN → LAN fallback) and connects as `bianders`.
+
+```python
+from dbclients.clients.postgres import get_postgres_client
+```
+
+Requires `POSTGRES_PASSWORD` env var. Username defaults to `bianders`.
+
+If the host is unreachable, a `RuntimeError` is raised — tell the user to check VPN.
+
+**Rule of thumb:**
+- `psql` + `claude_ro` → schema introspection and ad-hoc exploration
+- `dbclients` + `bianders` → all scripted / agent code
+
+### Client Types and When to Use Each
+
+| Client type | Returns | Use when |
+|-------------|---------|----------|
+| `"context_db"` | context manager (new connection per call) | Sequential scripts; one operation at a time |
+| `"sync"` | raw `psycopg2` connection | Single-threaded code where you manage the lifecycle manually |
+| `"threaded"` | `psycopg2.pool.ThreadedConnectionPool` | Any concurrent code using `ThreadPoolExecutor` or threads |
+| `"async"` | `asyncpg.Pool` (must be awaited) | `asyncio`-based concurrent code |
+
+### `"context_db"` — Sequential scripts (recommended default)
+
+Opens and closes a fresh connection each time. Safe, no leak risk, no pool overhead for low-volume work.
+
+```python
+context_db = get_postgres_client("context_db", dbname="siphon")
+with context_db() as conn:
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM my_table LIMIT 10")
+    rows = cur.fetchall()
+```
+
+**Do not** share the yielded `conn` across threads — it is not thread-safe.
+
+### `"threaded"` — Concurrent threaded code
+
+Safe for `ThreadPoolExecutor` and any multi-threaded usage. Always call `putconn` even on error (use try/finally), and `closeall` when the pool is no longer needed.
+
+```python
+pool = get_postgres_client("threaded", dbname="siphon")
+
+def worker(n):
+    conn = pool.getconn()
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT %s", (n,))
+        return cur.fetchone()[0]
+    finally:
+        pool.putconn(conn)
+
+with concurrent.futures.ThreadPoolExecutor(max_workers=5) as ex:
+    results = list(ex.map(worker, range(20)))
+
+pool.closeall()
+```
+
+Default pool size: `minconn=1`, `maxconn=10`. Pass `maxconn` to override.
+
+### `"async"` — asyncio concurrent code
+
+Returns a coroutine that must be awaited. The pool manages concurrent `acquire`/`release` automatically.
+
+```python
+pool = await get_postgres_client("async", dbname="siphon")
+
+async def worker(n):
+    async with pool.acquire() as conn:
+        return await conn.fetchval("SELECT $1", n)
+
+results = await asyncio.gather(*[worker(i) for i in range(20)])
+await pool.close()
+```
+
+### `"sync"` — manual single-connection use
+
+Returns a bare `psycopg2` connection. You own the lifecycle. **Never share across threads.**
+
+```python
+conn = get_postgres_client("sync", dbname="siphon")
+try:
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM my_table")
+    print(cur.fetchone())
+finally:
+    conn.close()
+```
+
+### Concurrency anti-patterns to avoid
+
+- **Sharing a `sync` or `context_db` connection across threads** → race conditions guaranteed; psycopg2 connections are not thread-safe
+- **Not calling `putconn` after `getconn`** → pool exhaustion; always use try/finally
+- **Creating a new `threaded` pool per request** → defeats pooling; create once at startup and reuse
+- **Not awaiting `get_postgres_client("async")`** → returns a coroutine object, not a pool
