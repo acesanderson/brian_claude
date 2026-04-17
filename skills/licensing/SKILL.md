@@ -369,10 +369,21 @@ When the user says "resolve": first update `state.md`, then review the skill.
 
 If any partner with Last Action > 60 days and no substantive Next Action is found during the update, add it to `## Stale — Review`.
 
-**Step 2 — Update SKILL.md:**
+**Step 2 — Refresh sourcing dispatch table (conditional):**
+If any sourcing subproject was touched this session, update the affected row(s) in
+`projects/sourcing/notes.md`. Pull the current status and next action from the subproject's
+`notes.md` — do not invent content. Update the `_Last refreshed_` date.
+
+Sourcing subprojects: `devops-licensing-strategy`, `ai-strategy`, `ai-engineer`,
+`competitive_sourcing`, `platform-sourcing`, `skill-catalog`, `tmz`, `verticals`,
+`business-and-creative`. If no sourcing work happened this session, skip this step.
+
+The dispatch table is a pull-only index — never write project narrative into it directly.
+
+**Step 3 — Update SKILL.md:**
 Review the current conversation for meaningful improvements to this skill. Update only if there are substantive changes to workflow, conventions, hooks, or tooling. Do NOT update for minor, session-specific, or speculative details. A "resolve" that produces no SKILL.md changes is fine — use judgment. Scope is limited to this skill only; do not update other skills.
 
-**Step 3 — Root cleanup audit:**
+**Step 4 — Root cleanup audit:**
 Run `ls ~/licensing/` and diff against the canonical allowlist:
 
 - **Files:** `pipeline.md`, `manifest.md`, `state.md`, `gate_log.json`, `CLAUDE.md`, `USAGE.md`
@@ -532,9 +543,11 @@ After any catalog scrape writes `partners/<slug>/report.md`:
 **On pitch requested**
 When asked to draft or generate a partner pitch / elevator pitch:
 1. Check if `partners/<slug>/pitch.md` already exists — if so, read and offer to update rather than overwrite
-2. Read `boilerplate/outreach.md` (Elevator Pitch Framework section) for the 4-part structure
-3. Pull scale anchor, gap hook, and tier counts from `partners/<slug>/notes.md`
-4. Use `conduit batch -m sonar-pro` for any missing authority or market signals
+2. Check if `partners/<slug>/profile.md` exists:
+   - If yes: read it — primary source for brand identity, authority signals, alignment lever, and key risks
+   - If no: generate via `uv run --project /Users/bianders/vibe/licensing-project/profile python profile.py "<Partner Name>" --slug <slug>`, save output to `partners/<slug>/profile.md`, then read it
+3. Read `boilerplate/outreach.md` (Elevator Pitch Framework section) for the structure
+4. Pull scale anchor and gap hook from `partners/<slug>/notes.md`; use profile.md for brand identity, authority signal, and alignment lever
 5. Write to `partners/<slug>/pitch.md`
 6. Append to `manifest.md`
 
@@ -958,6 +971,8 @@ layer — when and how to operationalize validated research workflows into sched
 ---
 
 ## Subskills
+
+**`cosmo.md`** — Cosmo record creation automation. Use for all Cosmo work: building blobs, running fill.py, managing the record lifecycle. **SOT: postgres `cosmo_blobs` table in `catalog` DB — not JSON files.** Covers: cosmo-cli CRUD, blob lifecycle (draft → ready → entered), golden path for new course records, Anaconda deal constants, and remaining 5 Anaconda courses.
 
 **`gartner-pi/`** — Scrapes Gartner Peer Insights for segment rankings and vendor profiles. Use when asked to look up Gartner ratings, find top products in a market segment, or pull a vendor's Gartner profile as part of competitive research.
 

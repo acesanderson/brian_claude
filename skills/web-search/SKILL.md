@@ -1,11 +1,11 @@
 ---
 name: web-search
-description: Search the web and fetch URLs as clean Markdown. Use when the user wants to search for information online, look up a topic, find URLs, or read web page contents. Also used by other skills (find-catalogues, catalog-scraper) for web reconnaissance. Trigger phrases include "search for", "look up", "find information about", "fetch this URL", "what does this page say", "research".
+description: Search the web and fetch URLs as clean Markdown. Use when the user wants to search for information online, look up a topic, find URLs, or read web page contents. Also used by other skills (find-catalogues, catalog-scraper) for web reconnaissance. Trigger phrases include "search for", "look up", "find information about", "fetch this URL", "what does this page say", "research". Also provides academic paper search via Semantic Scholar (214M papers) and arXiv (STEM preprints).
 ---
 
 # web-search
 
-Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown). Also provides Exa neural/semantic search, content extraction, similarity search, and grounded Q&A.
+Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown). Also provides Exa neural/semantic search, content extraction, similarity search, and grounded Q&A. Also provides academic search via Semantic Scholar and arXiv.
 
 ## Prerequisites
 
@@ -14,6 +14,8 @@ Web search via Brave API and URL fetching (HTML/PDF/Office docs to Markdown). Al
 **Requires:** `BRAVE_API_KEY` for Brave search. `EXA_API_KEY` for all Exa commands.
 
 **Optional (proxy):** `OXY_NAME` and `OXY_PASSWORD` — needed only when using `--proxy`.
+
+**Optional (academic):** `SEMANTIC_SCHOLAR_API_KEY` — no key needed, but setting one raises rate limits. Register free at https://www.semanticscholar.org/product/api. arXiv requires no key.
 
 ## Commands
 
@@ -131,3 +133,121 @@ Valid categories: `company`, `financial report`, `news`, `people`, `personal sit
 ### Output
 
 All commands print JSON to stdout on success. Errors go to stderr as `{"error": "..."}` with exit code 1.
+
+---
+
+## Choosing between web search and academic search
+
+Use `conduit.py`/`exa.py` for general web research. Use `semantic_scholar.py` or `arxiv.py`
+when you specifically need peer-reviewed or preprint literature: citation counts, author lists,
+structured abstracts, and paper IDs. `semantic_scholar.py` covers 214M papers across all fields
+with semantic search. `arxiv.py` is narrower (STEM preprints only) but current — best for
+bleeding-edge AI/ML work not yet in peer review.
+
+---
+
+## Semantic Scholar
+
+Academic paper search across 214M papers. No API key required; set `SEMANTIC_SCHOLAR_API_KEY`
+for higher rate limits.
+
+### Commands
+
+**Search** — keyword/semantic paper search:
+```bash
+uv run --directory ~/.claude/skills/web-search python semantic_scholar.py search "attention mechanism transformers"
+uv run --directory ~/.claude/skills/web-search python semantic_scholar.py search "RLHF" --num-results 5 --year-start 2022
+uv run --directory ~/.claude/skills/web-search python semantic_scholar.py search "protein folding" --fields-of-study "Biology" "Medicine"
+```
+
+**Paper** — get a specific paper by ID:
+```bash
+# Semantic Scholar paper ID
+uv run --directory ~/.claude/skills/web-search python semantic_scholar.py paper 204e3073870fae3d05bcbc2f6a8e263d9b72e776
+# DOI
+uv run --directory ~/.claude/skills/web-search python semantic_scholar.py paper 10.18653/v1/2020.acl-main.463
+# arXiv ID (prefixed)
+uv run --directory ~/.claude/skills/web-search python semantic_scholar.py paper arXiv:2307.06435
+```
+
+`paper` returns full metadata plus up to 20 references and 20 citations (slim view).
+
+### Flags
+
+| Flag | Applies to | Default | Description |
+|---|---|---|---|
+| `--num-results INT` | search | 10 | Results count (1-100) |
+| `--fields-of-study STR...` | search | — | e.g. `"Computer Science"` `"Medicine"` |
+| `--year-start INT` | search | — | Published in or after this year |
+| `--year-end INT` | search | — | Published in or before this year |
+| `--max-abstract INT` | search, paper | 500 | Truncate abstract at N chars |
+
+### Output (search)
+```json
+{
+  "results": [
+    {
+      "title": "...",
+      "paper_id": "...",
+      "url": "https://www.semanticscholar.org/paper/...",
+      "authors": ["Name1", "Name2"],
+      "year": 2023,
+      "citation_count": 412,
+      "abstract": "...",
+      "arxiv_id": "2307.06435",
+      "doi": "10.18653/..."
+    }
+  ],
+  "total": 1243
+}
+```
+
+---
+
+## arXiv
+
+Preprint search for STEM fields. No API key required.
+
+### Commands
+
+**Search** — keyword search with optional category filter:
+```bash
+uv run --directory ~/.claude/skills/web-search python arxiv.py search "RLHF language models"
+uv run --directory ~/.claude/skills/web-search python arxiv.py search "diffusion models" --category cs.CV --num-results 5
+uv run --directory ~/.claude/skills/web-search python arxiv.py search "mixture of experts" --start-date 2024-01-01
+```
+
+**Paper** — get a specific paper by arXiv ID:
+```bash
+uv run --directory ~/.claude/skills/web-search python arxiv.py paper 2307.06435
+```
+
+### Flags
+
+| Flag | Applies to | Default | Description |
+|---|---|---|---|
+| `--num-results INT` | search | 10 | Results count (1-100) |
+| `--category STR` | search | — | arXiv category, e.g. `cs.AI`, `cs.LG`, `stat.ML` |
+| `--start-date YYYY-MM-DD` | search | — | Client-side filter on published date |
+| `--end-date YYYY-MM-DD` | search | — | Client-side filter on published date |
+| `--max-abstract INT` | search, paper | 500 | Truncate abstract at N chars |
+
+Common categories: `cs.AI`, `cs.LG`, `cs.CL`, `cs.CV`, `cs.NE`, `stat.ML`, `math.OC`, `q-bio.NC`
+
+### Output (search)
+```json
+{
+  "results": [
+    {
+      "title": "...",
+      "arxiv_id": "2307.06435",
+      "url": "https://arxiv.org/abs/2307.06435",
+      "authors": ["Name1", "Name2"],
+      "published": "2023-07-12",
+      "primary_category": "cs.AI",
+      "categories": ["cs.AI", "cs.LG"],
+      "abstract": "..."
+    }
+  ],
+  "total": 847
+}
