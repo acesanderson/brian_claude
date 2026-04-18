@@ -170,8 +170,11 @@ check if `partners/<name>/notes.md` exists and read it before responding. Never 
 a partner without first loading their file.
 
 **On status change**
-When a deal stage, last action, or next action changes: update `pipeline.md` immediately —
-not at session end. Status is the highest-decay artifact.
+When a deal stage changes: update `pipeline.md` immediately — not at session end. Status is the highest-decay artifact.
+
+After updating the stage: read `pipeline-stages.md` (in this skill's directory). Find the new stage's section and surface its tooling and next-step guidance to Brian proactively. Do not wait to be asked.
+
+Canonical stage enum + per-stage hook behavior: `~/.claude/skills/licensing/pipeline-stages.md`.
 
 **On comms drafted or sent**
 When an email or message is drafted or marked as sent: write it to `partners/<name>/notes.md`
@@ -483,11 +486,12 @@ pipeline gap analysis, and cross-cutting strategic findings. The raw source file
 `~/licensing/context/business/talent_solutions/EN Courses Data Deep Dive.md` (14K lines)
 — only read this if Brian asks for data not present in the brief.
 
-**On Researching → Outreach stage transition**
-Before updating a partner's stage from `Researching` to `Outreach` in pipeline.md:
+**On Deal Prep → Outreach stage transition**
+Before updating a partner's stage from `Deal Prep` to `Outreach` in pipeline.md:
 confirm that either (a) the partner was pre-approved by Content Strategy (Motion A),
-or (b) a Gate A submission doc exists at `partners/<slug>/gate-a-submission.md`.
-If neither exists, flag it and offer to generate one before proceeding.
+or (b) a Gate A submission doc exists at `partners/<slug>/gate-a-submission.md`,
+or (c) the partner appears on a content manager's sourcing hitlist (e.g. Megan Leatham's B+C hitlist) — a named CM's explicit recommendation constitutes Gate A partner-name approval and does not require a separate CS submission.
+If none of these apply, flag it and offer to generate a Gate A submission before proceeding.
 
 **On catalog scrape complete**
 After any catalog scrape writes `partners/<slug>/report.md`:
@@ -515,11 +519,7 @@ After any catalog scrape writes `partners/<slug>/report.md`:
    Get `Courses` from the DB (Step 2 above), not from any file.
 
    **Column C (Context) format:** `[Stage] — [POC]. [1-2 sentence description.]`
-   Stage must be one of the official enum values (same as pipeline.md Stage column):
-   Pre-intake: `Identified` | `Vetting` | `Propose for Intake`
-   Post-intake: `Researching` | `Outreach` | `In Conversation w/Partner` |
-   `Approvals/Contracting` | `Project Management` | `In Production` | `Live`
-   Terminal: `Blocked` | `Unable to Partner`
+   Stage must be one of the official enum values — full list: `~/.claude/skills/licensing/pipeline-stages.md`.
 
    **Column E (Status) enum:** `complete | partial | blocked | pending`
    - `complete` — full catalog captured, no known gaps
@@ -563,6 +563,18 @@ licensed library. These are not the same question.
 - Cert-prep-primary orgs: DASA, DevOps Institute, FinOps Foundation → Aishwarya
 - Mixed-catalog orgs: Linux Foundation, KodeKloud — evaluate practitioner training courses
   for standard licensing; flag cert-prep tracks separately for Aishwarya routing
+
+**On TMZ catalog dispatch**
+Trigger: Brian says "run catalogs for TMZ approvals", "dispatch TMZ scrapes", "process REQUEST CATALOG", or similar. Also fires when Brian asks to advance Step 5 of the TMZ triage workflow.
+
+1. Read `tmz_triage_stage1` sheet via `read_google_sheets_by_id` (id from `context/google_docs.json`)
+2. Filter rows where REQUEST CATALOG = `y` (case-insensitive)
+3. Extract unique org names; run `find-catalogues` to get catalog URLs
+4. Dispatch one `licensing:catalog-scraper-worker` per URL with `run_in_background=true`
+5. For each org dispatched: create `partners/<slug>/notes.md` if absent (using partner-notes template); update pipeline to `Sourcing — Catalog Scrape`
+6. After all workers complete: report which slugs have `catalog.json` and which need manual follow-up. Update sheet with SCRAPE STATUS if a column exists.
+
+Full catalog dispatch mechanics: see "Full batch catalog workflow" in the Tooling section.
 
 ---
 
