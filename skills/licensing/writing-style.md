@@ -51,6 +51,14 @@ _Derived from analysis of 382 sent emails (Aug 2025 – Mar 2026). Use as boiler
 - "Would you be the right person to connect with...?" (cold outreach redirect)
 - Uses "viz." for "for visibility" when CC'ing someone
 
+## Scheduling / Calendar
+
+When proposing a meeting, Brian includes his Outlook booking link with a soft alternative:
+> "Here's my booking calendar if that's easiest, otherwise feel free to suggest some days/times."
+> https://outlook.office.com/bookwithme/user/8ecb124fbb4d43a3a5f9fcd238934551@linkedin.com?anonymous&ep=plink
+
+Use this pattern instead of listing specific time slots.
+
 ## What He Avoids
 - "Hope this email finds you well" / "I hope you're doing well"
 - "Please don't hesitate to reach out" — he says "let me know"

@@ -26,6 +26,8 @@ That's it. Reach for `vault.py` or the obsidian CLI only when you need features 
 uv run ~/.claude/skills/obsidian/scripts/vault.py --vault /Users/bianders/morphy open "Note Title"
 ```
 
+This is the only reliable method. `open -a Obsidian <path>` and the `obsidian://` URI scheme both fail silently on files outside the vault or when the app is already open.
+
 ---
 
 ## `vault.py` — When Plain File Ops Aren't Enough
@@ -79,6 +81,25 @@ obsidian tasks daily todo
 ```
 
 For the full CLI reference, see `references/cli-commands.md`.
+
+---
+
+## Mermaid Diagrams
+
+If the user requests a Mermaid diagram (Gantt, flowchart, sequence, etc.):
+
+1. Write the `.md` file to the vault (`/Users/bianders/morphy/<Note Title>.md`) with the diagram in a fenced `mermaid` code block
+2. Open it with `vault.py open` (see above)
+3. Tell the user: **switch to Reading View (`Cmd+E`) to see the rendered diagram**
+
+Obsidian renders Mermaid natively in Reading View. The diagram will not render in Edit or Live Preview mode.
+
+If the source file is outside the vault (e.g. in `~/licensing/context/`), copy it to the vault first, then open:
+
+```bash
+cp ~/licensing/context/some-diagram.md ~/morphy/some-diagram.md
+uv run ~/.claude/skills/obsidian/scripts/vault.py --vault /Users/bianders/morphy open "some-diagram"
+```
 
 ---
 

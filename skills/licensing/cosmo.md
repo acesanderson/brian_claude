@@ -107,6 +107,9 @@ Every Cosmo record creation has human-in-the-loop steps at both ends:
 `project_id` and `course_id` from the URL, and passes them to Claude via `set-ids`.
 The fill script cannot run until this happens.
 
+If the course already exists in Cosmo and only the project_id is unknown, use
+`cosmo-cli lookup <course_id>` to retrieve it (Chrome required).
+
 **HITL 2 (end):** After `fill.py` completes, Brian manually:
 1. Adds the instructor contract rows in the Contracting tab
 2. Clicks through the 2 milestone gates to hand off to production
@@ -122,6 +125,8 @@ Claude handles everything between the two bookends.
 ```
 cosmo/
 ├── fill.py                        # Main automation script (Playwright + Chrome CDP)
+├── read.py                        # Reads live Cosmo project into a blob JSON (CDP)
+├── lookup.py                      # Looks up project_id by course_id via /cosmo/projects search (CDP)
 ├── scripts/
 │   └── scrape_anaconda_toc.py    # Thinkific TOC scraper (standalone inline-script)
 ├── data/
@@ -222,6 +227,16 @@ uv run --project ~/vibe/licensing-project/cosmo cosmo-cli set-ids <id|slug> \
 
 # After fill.py runs successfully
 uv run --project ~/vibe/licensing-project/cosmo cosmo-cli mark-entered <id|slug>
+
+# Delete a blob (blocks on status=entered without --force)
+uv run --project ~/vibe/licensing-project/cosmo cosmo-cli delete <id|slug>
+uv run --project ~/vibe/licensing-project/cosmo cosmo-cli delete <id|slug> --force
+
+# Look up project_id for a course_id via /cosmo/projects search (Chrome required)
+# Dismisses stale pills, types into #search_course_id, reads project_id from first result
+uv run --project ~/vibe/licensing-project/cosmo cosmo-cli lookup <course_id>
+# Standalone (prints raw project_id integer — pipe-friendly):
+uv run --project ~/vibe/licensing-project/cosmo python lookup.py <course_id>
 
 # Validate blob schema (Pydantic check — no DB writes; canonical readiness check)
 uv run --project ~/vibe/licensing-project/cosmo cosmo-cli validate <id|slug>

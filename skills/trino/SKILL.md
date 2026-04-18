@@ -113,6 +113,23 @@ SELECT * FROM hive.<schema>.<table> LIMIT 5
 
 **Performance:** Never `SELECT *` on large tables. Describe first, select only needed columns.
 
+**Headless account access:** Use `SET SESSION li_authorization_user = '<account>'` to proxy as a headless account before querying tables owned by it. Confirmed available accounts:
+
+| Account | Notes |
+|---|---|
+| `insshare` | |
+| `llscontent` | |
+| `dilithium` | |
+| `editinsights` | |
+| `gr036468` | |
+| `gr038425` | |
+| `gr039825` | |
+| `gr040094` | |
+| `gr040125` | |
+| `gr040613` | |
+| `gr041443` | |
+| `ump005715` | Grants access to `prod_foundation_tables.dim_member_all` (member profile certifications array) |
+
 ## Error handling
 
 ### Permission denied
@@ -318,3 +335,76 @@ uv run --directory ~/vibe/licensing-project/trino python -m trino_manifest upser
 
 **Skip patterns** (already filtered by `list-schemas --pending-glean`):
 `metrics_temp%`, `metrics_daily%`, `metrics_weekly%`, `metrics_monthly%`, `prod_ci_%`, `prod_uat_%`, `test_%`, `bootstrap_%`, and known personal engineer schema prefixes.
+
+---
+
+## Publishing Trino Analyses to Google Drive
+
+Standard for any Trino analysis delivered as a shareable artifact (XLSX + Google Doc). Canonical example: `~/Desktop/linkedin_top_certifications_oct2025_apr2026.xlsx` (member certifications analysis, Apr 2026).
+
+### XLSX structure
+
+Generate with `openpyxl` via `uv run --with openpyxl python3 -`:
+
+```python
+import json, openpyxl
+from openpyxl.styles import Font, PatternFill, Alignment
+from openpyxl.utils import get_column_letter
+
+HEADER_FONT  = Font(bold=True, color="FFFFFF")
+HEADER_FILL  = PatternFill(start_color="0A66C2", end_color="0A66C2", fill_type="solid")
+
+def write_sheet(ws, rows):
+    for ri, row in enumerate(rows, 1):
+        for ci, val in enumerate(row, 1):
+            cell = ws.cell(row=ri, column=ci, value=val)
+            if ri == 1:
+                cell.font = HEADER_FONT
+                cell.fill = HEADER_FILL
+                cell.alignment = Alignment(horizontal="center")
+    for col in ws.columns:
+        max_len = max((len(str(c.value)) if c.value else 0) for c in col)
+        ws.column_dimensions[get_column_letter(col[0].column)].width = min(max_len + 4, 60)
+    ws.freeze_panes = "A2"
+```
+
+Data rows must be JSON arrays with a header row first: `[[col1, col2, ...], [val, val, ...]]`.
+
+### Required tabs
+
+Every published analysis must have these tabs (in order):
+
+| Tab | Content |
+|---|---|
+| One or more data tabs | Query results — header row + data rows, LinkedIn-blue header |
+| **Methodology** | Structured provenance (see below) — always the last tab |
+
+### Methodology tab format
+
+Two columns (`Field`, `Value`), header row styled same as data tabs. Required fields:
+
+| Field | What to populate |
+|---|---|
+| Source table | Fully qualified `catalog.schema.table` |
+| Access group | Headless account or group used (e.g. `ump005715`) |
+| Time box | Date range and which column was used as the time signal |
+| Member filter | Filters applied at the member level (e.g. `is_test_member = false`) |
+| Data filter | Filters applied at the row/entity level (e.g. `cert.name IS NOT NULL`) |
+| Excluded | What the query explicitly does NOT capture |
+| [Tab name] | One line per data tab — describe grain, key columns, row count |
+| Run date | `YYYY-MM-DD` |
+| Analyst | LinkedIn email |
+
+Omit rows that don't apply. Add additional rows freely for non-standard decisions.
+
+### Companion Google Doc
+
+After generating the XLSX, create a Google Doc in the Content Licensing folder (`18tYSd3sRG7XNObIyG-NQ9sNAshKdRSqQ`) with:
+- What the analysis is and what it measures
+- Why it matters for the workstream
+- Data structure (one paragraph per tab)
+- Methodology (mirror the XLSX Methodology tab in prose)
+- XLSX Drive URL (add once uploaded)
+- Owner + created date
+
+Register the doc in `~/licensing/context/google_docs.json` under `read_only_docs`. Append to `manifest.md`.
