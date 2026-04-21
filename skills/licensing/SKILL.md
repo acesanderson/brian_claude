@@ -18,6 +18,14 @@ Persistent coordination layer for LinkedIn Learning content licensing BD work. T
 the state layer. Full context: `~/licensing/context/licensing_context.md` (partner taxonomy,
 sourcing methodology, complete tangibility gates). Key heuristics are inlined below.
 
+## Three Parts of Licensing
+
+| Part | Location | Purpose |
+|---|---|---|
+| **Skill** | `~/.claude/skills/licensing/` | This file — workflow, hooks, heuristics, session protocol |
+| **Knowledge base** | `~/licensing/` (CWD) | Pipeline, partner files, context docs, manifests — the working data |
+| **Code project** | `~/vibe/licensing-project/` | Python tooling: catalog DB, classifier, Cosmo, profile generator |
+
 ## Data Privacy — Non-Negotiable
 
 When the user requests **local model inference** (`gpt-oss`, `llama`, `qwen`, etc.), it is because the content is **proprietary or confidential**. This applies to all meeting recordings, partner materials, pipeline data, and internal documents.
@@ -190,6 +198,10 @@ When a partner is mentioned with no existing file and no pipeline entry: create
 and add a row to `pipeline.md` in the same action. Never leave a partner floating in
 conversation without landing in both places.
 
+If the partner is in the CE/L&D space: check `~/licensing/customer_ed_rolodex.csv` for any
+employees from that org (match on `company` column). A hit signals community presence and
+may reveal a warm intro path — surface any matches in the notes file.
+
 **On Google Doc opened in browser**
 When asked to open a Google Doc, Sheet, or Drive file in the browser: use `Bash` to run
 `open "<url>"` — never use Playwright for this. Playwright hits Google's sign-in wall.
@@ -230,73 +242,14 @@ email-query search "partner interested in licensing" --before 2025-08-01 \
 ```
 
 **On partner correspondence lookup**
-Trigger phrases: "email history [partner]", "check correspondence", "pull emails",
-"have we emailed", "what's our email history with", "correspondence with".
-
-1. Read `partners/<slug>/notes.md` to extract the partner domain from the **Website** field
-   (e.g., `anaconda.com` from `https://anaconda.com`).
-2. Run all three queries in parallel:
-   ```bash
-   # Inbound
-   uv run --directory /Users/bianders/vibe/outlook-email-project email-query list --from "*.domain.com" --limit 50
-   # Outbound
-   uv run --directory /Users/bianders/vibe/outlook-email-project email-query list --to "*@domain.com" --limit 50
-   # Broad text search (catches name variants, forwarded threads, etc.)
-   uv run --directory /Users/bianders/vibe/outlook-email-project email-query search "Partner Name" --text --limit 20 --no-noreply --folder inbox
-   ```
-3. Deduplicate across the three result sets (same subject + date = same message).
-   Sort chronologically ascending.
-4. Overwrite the `## Correspondence Log` section in `partners/<slug>/notes.md`:
-   ```markdown
-   ## Correspondence Log
-   _Last pulled: YYYY-MM-DD_
-
-   | Date | Dir | Subject | Contact |
-   |---|---|---|---|
-   | 2026-03-01 | inbound | Re: LinkedIn Learning partnership | jess@anaconda.com |
-   | 2026-03-05 | sent | Re: LinkedIn Learning partnership | jess@anaconda.com |
-   ```
-   - **Dir**: `inbound` (folder=inbox) or `sent` (folder=sent)
-   - **Contact**: the external party's address (from for inbound, to for sent)
-   - If a message is part of a thread worth reading, note the conversation_id in a trailing comment
-5. Append to `manifest.md`:
-   `- YYYY-MM-DD | correspondence-pull | partners/<slug>/notes.md | N emails (X inbound, Y sent)`
-6. Surface a brief summary: total count, date range, most recent exchange, any open threads
-   (sent with no reply, or reply awaiting response).
+Triggers: "email history [partner]", "check correspondence", "pull emails", "have we emailed", "correspondence with".
+Full procedure: `~/.claude/skills/licensing/correspondence-lookup.md`
 
 **On Team Tracker snapshot request** — explicit only. Pull via `read_google_sheets_by_id`, overwrite `context/team_tracker_snapshot.md`, append to `manifest.md`. Never proactive.
 
-**On "summarize [domain]"**
-When the user says "summarize [domain]" or "refresh [domain] summary" (where domain is
-one of: financial_health, flagship_feed, premium, talent_solutions, ai_strategy,
-org_context, competitive_landscape, member_metrics):
-1. List all files in `context/business/[domain]/` excluding `summary.md`
-2. Read each one
-3. Write a synthesis to `context/business/[domain]/summary.md` — key facts, trends,
-   strategic reads, sources with dates, and a staleness note (oldest source date)
-4. Append to `manifest.md`
-Do not summarize if the domain directory has no docs yet — flag it as unpopulated instead.
-
-IMPORTANT: Execute this in the MAIN session, not as a subagent. Summarization is
-read-then-write on local files — subagents cannot write files without explicit Write
-permission grants, which defeats the purpose of delegation. Subagents are for research
-(external I/O); summarization is for the main thread.
-
-**On "summarize business"** (also: "refresh business summary", "update business context")
-When the user triggers a full business summary refresh:
-1. Read every `context/business/[domain]/summary.md` that exists
-2. Write `context/business/summary.md` using this schema:
-   - Header with last-updated date and staleness table (one row per domain)
-   - One 2-3 sentence paragraph per domain
-   - "Overall Strategic Read" section: 4-6 sentences on what this means for LinkedIn's
-     actual situation right now — opinionated, not corporate
-   - "Implications for Licensing BD" section: 4-6 bullets of cross-domain insights that
-     only emerge from reading all domains together
-3. Append to `manifest.md`
-Only summarize domains that have a populated summary.md — skip and note empty ones.
-This is the top-level orientation artifact read during every session start.
-
-IMPORTANT: Execute in the MAIN session (same reason as above).
+**On "summarize [domain]"** / **"summarize business"**
+Triggers: "summarize [domain]", "refresh [domain] summary", "summarize business", "refresh business summary", "update business context".
+Full procedure (including MAIN-session constraint): `~/.claude/skills/licensing/summarize-business.md`
 
 **On new business context doc added** — append to `manifest.md`; note that `[domain]/summary.md` is now stale. Do NOT auto-summarize.
 
@@ -325,38 +278,9 @@ Process:
 6. Write files only after review is complete.
 7. Append to `manifest.md`.
 
-**On gate decision**
-When a course passing or failing a gate is mentioned in conversation — e.g., "CS rejected the
-Fortinet FortiGate course, SCORM format" or "Anaconda Docker Engineering passed topic review":
-
-1. Extract all available fields: partner_slug, course_title, gate number, decision, reason_code,
-   reason_detail, decided_by, submitted_date, decided_date. Ask for any missing required fields
-   (partner, course, gate, decision) before writing. Infer reason_code from the taxonomy in
-   `projects/pipeline-ops/notes.md` if not explicitly stated — confirm with Brian if ambiguous.
-2. Read `gate_log.json`. Compute next sequential ID (gl-NNN). Compute velocity_days if both
-   dates are available. Append the new entry. Write `gate_log.json`.
-3. Append a one-line note to `partners/<slug>/notes.md` under a "## Gate Log" section
-   (create the section if absent): `- YYYY-MM-DD | Gate N | decision | reason_code | course_title`
-4. Append to `manifest.md`:
-   `- YYYY-MM-DD | gate-decision | gate_log.json | <id>: <partner> / "<course>" / Gate N / <decision>`
-
-Use `log_gate.py` only for programmatic/batch logging. In-session logging always goes through
-this hook directly (read → mutate → write gate_log.json).
-
-**On "gate report" / "funnel summary"**
-When asked for a gate report, funnel summary, conversion rates, or rejection breakdown:
-
-1. Read `gate_log.json`.
-2. Compute and display inline — no script needed:
-   - Per gate: total decisions, pass/reject/pending/withdrawn counts and rates, avg velocity,
-     rejection reason breakdown (count + %)
-   - Partner summary table: submitted, pass, reject, pending, pass rate
-3. Apply any filters mentioned (--partner, --gate, --since).
-
-If the log is empty, say so and remind Brian the hook fires automatically when gate decisions
-are mentioned in session.
-
-**On "sync gate log"** — sync `gate_log.json` to Google Sheet. See `~/.claude/skills/licensing/tooling-reference.md` for full procedure.
+**On gate decision / gate report / sync gate log**
+Triggers: course passing/failing a gate mentioned in conversation; "gate report"; "funnel summary"; "sync gate log".
+Full procedure: `~/.claude/skills/licensing/gate-workflow.md`
 
 **On "resolve"**
 When the user says "resolve": first update `state.md`, then review the skill.
@@ -403,71 +327,19 @@ For each item not on the allowlist, classify and surface a one-line entry:
 Do not delete or move anything automatically. Present the table and wait for confirmation. If the root is clean, note it in one line and skip the table.
 
 **On contact research request**
-When asked to find outreach contacts for one or more partners: read
-`find-partner-contacts.md` (in this skill's directory) before starting. Follow its
-role hierarchy and source hierarchy exactly. Record confirmed leads in
-`partners/<slug>/notes.md` under an "Outreach Targets" section. Append to `manifest.md`.
+When asked to find outreach contacts for one or more partners: first check
+`~/licensing/customer_ed_rolodex.csv` — filter by `company` for the partner name. Any
+matches are warm leads (CE community members) with verified emails. Record them in
+`partners/<slug>/notes.md` under "Outreach Targets" with source noted as "CE Slack rolodex".
+
+Then read `find-partner-contacts.md` (in this skill's directory) for cold outreach sources.
+Follow its role hierarchy and source hierarchy for any gaps not covered by the rolodex.
+Record confirmed leads in `partners/<slug>/notes.md` under an "Outreach Targets" section.
+Append to `manifest.md`.
 
 **On inbound partner vetting**
-When an inbound lead arrives (interest form, cold email, LinkedIn message) from an
-organization that is NOT a well-known brand: run a legitimacy check before investing
-BD time. Trigger phrases: "they reached out", "submitted the form", "inbound from",
-"is this legit", "how real is", "vet this org".
-
-Governance is the primary signal. Use the conduit skill with `conduit batch -m sonar-pro`
-to ask these 5 questions in parallel:
-
-1. **Named leadership**: "Who founded [org] and who are the key executives? Are their
-   names, LinkedIn profiles, and prior career histories publicly verifiable?"
-
-2. **Board and affiliations**: "Does [org] have a named advisory board or notable outside
-   affiliates? Are these individuals independently verifiable with real public profiles?"
-
-3. **Accreditation**: "Is [org] accredited by any recognized external standards body
-   (ANSI/ISO 17024, IACET, or similar)? Or are their credentials self-issued?"
-
-4. **Employer recognition**: "Do major employers, job postings, or enterprise L&D programs
-   recognize or require [org] certifications/credentials? Are they listed on LinkedIn
-   profiles at scale?"
-
-5. **Independent community signal**: "What do independent reviews on Reddit, Trustpilot,
-   or professional forums say about [org]? Are there real practitioners discussing them?"
-
-Interpret results using this screening hierarchy:
-- **Named CEO/founder with verifiable prior career** → proceed to research
-- **Named board with outside affiliates you can independently verify** → meaningful positive signal
-- **Elaborate governance language, no named individuals** → flag; require video call with
-  multiple team members before investing further
-- **Anonymous leadership + negative forum signal** → dead stop; surface to Brian immediately
-
-After running: present a verdict (real / thin but real / red flag), note the strongest
-positive and negative signals, and recommend next action. Do NOT add to pipeline or
-invest further research until vetting is complete if red flags are present.
-
-Then write the findings to `partners/<slug>/notes.md` under a `## Credibility` section
-(create it if absent; skip this step for established brands where vetting wasn't run).
-Section format:
-
-```markdown
-## Credibility
-
-**Verdict:** real | thin but real | red flag
-**Date checked:** YYYY-MM-DD
-
-**Strongest positive signals:**
-- [e.g., Named CEO Russell Sarder with verifiable prior company (NetCom Learning)]
-- [e.g., Advisory board includes Sunil Prashara, former PMI CEO]
-
-**Strongest negative signals:**
-- [e.g., No external accreditation — ISO 17024 "alignment" only]
-- [e.g., No employer recognition in job postings or L&D programs]
-
-**Recommended next action:** [e.g., Proceed with outreach / Require video call with multiple
-team members before investing further / Dead stop — surface to Brian]
-```
-
-Presence of this section = vetting was done. Absence = established brand, no check needed.
-Append to `manifest.md`: `- YYYY-MM-DD | vetted | partners/<slug>/notes.md | verdict: <verdict>`
+Triggers: "they reached out", "submitted the form", "inbound from", "is this legit", "how real is", "vet this org".
+Full procedure (5 conduit questions, screening hierarchy, notes format): `~/.claude/skills/licensing/vetting-workflow.md`
 
 **On internal Confluence research**
 When researching an internal LinkedIn topic without a known page ID (e.g., a BD process,
@@ -494,49 +366,8 @@ or (c) the partner appears on a content manager's sourcing hitlist (e.g. Megan L
 If none of these apply, flag it and offer to generate a Gate A submission before proceeding.
 
 **On catalog scrape complete**
-After any catalog scrape writes `partners/<slug>/report.md`:
-
-1. Read `context/google_docs.json` to get `catalog_index.id`.
-2. Get the course count from the DB:
-   ```bash
-   uv run --project ~/vibe/licensing-project/catalog catalog providers
-   ```
-   Find the row for this provider slug and read the `Courses` column.
-3. Create a catalog sheet for this partner:
-   - If no catalog sheet exists yet: create one via `create_google_sheets_spreadsheet`
-     titled `"[Partner] — Course Catalog ([Month Year])"`. Write a header row
-     (provider, title, url, format, level, duration, category, date_scraped).
-     `level` must be one of: `Beginner` | `Intermediate` | `Advanced`. Map raw partner values
-     to this enum before writing (e.g., "Introductory" → Beginner, "Professional" → Intermediate).
-     Register it in `context/google_docs.json` under `"read_write_docs"` with
-     `"permissions": "read-write"` and a description noting course count and date.
-   - If a sheet already exists (check `google_docs.json`): skip creation.
-4. Append one row to the catalog index sheet (`catalog_index.id`) via
-   `write_google_sheets_by_id` (mode: append) with columns:
-   Partner | Catalog Sheet URL | Context | Courses | Status | Date Scraped | Notes
-
-   Get `Status` from the `report.md` `Scrape status:` line.
-   Get `Courses` from the DB (Step 2 above), not from any file.
-
-   **Column C (Context) format:** `[Stage] — [POC]. [1-2 sentence description.]`
-   Stage must be one of the official enum values — full list: `~/.claude/skills/licensing/pipeline-stages.md`.
-
-   **Column E (Status) enum:** `complete | partial | blocked | pending`
-   - `complete` — full catalog captured, no known gaps
-   - `partial` — scrape incomplete due to auth/JS walls; more data potentially recoverable
-   - `blocked` — structural issue (no catalog, wrong format, MIT-licensed, etc.) — don't retry
-   - `pending` — scrape dispatched, not yet complete
-5. Append to `manifest.md`:
-   `- YYYY-MM-DD | synced | catalog_index → Google Sheet | <Slug>: N courses`
-
-6. Delete temp file if somehow still present:
-   ```bash
-   rm -f /tmp/scrape_<slug>.json
-   ```
-7. Delete `scrape_{slug}.py` at `~/licensing/` root if it exists:
-   ```bash
-   rm -f ~/licensing/scrape_<slug>.py
-   ```
+Fires after any catalog scrape writes `partners/<slug>/report.md`.
+Full procedure (DB course count, sheet creation, index row, cleanup): `~/.claude/skills/licensing/catalog-post-scrape.md`
 
 **On context depth warning** — if a partner has dominated 20+ turns, flag: "This is getting deep on [Partner] — worth spinning a branch session."
 
@@ -684,136 +515,13 @@ catalog industry-search                          # tier summary (company counts 
 
 ### Platform Scrapers — Lake 2 Ingest
 
-Two scrapers feed Lake 2 (`platform_courses` / `platform_creators`) with data from competing
-platforms. Each scraper has an export adapter that writes a catalog-ingestible JSON file, then
-calls `catalog platform-ingest` to load it. Use these when you need fresh Coursera or Udemy
-data in the DB — e.g., before running `catalog platform-search`.
-
-**Shared export contract** (JSON array, each record):
-
-| Field | Type | Notes |
-|---|---|---|
-| `platform_id` | str | required |
-| `title` | str | required |
-| `url` | str | required |
-| `platform` | str | required — `'coursera'` or `'udemy'` |
-| `is_free` | bool | required |
-| `avg_rating` | float\|null | |
-| `num_reviews` | int\|null | |
-| `enrollments` | int\|null | |
-| `product_type` | str\|null | |
-| `difficulty` | str\|null | |
-| `skills` | str\|null | comma-separated |
-| `partners` | str\|null | Coursera only |
-| `instructors` | str\|null | Udemy only |
-| `headline` | str\|null | Udemy only |
-| `num_lectures` | int\|null | Udemy only |
-| `duration_hours` | float\|null | Udemy only |
-| `ufb` | bool\|null | Udemy only; always null at ingest — set post-ingest by `load_ufb.py` |
-
-Ingest call (same for both platforms):
-```bash
-uv run --project ~/vibe/licensing-project/catalog catalog platform-ingest <file> <platform>
-```
-
-**Do not touch scraping logic in either project.** The export/sync layer is the only integration point.
-
----
-
-#### Corsair — Coursera (`$BC/corsair-project`)
-
-Scrapes Coursera's full catalog via GraphQL. Saves raw data to `src/corsair/courses.json`.
-Export adapter maps `CourseraCourseSearchResult` → shared spec and ingests into Lake 2.
-
-**Manual sync:**
-```bash
-uv run --project ~/Brian_Code/corsair-project corsair-sync
-# or with custom output path:
-uv run --project ~/Brian_Code/corsair-project corsair-sync --output /tmp/corsair_export.json
-```
-
-**Auto-sync after scrape** (opt-in):
-```bash
-# In corsair-project/.envrc, set:
-export CORSAIR_AUTO_SYNC=1
-# Then run the scraper normally — sync fires automatically at the end of main()
-uv run --project ~/Brian_Code/corsair-project python -m corsair.search_courses
-```
-`CORSAIR_AUTO_SYNC` defaults to `0`. The hook is at the bottom of `search_courses.py:main()`.
-
-**Key files:**
-- `src/corsair/search_courses.py` — GraphQL scraper; writes `courses.json`
-- `src/corsair/export.py` — `to_catalog_json(output_path)` — maps fields, validates, writes export file
-- `src/corsair/sync_catalog.py` — `sync()` / `main()` — calls export then platform-ingest
-
-**Field mapping:**
-
-| Coursera field | platform_courses field |
-|---|---|
-| url path stripped of leading `/` | `platform_id` |
-| `name` | `title` |
-| `https://www.coursera.org` + url | `url` |
-| `avgProductRating` | `avg_rating` |
-| `numProductRatings` | `num_reviews` |
-| `enrollments` | `enrollments` |
-| `productType` | `product_type` |
-| `productDifficultyLevel` | `difficulty` |
-| `skills` (list → comma-sep) | `skills` |
-| `partners` (list → comma-sep) | `partners` |
-| hardcoded `False` | `is_free` |
-| hardcoded `'coursera'` | `platform` |
-
----
-
-#### Menuhin — Udemy (`$BC/menuhin-project`)
-
-_Stub — to be filled in by the Menuhin maintainer._
-
-Scrapes Udemy's catalog. Export adapter maps Udemy API fields → shared spec and ingests into Lake 2.
-
-**Manual sync:**
-```bash
-# TODO: fill in once menuhin-sync entry point is implemented
-```
-
-**Auto-sync after scrape** (opt-in):
-```bash
-# TODO: MENUHIN_AUTO_SYNC env var, same pattern as Corsair
-```
-
-**Key files:** _(to be documented)_
-
-**Field mapping:** _(to be documented — see agreed spec in shared contract above)_
+Before syncing Coursera or Udemy data to Lake 2: read `~/.claude/skills/licensing/platform-scrapers.md`. Covers shared export contract, Corsair (Coursera) and Menuhin (Udemy) sync procedures, field mappings, and ingest commands.
 
 ---
 
 ### Classifier
 
-Two-pass course-level classifier that determines whether a scraped course is a licensing candidate.
-
-**Pass 1 — deterministic pre-filter** (no LLM): reads `context/classifier-blockers.yaml`. Blocks on format, product_type, title, and description patterns. Fast, free.
-
-**Pass 2 — LLM-as-judge**: renders `scripts/classifier_prompt.j2` per course, runs via `ConduitBatchAsync` with `gpt-oss:latest`. Returns a `ClassifierResult` Pydantic model with per-signal verdicts and a `proceed / flag / reject` recommendation.
-
-```bash
-# Batch — classify all unclassified courses in a partner catalog
-/Users/bianders/Brian_Code/conduit-project/.venv/bin/python scripts/classify.py partners/<slug>/catalog.json
-
-# Single course spot-check (no file write)
-/Users/bianders/Brian_Code/conduit-project/.venv/bin/python scripts/classify.py --single 3 partners/<slug>/catalog.json
-
-# Re-classify already-classified courses
-/Users/bianders/Brian_Code/conduit-project/.venv/bin/python scripts/classify.py --overwrite partners/<slug>/catalog.json
-```
-
-Results written back into `catalog.json` per course under a `classifier` key.
-
-**Living config files** (update these to change classifier behavior — no code changes needed):
-- `context/classifier-blockers.yaml` — hard eliminators; add/remove patterns freely
-- `context/classifier-quality-signals.yaml` — LLM signal prompts; edit `prompt:` field to change how the LLM evaluates each signal
-- `context/topic-priority.yaml` — green/yellow/red topic rubric; update whenever Content Strategy's priorities shift
-
-**Local model constraint**: `gpt-oss:latest` runs via HeadwaterClient on AlphaBlue. Do NOT run Ollama directly on MacBook (saturates memory). On MacBook, `conduit query --model gpt-oss` now routes automatically through Headwater — no special flags needed. If Headwater is unreachable, stop and report; do NOT substitute a cloud model.
+Before running the classifier: read `~/.claude/skills/licensing/classifier-reference.md`. Two-pass pipeline (deterministic pre-filter + LLM-as-judge), CLI invocations, and living config files.
 
 ### Checking which partners lack catalogs
 
@@ -825,118 +533,15 @@ done
 
 ### Full batch catalog workflow
 
-When asked to scrape multiple partners:
-
-**Step 1 — Find URLs** (find-catalogues):
-Run find-catalogues on the list of partner names.
-Only pass partners where `confidence` is `high` or `medium` to the next step.
-Skip partners where confidence is `low` or `none` — flag those for manual review.
-
-**Step 2 — Build dispatch list**:
-Filter find-catalogues output to high/medium confidence partners:
-```python
-inputs = [
-    {"provider": company, "url": data["primary_url"]}
-    for company, data in results.items()
-    if data["confidence"] in ("high", "medium")
-]
-```
-
-**Step 3 — Spawn one licensing:catalog-scraper-worker subagent per URL**:
-Spawn a separate `licensing:catalog-scraper-worker` subagent for each URL.
-Never run multiple scrapes sequentially in the main thread. Run all workers with
-`run_in_background=true`. Each worker writes its output (catalog.json, catalog.xlsx,
-report.md) directly to `~/licensing/partners/{slug}/`.
-No consolidation step needed — workers have direct filesystem access.
-
-**Write permission fallback:** Workers frequently hit Write permission walls and cannot
-create files. When a worker returns structured catalog data in its result output instead
-of writing a file, write `catalog.json` in the main session using that data. Do not
-re-dispatch the worker — the scrape is complete; only the write is blocked. Check which
-slugs have files after all workers complete: `for d in ~/licensing/partners/*/; do [[ -f "$d/catalog.json" ]] || echo "$(basename $d)"; done`
-
-**JS-rendered sites:** Some catalogs (e.g. New Relic, Oracle MyLearn) are JS-rendered
-SPAs — static fetch returns no course titles, only page shell. Signal: worker reports
-a course *count* but no *titles*, or notes the page is a SPA/requires JS. Fix: dispatch
-a follow-up worker with explicit Playwright instructions (use `browser_navigate` +
-`browser_evaluate` or `browser_snapshot` to render the catalog). Flag these in the
-initial dispatch summary so the follow-up is easy to queue.
+For multi-partner batch scraping: read `~/.claude/skills/licensing/batch-catalog-workflow.md`. Covers URL discovery, dispatch list building, subagent spawning, write permission fallbacks, and JS-rendered site handling.
 
 ### Course Tiering Framework
 
-After a catalog is scraped, assign every course a tier before sending to partners or CS. This
-replaced the old gap-first approach (avoid overlap with LiL library). The new approach: include
-everything, let CS decide on overlap. Tier is a signal of expected impact, not a pass/fail gate.
-
-| Tier | Definition | Typical signals |
-|---|---|---|
-| **T1** | Super foundational — highest guaranteed ALs | Intro/overview courses; CS priority domains (risk mgmt, cybersecurity, cloud, leadership); topics with proven LiL demand |
-| **T2** | Complementary — not in library, compelling | Critical coverage gaps; niche-but-relevant topics; courses with no LiL equivalent |
-| **T3** | Licensable long tail | Viable but more specialized; CS decides whether to include |
-| **T4 (SKIP)** | Clearly not wanted | Exam prep, youth/teen programs, retake exams, product tool training, EN-AU locale duplicates, generic soft skills with no construction/domain anchor |
-
-**Workflow:** Assign tiers in `catalog.json` (add a `"tier"` key per course), write a tiered
-Google Sheet sorted T1 → T2 → T3 → T4 (SKIP), register in `google_docs.json`, append to catalog
-index. Update partner `notes.md` and `pipeline.md` with sheet URL and tier counts.
-
-**When sending to partners:** Share T1+T2 as the proposed licensing scope. T3 is available but
-not leading with it. T4 (SKIP) rows stay off partner-facing docs.
-
-**When sending to CS for Gate A:** Share full tiered sheet (T1–T3). Overlap with existing LiL
-library is not a disqualifier — CS makes that call.
-
----
+Before tiering a partner catalog: read `~/.claude/skills/licensing/tiering-framework.md`. T1–T4 definitions, workflow, and what to share with partners vs. CS.
 
 ### CS-Approval Catalog Format
 
-When generating a Google Sheet for CS review, use this exact structure:
-
-**Tab 1 — "Tier Definitions"**
-
-| Tier | What it means | Typical signals |
-|---|---|---|
-| T1 | Review first — highest structural fit | Foundational/overview courses; proven LiL demand topics; priority domains (AI/ML, cybersecurity, cloud, leadership, finance) |
-| T2 | Review second — complementary fit | Clear coverage gaps; niche-but-relevant; no LiL equivalent |
-| T3 | Review if bandwidth — licensable long tail | Viable but specialized; CS decides |
-| T4 (SKIP) | Structurally ineligible — do not review | Exam prep, retake exams, product tool training (platform-locked), locale duplicates, youth/teen programs |
-
-This tier taxonomy is structural only — it signals review order based on observable criteria. It does not predict CS decisions or reflect editorial quality judgments.
-
-**Tab 2 — "Course catalog"**
-
-Columns (in order):
-
-| Column | Header | Notes |
-|---|---|---|
-| A | `tier (descriptions in first tab)` | T1 / T2 / T3 / T4 (SKIP) |
-| B | `title` | Cleaned title — see series handling below |
-| C | `description` | From catalog; for series parts, append "Part N of the [Series Name]." sentence |
-| D | `level` | Strict enum: `Beginner` \| `Intermediate` \| `Advanced` |
-| E | `duration` | Prefix with `~` — all values are estimates (e.g., `~30 min`, `~1 hour`) |
-| F+ | partner-specific | e.g., `price`, `url`, `date_scraped` |
-| last-1 | `license? (x)` | CS marks with x |
-| last | `CS notes` | CS freeform |
-
-Sort order: T1 → T2 → T3 → T4 (SKIP). The "T4 (SKIP)" label sorts correctly after T3 lexicographically.
-
-**Level enum mapping** (normalize raw partner values before writing):
-- "Introductory", "Beginner", "Foundational", "101", "Basic" → `Beginner`
-- "Professional", "Intermediate", "Practitioner", "200-level" → `Intermediate`
-- "Advanced", "Expert", "300-level" → `Advanced`
-
-**Series handling:** When course titles follow the pattern `"Topic -- Series Name (Part N)"`:
-- Strip the ` -- Series Name (Part N)` from the title — keep only the topic name
-- Append `"Part N of the Series Name."` as a sentence at the end of the description
-
-**Deduplication rules:**
-- Online vs. non-online: normalize title by stripping `" - Online"` / `": Online"` suffix (case-insensitive). Keep the online variant when both exist; drop the offline duplicate.
-- Locale variants (`--- EN-AU`, `--- EN-CA`, `--- EN-GB`, `--- ZH-SG`, `--- DE-DE`, etc.): drop all locale variants. If no base English version exists for a locale variant, include it but flag in CS notes.
-- Professional certificate bundles: manually verify that courses listed individually are not also counted as part of a bundle row. Do not double-count content.
-
-**Duration sources (in priority order):**
-1. CPE credits in description field (`CPE Credits: N` → `~N hours`)
-2. Scraped from course page (look for clock icon pattern in HTML)
-3. Median placeholder for the partner's catalog (label clearly, e.g., `~30 min`)
+Before generating a Google Sheet for CS review: read `~/.claude/skills/licensing/cs-catalog-format.md`. Covers tab structure, column specs, level enum mapping, series handling, and dedup rules.
 
 ---
 
@@ -984,6 +589,16 @@ layer — when and how to operationalize validated research workflows into sched
 
 ## Subskills
 
+**`vetting-workflow.md`** — Inbound partner vetting procedure (conduit batch queries, screening hierarchy, notes format). Read on "vet this org" triggers.
+
+**`catalog-post-scrape.md`** — Post-scrape catalog index sync (DB course count, sheet creation, index row append, temp file cleanup). Read after any catalog scrape.
+
+**`correspondence-lookup.md`** — Partner email history pull (three-query pattern, dedup, correspondence log format). Read on "check correspondence" triggers.
+
+**`gate-workflow.md`** — Gate decision logging, gate reports, and gate log sync to Google Sheet. Read when gate decisions or reports are mentioned.
+
+**`summarize-business.md`** — Domain and full business context summarization (main-session constraint, output schema). Read on "summarize [domain]" triggers.
+
 **`cosmo.md`** — Cosmo record creation automation. Use for all Cosmo work: building blobs, running fill.py, managing the record lifecycle. **SOT: postgres `cosmo_blobs` table in `catalog` DB — not JSON files.** Covers: cosmo-cli CRUD, blob lifecycle (draft → ready → entered), golden path for new course records, Anaconda deal constants, and remaining 5 Anaconda courses.
 
 **`gartner-pi/`** — Scrapes Gartner Peer Insights for segment rankings and vendor profiles. Use when asked to look up Gartner ratings, find top products in a market segment, or pull a vendor's Gartner profile as part of competitive research.
@@ -998,61 +613,44 @@ layer — when and how to operationalize validated research workflows into sched
 
 ## Meeting Recordings
 
-Workflow for transcribing and summarizing meeting recordings (all-hands, team meetings, 1:1s, etc.).
+When asked to transcribe or summarize a meeting recording: read `~/.claude/skills/licensing/meeting-recordings.md`. **Privacy rule: always use `gpt-oss:latest` via Headwater — never cloud models.**
 
-**Privacy rule:** Recordings contain proprietary content. Always use `gpt-oss:latest` via Headwater. Never use cloud models.
+---
 
-### Golden Path
+## Evals
 
-**Step 1 — Transcribe** (siphon CLI):
+The `evals` CLI lives at `~/vibe/licensing-project/evals/`. It measures skill token usage and hook behavior against real session traces.
+
+**Run it when asked** ("run evals", "check hook misses", "how are the hooks doing"):
+
 ```bash
-siphon extract <recording.mp3>
-```
-Output is a plain-text transcript (speaker-labeled if diarization is available).
-
-**Step 2 — Write summary prompt** (Write tool → `/tmp/<slug>_summary_prompt.txt`):
-```
-You are summarizing a meeting transcript. Extract:
-- Key decisions made
-- Action items (owner, what, by when if stated)
-- Main topics discussed (3–7 bullets per topic)
-- Notable quotes or data points
-
-Transcript:
-<paste transcript>
+uv --directory ~/vibe/licensing-project/evals run evals analyze --last 60 --weekdays-only
 ```
 
-**Step 3 — Summarize via HeadwaterClient** (Python, using pre-existing headwater-client venv):
-```python
-from __future__ import annotations
-import asyncio
-from pathlib import Path
-from headwater_client.client.headwater_client_async import HeadwaterAsyncClient
-from headwater_api.classes import BatchRequest
-from conduit.domain.request.generation_params import GenerationParams
-from conduit.domain.config.conduit_options import ConduitOptions
+**Interpreting the output — Hook Flags column:**
 
-async def main() -> None:
-    prompt = Path("/tmp/<slug>_summary_prompt.txt").read_text()
-    params = GenerationParams(model="gpt-oss:latest", temperature=0.3)
-    options = ConduitOptions(project_name="siphon-summary", include_history=False)
-    batch_req = BatchRequest(prompt_strings_list=[prompt], params=params, options=options)
-    async with HeadwaterAsyncClient() as client:
-        response = await client.conduit.query_batch(batch_req)
-    msg = response.results[0].last
-    content = msg.content
-    if isinstance(content, str):
-        print(content)
-    elif isinstance(content, list):
-        print("".join(c if isinstance(c, str) else c.text for c in content))
-    else:
-        print(str(content))
+- Empty → no hooks triggered that turn (normal for most turns)
+- `[HOOK MISS: name]` → a trigger pattern matched the user's message but the expected tool call wasn't made in that turn window
 
-asyncio.run(main())
+**Known false positive: the SKILL.md injection.** When the skill loads, Claude Code injects the full SKILL.md as a user text entry. The evals code filters this out (`preceded_by_user` guard in `analyzer.py`), but if new injection types appear, a wave of hook misses at turn 1 across all sessions is the signal.
+
+**Acting on real misses:**
+1. Look at which hook and which session/turn
+2. Check what the user actually typed and what tool calls were made
+3. If the hook pattern is too broad (matching unrelated messages) → tighten the trigger regex in `src/evals/hooks.yaml`
+4. If the hook fired correctly but the skill didn't respond → investigate the skill's hook logic in this SKILL.md's `## Hooks` section
+
+**Other commands:**
+
+```bash
+# Token breakdown by SKILL.md section (requires ANTHROPIC_API_KEY)
+uv --directory ~/vibe/licensing-project/evals run evals tokens
+
+# Run synthetic hook tests against a live claude subprocess
+uv --directory ~/vibe/licensing-project/evals run evals test
+
+# Unified dashboard from most recent results
+uv --directory ~/vibe/licensing-project/evals run evals report
 ```
-Run with: `/Users/bianders/Brian_Code/headwater/headwater-client/.venv/bin/python /tmp/summarize.py`
 
-**Step 4 — Save to Obsidian** (Write tool):
-- Path: `$MORPHY/MEET-YYYY-MM-DD-<slug>.md`
-- Use the summary output directly as the note body
-- Slug: lowercase, hyphen-separated, descriptive (e.g., `company-connect`, `cm-ai-research-tools`)
+Results are written to `~/vibe/licensing-project/evals/results/` (git-ignored).
