@@ -249,6 +249,39 @@ conduit batch --json -m sonar-pro \
 
 ---
 
+## Classification at scale
+
+For classifying large datasets, use `conduit batch` with a local model via Headwater. It's cheap, private, and runs all items in parallel.
+
+**Simple case — label comes back as plain text:**
+
+```bash
+# Build one prompt per item (one per line) and batch classify
+conduit batch -m gpt-oss --json -f prompts.txt \
+  | jq -r '.[].response'
+```
+
+Craft each line in `prompts.txt` as a self-contained prompt:
+
+```
+Classify the following review as POSITIVE, NEGATIVE, or NEUTRAL. Reply with the label only.\n\nReview: "Great product, fast shipping."
+Classify the following review as POSITIVE, NEGATIVE, or NEUTRAL. Reply with the label only.\n\nReview: "Arrived broken and support was useless."
+```
+
+Use `--json` to get structured output you can join back to your dataset by index.
+
+**Structured output — when you need more than a label:**
+
+The CLI doesn't support `response_model`, so write a Python script using the `BatchRequest` API (see "Batch inference via headwater_client" above). Pass a Pydantic model as `response_model` and set `output_type="structured_response"`. If instructor errors occur server-side, fall back to `output_type="text"` and parse JSON from the raw response.
+
+**Model choice:**
+
+- `gpt-oss` — default; fast, free, good for straightforward classification
+- `qwen` / `llama` — alternatives if `gpt-oss` quality is insufficient
+- Cloud models (`haiku`, `gpt-mini`) — only if Headwater is unavailable; incurs cost and latency
+
+---
+
 ## POSIX pipe patterns
 
 `--raw` outputs plain text to stdout. This is the key to chaining conduit into pipelines.

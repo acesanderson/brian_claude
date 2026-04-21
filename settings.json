@@ -61,7 +61,12 @@
     "playwright@claude-plugins-official": true
   },
   "skipDangerousModePermissionPrompt": true,
-  "mcpServers": {},
+  "mcpServers": {
+    "playwright-cdp": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--cdp-url", "http://localhost:9222"]
+    }
+  },
   "preferences": {
     "editorMode": "vim"
   },

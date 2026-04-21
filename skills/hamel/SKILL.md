@@ -35,26 +35,28 @@ Then navigate to https://www.delphi.ai/hamel and log in before proceeding.
 
 ## How to ask Hamel a question
 
-Use the Playwright MCP tools in this sequence:
+Use the `playwright-cdp` MCP tools (NOT the plugin playwright tools — those can't connect to existing Chrome).
+
+Tool prefix: `mcp__playwright_cdp__`
 
 1. **Check current page** — take a snapshot to see where Chrome is:
    ```
-   mcp__plugin_playwright_playwright__browser_snapshot
+   mcp__playwright_cdp__browser_snapshot
    ```
 
 2. **Navigate if needed** — if not already on delphi.ai/hamel:
    ```
-   mcp__plugin_playwright_playwright__browser_navigate  url=https://www.delphi.ai/hamel
+   mcp__playwright_cdp__browser_navigate  url=https://www.delphi.ai/hamel
    ```
 
 3. **Click the chat input** — find the textbox ref from the snapshot and click it:
    ```
-   mcp__plugin_playwright_playwright__browser_click  ref=<textbox-ref>
+   mcp__playwright_cdp__browser_click  ref=<textbox-ref>
    ```
 
 4. **Type and submit the question:**
    ```
-   mcp__plugin_playwright_playwright__browser_type
+   mcp__playwright_cdp__browser_type
      ref=<textbox-ref>
      text="Your question here"
      submit=true
