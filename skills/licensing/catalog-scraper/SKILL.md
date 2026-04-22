@@ -281,8 +281,7 @@ Notes:         <any obstacles, partial scrape reasons, or empty>
 
 **We only license self-paced, on-demand content.** The format field is a gate, not just metadata. Courses that cannot be confirmed as self-paced do not belong in T1/T2/T3. When in doubt, return `unknown` — never assume self-paced from ambiguous signals like "online."
 
-The `format` field must use a canonical enum. Free-text format values break the
-downstream classifier. Every scraper MUST call `normalize_format()` before writing
+The `format` field must use a canonical enum. Every scraper MUST call `normalize_format()` before writing
 the format field. Never write a raw scraped string directly into `format`.
 
 **Canonical enum values:**
