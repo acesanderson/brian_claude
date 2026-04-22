@@ -97,7 +97,8 @@ conduit query --raw --model <model> "query"   # plain stdout, safe to pipe
 | `--temperature <float>` | Set temperature |
 | `--chat` | Include conversation history |
 | `--append <text>` | Append extra text to query |
-| `--citations` / `-C` | Print source citations (Perplexity models only) |
+| `--citations` / `-C` | Print source citations (Perplexity sonar models; Google Gemini via grounding) |
+| `--deep-research` / `-D` | Run Gemini Deep Research — comprehensive async report, 5–20 min turnaround. Implies `--citations`. |
 | `--persist` | Persist this query to the message store (off by default for `conduit query`) |
 
 ---
@@ -330,6 +331,8 @@ conduit query --raw --model <model> "$(cat /tmp/query.txt)"
 ## When to use which model
 
 - **Perplexity** (`--model sonar` or `--model sonar-pro`) — web-grounded research, current events, citations (`--citations` to print sources). Use `sonar` for fast/cheap, `sonar-pro` for deeper research.
+- **Gemini grounded** (`--model gemini3 --citations`) — alternative to Perplexity for web-grounded queries. Uses Google Search natively; good for queries where Google's index beats Perplexity.
+- **Gemini Deep Research** (`--model gemini3 --deep-research`) — autonomous multi-step research agent; produces comprehensive cited reports. Use for substantive research questions, not quick lookups. **Turnaround: 5–20 minutes.**
 - **gpt-oss / open-weight models** — preferred for bulk/batch inference (cost, privacy). Use HeadwaterClient exclusively — default to AlphaBlue (Headwater), opt into Caruana (Bywater) with `host_alias="bywater"`. **Never run via local Ollama on MacBook.**
 - **Gemini / Imagen** — image generation, multimodal, long context
 - **haiku / gpt-mini** — cheap cloud fallback when AlphaBlue is unavailable and cost matters

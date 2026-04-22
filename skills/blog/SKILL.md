@@ -5,7 +5,8 @@ description: >
   post pipeline, and cross-session continuity. Use when working in ~/blog/, planning
   content, drafting posts, managing the pipeline, or doing any blog-related task.
   Triggers on "load blog assistant", "open blog", any blog project work, "deslop this
-  post", "clean up the AI-isms", or "run deslop".
+  post", "clean up the AI-isms", "run deslop", "I have a post idea", "I want to write
+  a post", "new blog post", or "start a post".
 ---
 
 # Blog Assistant
@@ -70,6 +71,11 @@ Brian. Does not do implementation work.
 **Assistant session** — scoped mode. Executes one task from `tasks/`. Writes output.
 Updates `manifest.md`. Starts cold — no access to the Manager's conversation history.
 The task file is the full contract.
+
+**Post Pipeline session** — triggered when Brian has a post idea or wants to write a post.
+Immediately read `~/blog/context/post-workflow.md` and begin Phase 0 (guideline intake).
+This session drives all five phases through to a final draft. It is a Manager session
+until Phase 2 (writing), at which point execution work may warrant an Assistant handoff.
 
 **When to suggest spinning an Assistant session:** when the conversation has shifted
 from strategy to a concrete, bounded execution task (drafting a post, configuring
@@ -251,6 +257,13 @@ immediately. Manager only.
 **On task created**
 When a task is ready for an Assistant session: write it to `tasks/<name>.md` and
 append to `manifest.md`. Verify the task file is self-contained before handing off.
+
+**On post idea**
+When Brian mentions a post idea, wants to write a post, or says "I have an idea":
+1. Read `~/blog/context/post-workflow.md` — the full pipeline protocol
+2. Copy `context/post-guideline-template.md` to `drafts/<slug>-guideline.md`
+3. Interview Brian to fill the guideline (push on angle and narrative arc specifically)
+4. Do not proceed to research until topic, angle, arc, key points, and post type are set
 
 **On session depth warning**
 If a Manager session has drifted from strategy into concrete execution work: flag it

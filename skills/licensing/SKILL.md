@@ -33,7 +33,7 @@ When the user requests **local model inference** (`gpt-oss`, `llama`, `qwen`, et
 - NEVER substitute a cloud model (haiku, gpt-mini, claude, gpt-5, gemini, etc.) as a fallback
 - NEVER send proprietary content to any external API, even "just this once"
 - If Headwater (AlphaBlue) is unreachable: stop, report the outage, and wait for the user to resolve it
-- `conduit query --model gpt-oss` and `conduit batch --model gpt-oss` now route automatically through Headwater — no `--local` flag needed
+- `conduit query --model gpt-oss:latest` and `conduit batch --model gpt-oss:latest` now route automatically through Headwater — no `--local` flag needed
 
 ---
 
@@ -518,10 +518,6 @@ catalog industry-search                          # tier summary (company counts 
 Before syncing Coursera or Udemy data to Lake 2: read `~/.claude/skills/licensing/platform-scrapers.md`. Covers shared export contract, Corsair (Coursera) and Menuhin (Udemy) sync procedures, field mappings, and ingest commands.
 
 ---
-
-### Classifier
-
-Before running the classifier: read `~/.claude/skills/licensing/classifier-reference.md`. Two-pass pipeline (deterministic pre-filter + LLM-as-judge), CLI invocations, and living config files.
 
 ### Checking which partners lack catalogs
 
