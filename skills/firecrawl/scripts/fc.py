@@ -97,6 +97,14 @@ def _fmt_opt(f):
     )(f)
 
 
+def _proxy_opt(f):
+    return click.option(
+        "--proxy", default=None,
+        type=click.Choice(["basic", "stealth"]),
+        help="Proxy tier — use 'stealth' for bot-protected pages",
+    )(f)
+
+
 # ── CLI group ─────────────────────────────────────────────────────────────────
 
 @click.group()
@@ -113,6 +121,7 @@ def cli():
 @cli.command()
 @click.argument("url")
 @_fmt_opt
+@_proxy_opt
 @click.option("--only-main/--no-only-main", default=True, show_default=True,
               help="Strip navigation/ads, keep main body")
 @click.option("--include-tags", multiple=True, metavar="TAG",
@@ -127,7 +136,7 @@ def cli():
               help="Natural-language extraction prompt (use with --schema or alone)")
 @click.option("--system-prompt", default=None, metavar="TEXT",
               help="System prompt override for LLM extraction")
-def scrape(url, fmt, only_main, include_tags, exclude_tags, wait_for,
+def scrape(url, fmt, proxy, only_main, include_tags, exclude_tags, wait_for,
            schema, prompt, system_prompt):
     """Scrape a single URL and return its content.
 
@@ -150,6 +159,8 @@ def scrape(url, fmt, only_main, include_tags, exclude_tags, wait_for,
         "formats": ["json"] if use_llm else [fmt],
         "onlyMainContent": only_main,
     }
+    if proxy:
+        body["proxy"] = proxy
     if include_tags:
         body["includeTags"] = list(include_tags)
     if exclude_tags:
@@ -183,8 +194,9 @@ def scrape(url, fmt, only_main, include_tags, exclude_tags, wait_for,
 @click.option("--exclude", "exclude_paths", multiple=True, metavar="REGEX",
               help="Skip paths matching this regex (repeatable)")
 @click.option("--only-main/--no-only-main", default=True, show_default=True)
+@_proxy_opt
 @_wait_opts
-def crawl(url, fmt, limit, depth, include_paths, exclude_paths, only_main,
+def crawl(url, fmt, limit, depth, include_paths, exclude_paths, only_main, proxy,
           wait, poll_interval, poll_timeout):
     """Crawl a site recursively, scraping each discovered page.
 
@@ -199,11 +211,10 @@ def crawl(url, fmt, limit, depth, include_paths, exclude_paths, only_main,
 
       fc crawl https://example.com --no-wait
     """
-    body: dict = {
-        "url": url,
-        "limit": limit,
-        "scrapeOptions": {"formats": [fmt], "onlyMainContent": only_main},
-    }
+    scrape_opts: dict = {"formats": [fmt], "onlyMainContent": only_main}
+    if proxy:
+        scrape_opts["proxy"] = proxy
+    body: dict = {"url": url, "limit": limit, "scrapeOptions": scrape_opts}
     if depth is not None:
         body["maxDepth"] = depth
     if include_paths:
@@ -294,8 +305,9 @@ def search(query, limit, do_scrape, fmt, req_timeout):
 @click.argument("urls", nargs=-1, required=True)
 @_fmt_opt
 @click.option("--only-main/--no-only-main", default=True, show_default=True)
+@_proxy_opt
 @_wait_opts
-def batch(urls, fmt, only_main, wait, poll_interval, poll_timeout):
+def batch(urls, fmt, only_main, proxy, wait, poll_interval, poll_timeout):
     """Scrape multiple URLs in parallel as a single job.
 
     More efficient than running scrape N times. Use --no-wait to get a job
@@ -309,11 +321,9 @@ def batch(urls, fmt, only_main, wait, poll_interval, poll_timeout):
 
       fc batch https://a.com https://b.com --no-wait
     """
-    body: dict = {
-        "urls": list(urls),
-        "formats": [fmt],
-        "onlyMainContent": only_main,
-    }
+    body: dict = {"urls": list(urls), "formats": [fmt], "onlyMainContent": only_main}
+    if proxy:
+        body["proxy"] = proxy
     resp = _post("/v1/batch/scrape", body)
     job_id = resp.get("id")
     if not job_id:

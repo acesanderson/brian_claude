@@ -195,6 +195,23 @@ DATA=$(uv run ~/.claude/skills/firecrawl/scripts/fc.py extract https://example.c
 echo "$DATA" | jq '.data'
 ```
 
+## Proxy / bot protection
+
+The `--proxy` flag is available on `scrape`, `crawl`, and `batch`:
+
+```bash
+fc scrape <url> --proxy stealth
+fc batch <url1> <url2> --proxy stealth
+fc crawl <url> --proxy stealth
+```
+
+| Tier | Behavior |
+|------|----------|
+| `basic` | Default — direct request with Firecrawl's built-in headers |
+| `stealth` | **TBD** — requires Oxylabs to be connected to the Firecrawl server at `172.16.0.4:3002`. The flag is wired and will be sent to the API, but requests will fall back to basic until Oxylabs is configured. |
+
+Symptom of needing stealth: pages return "Vercel Security Checkpoint" or similar bot-wall HTML (~105 chars) instead of real content.
+
 ## Polling behavior
 
 Async verbs (`crawl`, `batch`, `extract`) default to `--wait` mode: they post the job then poll `GET /v1/{verb}/{id}` every 2 seconds until the status is `completed`, `failed`, or `cancelled`. Use `--poll-timeout <secs>` (default 300) to adjust the ceiling. Pass `--no-wait` to return immediately with a `job_id`.
