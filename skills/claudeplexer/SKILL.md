@@ -5,56 +5,108 @@ description: Reference for the claudeplexer CLI tool. ONLY invoke this skill whe
 
 # claudeplexer
 
-Launches multiple Claude Code interactive sessions in parallel tmux windows. Each window opens with a pre-loaded prompt and stays fully interactive.
+Launches and manages Claude Code sessions in tmux windows.
 
 **Project:** `/Users/bianders/vibe/claudeplexer-project`
 **Invoke via:** `uv run --project /Users/bianders/vibe/claudeplexer-project claudeplexer`
 
 ---
 
-## Two modes
+## Commands
 
-### Mode 1 — Prompt strings
+### `launch` — Start new Claude Code instances
 
-Pass prompts directly as positional arguments. Each becomes one tmux window.
-
-```sh
-claudeplexer "Prompt for item one" "Prompt for item two" "Prompt for item three"
-```
-
-### Mode 2 — Jinja2 template + vars
-
-Provide a single template and a JSON array of variable dicts. One window is launched per dict.
+**Mode 1 — Prompt strings**
 
 ```sh
-claudeplexer \
-  --template "Review item <number>{{ number }}</number> in the doc. Think step by step." \
-  --vars '[{"number": "1"}, {"number": "2"}, {"number": "3"}]'
+claudeplexer launch "Prompt for item one" "Prompt for item two"
 ```
 
-The template can be an inline string or a file path. Variables must exactly match the template's Jinja2 placeholders — missing or extra keys are an error.
-
-**Vars from file** (JSON array or JSONL, one object per line):
+**Mode 2 — Jinja2 template + vars**
 
 ```sh
-claudeplexer --template template.j2 --vars-file vars.jsonl
+claudeplexer launch \
+  --template "Review item <number>{{ number }}</number>." \
+  --vars '[{"number": "1"}, {"number": "2"}]'
 ```
 
----
+The template can be an inline string or a file path. Variables must exactly match the Jinja2 placeholders.
 
-## Options
+**Vars from file** (JSON array or JSONL):
+
+```sh
+claudeplexer launch --template template.j2 --vars-file vars.jsonl
+```
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--session NAME` | current session | Create a new named tmux session instead of using the active one |
+| `--session NAME` | current session | Create a new named tmux session |
 | `--max N` | 10 | Cap on concurrent windows |
 
-If run outside a tmux session without `--session`, claudeplexer exits with an error.
+---
+
+### `save` — Save current session to resurrect manifest
+
+Run this from within a Claude Code session to record its ID for later restoration.
+
+```sh
+claudeplexer save
+claudeplexer save --name "my-project"
+```
+
+Detects the session by finding the most recently modified JSONL in
+`~/.claude/projects/<encoded-cwd>/`. Writes to `~/.claude/resurrect.json`,
+deduplicating by working directory.
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--name NAME` | directory basename | Human-readable window name |
+| `--manifest PATH` | `~/.claude/resurrect.json` | Manifest file |
+
+---
+
+### `resurrect` — Restore saved sessions
+
+Reads the manifest and opens each session in a tmux window. Each window runs:
+```
+cd <cwd> && claude --resume <session-id>
+```
+
+```sh
+claudeplexer resurrect
+claudeplexer resurrect --session restored --clear
+```
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--session NAME` | current tmux session | Create a new named tmux session |
+| `--manifest PATH` | `~/.claude/resurrect.json` | Manifest file |
+| `--clear` | off | Delete manifest entries after restoring |
+
+---
+
+## Session resurrection workflow
+
+**Before reboot** — in each Claude Code session, ask Claude to run:
+```sh
+claudeplexer save
+# or with a custom name:
+claudeplexer save --name "headwater"
+```
+
+**After reboot** — from any tmux session:
+```sh
+claudeplexer resurrect --session restored --clear
+```
+
+This opens each saved session in a new tmux window with `claude --resume`.
+Note: `claude --resume` restores conversation history but not session-scoped
+permissions. The working directory is restored via `cd` before launching.
 
 ---
 
 ## Constraints
 
-- Modes cannot be mixed: prompt strings + `--vars` is an error
-- `--vars` and `--vars-file` cannot be used together
-- Max 10 windows per invocation
+- `launch`: modes cannot be mixed (prompt strings + `--vars` is an error)
+- `launch`: max 10 windows per invocation
+- `save`: multiple sessions in the same directory — picks the most recently modified JSONL, which is the active session as long as no two Claude instances share a cwd simultaneously
