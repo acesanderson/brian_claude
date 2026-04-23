@@ -391,9 +391,9 @@ When asked to draft or generate a partner pitch / elevator pitch:
 2. Check if `partners/<slug>/profile.md` exists:
    - If yes: read it — primary source for brand identity, authority signals, alignment lever, and key risks
    - If no: generate via `uv run --project /Users/bianders/vibe/licensing-project/profile python profile.py "<Partner Name>" --slug <slug>`, save output to `partners/<slug>/profile.md`, then read it
-3. Read `boilerplate/outreach.md` (Elevator Pitch Framework section) for the structure
-4. Pull scale anchor and gap hook from `partners/<slug>/notes.md`; use profile.md for brand identity, authority signal, and alignment lever
-5. Write to `partners/<slug>/pitch.md`
+3. Read `boilerplate/outreach.md` (Elevator Pitch Framework section) for the structure and format constraint
+4. Pull scale anchor and topic scope from `partners/<slug>/notes.md`; use profile.md for brand identity and authority signal. Do not frame as filling LiL gaps — describe what the content covers, not what we lack
+5. Write ONE paragraph (~100-150 words). No headers, no caveats, no alignment lever section. Internal deal risks stay in notes.md. Write to `partners/<slug>/pitch.md`
 6. Append to `manifest.md`
 
 **On catalog classified as primarily cert prep**

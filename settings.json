@@ -28,7 +28,11 @@
       "Bash(~/.claude/sdd-state.sh:*)",
       "Bash(uv:*)",
       "Bash(uv run*)",
-      "Bash(psql:*)"
+      "Bash(psql:*)",
+      "Bash(python3 *)",
+      "Bash(sleep *)",
+      "Bash(awk *)",
+      "Bash(seq *)"
     ],
     "deny": []
   },
@@ -40,6 +44,19 @@
           {
             "type": "command",
             "command": "uv run --directory ~/vibe/claude-history-project python -m claude_history.hook",
+            "timeout": 60,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --directory ~/vibe/claude-history-project ch-stop-hook",
             "timeout": 60,
             "async": true
           }
