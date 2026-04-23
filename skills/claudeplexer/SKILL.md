@@ -94,14 +94,52 @@ claudeplexer save
 claudeplexer save --name "headwater"
 ```
 
-**After reboot** — from any tmux session:
+**After reboot** — from within your existing tmux session:
 ```sh
-claudeplexer resurrect --session restored --clear
+claudeplexer resurrect --clear
 ```
 
-This opens each saved session in a new tmux window with `claude --resume`.
+This opens each saved session as a new window in the **current tmux session**. Do NOT pass `--session` unless you want to create a separate tmux session for the restored windows.
 Note: `claude --resume` restores conversation history but not session-scoped
 permissions. The working directory is restored via `cd` before launching.
+
+---
+
+### `alias` — Tag the current session with a name
+
+Stores an alias for the current session in the `claude_history` database.
+
+```sh
+claudeplexer alias roger
+```
+
+Detects the session the same way `save` does (most recently modified JSONL for the current working directory). Requires VPN to reach the Postgres DB.
+
+---
+
+## Session alias workflow
+
+### Saving an alias
+
+When the user says something like **"alias this session as 'X'"** or **"save this session as 'X' with claudeplexer"**, run:
+
+```sh
+uv run --project /Users/bianders/vibe/claudeplexer-project claudeplexer alias X
+```
+
+### Loading an alias into memory
+
+When the user says something like **"load the alias 'X' session"** or **"resume the 'X' session"**, run these two commands in sequence:
+
+```sh
+# 1. Resolve alias to session_id
+uv run --directory ~/vibe/claude-history-project python ~/.claude/skills/claude-history/run.py alias get X
+
+# 2. Fetch all turns for that session_id (use session_id from step 1)
+uv run --directory ~/vibe/claude-history-project python ~/.claude/skills/claude-history/run.py turns <session_id> --limit 200
+```
+
+Parse the JSON output of step 2 and summarize the session context into the current conversation. Focus on: what was being worked on, key decisions made, current state, and any open threads.
 
 ---
 

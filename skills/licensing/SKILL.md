@@ -477,6 +477,28 @@ query patterns, and what to discard. Reference: `find-partner-contacts.md` in th
 scraping to locate the right catalog URL. Output is a JSON object with
 `results.{CompanyName}.primary_url` and `confidence` per company.
 
+**Portal discovery — always do this before treating a URL as complete:**
+
+1. **Probe subdomain + path patterns** — even if find-catalogues returns a URL, check these
+   directly before scraping:
+   ```
+   academy.[company].com        learn.[company].com
+   learning.[company].com       education.[company].com
+   training.[company].com       university.[company].com
+   [company].com/academy        [company].com/learn
+   [company].com/training       [company].com/university
+   ```
+
+2. **Scrape the company homepage** — fetch the main site and check nav/footer for links to
+   learning, academy, training, or education sections. Many providers link their portals from
+   the footer or a secondary nav item that find-catalogues won't surface.
+
+3. **ILT bundled-content flag** — if a scrape returns ILT-only content or zero courses,
+   check whether the ILT listing mentions a bundled self-paced component ("lifetime access
+   to [Academy]", "online courses included", "access to all material after training"). If so,
+   locate and scrape that portal separately — it is often a distinct, licensable product.
+   Do not close a partner on ILT evidence alone until this check is complete.
+
 **`licensing:catalog-scraper`** — scrapes a single training provider's course catalog and
 produces structured JSON, XLSX, and markdown reports. Use for evaluating a partner's content
 depth and quality. Output goes to `~/licensing/partners/{slug}/` when the licensing dir exists.
