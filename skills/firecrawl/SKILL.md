@@ -208,9 +208,19 @@ fc crawl <url> --proxy stealth
 | Tier | Behavior |
 |------|----------|
 | `basic` | Default — direct request with Firecrawl's built-in headers |
-| `stealth` | **TBD** — requires Oxylabs to be connected to the Firecrawl server at `172.16.0.4:3002`. The flag is wired and will be sent to the API, but requests will fall back to basic until Oxylabs is configured. |
+| `stealth` | Routes through Oxylabs residential proxy. Requires `PROXY_SERVER`, `PROXY_USERNAME`, and `PROXY_PASSWORD` set in the server's `.env` **and** a `PLAYWRIGHT_MICROSERVICE_URL` pointing to a running Playwright container. Without the Playwright service, stealth fails with `SCRAPE_RETRY_LIMIT / document_antibot` even on unprotected sites. |
+
+**Server `.env` for Oxylabs:**
+```
+PROXY_SERVER=pr.oxylabs.io:7777
+PROXY_USERNAME=customer-YOURNAME   # note: must include "customer-" prefix
+PROXY_PASSWORD=yourpassword
+PLAYWRIGHT_MICROSERVICE_URL=http://<playwright-host>:<port>
+```
 
 Symptom of needing stealth: pages return "Vercel Security Checkpoint" or similar bot-wall HTML (~105 chars) instead of real content.
+
+Symptom of misconfigured proxy: `stealth` returns `SCRAPE_RETRY_LIMIT / document_antibot` on a page with no bot protection — the proxy is returning an auth error and Firecrawl misreads it as a bot wall. Check the `customer-` prefix on `PROXY_USERNAME` and verify credentials.
 
 ## Polling behavior
 

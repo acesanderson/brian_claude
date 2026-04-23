@@ -192,15 +192,29 @@ AND append to `manifest.md`. Do both, always.
 Before generating any email draft, outreach message, or boilerplate text: read
 `~/.claude/skills/licensing/writing-style.md` and apply exactly. No exceptions.
 
-**On new partner introduced**
-When a partner is mentioned with no existing file and no pipeline entry: create
-`partners/<name>/notes.md` using the template at `~/.claude/skills/licensing/templates/partner-notes.md`
-and add a row to `pipeline.md` in the same action. Never leave a partner floating in
-conversation without landing in both places.
+**On "add [X] as a partner"**
+Triggers: "add [name] as a partner", "add [name] to the pipeline", or any explicit intent to onboard a new partner.
 
-If the partner is in the CE/L&D space: check `~/licensing/customer_ed_rolodex.csv` for any
-employees from that org (match on `company` column). A hit signals community presence and
-may reveal a warm intro path — surface any matches in the notes file.
+Four-step workflow — all steps required, in order, without waiting for the user to ask:
+
+1. **Create subdirectory + notes** — `mkdir -p ~/licensing/partners/<slug>` and create `partners/<slug>/notes.md` using the template at `~/.claude/skills/licensing/templates/partner-notes.md`
+2. **Update pipeline.md** — add a row for this partner (default stage: `Sourcing — Research` if not specified)
+3. **Generate profile** — run immediately:
+   ```bash
+   uv run --directory /Users/bianders/vibe/licensing-project/profile python profile.py "<Partner Name>" --slug <slug>
+   ```
+   Output auto-saves to `partners/<slug>/profile.md`. Read it after generation.
+4. **Scrape catalog** — if no URL provided, run `find-catalogues` first; then spawn one `licensing:catalog-scraper-worker` subagent with `run_in_background=true`
+
+Append to `manifest.md` after all steps complete.
+
+If the partner is in the CE/L&D space: check `~/licensing/customer_ed_rolodex.csv` for any employees from that org (match on `company` column). Surface any matches in the notes file.
+
+**On new partner introduced** (passive — no explicit "add" command)
+When a partner name appears in conversation with no existing file and no pipeline entry:
+create `partners/<name>/notes.md` and add a row to `pipeline.md`. Then follow the same
+four-step workflow above. Never leave a partner floating in conversation without landing
+in both places.
 
 **On Google Doc opened in browser**
 When asked to open a Google Doc, Sheet, or Drive file in the browser: use `Bash` to run
@@ -462,6 +476,28 @@ query patterns, and what to discard. Reference: `find-partner-contacts.md` in th
 **`find-catalogues`** — discovers training portal URLs for a given company. Use before
 scraping to locate the right catalog URL. Output is a JSON object with
 `results.{CompanyName}.primary_url` and `confidence` per company.
+
+**Portal discovery — always do this before treating a URL as complete:**
+
+1. **Probe subdomain + path patterns** — even if find-catalogues returns a URL, check these
+   directly before scraping:
+   ```
+   academy.[company].com        learn.[company].com
+   learning.[company].com       education.[company].com
+   training.[company].com       university.[company].com
+   [company].com/academy        [company].com/learn
+   [company].com/training       [company].com/university
+   ```
+
+2. **Scrape the company homepage** — fetch the main site and check nav/footer for links to
+   learning, academy, training, or education sections. Many providers link their portals from
+   the footer or a secondary nav item that find-catalogues won't surface.
+
+3. **ILT bundled-content flag** — if a scrape returns ILT-only content or zero courses,
+   check whether the ILT listing mentions a bundled self-paced component ("lifetime access
+   to [Academy]", "online courses included", "access to all material after training"). If so,
+   locate and scrape that portal separately — it is often a distinct, licensable product.
+   Do not close a partner on ILT evidence alone until this check is complete.
 
 **`licensing:catalog-scraper`** — scrapes a single training provider's course catalog and
 produces structured JSON, XLSX, and markdown reports. Use for evaluating a partner's content

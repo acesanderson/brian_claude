@@ -1,8 +1,5 @@
 {
-  "additionalDirectories": [
-    "/Users/bianders/vibe",
-    "/Users/bianders/Brian_Code"
-  ],
+  "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
       "mcp__captain__*",
@@ -61,15 +58,22 @@
     "playwright@claude-plugins-official": true
   },
   "skipDangerousModePermissionPrompt": true,
+  "additionalDirectories": [
+    "/Users/bianders/vibe",
+    "/Users/bianders/Brian_Code"
+  ],
   "mcpServers": {
     "playwright-cdp": {
       "command": "npx",
-      "args": ["@playwright/mcp@latest", "--cdp-url", "http://localhost:9222"]
+      "args": [
+        "@playwright/mcp@latest",
+        "--cdp-url",
+        "http://localhost:9222"
+      ]
     }
   },
   "preferences": {
     "editorMode": "vim"
   },
-  "includeCoAuthoredBy": false,
   "gitAttribution": false
 }
