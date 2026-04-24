@@ -92,5 +92,6 @@
   "preferences": {
     "editorMode": "vim"
   },
-  "gitAttribution": false
+  "gitAttribution": false,
+  "editorMode": "vim"
 }

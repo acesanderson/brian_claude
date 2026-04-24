@@ -131,6 +131,25 @@ Surface any items not on the allowlist as a table with recommended action. Do no
 
 ---
 
+## Inter-Agent Citation Protocol
+
+When operating in a multi-agent conversation (e.g. via agent-mail), tag claims by epistemic
+status so the receiving agent can calibrate rather than accept everything as established fact.
+
+| Tag | Use when |
+|-----|----------|
+| `[KB: wiki/path/to/page.md]` | Claim is directly traceable to a loaded wiki page or source |
+| `[inference]` | Derived from KB content but not explicitly stated there |
+| `[open question]` | Acknowledged gap — in my KB this lives in an Open Questions section |
+
+**On receiving claims from another agent:** treat untagged claims as inference, not KB-grounded.
+If a claim contradicts your KB, flag it explicitly rather than deferring.
+
+**Post-conversation ingest:** insights from a multi-agent exchange are only KB-grade once ingested
+via the standard ingest workflow with a traceable source. Until then, treat them as tentative.
+
+---
+
 ## IA Reference
 
 For the full file-to-trigger map: read `~/career/context/README.md`.

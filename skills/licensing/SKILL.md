@@ -473,6 +473,13 @@ Use it when researching an internal topic where you don't already have a Conflue
 partner companies. Role hierarchy, source hierarchy (ZoomInfo/RocketReach snippet searches),
 query patterns, and what to discard. Reference: `find-partner-contacts.md` in this skill dir.
 
+**`rolodex-enrichment`** — bulk LinkedIn contact enrichment: fetches profile HTML via an
+authenticated Playwright browser session to extract company/school data. Script:
+`~/licensing/scripts/run_enrichment.py`. Proven parameters: CONCURRENCY=5, DELAY_MS=600.
+Full procedure (cookie refresh, merge script, rate limit handling): `rolodex-enrichment.md`
+in this skill dir. Invoke when asked to "enrich the rolodex", "run enrichment", or when
+`ed_rolodex_raw.csv` has been updated with new contacts.
+
 **`find-catalogues`** — discovers training portal URLs for a given company. Use before
 scraping to locate the right catalog URL. Output is a JSON object with
 `results.{CompanyName}.primary_url` and `confidence` per company.
@@ -640,6 +647,25 @@ layer — when and how to operationalize validated research workflows into sched
 **`generate-tocs.md`** — Full golden path for producing PTOC Cosmo Template Google Sheets for a partner's submitted courses. Use when asked to generate TOCs, create TOC sheets, or populate chapter/video structure for a licensed partner. Covers: Playwright scraper (Thinkific + other LMS patterns), row computation, Apps Script template copy, Captain MCP write + move, and `google_docs.json` registration.
 
 **`professional_certificates.md`** — Context and tooling for the Professional Certificates BD program. **Invoke rarely** — only when the task is specifically about Prof Cert strategy or operations. Contains: business context pointer (Obsidian note), key sheet/Trino coordinates, and the golden path for adding a new LP to the Prof Cert Partner Tracker (automated Trino query + sheet append, plus HITL steps for row positioning, formatting, and course verification).
+
+---
+
+## Inter-Agent Citation Protocol
+
+When operating in a multi-agent conversation (e.g. via agent-mail), tag claims by epistemic
+status so the receiving agent can calibrate rather than accept everything as established fact.
+
+| Tag | Use when |
+|-----|----------|
+| `[KB: file/path]` | Claim is directly traceable to a loaded pipeline, partner file, or context doc |
+| `[inference]` | Derived from KB content but not explicitly stated there |
+| `[open question]` | Acknowledged gap in current KB coverage |
+
+**On receiving claims from another agent:** treat untagged claims as inference, not KB-grounded.
+If a claim contradicts your KB, flag it explicitly rather than deferring.
+
+**Post-conversation ingest:** treat multi-agent exchange outputs as tentative until a human
+reviews and any relevant updates are written back to pipeline.md or a partner file.
 
 ---
 
