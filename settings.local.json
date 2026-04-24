@@ -86,7 +86,9 @@
       "mcp__plugin_playwright_playwright__browser_snapshot",
       "mcp__plugin_playwright_playwright__browser_click",
       "mcp__plugin_playwright_playwright__browser_type",
-      "Skill(update-config)"
+      "Skill(update-config)",
+      "Bash(cp /tmp/tmux-skill-statusbar.md ~/.claude/skills/tmux/design-statusbar.md)",
+      "Bash(cp /tmp/tmux-skill-artifact.md ~/.claude/skills/tmux/design-artifact.md)"
     ]
   }
 }
