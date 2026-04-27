@@ -1,6 +1,6 @@
 ---
 name: tmux
-description: Use when manipulating the user's tmux session — opening monitor panes, detecting active windows, sending keys to other windows, or surfacing output without interrupting the user's focus. Also reference for TBD features: Claude Code session topology status bar and terminal artifact display.
+description: Use when manipulating the user's tmux session — opening monitor panes, detecting active windows, sending keys to other windows, or surfacing output without interrupting the user's focus. Also reference for TBD features: Claude Code session topology status bar, terminal artifact display, and Headwater scheduled batch job orchestration.
 ---
 
 # tmux
@@ -117,3 +117,16 @@ command -v bat  &>/dev/null && RENDER_CMD="bat --paging=always /tmp/claude-artif
 command -v glow &>/dev/null && RENDER_CMD="glow /tmp/claude-artifact.md"
 tmux display-popup -w 80% -h 80% -E "$RENDER_CMD; echo '--- press any key ---'; read -rn1"
 ```
+
+---
+
+## TBD: Headwater scheduled batch job orchestration
+
+**Status:** Design complete, not yet implemented.
+**Design doc:** `design-broadcast.md` in this skill directory.
+
+Summary: Instead of broadcasting prompts to tmux agent windows at runtime, submit a batch job to HeadwaterServer's `/jobs` endpoint and let the server execute inference autonomously at a scheduled time (e.g., 3 AM). MacBook can be closed after submit. Client fetches results the next morning via `--fetch JOB_ID`.
+
+Key components: `POST /jobs` on the router (port 8081), SQLite job store with TTL cleanup, asyncio scheduler in FastAPI lifespan, new `--submit` / `--fetch` flags on `classify_orgs.py`.
+
+Key implementation note: the router's scheduler calls `/conduit/batch` on a backend server as an HTTP client — it does not call the conduit batch service function directly. `aiosqlite` must be added to `headwater-server/pyproject.toml`.

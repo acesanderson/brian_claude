@@ -260,6 +260,30 @@ async def run(index: dict[str, str]) -> dict[str, MyClassification]:
 
 ---
 
+## Non-negotiable before any full run
+
+**Checkpoint before you run.** This is mandatory, not optional. A crash at chunk 130/199 with no checkpoint means starting the entire run over — including work completed on the other host. Learned the hard way.
+
+Required pattern — add before `_classify_half`:
+
+```python
+CHECKPOINT = Path("/tmp/classify_checkpoint.json")
+
+def load_checkpoint(model):
+    if not CHECKPOINT.exists():
+        return {}
+    return {k: model(**v) for k, v in json.loads(CHECKPOINT.read_text()).items()}
+
+def save_checkpoint(results):
+    CHECKPOINT.write_text(json.dumps({k: v.model_dump() for k, v in results.items()}))
+```
+
+Inside `half()`: skip keys already in checkpoint, call `save_checkpoint({**checkpoint, **results})` after every chunk. On startup, load checkpoint and exclude already-classified keys from `org_keys`.
+
+**NEVER delete the checkpoint before confirming the run completed.** If restarting after a crash, the checkpoint holds all prior work. Only clear it after the final CSV has been written and verified.
+
+---
+
 ## Known gaps — mitigate before scaling
 
 **Resumability.** Crash at chunk 30/60 = start over. Write a checkpoint JSON after each chunk; skip already-classified keys on startup. Merges naturally with an identity cache.

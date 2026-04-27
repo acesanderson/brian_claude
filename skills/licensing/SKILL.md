@@ -327,7 +327,7 @@ Review the current conversation for meaningful improvements to this skill. Updat
 **Step 4 — Root cleanup audit:**
 Run `ls ~/licensing/` and diff against the canonical allowlist:
 
-- **Files:** `pipeline.md`, `manifest.md`, `state.md`, `gate_log.json`, `CLAUDE.md`, `USAGE.md`
+- **Files:** `pipeline.md`, `manifest.md`, `state.md`, `gate_log.json`, `CLAUDE.md`, `USAGE.md`, `README.md`, `diagram.svg`
 - **Dirs:** `partners/`, `topics/`, `context/`, `projects/`, `daily/`, `scripts/`, `boilerplate/`, `partner-assets/`, `meta/`, `.claude/`, `.git/`, `.cache/`, `.pytest_cache/`
 
 For each item not on the allowlist, classify and surface a one-line entry:
