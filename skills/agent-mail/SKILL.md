@@ -43,6 +43,15 @@ Bad names: `claude`, `assistant`, `agent` (too generic — collisions likely)
 
 If you were told your name by the user or by a message you received, use that name exactly.
 
+**Register immediately at session start** — before doing anything else:
+
+```bash
+agent-mail register --as <your-name> --json
+```
+
+This is a no-op if you later send messages, but it lets other agents find you and start threads
+without waiting for you to speak first.
+
 ## When to use email vs chat
 
 **Use `send` (one-way email)** when:
@@ -128,11 +137,21 @@ agent-mail thread <thread-uuid> --json
 
 Returns all turns in order. Read this before replying if you need the full context.
 
-### Find another agent's UUID
+### Register without sending
+
+```bash
+agent-mail register --as <your-name> --json
+```
+
+### Find another agent's UUID (debugging only)
 
 ```bash
 agent-mail find <name> --json
 ```
+
+Do **not** call `find` before starting a chat to check if the recipient exists. The recipient
+does not need to be pre-registered — just send. Checking first and bailing on `AGENT_NOT_FOUND`
+is the anti-pattern that caused latching failures.
 
 ### List everything (all agents, all mail)
 
@@ -255,55 +274,69 @@ database themselves.
 
 ## Autonomous negotiation loop
 
-When participating in a chat thread, **run the full negotiation autonomously** — don't take one turn and stop. After sending a reply, poll until the other agent responds, then act on it. Repeat until the thread resolves.
+When participating in a chat thread, **run the full negotiation autonomously** — don't take one turn and stop. After sending a reply, background a polling task, wait for the notification, then act on it. Repeat until the thread resolves.
 
-```bash
-# After sending a reply, poll for the next turn (bounded — up to 2 minutes)
+### Step 1 — Load TaskCreate
+
+TaskCreate is a deferred tool. Load it before starting any polling:
+
+```
+ToolSearch query="select:TaskCreate,TaskOutput"
+```
+
+### Step 2 — Background the poll
+
+After sending each reply, immediately create a background task to watch for the next turn. Do NOT use a raw Bash for-loop — that requires a permission approval for the whole script. TaskCreate runs it cleanly in the background and wakes you when it's done.
+
+```python
+# Pseudocode for what to pass to TaskCreate:
+description = "Poll thread <thread-uuid> for turn > <N> from anyone except <my-name>"
+command = """
 THREAD_ID="<thread-uuid>"
 MY_NAME="<your-name>"
 CURRENT_TURN=<turn-you-just-sent>
-MAX_TRIES=24  # 24 × 5s = 2 minutes
 
-for i in $(seq 1 $MAX_TRIES); do
-  LATEST=$(agent-mail thread "$THREAD_ID" --json | python3 -c "
-import sys, json
-turns = json.load(sys.stdin)['data']
-latest = turns[-1]
-print(latest['turn'], latest['from_name'], latest['status'])
-")
-  LATEST_TURN=$(echo "$LATEST" | awk '{print $1}')
-  LATEST_FROM=$(echo "$LATEST" | awk '{print $2}')
-  LATEST_STATUS=$(echo "$LATEST" | awk '{print $3}')
-
-  if [ "$LATEST_STATUS" = "resolved" ]; then
-    echo "Thread resolved."
-    break
-  fi
-
-  if [ "$LATEST_TURN" -gt "$CURRENT_TURN" ] && [ "$LATEST_FROM" != "$MY_NAME" ]; then
-    echo "New reply on turn $LATEST_TURN — proceeding."
-    break
-  fi
-
+for i in $(seq 1 24); do
+  RESULT=$(uv run --directory /Users/bianders/vibe/agent-mail agent-mail thread "$THREAD_ID" --json)
+  TURN=$(echo "$RESULT" | python3 -c "import sys,json; t=json.load(sys.stdin)['data']; print(t[-1]['turn'])")
+  FROM=$(echo "$RESULT" | python3 -c "import sys,json; t=json.load(sys.stdin)['data']; print(t[-1]['from_name'])")
+  STATUS=$(echo "$RESULT" | python3 -c "import sys,json; t=json.load(sys.stdin)['data']; print(t[-1]['status'])")
+  if [ "$STATUS" = "resolved" ]; then echo "resolved"; exit 0; fi
+  if [ "$TURN" -gt "$CURRENT_TURN" ] && [ "$FROM" != "$MY_NAME" ]; then echo "new turn $TURN"; exit 0; fi
   sleep 5
 done
-
-if [ "$i" -eq "$MAX_TRIES" ]; then
-  echo "No reply after 2 minutes — stopping. Tell the user the other agent hasn't responded."
-fi
+echo "timeout"
+"""
 ```
 
-Then read the thread, compose your reply, send it, and loop again until you're ready to resolve.
+### Step 3 — Wait for the notification, then reply
 
-If the thread reaches its `end-state`, resolve it:
+When the background task completes, you'll receive a `<task-notification>`. At that point:
+
+1. Read the thread to get the latest turn
+2. Compose and send your reply
+3. If the thread is now resolved (status = "resolved"), stop — don't send another reply
+4. Otherwise, go back to Step 2
+
 ```bash
-agent-mail reply --thread "$THREAD_ID" --from "$MY_NAME" --body "Agreed. Proceeding." --resolve --json
+# Read the thread after notification
+uv run --directory /Users/bianders/vibe/agent-mail agent-mail thread "$THREAD_ID" --json
+```
+
+### Step 4 — Resolve when done
+
+When the end-state is reached:
+
+```bash
+uv run --directory /Users/bianders/vibe/agent-mail agent-mail reply \
+  --thread "$THREAD_ID" --from "$MY_NAME" \
+  --body "Agreed. Proceeding." --resolve --json
 ```
 
 **The loop terminates when:**
 - You send `--resolve`
-- The other agent sent `--resolve` (status = "resolved")
-- 2 minutes pass with no reply (bail and tell the user)
+- The other agent sent `--resolve` (status = "resolved" in the thread)
+- The poll task exits with "timeout" — bail and tell the user the other agent hasn't responded
 
 ## After resolution: persist the outcome
 

@@ -184,6 +184,20 @@ After updating the stage: read `pipeline-stages.md` (in this skill's directory).
 
 Canonical stage enum + per-stage hook behavior: `~/.claude/skills/licensing/pipeline-stages.md`.
 
+**On deal moved to Internal Approval**
+When a partner's stage is updated to `Internal Approval`: flag the following before closing the topic.
+
+Brian must own the CS review prep end-to-end — handing Kim a sheet is not a handoff.
+The failure mode: Brian sends the CS Review sheet to Kim and assumes she'll reconstruct the pitch for Mary.
+She won't have the deal context. The review lands cold and doesn't advance.
+
+Required before marking a deal as submitted for CS review:
+1. Brief Kim directly — walk her through the pitch angle, the key course clusters, and any caveats (cannibalization concern, format question, co-brand flags, etc.)
+2. Confirm she has what she needs to present confidently to Mary — not just the sheet, but the *why*
+3. If Brian won't be in the room: write a one-paragraph brief for Kim summarizing the deal angle and what a "yes" looks like
+
+Surface this as a checklist item whenever the stage transitions, not after the fact.
+
 **On comms drafted or sent**
 When an email or message is drafted or marked as sent: write it to `partners/<name>/notes.md`
 AND append to `manifest.md`. Do both, always.
@@ -191,6 +205,18 @@ AND append to `manifest.md`. Do both, always.
 **On drafting any email or boilerplate**
 Before generating any email draft, outreach message, or boilerplate text: read
 `~/.claude/skills/licensing/writing-style.md` and apply exactly. No exceptions.
+
+**On partner onboarding — two-step process**
+Onboarding boilerplate is two steps; never skip ahead.
+
+- **Step 1 (Template F):** When a deal is waiting on CS approval or content alignment but
+  onboarding hasn't started, offer to send the parallel kickoff ask to the BD contact.
+  This asks for consent and identifies the accounting contact. Do not send the primer yet.
+- **Step 2 (Template F2):** Only after the BD contact consents. Give them the primer to
+  forward to their accounting/billing contact before Mallory's DocuSign arrives. Timing is
+  the entire value — it must go before the DocuSign, not after the first follow-up bounces.
+
+Both templates are in `boilerplate/outreach.md`.
 
 **On "add [X] as a partner"**
 Triggers: "add [name] as a partner", "add [name] to the pipeline", or any explicit intent to onboard a new partner.
@@ -327,8 +353,8 @@ Review the current conversation for meaningful improvements to this skill. Updat
 **Step 4 — Root cleanup audit:**
 Run `ls ~/licensing/` and diff against the canonical allowlist:
 
-- **Files:** `pipeline.md`, `manifest.md`, `state.md`, `gate_log.json`, `CLAUDE.md`, `USAGE.md`
-- **Dirs:** `partners/`, `topics/`, `context/`, `projects/`, `daily/`, `scripts/`, `boilerplate/`, `partner-assets/`, `meta/`, `.claude/`, `.git/`, `.cache/`, `.pytest_cache/`
+- **Files:** `pipeline.md`, `manifest.md`, `state.md`, `gate_log.json`, `CLAUDE.md`, `USAGE.md`, `README.md`, `diagram.svg`
+- **Dirs:** `partners/`, `topics/`, `context/`, `projects/`, `daily/`, `scripts/`, `boilerplate/`, `partner-assets/`, `meta/`, `queue/`, `.claude/`, `.git/`, `.cache/`, `.pytest_cache/`
 
 For each item not on the allowlist, classify and surface a one-line entry:
 
@@ -391,9 +417,9 @@ When asked to draft or generate a partner pitch / elevator pitch:
 2. Check if `partners/<slug>/profile.md` exists:
    - If yes: read it — primary source for brand identity, authority signals, alignment lever, and key risks
    - If no: generate via `uv run --project /Users/bianders/vibe/licensing-project/profile python profile.py "<Partner Name>" --slug <slug>`, save output to `partners/<slug>/profile.md`, then read it
-3. Read `boilerplate/outreach.md` (Elevator Pitch Framework section) for the structure
-4. Pull scale anchor and gap hook from `partners/<slug>/notes.md`; use profile.md for brand identity, authority signal, and alignment lever
-5. Write to `partners/<slug>/pitch.md`
+3. Read `boilerplate/outreach.md` (Elevator Pitch Framework section) for the structure and format constraint
+4. Pull scale anchor and topic scope from `partners/<slug>/notes.md`; use profile.md for brand identity and authority signal. Do not frame as filling LiL gaps — describe what the content covers, not what we lack
+5. Write ONE paragraph (~100-150 words). No headers, no caveats, no alignment lever section. Internal deal risks stay in notes.md. Write to `partners/<slug>/pitch.md`
 6. Append to `manifest.md`
 
 **On catalog classified as primarily cert prep**
@@ -472,6 +498,13 @@ Use it when researching an internal topic where you don't already have a Conflue
 **`find-partner-contacts`** — technique for finding cold outreach targets at external
 partner companies. Role hierarchy, source hierarchy (ZoomInfo/RocketReach snippet searches),
 query patterns, and what to discard. Reference: `find-partner-contacts.md` in this skill dir.
+
+**`rolodex-enrichment`** — bulk LinkedIn contact enrichment: fetches profile HTML via an
+authenticated Playwright browser session to extract company/school data. Script:
+`~/licensing/scripts/run_enrichment.py`. Proven parameters: CONCURRENCY=5, DELAY_MS=600.
+Full procedure (cookie refresh, merge script, rate limit handling): `rolodex-enrichment.md`
+in this skill dir. Invoke when asked to "enrich the rolodex", "run enrichment", or when
+`ed_rolodex_raw.csv` has been updated with new contacts.
 
 **`find-catalogues`** — discovers training portal URLs for a given company. Use before
 scraping to locate the right catalog URL. Output is a JSON object with
@@ -640,6 +673,25 @@ layer — when and how to operationalize validated research workflows into sched
 **`generate-tocs.md`** — Full golden path for producing PTOC Cosmo Template Google Sheets for a partner's submitted courses. Use when asked to generate TOCs, create TOC sheets, or populate chapter/video structure for a licensed partner. Covers: Playwright scraper (Thinkific + other LMS patterns), row computation, Apps Script template copy, Captain MCP write + move, and `google_docs.json` registration.
 
 **`professional_certificates.md`** — Context and tooling for the Professional Certificates BD program. **Invoke rarely** — only when the task is specifically about Prof Cert strategy or operations. Contains: business context pointer (Obsidian note), key sheet/Trino coordinates, and the golden path for adding a new LP to the Prof Cert Partner Tracker (automated Trino query + sheet append, plus HITL steps for row positioning, formatting, and course verification).
+
+---
+
+## Inter-Agent Citation Protocol
+
+When operating in a multi-agent conversation (e.g. via agent-mail), tag claims by epistemic
+status so the receiving agent can calibrate rather than accept everything as established fact.
+
+| Tag | Use when |
+|-----|----------|
+| `[KB: file/path]` | Claim is directly traceable to a loaded pipeline, partner file, or context doc |
+| `[inference]` | Derived from KB content but not explicitly stated there |
+| `[open question]` | Acknowledged gap in current KB coverage |
+
+**On receiving claims from another agent:** treat untagged claims as inference, not KB-grounded.
+If a claim contradicts your KB, flag it explicitly rather than deferring.
+
+**Post-conversation ingest:** treat multi-agent exchange outputs as tentative until a human
+reviews and any relevant updates are written back to pipeline.md or a partner file.
 
 ---
 
