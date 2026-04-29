@@ -17,12 +17,29 @@ inputs = [
 ]
 ```
 
-**Step 3 — Spawn one licensing:catalog-scraper-worker subagent per URL**:
-Spawn a separate `licensing:catalog-scraper-worker` subagent for each URL.
-Never run multiple scrapes sequentially in the main thread. Run all workers with
-`run_in_background=true`. Each worker writes its output (catalog.json, catalog.xlsx,
-report.md) directly to `~/licensing/partners/{slug}/`.
-No consolidation step needed — workers have direct filesystem access.
+**Step 3 — Spawn workers in batches of 5**:
+Spawn workers in batches of **5 at a time** — never all at once. Each worker opens a
+Playwright/Chrome instance; dispatching too many simultaneously exhausts system memory.
+
+Dispatch a batch of 5, wait for all 5 to complete, then dispatch the next 5.
+
+Use `run_in_background=true` within each batch so the 5 run in parallel, but wait for
+the batch to finish before starting the next one.
+
+Each worker writes its output (catalog.json, catalog.xlsx, report.md) directly to
+`~/licensing/partners/{slug}/`. No consolidation step needed — workers have direct
+filesystem access.
+
+**Checkpoint / resume pattern** — `catalog.json` presence is the checkpoint. At any
+point (including after a context compression or session restart), reconstruct the pending
+queue by scanning:
+```bash
+for slug in <full_partner_list>; do
+  [[ ! -f ~/licensing/partners/$slug/catalog.json ]] && echo "$slug"
+done
+```
+Dispatch the next batch of 5 from whatever remains. Completed partners are
+self-evidencing — never track progress in conversation context.
 
 **Write permission fallback:** Workers frequently hit Write permission walls and cannot
 create files. When a worker returns structured catalog data in its result output instead

@@ -184,6 +184,20 @@ After updating the stage: read `pipeline-stages.md` (in this skill's directory).
 
 Canonical stage enum + per-stage hook behavior: `~/.claude/skills/licensing/pipeline-stages.md`.
 
+**On deal moved to Internal Approval**
+When a partner's stage is updated to `Internal Approval`: flag the following before closing the topic.
+
+Brian must own the CS review prep end-to-end — handing Kim a sheet is not a handoff.
+The failure mode: Brian sends the CS Review sheet to Kim and assumes she'll reconstruct the pitch for Mary.
+She won't have the deal context. The review lands cold and doesn't advance.
+
+Required before marking a deal as submitted for CS review:
+1. Brief Kim directly — walk her through the pitch angle, the key course clusters, and any caveats (cannibalization concern, format question, co-brand flags, etc.)
+2. Confirm she has what she needs to present confidently to Mary — not just the sheet, but the *why*
+3. If Brian won't be in the room: write a one-paragraph brief for Kim summarizing the deal angle and what a "yes" looks like
+
+Surface this as a checklist item whenever the stage transitions, not after the fact.
+
 **On comms drafted or sent**
 When an email or message is drafted or marked as sent: write it to `partners/<name>/notes.md`
 AND append to `manifest.md`. Do both, always.
@@ -191,6 +205,18 @@ AND append to `manifest.md`. Do both, always.
 **On drafting any email or boilerplate**
 Before generating any email draft, outreach message, or boilerplate text: read
 `~/.claude/skills/licensing/writing-style.md` and apply exactly. No exceptions.
+
+**On partner onboarding — two-step process**
+Onboarding boilerplate is two steps; never skip ahead.
+
+- **Step 1 (Template F):** When a deal is waiting on CS approval or content alignment but
+  onboarding hasn't started, offer to send the parallel kickoff ask to the BD contact.
+  This asks for consent and identifies the accounting contact. Do not send the primer yet.
+- **Step 2 (Template F2):** Only after the BD contact consents. Give them the primer to
+  forward to their accounting/billing contact before Mallory's DocuSign arrives. Timing is
+  the entire value — it must go before the DocuSign, not after the first follow-up bounces.
+
+Both templates are in `boilerplate/outreach.md`.
 
 **On "add [X] as a partner"**
 Triggers: "add [name] as a partner", "add [name] to the pipeline", or any explicit intent to onboard a new partner.
@@ -328,7 +354,7 @@ Review the current conversation for meaningful improvements to this skill. Updat
 Run `ls ~/licensing/` and diff against the canonical allowlist:
 
 - **Files:** `pipeline.md`, `manifest.md`, `state.md`, `gate_log.json`, `CLAUDE.md`, `USAGE.md`, `README.md`, `diagram.svg`
-- **Dirs:** `partners/`, `topics/`, `context/`, `projects/`, `daily/`, `scripts/`, `boilerplate/`, `partner-assets/`, `meta/`, `.claude/`, `.git/`, `.cache/`, `.pytest_cache/`
+- **Dirs:** `partners/`, `topics/`, `context/`, `projects/`, `daily/`, `scripts/`, `boilerplate/`, `partner-assets/`, `meta/`, `queue/`, `.claude/`, `.git/`, `.cache/`, `.pytest_cache/`
 
 For each item not on the allowlist, classify and surface a one-line entry:
 
