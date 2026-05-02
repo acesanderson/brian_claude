@@ -69,12 +69,25 @@
     "command": "bash ~/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "linkedin-framework@linkedin-plugins": true,
     "superpowers@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true
+    "playwright@claude-plugins-official": true,
+    "captain-core-skills@linkedin-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "linkedin-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "linkedin-multiproduct/li-productivity-agents",
+        "sparsePaths": [
+          ".claude-plugin",
+          "linkedin-plugins"
+        ]
+      }
+    }
   },
   "skipDangerousModePermissionPrompt": true,
+  "editorMode": "vim",
   "additionalDirectories": [
     "/Users/bianders/vibe",
     "/Users/bianders/Brian_Code"
@@ -92,6 +105,5 @@
   "preferences": {
     "editorMode": "vim"
   },
-  "gitAttribution": false,
-  "editorMode": "vim"
+  "gitAttribution": false
 }

@@ -88,7 +88,10 @@
       "mcp__plugin_playwright_playwright__browser_type",
       "Skill(update-config)",
       "Bash(cp /tmp/tmux-skill-statusbar.md ~/.claude/skills/tmux/design-statusbar.md)",
-      "Bash(cp /tmp/tmux-skill-artifact.md ~/.claude/skills/tmux/design-artifact.md)"
+      "Bash(cp /tmp/tmux-skill-artifact.md ~/.claude/skills/tmux/design-artifact.md)",
+      "mcp__glean_default__search",
+      "Bash(gh auth *)",
+      "Bash(claude *)"
     ]
   }
 }

@@ -105,14 +105,30 @@ conn.close()
 3. `email-query get <message_id>` to get the conversation_id
 4. `email-query thread <conversation_id>` to read the entire thread
 
-**Find emails from a company:**
+**Find all correspondence with a company (bidirectional — inbox + sent):**
+
+`--from` only catches incoming mail. `--to` filtering is unreliable for sent items. Always use both steps:
+
 ```bash
+# Step 1: incoming
 uv run --directory /Users/bianders/vibe/outlook-email-project email-query list --from "*.company.com" --limit 20
+
+# Step 2: sent — requires direct DB query (--to filter unreliable for sent folder)
+uv run --directory /Users/bianders/vibe/outlook-email-project python -c "
+from dbclients.clients.postgres import get_sync_client
+conn = get_sync_client(dbname='emails')
+cur = conn.cursor()
+cur.execute(\"SELECT message_id, conversation_id, subject, received_at FROM emails WHERE folder = 'sent' AND to_recipients::text ILIKE '%company.com%' ORDER BY received_at\")
+for r in cur.fetchall(): print(r[3], '|', r[2], '|', r[1])
+conn.close()
+"
 ```
 
-**Find emails to a specific address:**
+Then pull conversation IDs from either result set and use `email-query thread <conversation_id>` to read full threads.
+
+**Find emails from a company (incoming only):**
 ```bash
-uv run --directory /Users/bianders/vibe/outlook-email-project email-query list --to "user@domain.com" --limit 20
+uv run --directory /Users/bianders/vibe/outlook-email-project email-query list --from "*.company.com" --limit 20
 ```
 
 ## Re-syncing new emails
