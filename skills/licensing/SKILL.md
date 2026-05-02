@@ -234,7 +234,13 @@ Four-step workflow — all steps required, in order, without waiting for the use
 
 Append to `manifest.md` after all steps complete.
 
-If the partner is in the CE/L&D space: check `~/licensing/customer_ed_rolodex.csv` for any employees from that org (match on `company` column). Surface any matches in the notes file.
+Always check the contacts DB for any known contacts at this org:
+
+```bash
+uv run --directory ~/vibe/licensing-project/catalog catalog contacts-search --company "<Partner Name>"
+```
+
+Surface any matches with their source (ce_slack / interest_form / partner_research) in the notes file.
 
 **On new partner introduced** (passive — no explicit "add" command)
 When a partner name appears in conversation with no existing file and no pipeline entry:
@@ -366,14 +372,35 @@ For each item not on the allowlist, classify and surface a one-line entry:
 
 Do not delete or move anything automatically. Present the table and wait for confirmation. If the root is clean, note it in one line and skip the table.
 
+**Step 5 — Email sweep (HITL):**
+Run `email-query` to check sent + inbox for active pipeline partners touched this session. For each thread where status may have changed (reply received, meeting scheduled, deal advanced), surface a brief table:
+
+| Partner | Date | Dir | Subject | Implied status change |
+|---|---|---|---|---|
+
+Present to Brian: "Any status updates to write back from these threads?" Wait for confirmation before updating pipeline.md or partner notes. This is the same HITL pattern as the root cleanup audit — surface and confirm, don't auto-apply.
+
 **On contact research request**
-When asked to find outreach contacts for one or more partners: first check
-`~/licensing/customer_ed_rolodex.csv` — filter by `company` for the partner name. Any
-matches are warm leads (CE community members) with verified emails. Record them in
-`partners/<slug>/notes.md` under "Outreach Targets" with source noted as "CE Slack rolodex".
+When asked to find outreach contacts for one or more partners: first query the contacts DB:
+
+```bash
+uv run --directory ~/vibe/licensing-project/catalog catalog contacts-search --company "<Partner Name>"
+```
+
+This searches across all sources (CE Slack, interest form, prior partner research). Surface any
+matches — note their source so Brian knows the provenance. CE Slack matches are warm leads.
 
 Then read `find-partner-contacts.md` (in this skill's directory) for cold outreach sources.
-Follow its role hierarchy and source hierarchy for any gaps not covered by the rolodex.
+Follow its role hierarchy and source hierarchy for any gaps.
+
+After identifying confirmed outreach targets: write each to the contacts DB with `source=partner_research`:
+
+```bash
+uv run --directory ~/vibe/licensing-project/catalog catalog contacts-add \
+  --email "<email>" --source partner_research --partner "<slug>" \
+  --name "<Full Name>" --title "<Title>" --company "<Company>"
+```
+
 Record confirmed leads in `partners/<slug>/notes.md` under an "Outreach Targets" section.
 Append to `manifest.md`.
 

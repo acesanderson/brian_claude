@@ -102,3 +102,68 @@ Scrapes Udemy's catalog. Export adapter maps Udemy API fields → shared spec an
 **Key files:** _(to be documented)_
 
 **Field mapping:** _(to be documented — see agreed spec in shared contract above)_
+
+---
+
+## edX (`$VIBE/licensing-project/platform/edx/`)
+
+Scrapes edX's full course catalog via sitemap + per-page JSON-LD extraction. No API —
+edX embeds a rich `Course` JSON-LD block on every course page with all key fields.
+
+**Not integrated with Lake 2.** Output is a standalone `courses.json` used as a sourcing
+signal (which orgs are publishing on edX, at what volume and topic). Run infrequently —
+edX is a legacy library and the catalog changes slowly.
+
+**Run:**
+```bash
+uv run --project ~/vibe/licensing-project/platform/edx edx-scrape \
+  --output ~/vibe/licensing-project/platform/edx/courses.json
+```
+
+**Test (subset):**
+```bash
+uv run --project ~/vibe/licensing-project/platform/edx edx-scrape \
+  --limit 20 --output /tmp/edx_test.json
+```
+
+**Resume after failure:** Re-run the same command. Progress is saved to
+`courses.checkpoint.jsonl` after every course. Already-scraped URLs are skipped
+automatically. Delete the checkpoint file for a clean re-scrape.
+
+**Options:**
+- `--concurrency` (default 8) — parallel requests
+- `--delay` (default 0.5s) — pause per worker after each request
+- `--limit N` — scrape only N pending URLs (0 = all)
+
+**Key files:**
+- `edx_scraper/sitemap.py` — fetches `https://www.edx.org/sitemap.xml`, extracts ~5,089 course URLs
+- `edx_scraper/scrape.py` — async page fetcher + JSON-LD parser
+- `edx_scraper/models.py` — `EdxCourse` Pydantic model
+- `edx_scraper/cli.py` — Click entry point with checkpoint logic
+- `courses.json` — last full scrape output (gitignored)
+- `courses.checkpoint.jsonl` — incremental progress log (gitignored)
+
+**Field mapping (JSON-LD → EdxCourse):**
+
+| JSON-LD field | EdxCourse field |
+|---|---|
+| `courseCode` | `platform_id` |
+| `name` | `title` |
+| page URL | `url` |
+| URL path segment `/learn/{subject}/` | `subject` |
+| `provider[0].name` | `organization` |
+| last segment of `provider[0].url` | `org_slug` |
+| `educationalLevel` | `level` |
+| `inLanguage` | `language` |
+| `isAccessibleForFree` | `is_free` |
+| `timeRequired` (ISO 8601) | `time_required` |
+| `totalHistoricalEnrollment` | `enrollments` |
+| `aggregateRating.ratingValue` | `avg_rating` |
+| `aggregateRating.ratingCount` | `num_reviews` |
+| `about[].name` (comma-sep) | `skills` |
+| `datePublished` | `date_published` |
+| `dateModified` | `date_modified` |
+| sitemap `<lastmod>` | `sitemap_lastmod` |
+
+**Last full scrape:** 2026-05-01 — 5,036 courses, 216 orgs. Top orgs: IBM (188),
+Delft (165), Harvard (160), Google Cloud (119), Stanford (111), MIT (105).

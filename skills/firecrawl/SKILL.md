@@ -230,3 +230,16 @@ Async verbs (`crawl`, `batch`, `extract`) default to `--wait` mode: they post th
 
 - `uv` — https://docs.astral.sh/uv/getting-started/installation/
 - Firecrawl server running at `FIRECRAWL_URL` (default: `http://172.16.0.4:3002`)
+
+## TBD — scrape / search currently broken
+
+As of 2026-04-30, the firecrawl server at `172.16.0.4:3002` is running but `scrape`, `crawl`, `batch`, and `search` all return `SCRAPE_TIMEOUT`. Only `map` partially works (returns seed URL; returns empty for complex sites).
+
+**Root cause:** Firecrawl's scrape pipeline requires a Playwright/Chromium browser service. The API server is up but the browser worker is not running or not wired in.
+
+**To fix:** Stand up the Playwright microservice on Caruana and set `PLAYWRIGHT_MICROSERVICE_URL` in firecrawl's `.env`. The cleanest path is to use the official Firecrawl Docker Compose setup, which includes the browser service as a declared dependency. Reference: https://docs.firecrawl.dev/contributing/self-hosting
+
+**Workarounds in the meantime:**
+- `web-search` `conduit.py fetch <url>` — works for most non-JS pages
+- `web-search` `exa.py contents <url>` — semantic fetch alternative
+- `web-search` `conduit.py fetch <url> --browser` — Playwright + Oxylabs for bot-protected pages (requires `OXY_NAME` / `OXY_PASSWORD`)

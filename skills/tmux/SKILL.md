@@ -43,20 +43,48 @@ tmux split-window -t "0:${win}" -v "watch -n2 'ps aux | grep python'"
 
 ---
 
+## Inspect pane state before sending keys
+
+Always check what's running in a pane before sending keystrokes. A bare shell is safe; a TUI will misinterpret input.
+
+```bash
+cmd=$(tmux display-message -p -t "0:<win>.<pane>" '#{pane_current_command}')
+```
+
+**TUI signals — do NOT send arbitrary text:**
+- `nvim`, `vim` — editor commands
+- `htop`, `ncdu`, `lazygit` — TUI navigation
+- `less`, `man` — pager commands
+
+**Safe to send:** `bash`, `zsh`, `sh`, `ssh` (at a shell prompt on the remote end)
+
+If a TUI is detected, bail and tell Brian rather than guessing.
+
+---
+
 ## Send keys to another window without switching
 
 Use when Claude needs to trigger something in a different window (restart a process, run a command) without interrupting Brian's focus.
 
+**Always inspect pane state first** (see above), then send:
+
 ```bash
-tmux send-keys -t "0:<win>" "<command>" Enter
+tmux send-keys -t "0:<win>.<pane>" "<command>" Enter
 ```
 
 To send Ctrl-C (interrupt):
 ```bash
-tmux send-keys -t "0:<win>" C-c
+tmux send-keys -t "0:<win>.<pane>" C-c
 ```
 
-**Safety:** List windows first to confirm the target is what you expect before sending keys to it:
+To answer an interactive prompt (`[Y/n]`, host key confirmation, etc.) — read the pane first to confirm what it's asking, then send:
+```bash
+tmux send-keys -t "0:<win>.<pane>" "y" Enter
+```
+
+**Caveat:** Password prompts use noecho — the prompt text may not be visible in the capture. Don't send passwords blindly.
+
+**Safety:** List windows first to confirm the target is what you expect:
 ```bash
 tmux list-windows -t 0 -F "#{window_index} #{window_name} #{pane_current_command}"
 ```
@@ -75,6 +103,31 @@ Pane index defaults to `0` (active pane in that window):
 ```bash
 tmux capture-pane -pt "0:${win}.0"
 ```
+
+**Token discipline:** Trim to last N lines to avoid bloating context with noisy output (apt installs, systemd logs, etc.):
+```bash
+tmux capture-pane -pt "0:<win>.<pane>" | tail -30
+```
+
+Only re-capture after sending a command — don't poll speculatively.
+
+---
+
+## Remote shell execution (SSH panes)
+
+When a pane is SSH'd into a remote host, send-keys works the same — keystrokes go to the remote shell's stdin. The pattern:
+
+1. Confirm pane command is `ssh` (not a TUI on the remote end)
+2. Send the command
+3. Wait briefly, then capture to read output
+
+```bash
+tmux send-keys -t "0:<win>.<pane>" "<command>" Enter
+sleep 1
+tmux capture-pane -pt "0:<win>.<pane>" | tail -30
+```
+
+Increase sleep for slow commands (package installs, network ops). For long-running commands, re-capture until the shell prompt reappears.
 
 ---
 
