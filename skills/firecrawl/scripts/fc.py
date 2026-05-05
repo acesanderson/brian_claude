@@ -36,7 +36,7 @@ def _headers() -> dict[str, str]:
 
 
 def _post(path: str, body: dict) -> dict:
-    with httpx.Client(headers=_headers(), timeout=60) as c:
+    with httpx.Client(headers=_headers(), timeout=300) as c:
         resp = c.post(f"{BASE_URL}{path}", json=body)
     try:
         resp.raise_for_status()
@@ -136,8 +136,10 @@ def cli():
               help="Natural-language extraction prompt (use with --schema or alone)")
 @click.option("--system-prompt", default=None, metavar="TEXT",
               help="System prompt override for LLM extraction")
+@click.option("--timeout", default=None, type=int, metavar="MS",
+              help="Firecrawl scrape timeout in milliseconds (default: 30000; use higher for LLM extraction with slow models)")
 def scrape(url, fmt, proxy, only_main, include_tags, exclude_tags, wait_for,
-           schema, prompt, system_prompt):
+           schema, prompt, system_prompt, timeout):
     """Scrape a single URL and return its content.
 
     With --schema / --prompt, runs LLM extraction and returns structured JSON.
@@ -154,11 +156,14 @@ def scrape(url, fmt, proxy, only_main, include_tags, exclude_tags, wait_for,
       fc scrape https://example.com --schema '{"type":"object","properties":{"title":{"type":"string"}}}'
     """
     use_llm = bool(schema or prompt)
+    resolved_timeout = timeout if timeout is not None else (60000 if use_llm else None)
     body: dict = {
         "url": url,
         "formats": ["json"] if use_llm else [fmt],
         "onlyMainContent": only_main,
     }
+    if resolved_timeout is not None:
+        body["timeout"] = resolved_timeout
     if proxy:
         body["proxy"] = proxy
     if include_tags:

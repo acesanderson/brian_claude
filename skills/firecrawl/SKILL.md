@@ -21,7 +21,7 @@ All output is JSON to stdout. Errors go to stderr with a non-zero exit code.
 | Web search + scrape results | `fc search "<query>" --scrape` |
 | Scrape many URLs at once | `fc batch <url1> <url2> ...` |
 | LLM extraction across URLs | `fc extract <url1> <url2> --prompt "..."` |
-| Check async job | `fc status crawl|batch|extract <job-id>` |
+| Check async job | `fc status crawl\|batch\|extract <job-id>` |
 | Cancel a crawl | `fc cancel <job-id>` |
 
 Alias for brevity in your shell: `alias fc='uv run ~/.claude/skills/firecrawl/scripts/fc.py'`
@@ -149,6 +149,54 @@ uv run ~/.claude/skills/firecrawl/scripts/fc.py extract \
 
 Key options: `--schema <json>`, `--prompt <text>`, `--system-prompt <text>`, `--wait/--no-wait`.
 
+### agent
+Natural-language browser automation. Describe a task in plain English; Firecrawl drives Playwright autonomously via LLM (routed through bywater on this instance). Async — polls until complete by default.
+
+```bash
+# Basic task across the web
+uv run ~/.claude/skills/firecrawl/scripts/fc.py agent \
+  "find all blog posts about vector databases on qdrant.tech"
+
+# Constrain to specific URLs + structured output
+uv run ~/.claude/skills/firecrawl/scripts/fc.py agent \
+  "extract all product names and prices" \
+  --urls https://shop.example.com/products \
+  --schema '{"type":"array","items":{"type":"object","properties":{"name":{"type":"string"},"price":{"type":"number"}}}}'
+
+# Fire and forget
+uv run ~/.claude/skills/firecrawl/scripts/fc.py agent \
+  "summarize the top HN story" --urls https://news.ycombinator.com --no-wait
+```
+
+Key options: `--urls URL` (repeatable), `--schema JSON`, `--model spark-1-mini|spark-1-pro`, `--strict` (don't follow links), `--wait/--no-wait`.
+
+Results are at `.data`. Uses `/v2/agent` endpoint.
+
+### browser
+Interact with a live browser session from a prior `fc scrape`. The session preserves cookies and localStorage across calls — the right tool for authenticated scraping. Sync — returns immediately.
+
+```bash
+# Step 1: scrape a page to open a browser session
+SESSION=$(uv run ~/.claude/skills/firecrawl/scripts/fc.py scrape https://example.com/login \
+  | jq -r '.data.metadata.scrapeId')
+
+# Step 2: interact with the session using natural language
+uv run ~/.claude/skills/firecrawl/scripts/fc.py browser $SESSION \
+  --prompt "fill the email field with user@example.com and click Sign In"
+
+# Or use Playwright code directly
+uv run ~/.claude/skills/firecrawl/scripts/fc.py browser $SESSION \
+  --code "await page.fill('#password', 's3cr3t'); await page.click('[type=submit]')" \
+  --language node
+
+# Step 3: close the session when done
+uv run ~/.claude/skills/firecrawl/scripts/fc.py browser $SESSION --close
+```
+
+Key options: `--prompt TEXT` or `--code CODE` (mutually exclusive), `--language node|python|bash` (code mode only), `--timeout SECS` (1–300), `--close`.
+
+Uses `/v2/scrape/{sessionId}/interact` endpoint.
+
 ### status / cancel
 
 ```bash
@@ -156,9 +204,11 @@ Key options: `--schema <json>`, `--prompt <text>`, `--system-prompt <text>`, `--
 uv run ~/.claude/skills/firecrawl/scripts/fc.py status crawl <job-id>
 uv run ~/.claude/skills/firecrawl/scripts/fc.py status batch <job-id>
 uv run ~/.claude/skills/firecrawl/scripts/fc.py status extract <job-id>
+uv run ~/.claude/skills/firecrawl/scripts/fc.py status agent <job-id>
 
-# Cancel a running crawl
-uv run ~/.claude/skills/firecrawl/scripts/fc.py cancel <job-id>
+# Cancel a running job
+uv run ~/.claude/skills/firecrawl/scripts/fc.py cancel <job-id>               # crawl (default)
+uv run ~/.claude/skills/firecrawl/scripts/fc.py cancel <job-id> --type agent  # agent
 ```
 
 ## Agentic patterns
@@ -231,15 +281,16 @@ Async verbs (`crawl`, `batch`, `extract`) default to `--wait` mode: they post th
 - `uv` — https://docs.astral.sh/uv/getting-started/installation/
 - Firecrawl server running at `FIRECRAWL_URL` (default: `http://172.16.0.4:3002`)
 
-## TBD — scrape / search currently broken
+## Self-hosted limitations
 
-As of 2026-04-30, the firecrawl server at `172.16.0.4:3002` is running but `scrape`, `crawl`, `batch`, and `search` all return `SCRAPE_TIMEOUT`. Only `map` partially works (returns seed URL; returns empty for complex sites).
+`scrape`, `crawl`, `batch`, `search`, `map`, and `extract` all work on this instance (Playwright wired in via Docker Compose).
 
-**Root cause:** Firecrawl's scrape pipeline requires a Playwright/Chromium browser service. The API server is up but the browser worker is not running or not wired in.
+The following v2 verbs are **cloud-only** — the CLI commands exist and hit the right endpoints, but the self-hosted server will return 500:
 
-**To fix:** Stand up the Playwright microservice on Caruana and set `PLAYWRIGHT_MICROSERVICE_URL` in firecrawl's `.env`. The cleanest path is to use the official Firecrawl Docker Compose setup, which includes the browser service as a declared dependency. Reference: https://docs.firecrawl.dev/contributing/self-hosting
+| Feature | Blocker | Details |
+|---------|---------|---------|
+| `agent` verb | `EXTRACT_V3_BETA_URL` not set | Proxies to Firecrawl's proprietary cloud extract service (`/internal/extracts`). Not substitutable with a local LLM. |
+| `browser` verb | Supabase not configured | Session lookup (`supabaseGetScrapeById`) requires Supabase to retrieve live browser state by scrapeId. |
+| `scrape --action` | Fire Engine not enabled | `actions[]` requires Firecrawl's proprietary Fire Engine scraping layer (`SCRAPE_ACTIONS_NOT_SUPPORTED`). |
 
-**Workarounds in the meantime:**
-- `web-search` `conduit.py fetch <url>` — works for most non-JS pages
-- `web-search` `exa.py contents <url>` — semantic fetch alternative
-- `web-search` `conduit.py fetch <url> --browser` — Playwright + Oxylabs for bot-protected pages (requires `OXY_NAME` / `OXY_PASSWORD`)
+To use `agent` you would need access to Firecrawl's cloud (`EXTRACT_V3_BETA_URL` + `AGENT_INTEROP_SECRET`). To use `browser` you would need Supabase wired into the self-hosted deployment. Neither is easily self-hostable with the current firecrawl codebase.
