@@ -252,6 +252,9 @@ in both places.
 When asked to open a Google Doc, Sheet, or Drive file in the browser: use `Bash` to run
 `open "<url>"` — never use Playwright for this. Playwright hits Google's sign-in wall.
 
+**On navigating LinkedIn Learning in Playwright**
+LinkedIn Learning triggers an account chooser on every new navigation when the Playwright browser has multiple LinkedIn accounts. Bypass it by appending `?accountId=0&u=0` to any `linkedin.com/learning/...` URL. Screenshots save to `~/licensing/.playwright-mcp/` by default.
+
 **On Google Doc accessed**
 Whenever a Google Doc, Sheet, or Drive file is read or accessed in a session:
 1. Check if it is already listed in `context/google_docs.json`

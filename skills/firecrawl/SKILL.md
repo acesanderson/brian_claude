@@ -23,6 +23,9 @@ All output is JSON to stdout. Errors go to stderr with a non-zero exit code.
 | LLM extraction across URLs | `fc extract <url1> <url2> --prompt "..."` |
 | Check async job | `fc status crawl\|batch\|extract <job-id>` |
 | Cancel a crawl | `fc cancel <job-id>` |
+| Screenshot a rendered page | `fc playwright screenshot <url> -o out.png` |
+| Get JS-rendered HTML | `fc playwright content <url>` |
+| Run arbitrary Playwright code | `fc playwright fn --code 'async function handler({page}) {...}'` |
 
 Alias for brevity in your shell: `alias fc='uv run ~/.claude/skills/firecrawl/scripts/fc.py'`
 
@@ -30,8 +33,10 @@ Alias for brevity in your shell: `alias fc='uv run ~/.claude/skills/firecrawl/sc
 
 | Variable | Default | Purpose |
 |----------|---------|---------|
-| `FIRECRAWL_URL` | `http://172.16.0.4:3002` | Server base URL |
+| `FIRECRAWL_URL` | `http://172.16.0.4:3002` | Firecrawl server base URL |
 | `FIRECRAWL_API_KEY` | _(empty)_ | API key if auth is enabled |
+| `BROWSERLESS_URL` | `http://172.16.0.4:3003` | Browserless server base URL (for `playwright` verb) |
+| `BROWSERLESS_TOKEN` | `headwater` | Auth token for browserless |
 
 ## Verbs
 
@@ -197,6 +202,37 @@ Key options: `--prompt TEXT` or `--code CODE` (mutually exclusive), `--language 
 
 Uses `/v2/scrape/{sessionId}/interact` endpoint.
 
+### playwright
+Direct Playwright automation via the self-hosted **browserless** service at `http://172.16.0.4:3003`. Three subcommands. Requires browserless running as a separate Docker service on caruana (see "Infrastructure" below).
+
+```bash
+# Screenshot — save to file
+uv run ~/.claude/skills/firecrawl/scripts/fc.py playwright screenshot https://example.com -o page.png
+
+# Screenshot — full page
+uv run ~/.claude/skills/firecrawl/scripts/fc.py playwright screenshot https://example.com \
+  --full-page --type jpeg -o full.jpg
+
+# Rendered HTML after JS execution
+uv run ~/.claude/skills/firecrawl/scripts/fc.py playwright content https://example.com \
+  | jq -r '.html'
+
+# Arbitrary Playwright code — auth flow example
+uv run ~/.claude/skills/firecrawl/scripts/fc.py playwright fn --code 'async function handler({page}) {
+  await page.goto("https://example.com/login");
+  await page.fill("#email", "user@example.com");
+  await page.fill("#password", "secret");
+  await page.click("[type=submit]");
+  await page.waitForNavigation();
+  return { url: page.url(), title: await page.title() };
+}'
+
+# Run from a file
+uv run ~/.claude/skills/firecrawl/scripts/fc.py playwright fn --code-file auth_flow.js
+```
+
+The `fn` subcommand is the key tool for authenticated scraping: load a page, interact with it across multiple steps, return whatever you need as JSON.
+
 ### status / cancel
 
 ```bash
@@ -280,6 +316,27 @@ Async verbs (`crawl`, `batch`, `extract`) default to `--wait` mode: they post th
 
 - `uv` — https://docs.astral.sh/uv/getting-started/installation/
 - Firecrawl server running at `FIRECRAWL_URL` (default: `http://172.16.0.4:3002`)
+
+## Infrastructure
+
+### Browserless
+
+Browserless is a separate Docker service on caruana, independent of the firecrawl stack.
+
+**docker-compose:** `~/services/browserless/docker-compose.yml`
+**Port:** 3003 (mapped to internal 3000)
+**Token:** `headwater`
+
+To manage:
+```bash
+ssh caruana "cd ~/services/browserless && docker compose up -d"
+ssh caruana "cd ~/services/browserless && docker compose logs -f"
+ssh caruana "docker compose -f ~/services/browserless/docker-compose.yml restart"
+```
+
+Health check: `curl "http://172.16.0.4:3003/pressure?token=headwater"`
+
+**Important:** Browserless is NOT connected to firecrawl's `PLAYWRIGHT_MICROSERVICE_URL`. Firecrawl uses its own `playwright-service-ts` sidecar for that. Browserless is used only by `fc playwright`.
 
 ## Self-hosted limitations
 

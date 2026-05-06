@@ -27,6 +27,9 @@ API_KEY = os.environ.get("FIRECRAWL_API_KEY", "")
 DEFAULT_POLL_INTERVAL = 2.0
 DEFAULT_TIMEOUT = 300.0
 
+BROWSERLESS_URL = os.environ.get("BROWSERLESS_URL", "http://172.16.0.4:3003").rstrip("/")
+BROWSERLESS_TOKEN = os.environ.get("BROWSERLESS_TOKEN", "headwater")
+
 
 def _headers() -> dict[str, str]:
     h = {"Content-Type": "application/json"}
@@ -425,6 +428,144 @@ def cancel(job_id):
         click.echo(f"error: HTTP {e.response.status_code}: {e.response.text}", err=True)
         sys.exit(1)
     _out(resp.json())
+
+
+# ── browserless helpers ───────────────────────────────────────────────────────
+
+def _bless_url(path: str) -> str:
+    return f"{BROWSERLESS_URL}{path}?token={BROWSERLESS_TOKEN}"
+
+
+def _bless_binary(path: str, body: dict) -> bytes:
+    with httpx.Client(timeout=120) as c:
+        resp = c.post(_bless_url(path), json=body)
+    try:
+        resp.raise_for_status()
+    except httpx.HTTPStatusError as e:
+        click.echo(f"error: HTTP {e.response.status_code}: {e.response.text}", err=True)
+        sys.exit(1)
+    return resp.content
+
+
+def _bless_text(path: str, body: dict) -> str:
+    with httpx.Client(timeout=120) as c:
+        resp = c.post(_bless_url(path), json=body)
+    try:
+        resp.raise_for_status()
+    except httpx.HTTPStatusError as e:
+        click.echo(f"error: HTTP {e.response.status_code}: {e.response.text}", err=True)
+        sys.exit(1)
+    return resp.text
+
+
+def _bless_json(path: str, body: dict) -> dict:
+    with httpx.Client(timeout=120) as c:
+        resp = c.post(_bless_url(path), json=body)
+    try:
+        resp.raise_for_status()
+    except httpx.HTTPStatusError as e:
+        click.echo(f"error: HTTP {e.response.status_code}: {e.response.text}", err=True)
+        sys.exit(1)
+    return resp.json()
+
+
+# ── playwright ────────────────────────────────────────────────────────────────
+
+@cli.group()
+def playwright():
+    """Direct Playwright automation via browserless (http://172.16.0.4:3003).
+
+    Three subcommands: screenshot, content, fn.
+    Override server with BROWSERLESS_URL / BROWSERLESS_TOKEN env vars.
+    """
+
+
+@playwright.command()
+@click.argument("url")
+@click.option("-o", "--output", default=None, metavar="FILE",
+              help="Save image to FILE (default: emit base64 JSON)")
+@click.option("--full-page/--no-full-page", default=False,
+              help="Capture the full scrollable page")
+@click.option("--type", "img_type", default="png",
+              type=click.Choice(["png", "jpeg", "webp"]),
+              help="Image format")
+def screenshot(url, output, full_page, img_type):
+    """Render a URL and capture a screenshot.
+
+    Examples:
+
+      fc playwright screenshot https://example.com -o page.png
+
+      fc playwright screenshot https://example.com --full-page --type jpeg
+    """
+    body = {"url": url, "options": {"fullPage": full_page, "type": img_type}}
+    data = _bless_binary("/screenshot", body)
+    if output:
+        with open(output, "wb") as f:
+            f.write(data)
+        _out({"saved": output, "bytes": len(data)})
+    else:
+        import base64
+        _out({"format": img_type, "bytes": len(data), "data": base64.b64encode(data).decode()})
+
+
+@playwright.command()
+@click.argument("url")
+@click.option("--wait-for", default=None, metavar="SELECTOR",
+              help="Wait for this CSS selector before capturing")
+def content(url, wait_for):
+    """Get fully rendered HTML from a URL after JavaScript execution.
+
+    Useful for JS-heavy pages where firecrawl's scrape returns incomplete content.
+
+    Examples:
+
+      fc playwright content https://example.com
+
+      fc playwright content https://example.com --wait-for '.main-content'
+    """
+    body: dict = {"url": url}
+    if wait_for:
+        body["waitForSelector"] = wait_for
+    html = _bless_text("/content", body)
+    _out({"url": url, "html": html})
+
+
+@playwright.command("fn")
+@click.option("--code", default=None, metavar="JS",
+              help="Playwright handler: async function handler({ page }) { ... }")
+@click.option("--code-file", default=None, metavar="FILE",
+              help="Read the function body from a .js file")
+def fn_cmd(code, code_file):
+    """Run arbitrary Playwright code via the browserless /function endpoint.
+
+    The code must be an async function with signature:
+
+      async function handler({ page, context, browser }) { ... }
+
+    Whatever you return is emitted as JSON. Use this for auth flows,
+    multi-step interactions, or anything scrape/crawl cannot handle.
+
+    Examples:
+
+      fc playwright fn --code 'async function handler({page}) {
+        await page.goto("https://example.com/login");
+        await page.fill("#email", "user@example.com");
+        await page.fill("#password", "secret");
+        await page.click("[type=submit]");
+        await page.waitForNavigation();
+        return { url: page.url(), title: await page.title() };
+      }'
+
+      fc playwright fn --code-file auth_flow.js
+    """
+    if not code and not code_file:
+        click.echo("error: supply --code or --code-file", err=True)
+        sys.exit(1)
+    if code_file:
+        with open(code_file) as f:
+            code = f.read()
+    _out(_bless_json("/function", {"code": code}))
 
 
 if __name__ == "__main__":
