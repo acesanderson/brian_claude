@@ -105,6 +105,24 @@ permissions. The working directory is restored via `cd` before launching.
 
 ---
 
+### `resume` — Resume any session by ID in a new tmux window
+
+Use this whenever you have a session ID (e.g. from `claude-history search`) and need to reopen it. It locates the session's JSONL on disk, reads the original working directory from it, and opens a new tmux window running `cd <cwd> && claude --resume <id>`.
+
+```sh
+claudeplexer resume c35e714f-1bf1-4b86-a540-d8488395234e
+claudeplexer resume c35e714f-1bf1-4b86-a540-d8488395234e --name "licensing"
+```
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--name NAME` | directory basename | Window name |
+| `--session NAME` | current tmux session | Create a new named tmux session |
+
+**Always use `claudeplexer resume` instead of bare `tmux new-window ... claude --resume ...`.** The bare approach requires you to know the correct working directory; `resume` reads it directly from the session file so the window always opens in the right context.
+
+---
+
 ### `alias` — Tag the current session with a name
 
 Stores an alias for the current session in the `claude_history` database.

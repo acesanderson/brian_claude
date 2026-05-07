@@ -143,3 +143,81 @@ See `references/siphon.md` for full CLI reference and architecture details.
 | `references/markdown-syntax.md` | writing/editing notes, wikilinks, embeds, callouts, properties |
 | `references/cli-commands.md` | using obsidian CLI (backlinks, property:set, plugin dev, eval) |
 | `references/siphon.md` | questions about vault ingestion, vector retrieval, graph traversal |
+
+---
+
+## TBD: Blackglass (Vault HTTP Server + CLI)
+
+**Blackglass** (`$BC/blackglass-project`) is a fully-built FastAPI server + Click CLI that exposes the Obsidian vault over HTTP for agentic access. When deployed it replaces the current mishmash of direct file ops, `vault.py`, and obsidian CLI calls with a single clean interface.
+
+**Capabilities once live:**
+- Note CRUD (`GET/POST/PUT/PATCH/DELETE /vault/notes/{path}`)
+- Vault info: `/vault/files`, `/vault/tags`, `/vault/backlinks/{path}`, `/vault/periodic`
+- Full-text search: `/vault/search?q=`
+- Semantic search (pgvector + nomic-embed-text-v1.5): `/vault/semantic-search?q=`
+- Incremental sync (git pull + re-index): `POST /vault/sync`
+- CLI: `blackglass notes/vault/search` with `--json` flag for agent-friendly output
+
+**Target host:** Botvinnik (172.16.0.3), port 8083
+
+**HITL steps required to stand it up:**
+
+1. **Push blackglass to GitHub** (was blocked by GitHub outage — do this first):
+   ```bash
+   cd $BC/blackglass-project && git push -u origin main
+   ```
+
+2. **Clone vault on botvinnik** (vault must exist at a known path, e.g. `~/services/vault`):
+   ```bash
+   ssh -p 2222 fishhouses@172.16.0.3 'git clone <vault-github-url> ~/services/vault'
+   ```
+
+3. **Clone blackglass on botvinnik:**
+   ```bash
+   ssh -p 2222 fishhouses@172.16.0.3 'git clone <blackglass-github-url> ~/services/blackglass'
+   ```
+
+4. **Pre-install dbclients on botvinnik** (path dep won't resolve remotely):
+   ```bash
+   ssh -p 2222 fishhouses@172.16.0.3 \
+     'uv pip install --system git+https://github.com/acesanderson/database-clients.git'
+   ```
+
+5. **Create the `blackglass` database on Caruana:**
+   ```bash
+   ssh -p 2227 bianders@172.16.0.4 'createdb blackglass'
+   ```
+
+6. **Set env vars on botvinnik** (add to `~/.exports` or systemd unit):
+   - `BLACKGLASS_VAULT_PATH=~/services/vault`
+   - `BLACKGLASS_API_KEY=<chosen-key>`
+   - `POSTGRES_PASSWORD=<caruana-postgres-password>`
+
+7. **Create systemd service on botvinnik** and enable it:
+   ```ini
+   [Unit]
+   Description=Blackglass vault server
+   After=network.target
+
+   [Service]
+   User=fishhouses
+   WorkingDirectory=/home/fishhouses/services/blackglass/src/blackglass/blackglass-server
+   ExecStart=uv run uvicorn blackglass_server.main:app --host 0.0.0.0 --port 8083
+   Restart=on-failure
+   EnvironmentFile=/home/fishhouses/.env.blackglass
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+8. **Run initial sync** to index all vault notes:
+   ```bash
+   curl -X POST -H "X-API-Key: <key>" http://172.16.0.3:8083/vault/sync
+   ```
+
+9. **Install CLI on Petrosian** (MacBook):
+   ```bash
+   uv pip install -e $BC/blackglass-project/src/blackglass/blackglass-client
+   ```
+
+Once deployed, prefer `blackglass` CLI over direct file ops for any vault interaction that benefits from search or structured access.
